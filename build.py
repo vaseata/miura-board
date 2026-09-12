@@ -123,13 +123,12 @@ main{position:relative;z-index:2;max-width:760px;margin:0 auto;padding:18px 5vw 
 a{color:inherit}
 .latin{font-family:var(--latin);letter-spacing:.3em;text-transform:uppercase;font-size:9px}
 /* ── 題字 ── */
-.masthead{border-top:4px double var(--rule);border-bottom:1px solid var(--rule);padding:14px 0 16px;display:grid;grid-template-columns:1fr auto;gap:0 22px;align-items:stretch}
-.mh-l{display:flex;flex-direction:column;justify-content:space-between;min-width:0}
+.masthead{border-top:4px double var(--rule);border-bottom:1px solid var(--rule);padding:12px 0 18px}
 .issue{font-size:11px;letter-spacing:.2em;color:var(--ink2);display:flex;flex-wrap:wrap;gap:0 16px;border-bottom:1px solid var(--hair);padding-bottom:8px;margin-bottom:12px}
 .issue .latin{align-self:center;opacity:.7}
 .mh-lead{font-size:clamp(14px,2.4vw,16px);line-height:2;letter-spacing:.06em;max-width:30em}
 .areas{font-size:11px;letter-spacing:.3em;color:var(--ink2);margin-top:12px}
-.daiji{writing-mode:vertical-rl;text-orientation:upright;font-size:clamp(34px,9vw,56px);font-weight:600;letter-spacing:.18em;line-height:1;border:1px solid var(--rule);padding:14px 8px;background:var(--box);align-self:start}
+.daiji{font-size:clamp(36px,9vw,64px);font-weight:600;letter-spacing:.2em;line-height:1.2;margin:6px 0 16px;text-wrap:balance}
 /* ── 前回は ── */
 .toggle{position:sticky;top:0;z-index:20;display:flex;align-items:baseline;gap:0 16px;flex-wrap:wrap;padding:10px 0;margin:0 0 22px;background:var(--bg);border-bottom:1px solid var(--rule);box-shadow:0 8px 12px -10px rgba(74,66,56,.35)}
 .toggle .q{font-size:12px;letter-spacing:.25em;color:var(--ink2)}
@@ -188,12 +187,10 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
 </style>
 <main>
 <header class="masthead">
-  <div class="mh-l">
-    <div class="issue"><span>第$issue号</span><span>$ymd（$wd）</span><span class="latin">Miura A-tei · Kinkyo</span></div>
-    <p class="mh-lead">城ヶ島、三崎、三浦海岸——<br>この町で起きたこと、はじまったこと、季節のこと。</p>
-    <div class="areas">城ヶ島 · 三崎 · 三浦海岸 · 油壺 · 小網代</div>
-  </div>
+  <div class="issue"><span>第$issue号</span><span>$ymd（$wd）</span><span class="latin">Miura A-tei · Kinkyo</span></div>
   <h1 class="daiji">最近の三浦</h1>
+  <p class="mh-lead">城ヶ島、三崎、三浦海岸——<br>この町で起きたこと、はじまったこと、季節のこと。</p>
+  <div class="areas">城ヶ島 · 三崎 · 三浦海岸 · 油壺 · 小網代</div>
 </header>
 <nav class="toggle" role="group" aria-label="前回来てから"><span class="q">前回のご来訪は</span><button data-days="31">一ヶ月前</button><button data-days="93">三ヶ月前</button><button data-days="184">半年前</button><button data-days="366">一年前</button></nav>
 <div id="dated">
