@@ -168,8 +168,9 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
 .art.lead .fact{font-size:15.5px}
 .empty{font-size:13px;color:var(--ink2);padding:8px 0}
 /* ── 灯台（囲み） ── */
-.df{margin:8px 0 0;border:1px solid var(--rule);padding:14px 16px;display:grid;grid-template-columns:auto 1fr;gap:2px 16px;align-items:baseline;background:var(--box)}
-.df .k{font-size:12px;letter-spacing:.3em;font-weight:600;writing-mode:vertical-rl;text-orientation:upright;grid-row:1/3;border-right:1px solid var(--hair);padding-right:10px}
+.df{margin:8px 0 0;border:1px solid var(--rule);padding:14px 16px;display:flex;gap:16px;align-items:stretch;background:var(--box)}
+.df .k{flex:none;font-size:12px;letter-spacing:.3em;font-weight:600;writing-mode:vertical-rl;text-orientation:upright;white-space:nowrap;border-right:1px solid var(--hair);padding-right:10px;display:flex;align-items:center}
+.df .b{display:flex;flex-direction:column;justify-content:center;gap:4px;min-width:0}
 .df .v{font-size:clamp(18px,4.6vw,24px);letter-spacing:.1em;line-height:1.5}
 .df .n{font-size:11px;letter-spacing:.15em;color:var(--ink2)}
 /* ── 映像欄 ── */
@@ -199,7 +200,7 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
 $groups
 <p class="empty" id="none" hidden>この期間に新しい記事はありません。下の「これから」を話題にどうぞ。</p>
 </div>
-<div class="df"><span class="k">次の灯台</span><span class="v">ダイヤモンド富士　$df</span><span class="n">城ヶ島大橋から。西北西85km先の富士に日が沈む。年により前後（要確認）</span></div>
+<div class="df"><span class="k">次の灯台</span><div class="b"><span class="v">ダイヤモンド富士　$df</span><span class="n">城ヶ島大橋から。西北西85km先の富士に日が沈む。年により前後（要確認）</span></div></div>
 <h2 class="men">これから<span class="latin">Coming up · 120 days</span></h2>
 <div class="cols">$upcoming</div>
 <h2 class="men">映像欄<span class="latin">YouTube</span></h2>
