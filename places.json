@@ -1,0 +1,53 @@
+{
+  "_note": "サムネイル台帳。items の image はこのキー。場所写真は Commons の自由ライセンス、出典写真は og:image",
+  "images": {
+    "jogashima_lighthouse": {
+      "file": "img/jogashima_lighthouse.jpg",
+      "credit": "<a href=\"//commons.wikimedia.org/wiki/User:Aspere\" title=\"Us",
+      "license": "CC0",
+      "source": "https://commons.wikimedia.org/wiki/File:250429_Jogashima_Lighthouse_01.jpg"
+    },
+    "jogashima_bridge_sunset": {
+      "file": "img/jogashima_bridge_sunset.jpg",
+      "credit": "kauhoshi",
+      "license": "CC BY 3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:夕日と城ヶ島大橋.JPG"
+    },
+    "jogashima_harbor": {
+      "file": "img/jogashima_harbor.jpg",
+      "credit": "<a href=\"//commons.wikimedia.org/wiki/User:Aspere\" title=\"Us",
+      "license": "CC0",
+      "source": "https://commons.wikimedia.org/wiki/File:250429_Jogashima_Harbor_02.jpg"
+    },
+    "misaki_harbor": {
+      "file": "img/misaki_harbor.jpg",
+      "credit": "<a href=\"//commons.wikimedia.org/wiki/User:Aspere\" title=\"Us",
+      "license": "CC0",
+      "source": "https://commons.wikimedia.org/wiki/File:250429_Misaki_Harbor_01.jpg"
+    },
+    "misaki_shitamachi": {
+      "file": "img/misaki_shitamachi.jpg",
+      "credit": "<a href=\"//commons.wikimedia.org/wiki/User:Asturio_Cantabrio",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Misaki_Shopping_Street_ac_(1).jpg"
+    },
+    "miura_beach": {
+      "file": "img/miura_beach.jpg",
+      "credit": "<a href=\"//commons.wikimedia.org/wiki/User:Aspere\" title=\"Us",
+      "license": "CC0",
+      "source": "https://commons.wikimedia.org/wiki/File:250429_Miura_Beach_01.jpg"
+    },
+    "beer_2026": {
+      "file": "img/beer_2026.jpg",
+      "credit": "号外NET 横須賀・三浦（記事og:image）",
+      "license": "出典記事の画像",
+      "source": "https://yokosuka.goguynet.jp/2026/09/07/miurakaigan-beermatsuri2026-09/"
+    },
+    "fufu_2026": {
+      "file": "img/fufu_2026.jpg",
+      "credit": "ふふ 城ヶ島 公式（og:image）",
+      "license": "公式サイトの画像",
+      "source": "https://www.fufujogashima.jp/"
+    }
+  }
+}

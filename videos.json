@@ -1,0 +1,226 @@
+{
+ "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
+ "videos": [
+  {
+   "id": "58k-G71oqaY",
+   "title": "海で流され小学5年生男児行方不明 同級生3人と岩場で遊び高波にさらわれたか ライフジャケット着用せず 神奈川・三浦市（2026年09月09日）",
+   "channel": "FNNプライムオンライン",
+   "published_text": "",
+   "views": "",
+   "length": "",
+   "published": "2026-09-12",
+   "fetched": "2026-09-12",
+   "manual": true
+  },
+  {
+   "id": "49NubJ78KWU",
+   "title": "【LIVE】三浦海岸ライブカメラ(Live Camera in Miura Beach)",
+   "channel": "WITH SEA",
+   "published_text": "",
+   "views": "",
+   "length": "",
+   "live": true,
+   "published": "2026-09-12",
+   "fetched": "2026-09-12",
+   "q": "三浦海岸"
+  },
+  {
+   "id": "-GR4ixt15FM",
+   "title": "【9月最新!】青物キタｱｱｱ!!!!こうやって釣る！神奈川サーフで秋の釣り調査! #東京湾 #三浦半島 #三浦海岸 #青物 #ショゴ #イナダ #ブリ #マゴチ  #ヒラメ #fishing #海釣り",
+   "channel": "なっしぃの釣り研究",
+   "published_text": "15 時間前",
+   "views": "8,933回視聴",
+   "length": "27:38",
+   "published": "2026-09-12",
+   "fetched": "2026-09-12",
+   "q": "三浦海岸"
+  },
+  {
+   "id": "AwbW62qvovk",
+   "title": "♯382【小網代ボート釣り】鯛・青物狙い！夏の浅場はポイント×釣り方次第で絶好調！？",
+   "channel": "ボート釣り名人万ちゃんの釣り美学",
+   "published_text": "23 時間前",
+   "views": "2,433回視聴",
+   "length": "27:01",
+   "published": "2026-09-12",
+   "fetched": "2026-09-12",
+   "q": "小網代"
+  },
+  {
+   "id": "8sOjuttS_lU",
+   "title": "【神奈川･城ヶ島】海に流され行方不明の小5男児(10)   10日朝沖合で発見も死亡",
+   "channel": "日テレNEWS",
+   "published_text": "2 日前",
+   "views": "195,388回視聴",
+   "length": "1:03",
+   "published": "2026-09-10",
+   "fetched": "2026-09-12",
+   "q": "城ヶ島"
+  },
+  {
+   "id": "93HE0SCgP0M",
+   "title": "【速報】行方不明の小学5年生の男児　海に沈んでいるのを発見、搬送も死亡　神奈川・三浦市｜TBS NEWS DIG",
+   "channel": "TBS NEWS DIG Powered by JNN",
+   "published_text": "2 日前",
+   "views": "126,079回視聴",
+   "length": "0:39",
+   "published": "2026-09-10",
+   "fetched": "2026-09-12",
+   "q": "城ヶ島"
+  },
+  {
+   "id": "XueQiMHY57c",
+   "title": "「小学生の子どもが流された」 神奈川・三浦市の海岸で小5男児が高波に流されたか【スーパーJチャンネル】(2026年9月9日)",
+   "channel": "ANNnewsCH",
+   "published_text": "2 日前",
+   "views": "12,492回視聴",
+   "length": "0:47",
+   "published": "2026-09-10",
+   "fetched": "2026-09-12",
+   "q": "三浦市"
+  },
+  {
+   "id": "k_TCWdV2Org",
+   "title": "ふふ・城ヶ島・絶景ホテル紹介・ラグジュアリー客室露天風呂付部屋",
+   "channel": "あんドーナツ",
+   "published_text": "10 日前",
+   "views": "419回視聴",
+   "length": "8:23",
+   "published": "2026-09-02",
+   "fetched": "2026-09-12",
+   "q": "城ヶ島"
+  },
+  {
+   "id": "82uzirc5S6w",
+   "title": "【続報】下宮田跡地農地返還問題【三浦市】#三浦市 #出口嘉一 #れいわ三浦の会",
+   "channel": "れいわ三浦の会",
+   "published_text": "11 日前",
+   "views": "1,155回視聴",
+   "length": "1:17",
+   "published": "2026-09-01",
+   "fetched": "2026-09-12",
+   "q": "三浦市"
+  },
+  {
+   "id": "LUmDNs7ffJo",
+   "title": "【夏の絶景中継】天達が行く！城ヶ島公園 ミシュラン二つ星の景色！360度の大パノラマからお届け【ノンストップ！】",
+   "channel": "ノンストップ!公式ch.",
+   "published_text": "2 週間前",
+   "views": "1,640回視聴",
+   "length": "11:24",
+   "published": "2026-08-29",
+   "fetched": "2026-09-12",
+   "q": "城ヶ島"
+  },
+  {
+   "id": "UjypldXCOvQ",
+   "title": "【釣り】仕掛けが大事なのがよくわかる動画！三崎港釣行でウルメイワシと格闘。",
+   "channel": "channelハナモゲラ",
+   "published_text": "3 週間前",
+   "views": "2,141回視聴",
+   "length": "4:53",
+   "published": "2026-08-22",
+   "fetched": "2026-09-12",
+   "q": "三崎港"
+  },
+  {
+   "id": "lpHOCGUfDRU",
+   "title": "三浦海岸駅の今と昔【京急線】【国道１３４号線】【三浦市】【街の移り変わり】【懐かしい景色】【遠い記憶】【町の歴史】【あの頃の思い出】Miurakaigan Station Then and Now",
+   "channel": "そう遠くない未来過去 / The not-too-distant past and future",
+   "published_text": "3 週間前",
+   "views": "10,902回視聴",
+   "length": "4:46",
+   "published": "2026-08-22",
+   "fetched": "2026-09-12",
+   "q": "三浦海岸"
+  },
+  {
+   "id": "J6uqGlBzPus",
+   "title": "京急油壺マリンパーク跡地と西海岸線を行く。",
+   "channel": "ウナ蔵 / Unazo's Totsuka Life Japan",
+   "published_text": "3 週間前",
+   "views": "12,315回視聴",
+   "length": "24:14",
+   "published": "2026-08-22",
+   "fetched": "2026-09-12",
+   "q": "油壺"
+  },
+  {
+   "id": "KRjG4x4t-qM",
+   "title": "【三崎港食べ歩き】マグロ・海鮮・カフェまで絶品グルメ7選",
+   "channel": "孤独の旅人【心の充電を満たす瞬間】",
+   "published_text": "1 か月前",
+   "views": "2,230回視聴",
+   "length": "13:48",
+   "published": "2026-08-13",
+   "fetched": "2026-09-12",
+   "q": "三崎港"
+  },
+  {
+   "id": "aOmVD7PWZQA",
+   "title": "【小網代の森】首都圏に残る奇跡の自然を歩く｜森から海へ、のんびり散策",
+   "channel": "とことこ山日和",
+   "published_text": "1 か月前",
+   "views": "198回視聴",
+   "length": "12:34",
+   "published": "2026-08-13",
+   "fetched": "2026-09-12",
+   "q": "小網代"
+  },
+  {
+   "id": "bC1DKvCoWw0",
+   "title": "【盛り土が崩落】先月の台風で道路などに土砂流出  県が崩落防止工事を開始  神奈川･三浦市",
+   "channel": "日テレNEWS",
+   "published_text": "1 か月前",
+   "views": "3,886回視聴",
+   "length": "1:06",
+   "published": "2026-08-13",
+   "fetched": "2026-09-12",
+   "q": "三浦市"
+  },
+  {
+   "id": "zQmg9KAT3OU",
+   "title": "小網代湾の中心で回ってみた！",
+   "channel": "佐藤デビット",
+   "published_text": "1 か月前",
+   "views": "64回視聴",
+   "length": "0:41",
+   "published": "2026-08-13",
+   "fetched": "2026-09-12",
+   "q": "小網代"
+  },
+  {
+   "id": "3jKrUcgRHFU",
+   "title": "【速報】神奈川・三浦市沖で炎上の釣り船が沈没　全員避難してけが人なし(2026年7月19日)",
+   "channel": "ANNnewsCH",
+   "published_text": "1 か月前",
+   "views": "8,557回視聴",
+   "length": "1:02",
+   "published": "2026-08-13",
+   "fetched": "2026-09-12",
+   "q": "三浦市"
+  },
+  {
+   "id": "DXZZUH2P99w",
+   "title": "猫のひたいほどワイド #1766 潜入リポート・朝田淳弥「猫ひた夏の風物詩！？三浦だよ！全員集合！！」（三浦市）",
+   "channel": "テレビ神奈川 tvk3ch",
+   "published_text": "1 か月前",
+   "views": "668回視聴",
+   "length": "8:07",
+   "published": "2026-08-13",
+   "fetched": "2026-09-12",
+   "q": "三浦市"
+  },
+  {
+   "id": "R7WMtOkdnNE",
+   "title": "【三崎港】釣れた魚で泳がせ釣り、高級食材が！サバ、アジは夜まで釣れっぱなし！",
+   "channel": "やし50",
+   "published_text": "2 か月前",
+   "views": "9,312回視聴",
+   "length": "9:47",
+   "published": "2026-07-14",
+   "fetched": "2026-09-12",
+   "q": "三崎港"
+  }
+ ]
+}

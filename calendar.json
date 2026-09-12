@@ -1,0 +1,101 @@
+{
+  "_note": "毎年くり返す定番。month_day は MM-DD。approx=true は『頃』。confidence と source は items.json と同じ規則",
+  "events": [
+    {
+      "month_day": "05-01",
+      "approx": true,
+      "category": "季節",
+      "fact": "城ヶ島大橋からのダイヤモンド富士（日没）。年により前後",
+      "talk": "夕方まで居るなら橋の上へ。西北西85kmの富士に日が沈みます",
+      "confidence": "🟡",
+      "source": {
+        "url": "https://fujisantotomoni.jp/spot/城ヶ島大橋",
+        "title": "富士山とともに 城ヶ島大橋",
+        "opened": "2026-09-12"
+      },
+      "image": "jogashima_bridge_sunset"
+    },
+    {
+      "month_day": "08-11",
+      "approx": true,
+      "category": "季節",
+      "fact": "城ヶ島大橋からのダイヤモンド富士（日没）。年により前後",
+      "talk": "お盆前の夕方。橋の歩道から",
+      "confidence": "🟡",
+      "source": {
+        "url": "https://fujisantotomoni.jp/spot/城ヶ島大橋",
+        "title": "富士山とともに 城ヶ島大橋",
+        "opened": "2026-09-12"
+      },
+      "image": "jogashima_bridge_sunset"
+    },
+    {
+      "month_day": "10-03",
+      "approx": true,
+      "category": "イベント",
+      "fact": "みうら夜市（三崎下町商店街）。10月最初の土日",
+      "talk": "下町の通りが屋台で埋まります",
+      "confidence": "🟡",
+      "source": {
+        "url": "https://miura-info.ne.jp/find/イベントカレンダー/",
+        "title": "みうら観光ガイド イベントカレンダー",
+        "opened": "2026-09-12"
+      },
+      "image": "misaki_shitamachi"
+    },
+    {
+      "month_day": "10-15",
+      "approx": true,
+      "category": "季節",
+      "fact": "三浦みかん狩り 開園（10月中旬〜11月下旬）",
+      "talk": "帰りに寄れます。園によって開園日が違うので要確認",
+      "confidence": "🟡",
+      "source": {
+        "url": "https://miura-info.ne.jp/find/イベントカレンダー/",
+        "title": "みうら観光ガイド イベントカレンダー",
+        "opened": "2026-09-12"
+      }
+    },
+    {
+      "month_day": "11-01",
+      "approx": true,
+      "category": "イベント",
+      "fact": "三崎港町まつり＋三崎・城ヶ島花火大会（10月下旬〜11月上旬の日曜）",
+      "talk": "マグロ尽くしの日。花火は20分ほどですが港と島どちらからも見えます",
+      "confidence": "🟡",
+      "source": {
+        "url": "https://miura-info.ne.jp/find/イベントカレンダー/",
+        "title": "みうら観光ガイド イベントカレンダー",
+        "opened": "2026-09-12"
+      },
+      "image": "misaki_harbor"
+    },
+    {
+      "month_day": "11-05",
+      "approx": true,
+      "category": "イベント",
+      "fact": "面神楽（海南神社 神楽殿）11月上旬",
+      "talk": "三崎の古い神楽。夜に見られます",
+      "confidence": "🟡",
+      "source": {
+        "url": "https://miura-info.ne.jp/find/イベントカレンダー/",
+        "title": "みうら観光ガイド イベントカレンダー",
+        "opened": "2026-09-12"
+      }
+    },
+    {
+      "month_day": "12-29",
+      "approx": false,
+      "category": "イベント",
+      "fact": "三崎朝市 年末特別セール（12/29・30）",
+      "talk": "年末は朝市が特別体制です",
+      "confidence": "🟡",
+      "source": {
+        "url": "https://miura-info.ne.jp/find/イベントカレンダー/",
+        "title": "みうら観光ガイド イベントカレンダー",
+        "opened": "2026-09-12"
+      },
+      "image": "misaki_harbor"
+    }
+  ]
+}

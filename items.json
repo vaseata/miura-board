@@ -1,0 +1,102 @@
+{
+  "_note": "日付つきの項目。date は起きた日／始まる日（YYYY-MM-DD）。end は終わる日（任意）。2行ルール：fact=事実1行、talk=話の振り方1行。confidence: 🟢 出典を開いて確認／🟡 一次でない・『頃』／🗣 伝聞",
+  "items": [
+    {
+      "id": 1,
+      "date": "2026-09-09",
+      "area": "城ヶ島",
+      "category": "出来事",
+      "fact": "城ヶ島灯台の南約250mの岩場で磯遊び中の小学生4人が高波にさらわれ、小5男児（10）が行方不明に。翌10日朝、岩場西側の沖合で発見され死亡が確認された（報道時点で身元確認中）",
+      "talk": "灯台の南側の磯です。波がある日は磯に降りないよう一言添えられます",
+      "confidence": "🟢",
+      "sources": [
+        {
+          "url": "https://news.yahoo.co.jp/articles/45f0e2361e5c2ba05224cb75a4731e58704cc76b",
+          "title": "朝日新聞（Yahoo!ニュース）9/9",
+          "opened": "2026-09-12"
+        },
+        {
+          "url": "https://news.livedoor.com/article/detail/32287612/",
+          "title": "ライブドアニュース（TBS）9/10",
+          "opened": "2026-09-12"
+        }
+      ],
+      "image": "jogashima_lighthouse"
+    },
+    {
+      "id": 2,
+      "date": "2026-09-19",
+      "end": "2026-09-23",
+      "area": "三浦海岸",
+      "category": "イベント",
+      "fact": "三浦海岸ビールまつり 9/19(土)〜23(水祝) 11:00〜19:00（最終日17:00）。三浦海岸駅前の線路下スペース UMICO。クラフトビール日替わり10社、同時にトラック市",
+      "talk": "駅前で飲めます。入場無料",
+      "confidence": "🟢",
+      "sources": [
+        {
+          "url": "https://yokosuka.goguynet.jp/2026/09/07/miurakaigan-beermatsuri2026-09/",
+          "title": "号外NET 横須賀・三浦 9/7",
+          "opened": "2026-09-12"
+        }
+      ],
+      "image": "beer_2026"
+    },
+    {
+      "id": 3,
+      "date": "2026-10-03",
+      "end": "2026-10-04",
+      "area": "三崎",
+      "category": "イベント",
+      "fact": "第18回 みうら夜市〜灯ろうナイトウォーク〜 10/3(土)・4(日) 16:00〜21:00。三崎下町商店街（三崎銀座通り・入船すずらん通り・日の出通り）",
+      "talk": "下町の通り500mが屋台と灯ろうで埋まります。夕方から",
+      "confidence": "🟢",
+      "sources": [
+        {
+          "url": "https://miura-info.ne.jp/18miurayoichi/",
+          "title": "みうら観光ガイド（三浦市観光協会）7/30",
+          "opened": "2026-09-12"
+        }
+      ],
+      "image": "misaki_shitamachi"
+    },
+    {
+      "id": 4,
+      "date": "2026-04-18",
+      "area": "城ヶ島",
+      "category": "店",
+      "fact": "「城ヶ島おさかな市場」オープン（三崎観光＝京急グループ）。城ヶ島500-28、バス停「城ヶ島漁港前」徒歩1分。10:00〜18:00、火曜定休。城ヶ島・三崎で揚がった鮮魚と加工品、土産",
+      "talk": "島に鮮魚の直売所ができました。火曜は休みなので注意",
+      "confidence": "🟢",
+      "sources": [
+        {
+          "url": "https://www.keikyu.co.jp/company/news/2026/20260416HP_25007RK.html",
+          "title": "京急電鉄 ニュースリリース 4/16",
+          "opened": "2026-09-12"
+        }
+      ],
+      "image": "jogashima_harbor"
+    },
+    {
+      "id": 5,
+      "date": "2026-02-27",
+      "area": "城ヶ島",
+      "category": "店",
+      "fact": "「ふふ 城ヶ島 海風のしらべ」2/27開業（城ヶ島693、34室）。全室オーシャンビュー・全室に油壺温泉、日本料理、ルーフトップバー、シーカヤック。2食付き2名1室 99,000円〜",
+      "talk": "島に高級旅館ができました。日帰りは不可のはず、会員さんの反応が楽しみな話題",
+      "confidence": "🟢",
+      "sources": [
+        {
+          "url": "https://www.fufujogashima.jp/",
+          "title": "ふふ 城ヶ島 公式",
+          "opened": "2026-09-12"
+        },
+        {
+          "url": "https://hotelbank.jp/new-hotels/kanagawa-fufujogashima-2602open/",
+          "title": "HotelBank 3/13",
+          "opened": "2026-09-12"
+        }
+      ],
+      "image": "fufu_2026"
+    }
+  ]
+}
