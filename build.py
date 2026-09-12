@@ -230,5 +230,12 @@ $groups
 </script>
 ''').substitute(issue=issue_no, ymd=f"{TODAY.year}年{TODAY.month}月{TODAY.day}日", ymd_latin=TODAY.strftime('%Y.%m.%d'), wd=WD[TODAY.weekday()],
                  groups=groups_html, df=df_line, upcoming=up_html, videos=videos_html, credits_plain=credits_plain)
-(HERE / "index.html").write_text(page, encoding="utf-8")
+# Artifact 用（断片）と GitHub Pages 用（完全なHTML）の2本を書く
+(HERE / "artifact.html").write_text(page, encoding="utf-8")
+i = page.index("<main>")
+full = ('<!DOCTYPE html>\n<html lang="ja">\n<head>\n<meta charset="utf-8">\n'
+        '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
+        '<meta name="description" content="城ヶ島・三崎・三浦海岸——この町で起きたこと、はじまったこと、季節のこと。">\n'
+        + page[:i] + '</head>\n<body>\n' + page[i:] + '</body>\n</html>\n')
+(HERE / "index.html").write_text(full, encoding="utf-8")
 print(f"index.html 第{issue_no}号: {len(items)} items, {len(upcoming)} upcoming, {len(videos)} videos, next DF {df_line}")

@@ -11,7 +11,7 @@
 | `items.json` | **唯一の可変データ**。日付つきの項目（出来事・店・イベント・交通・A邸まわり） |
 | `calendar.json` | 毎年くり返す定番（花・魚・ダイヤモンド富士・祭り）。月日だけ持つ |
 | `build.py` | `items.json` + `calendar.json` → `index.html` を生成 |
-| `index.html` | 公開ページ（Artifact）。生成物。手で編集しない |
+| `index.html` / `artifact.html` | 生成物（Pages用の完全HTML／Artifact用の断片）。手で編集しない |
 
 ## 項目の書き方（2行ルール）
 
@@ -72,4 +72,4 @@
 
 - **GitHub Pages: https://vaseata.github.io/miura-board/** ← 会員さんに見せる／iPhoneに置くのはこちら（ログイン不要）。`main` に push すると数十秒で反映
 - Artifact（claude.ai）は下書き確認用。Share 設定に依存する
-- `index.html` は先頭に `<!DOCTYPE html>` 等を持たない（Artifact が補う前提）。Pages でもブラウザは表示するが、必要なら build.py で足す
+- `build.py` は2本書く：`index.html`（完全なHTML・Pages用）と `artifact.html`（断片・Artifact用。同じURLに `url` 指定で publish）
