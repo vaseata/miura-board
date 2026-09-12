@@ -65,5 +65,5 @@
 
 ## GitHub（2026-09-12）
 
-- リポジトリ: https://github.com/vaseata/miura-board（private）。`img/raw/` は除外
+- リポジトリ: https://github.com/vaseata/miura-board（public・2026-09-12 に切替）。`img/raw/` は除外
 - 更新のたびに `git add -A && git commit -m "YYYY-MM-DD 更新: 追記の要点" && git push`
