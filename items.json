@@ -1,5 +1,5 @@
 {
-  "_note": "日付つきの項目。date は起きた日／始まる日（YYYY-MM-DD）。end は終わる日（任意）。2行ルール：fact=事実1行、talk=話の振り方1行。confidence: 🟢 出典を開いて確認／🟡 一次でない・『頃』／🗣 伝聞",
+  "_note": "日付つきの項目。date は起きた日／始まる日（YYYY-MM-DD）。end は終わる日（任意）。2行ルール：fact=事実1行、talk=話の振り方1行。confidence: 🟢 出典を開いて確認／🟡 一次でない・『頃』／🗣 伝聞。headline=見出し（18字前後）",
   "items": [
     {
       "id": 1,
@@ -21,7 +21,8 @@
           "opened": "2026-09-12"
         }
       ],
-      "image": "jogashima_lighthouse"
+      "image": "jogashima_lighthouse",
+      "headline": "城ヶ島の磯で小5男児が高波にさらわれ死亡"
     },
     {
       "id": 2,
@@ -39,7 +40,8 @@
           "opened": "2026-09-12"
         }
       ],
-      "image": "beer_2026"
+      "image": "beer_2026",
+      "headline": "三浦海岸駅前でビールまつり 9/19〜23"
     },
     {
       "id": 3,
@@ -57,7 +59,8 @@
           "opened": "2026-09-12"
         }
       ],
-      "image": "misaki_shitamachi"
+      "image": "misaki_shitamachi",
+      "headline": "みうら夜市 10/3・4、下町が灯ろうで灯る"
     },
     {
       "id": 4,
@@ -74,7 +77,8 @@
           "opened": "2026-09-12"
         }
       ],
-      "image": "jogashima_harbor"
+      "image": "jogashima_harbor",
+      "headline": "城ヶ島に鮮魚直売「おさかな市場」開店"
     },
     {
       "id": 5,
@@ -96,7 +100,8 @@
           "opened": "2026-09-12"
         }
       ],
-      "image": "fufu_2026"
+      "image": "fufu_2026",
+      "headline": "島に温泉旅館「ふふ 城ヶ島」開業"
     }
   ]
 }
