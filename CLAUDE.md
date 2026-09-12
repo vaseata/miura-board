@@ -62,3 +62,8 @@
 - ヤヌキから動画URLをもらったら `python3 yt_fetch.py <videoId>`（manual 扱い＝古くなっても消さない）
 - 公開時は `img/yt/*.jpg` も `files` に渡す
 - ⚠️ YouTube の並び替えパラメータは効きが弱い。`published` は「N日前」表記からの概算（🟡相当）
+
+## GitHub（2026-09-12）
+
+- リポジトリ: https://github.com/vaseata/miura-board（private）。`img/raw/` は除外
+- 更新のたびに `git add -A && git commit -m "YYYY-MM-DD 更新: 追記の要点" && git push`
