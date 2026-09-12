@@ -67,3 +67,9 @@
 
 - リポジトリ: https://github.com/vaseata/miura-board（public・2026-09-12 に切替）。`img/raw/` は除外
 - 更新のたびに `git add -A && git commit -m "YYYY-MM-DD 更新: 追記の要点" && git push`
+
+## 公開URL（2026-09-12 追記）
+
+- **GitHub Pages: https://vaseata.github.io/miura-board/** ← 会員さんに見せる／iPhoneに置くのはこちら（ログイン不要）。`main` に push すると数十秒で反映
+- Artifact（claude.ai）は下書き確認用。Share 設定に依存する
+- `index.html` は先頭に `<!DOCTYPE html>` 等を持たない（Artifact が補う前提）。Pages でもブラウザは表示するが、必要なら build.py で足す
