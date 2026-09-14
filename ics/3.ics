@@ -1,0 +1,22 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//miura-board//JA
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:miura-board-3@vaseata.github.io
+DTSTAMP:20260914T233208Z
+DTSTART:20261003T070000Z
+DTEND:20261003T120000Z
+RRULE:FREQ=DAILY;COUNT=2
+SUMMARY:第18回 みうら夜市〜灯ろうナイトウォーク〜
+LOCATION:三崎下町商店街（三崎銀座通り・入船すずらん通
+ り・日の出通り）
+DESCRIPTION:第18回 みうら夜市〜灯ろうナイトウォーク〜 10
+ /3(土)・4(日) 16:00〜21:00。三崎下町商店街（三崎銀座通
+ り・入船すずらん通り・日の出通り）\n出典: https://miura
+ -info.ne.jp/18miurayoichi/\n最近の三浦: https://vaseata.github.io/miu
+ ra-board/
+URL:https://vaseata.github.io/miura-board/
+END:VEVENT
+END:VCALENDAR

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """items.json + calendar.json + places.json + videos.json → index.html（最近の三浦・紙面）"""
-import json, datetime, html, pathlib, re
+import json, datetime, html, pathlib, re, urllib.parse
 from string import Template
 
 HERE = pathlib.Path(__file__).parent
@@ -59,6 +59,86 @@ def img_html(key, cls="photo"):
 def sources_html(srcs):
     return "／".join(f'<a href="{esc(s["url"])}" target="_blank" rel="noopener">{esc(s["title"])}</a>' for s in srcs)
 
+# ---- 「行ってみたい」→ カレンダー登録（イベントのみ・終わっていないもの）
+PAGE_URL = "https://vaseata.github.io/miura-board/"
+JST = datetime.timezone(datetime.timedelta(hours=9))
+ICS_DIR = HERE / "ics"
+
+def cal_event(x):
+    if x.get("category") != "イベント": return None
+    start, end = d(x["date"]), d(x.get("end") or x["date"])
+    if end < TODAY: return None
+    c = x.get("cal", {})
+    title = c.get("title") or x.get("headline") or x["fact"][:22]
+    place = c.get("place") or x["area"]
+    ndays = (end - start).days + 1
+    details = x["fact"]
+    if c.get("note"): details += f"\n※{c['note']}"
+    if x.get("sources"): details += "\n出典: " + x["sources"][0]["url"]
+    details += "\n最近の三浦: " + PAGE_URL
+    ev = {"id": x["id"], "title": title, "place": place, "details": details, "start": start, "end": end, "ndays": ndays}
+    if c.get("start") and c.get("end"):
+        hm = lambda t: datetime.time(*map(int, t.split(":")))
+        ev["t0"], ev["t1"] = hm(c["start"]), hm(c["end"])
+    return ev
+
+def ics_text(s):
+    return s.replace("\\", "\\\\").replace(";", "\\;").replace(",", "\\,").replace("\n", "\\n")
+
+def ics_fold(line):
+    out, cur = [], b""
+    for ch in line:
+        bch = ch.encode("utf-8")
+        if len(cur) + len(bch) > (75 if not out else 74):
+            out.append(cur); cur = b""
+        cur += bch
+    out.append(cur)
+    return "\r\n ".join(b.decode("utf-8") for b in out)
+
+def utc(dt, t):
+    return datetime.datetime.combine(dt, t, JST).astimezone(datetime.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+
+def write_ics(ev):
+    stamp = datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    L = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//miura-board//JA", "CALSCALE:GREGORIAN", "METHOD:PUBLISH",
+         "BEGIN:VEVENT", f"UID:miura-board-{ev['id']}@vaseata.github.io", f"DTSTAMP:{stamp}"]
+    if "t0" in ev:
+        L += [f"DTSTART:{utc(ev['start'], ev['t0'])}", f"DTEND:{utc(ev['start'], ev['t1'])}"]
+        if ev["ndays"] > 1: L.append(f"RRULE:FREQ=DAILY;COUNT={ev['ndays']}")
+    else:
+        L += [f"DTSTART;VALUE=DATE:{ev['start']:%Y%m%d}", f"DTEND;VALUE=DATE:{ev['end'] + datetime.timedelta(days=1):%Y%m%d}"]
+    L += [f"SUMMARY:{ics_text(ev['title'])}", f"LOCATION:{ics_text(ev['place'])}",
+          f"DESCRIPTION:{ics_text(ev['details'])}", f"URL:{PAGE_URL}", "END:VEVENT", "END:VCALENDAR"]
+    (ICS_DIR / f"{ev['id']}.ics").write_text("\r\n".join(ics_fold(l) for l in L) + "\r\n", encoding="utf-8", newline="")
+
+def gcal_url(ev):
+    if "t0" in ev:
+        dates = f"{ev['start']:%Y%m%d}T{ev['t0']:%H%M%S}/{ev['start']:%Y%m%d}T{ev['t1']:%H%M%S}"
+    else:
+        dates = f"{ev['start']:%Y%m%d}/{ev['end'] + datetime.timedelta(days=1):%Y%m%d}"
+    q = {"action": "TEMPLATE", "text": ev["title"], "dates": dates, "ctz": "Asia/Tokyo", "location": ev["place"], "details": ev["details"]}
+    if "t0" in ev and ev["ndays"] > 1: q["recur"] = f"RRULE:FREQ=DAILY;COUNT={ev['ndays']}"
+    return "https://calendar.google.com/calendar/render?" + urllib.parse.urlencode(q, quote_via=urllib.parse.quote, safe="/:")
+
+def when_text(ev):
+    days = jdate(ev["start"]) + (f"〜{jdate(ev['end'])}" if ev["ndays"] > 1 else "")
+    return days + (f" {ev['t0']:%H:%M}〜{ev['t1']:%H:%M}" if "t0" in ev else "（終日）")
+
+def want_html(x):
+    ev = cal_event(x)
+    if not ev: return ""
+    write_ics(ev)
+    return f'''<div class="want" data-id="{ev['id']}">
+    <button type="button" class="want-btn" aria-expanded="false">行ってみたい</button>
+    <div class="want-to" hidden>
+      <p class="want-what">{esc(ev["title"])}<br>{esc(when_text(ev))}<br>{esc(ev["place"])}</p>
+      <a class="want-link" href="ics/{ev['id']}.ics">iPhone のカレンダーに追加</a><a class="want-link" href="{esc(gcal_url(ev))}" target="_blank" rel="noopener">Google カレンダーに追加</a>
+    </div>
+  </div>'''
+
+ICS_DIR.mkdir(exist_ok=True)
+for f in ICS_DIR.glob("*.ics"): f.unlink()
+
 def article(x):
     dt = d(x["date"]); age = (TODAY - dt).days
     end = f'〜{jdate(d(x["end"]))}' if x.get("end") else ""
@@ -69,6 +149,7 @@ def article(x):
   <h3>{esc(head)}</h3>
   <p class="fact"><b class="dl">【{esc(x["area"])}】</b>{esc(x["fact"])}</p>
   <aside class="talk"><span class="tl">話のタネ</span>{esc(x["talk"])}</aside>
+  {want_html(x)}
   <p class="src"><span class="cf">{conf(x["confidence"])}</span>{sources_html(x.get("sources", []))}</p>
 </article>'''
 
@@ -160,6 +241,15 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
 .src{font-size:10px;letter-spacing:.1em;color:var(--mute);line-height:1.9}
 .src .cf{letter-spacing:.25em;margin-right:10px;color:var(--ink2)}
 .src a{text-decoration:none;border-bottom:1px solid var(--hair);margin-right:10px}
+/* 行ってみたい */
+.want{margin:0 0 10px}
+.want-btn{font:inherit;font-size:13px;letter-spacing:.2em;color:var(--ink);background:none;border:1px solid var(--rule);padding:5px 14px;cursor:pointer;min-height:36px}
+.want-btn:focus-visible,.want-link:focus-visible{outline:1px solid currentColor;outline-offset:3px}
+.want-btn[aria-expanded="true"],.want.done .want-btn{background:var(--ink);color:var(--cream)}
+.want.done .want-btn::before{content:"✓ "}
+.want-to{margin-top:8px;border-left:2px solid var(--rule);padding:2px 0 2px 12px}
+.want-what{font-size:12.5px;line-height:1.8;color:var(--ink2);margin-bottom:6px}
+.want-link{display:inline-block;font-size:13px;letter-spacing:.1em;text-decoration:none;border-bottom:1px solid var(--rule);margin:2px 18px 4px 0;padding:4px 0}
 /* 一面 */
 .art.lead{column-span:all;border-bottom:3px double var(--rule);padding-bottom:22px;margin-bottom:26px}
 .art.lead .photo img{max-height:280px}
@@ -226,6 +316,12 @@ $groups
   btns.forEach(function(b){b.addEventListener('click',function(){apply(+b.dataset.days);});});
   var init=93; try{init=+localStorage.getItem('miura-days')||93;}catch(e){}
   apply(init);
+  [].forEach.call(document.querySelectorAll('.want'),function(w){
+    var key='miura-want-'+w.dataset.id, b=w.querySelector('.want-btn'), to=w.querySelector('.want-to');
+    try{if(localStorage.getItem(key))w.classList.add('done');}catch(e){}
+    b.addEventListener('click',function(){var open=to.hidden;to.hidden=!open;b.setAttribute('aria-expanded',String(open));});
+    [].forEach.call(w.querySelectorAll('.want-link'),function(a){a.addEventListener('click',function(){w.classList.add('done');try{localStorage.setItem(key,'1');}catch(e){}});});
+  });
 })();
 </script>
 ''').substitute(issue=issue_no, ymd=f"{TODAY.year}年{TODAY.month}月{TODAY.day}日", ymd_latin=TODAY.strftime('%Y.%m.%d'), wd=WD[TODAY.weekday()],

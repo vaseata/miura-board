@@ -50,6 +50,15 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
 .src{font-size:10px;letter-spacing:.1em;color:var(--mute);line-height:1.9}
 .src .cf{letter-spacing:.25em;margin-right:10px;color:var(--ink2)}
 .src a{text-decoration:none;border-bottom:1px solid var(--hair);margin-right:10px}
+/* 行ってみたい */
+.want{margin:0 0 10px}
+.want-btn{font:inherit;font-size:13px;letter-spacing:.2em;color:var(--ink);background:none;border:1px solid var(--rule);padding:5px 14px;cursor:pointer;min-height:36px}
+.want-btn:focus-visible,.want-link:focus-visible{outline:1px solid currentColor;outline-offset:3px}
+.want-btn[aria-expanded="true"],.want.done .want-btn{background:var(--ink);color:var(--cream)}
+.want.done .want-btn::before{content:"✓ "}
+.want-to{margin-top:8px;border-left:2px solid var(--rule);padding:2px 0 2px 12px}
+.want-what{font-size:12.5px;line-height:1.8;color:var(--ink2);margin-bottom:6px}
+.want-link{display:inline-block;font-size:13px;letter-spacing:.1em;text-decoration:none;border-bottom:1px solid var(--rule);margin:2px 18px 4px 0;padding:4px 0}
 /* 一面 */
 .art.lead{column-span:all;border-bottom:3px double var(--rule);padding-bottom:22px;margin-bottom:26px}
 .art.lead .photo img{max-height:280px}
@@ -90,6 +99,13 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
   <h3>みうら夜市 10/3・4、下町が灯ろうで灯る</h3>
   <p class="fact"><b class="dl">【三崎】</b>第18回 みうら夜市〜灯ろうナイトウォーク〜 10/3(土)・4(日) 16:00〜21:00。三崎下町商店街（三崎銀座通り・入船すずらん通り・日の出通り）</p>
   <aside class="talk"><span class="tl">話のタネ</span>下町の通り500mが屋台と灯ろうで埋まります。夕方から</aside>
+  <div class="want" data-id="3">
+    <button type="button" class="want-btn" aria-expanded="false">行ってみたい</button>
+    <div class="want-to" hidden>
+      <p class="want-what">第18回 みうら夜市〜灯ろうナイトウォーク〜<br>10/3(土)〜10/4(日) 16:00〜21:00<br>三崎下町商店街（三崎銀座通り・入船すずらん通り・日の出通り）</p>
+      <a class="want-link" href="ics/3.ics">iPhone のカレンダーに追加</a><a class="want-link" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=%E7%AC%AC18%E5%9B%9E%20%E3%81%BF%E3%81%86%E3%82%89%E5%A4%9C%E5%B8%82%E3%80%9C%E7%81%AF%E3%82%8D%E3%81%86%E3%83%8A%E3%82%A4%E3%83%88%E3%82%A6%E3%82%A9%E3%83%BC%E3%82%AF%E3%80%9C&amp;dates=20261003T160000/20261003T210000&amp;ctz=Asia/Tokyo&amp;location=%E4%B8%89%E5%B4%8E%E4%B8%8B%E7%94%BA%E5%95%86%E5%BA%97%E8%A1%97%EF%BC%88%E4%B8%89%E5%B4%8E%E9%8A%80%E5%BA%A7%E9%80%9A%E3%82%8A%E3%83%BB%E5%85%A5%E8%88%B9%E3%81%99%E3%81%9A%E3%82%89%E3%82%93%E9%80%9A%E3%82%8A%E3%83%BB%E6%97%A5%E3%81%AE%E5%87%BA%E9%80%9A%E3%82%8A%EF%BC%89&amp;details=%E7%AC%AC18%E5%9B%9E%20%E3%81%BF%E3%81%86%E3%82%89%E5%A4%9C%E5%B8%82%E3%80%9C%E7%81%AF%E3%82%8D%E3%81%86%E3%83%8A%E3%82%A4%E3%83%88%E3%82%A6%E3%82%A9%E3%83%BC%E3%82%AF%E3%80%9C%2010/3%28%E5%9C%9F%29%E3%83%BB4%28%E6%97%A5%29%2016:00%E3%80%9C21:00%E3%80%82%E4%B8%89%E5%B4%8E%E4%B8%8B%E7%94%BA%E5%95%86%E5%BA%97%E8%A1%97%EF%BC%88%E4%B8%89%E5%B4%8E%E9%8A%80%E5%BA%A7%E9%80%9A%E3%82%8A%E3%83%BB%E5%85%A5%E8%88%B9%E3%81%99%E3%81%9A%E3%82%89%E3%82%93%E9%80%9A%E3%82%8A%E3%83%BB%E6%97%A5%E3%81%AE%E5%87%BA%E9%80%9A%E3%82%8A%EF%BC%89%0A%E5%87%BA%E5%85%B8:%20https://miura-info.ne.jp/18miurayoichi/%0A%E6%9C%80%E8%BF%91%E3%81%AE%E4%B8%89%E6%B5%A6:%20https://vaseata.github.io/miura-board/&amp;recur=RRULE:FREQ%3DDAILY%3BCOUNT%3D2" target="_blank" rel="noopener">Google カレンダーに追加</a>
+    </div>
+  </div>
   <p class="src"><span class="cf">出典確認</span><a href="https://miura-info.ne.jp/18miurayoichi/" target="_blank" rel="noopener">みうら観光ガイド（三浦市観光協会）7/30</a></p>
 </article></div></div>
 <div class="month" data-month="2026-09"><h2 class="ym">2026年9月</h2><div class="cols"><article class="art" data-age="-12">
@@ -98,6 +114,13 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
   <h3>9/27 三浦海岸inオータムフェス</h3>
   <p class="fact"><b class="dl">【三浦海岸】</b>「三浦海岸inオータムフェス」9/27(日)、三浦海岸（京急三浦海岸駅徒歩5分）。主催 三浦青年会議所。同時開催の地引網大会（10:01〜）は定員に達し受付終了</p>
   <aside class="talk"><span class="tl">話のタネ</span>月末の日曜なら三浦海岸がにぎやかです。毎年1万人以上来るそうです</aside>
+  <div class="want" data-id="6">
+    <button type="button" class="want-btn" aria-expanded="false">行ってみたい</button>
+    <div class="want-to" hidden>
+      <p class="want-what">三浦海岸inオータムフェス<br>9/27(日)（終日）<br>三浦海岸（京急三浦海岸駅 徒歩5分）</p>
+      <a class="want-link" href="ics/6.ics">iPhone のカレンダーに追加</a><a class="want-link" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=%E4%B8%89%E6%B5%A6%E6%B5%B7%E5%B2%B8in%E3%82%AA%E3%83%BC%E3%82%BF%E3%83%A0%E3%83%95%E3%82%A7%E3%82%B9&amp;dates=20260927/20260928&amp;ctz=Asia/Tokyo&amp;location=%E4%B8%89%E6%B5%A6%E6%B5%B7%E5%B2%B8%EF%BC%88%E4%BA%AC%E6%80%A5%E4%B8%89%E6%B5%A6%E6%B5%B7%E5%B2%B8%E9%A7%85%20%E5%BE%92%E6%AD%A95%E5%88%86%EF%BC%89&amp;details=%E3%80%8C%E4%B8%89%E6%B5%A6%E6%B5%B7%E5%B2%B8in%E3%82%AA%E3%83%BC%E3%82%BF%E3%83%A0%E3%83%95%E3%82%A7%E3%82%B9%E3%80%8D9/27%28%E6%97%A5%29%E3%80%81%E4%B8%89%E6%B5%A6%E6%B5%B7%E5%B2%B8%EF%BC%88%E4%BA%AC%E6%80%A5%E4%B8%89%E6%B5%A6%E6%B5%B7%E5%B2%B8%E9%A7%85%E5%BE%92%E6%AD%A95%E5%88%86%EF%BC%89%E3%80%82%E4%B8%BB%E5%82%AC%20%E4%B8%89%E6%B5%A6%E9%9D%92%E5%B9%B4%E4%BC%9A%E8%AD%B0%E6%89%80%E3%80%82%E5%90%8C%E6%99%82%E9%96%8B%E5%82%AC%E3%81%AE%E5%9C%B0%E5%BC%95%E7%B6%B2%E5%A4%A7%E4%BC%9A%EF%BC%8810:01%E3%80%9C%EF%BC%89%E3%81%AF%E5%AE%9A%E5%93%A1%E3%81%AB%E9%81%94%E3%81%97%E5%8F%97%E4%BB%98%E7%B5%82%E4%BA%86%0A%E2%80%BB%E6%9C%AC%E4%BD%93%E3%81%AE%E9%96%8B%E5%82%AC%E6%99%82%E9%96%93%E3%81%AF%E5%87%BA%E5%85%B8%E3%81%AB%E8%A8%98%E8%BC%89%E3%81%AA%E3%81%97%EF%BC%88%E7%B5%82%E6%97%A5%E3%81%A7%E7%99%BB%E9%8C%B2%EF%BC%89%0A%E5%87%BA%E5%85%B8:%20https://miura-info.ne.jp/20260927zibikiamitaikai/%0A%E6%9C%80%E8%BF%91%E3%81%AE%E4%B8%89%E6%B5%A6:%20https://vaseata.github.io/miura-board/" target="_blank" rel="noopener">Google カレンダーに追加</a>
+    </div>
+  </div>
   <p class="src"><span class="cf">出典確認</span><a href="https://miura-info.ne.jp/20260927zibikiamitaikai/" target="_blank" rel="noopener">みうら観光ガイド 8/11</a></p>
 </article><article class="art" data-age="-4">
   <figure class="photo"><img src="img/beer_2026.jpg" alt="" loading="lazy" width="480" height="300"><figcaption>三浦海岸ビールまつり（号外NET）</figcaption></figure>
@@ -105,6 +128,13 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
   <h3>三浦海岸駅前でビールまつり 9/19〜23</h3>
   <p class="fact"><b class="dl">【三浦海岸】</b>三浦海岸ビールまつり 9/19(土)〜23(水祝) 11:00〜19:00（最終日17:00）。三浦海岸駅前の線路下スペース UMICO。クラフトビール日替わり10社、同時にトラック市</p>
   <aside class="talk"><span class="tl">話のタネ</span>駅前で飲めます。入場無料</aside>
+  <div class="want" data-id="2">
+    <button type="button" class="want-btn" aria-expanded="false">行ってみたい</button>
+    <div class="want-to" hidden>
+      <p class="want-what">三浦海岸ビールまつり<br>9/19(土)〜9/23(水) 11:00〜19:00<br>線路下スペイスUMICO（神奈川県三浦市南下浦町上宮田1497・京急三浦海岸駅前）</p>
+      <a class="want-link" href="ics/2.ics">iPhone のカレンダーに追加</a><a class="want-link" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=%E4%B8%89%E6%B5%A6%E6%B5%B7%E5%B2%B8%E3%83%93%E3%83%BC%E3%83%AB%E3%81%BE%E3%81%A4%E3%82%8A&amp;dates=20260919T110000/20260919T190000&amp;ctz=Asia/Tokyo&amp;location=%E7%B7%9A%E8%B7%AF%E4%B8%8B%E3%82%B9%E3%83%9A%E3%82%A4%E3%82%B9UMICO%EF%BC%88%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E4%B8%89%E6%B5%A6%E5%B8%82%E5%8D%97%E4%B8%8B%E6%B5%A6%E7%94%BA%E4%B8%8A%E5%AE%AE%E7%94%B01497%E3%83%BB%E4%BA%AC%E6%80%A5%E4%B8%89%E6%B5%A6%E6%B5%B7%E5%B2%B8%E9%A7%85%E5%89%8D%EF%BC%89&amp;details=%E4%B8%89%E6%B5%A6%E6%B5%B7%E5%B2%B8%E3%83%93%E3%83%BC%E3%83%AB%E3%81%BE%E3%81%A4%E3%82%8A%209/19%28%E5%9C%9F%29%E3%80%9C23%28%E6%B0%B4%E7%A5%9D%29%2011:00%E3%80%9C19:00%EF%BC%88%E6%9C%80%E7%B5%82%E6%97%A517:00%EF%BC%89%E3%80%82%E4%B8%89%E6%B5%A6%E6%B5%B7%E5%B2%B8%E9%A7%85%E5%89%8D%E3%81%AE%E7%B7%9A%E8%B7%AF%E4%B8%8B%E3%82%B9%E3%83%9A%E3%83%BC%E3%82%B9%20UMICO%E3%80%82%E3%82%AF%E3%83%A9%E3%83%95%E3%83%88%E3%83%93%E3%83%BC%E3%83%AB%E6%97%A5%E6%9B%BF%E3%82%8F%E3%82%8A10%E7%A4%BE%E3%80%81%E5%90%8C%E6%99%82%E3%81%AB%E3%83%88%E3%83%A9%E3%83%83%E3%82%AF%E5%B8%82%0A%E2%80%BB%E6%9C%80%E7%B5%82%E6%97%A59/23%E3%81%AF17:00%E3%81%BE%E3%81%A7%0A%E5%87%BA%E5%85%B8:%20https://yokosuka.goguynet.jp/2026/09/07/miurakaigan-beermatsuri2026-09/%0A%E6%9C%80%E8%BF%91%E3%81%AE%E4%B8%89%E6%B5%A6:%20https://vaseata.github.io/miura-board/&amp;recur=RRULE:FREQ%3DDAILY%3BCOUNT%3D5" target="_blank" rel="noopener">Google カレンダーに追加</a>
+    </div>
+  </div>
   <p class="src"><span class="cf">出典確認</span><a href="https://yokosuka.goguynet.jp/2026/09/07/miurakaigan-beermatsuri2026-09/" target="_blank" rel="noopener">号外NET 横須賀・三浦 9/7</a></p>
 </article><article class="art" data-age="5">
   <figure class="photo"><img src="img/ogawa_peanut_2026.jpg" alt="" loading="lazy" width="480" height="300"><figcaption>小川農園の落花生おおまさり（カナロコ）</figcaption></figure>
@@ -112,6 +142,7 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
   <h3>六合・小川農園の落花生おおまさり</h3>
   <p class="fact"><b class="dl">【三浦市】</b>三浦市六合の「産地直売小川農園」で大粒の落花生「おおまさり」が8月中旬から収穫中。250g 500円（カナロコ 9/10）</p>
   <aside class="talk"><span class="tl">話のタネ</span>三浦は大根だけじゃなく落花生も。おおまさりは茹でて食べる大粒です</aside>
+  
   <p class="src"><span class="cf">出典確認</span><a href="https://www.kanaloco.jp/news/culture/bunka/article-1303097.html" target="_blank" rel="noopener">カナロコ 9/10</a></p>
 </article><article class="art" data-age="6">
   <figure class="photo"><img src="img/jogashima_lighthouse.jpg" alt="" loading="lazy" width="480" height="300"><figcaption>城ヶ島灯台</figcaption></figure>
@@ -119,6 +150,7 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
   <h3>城ヶ島の磯で小5男児が高波にさらわれ死亡</h3>
   <p class="fact"><b class="dl">【城ヶ島】</b>城ヶ島灯台の南約250mの岩場で磯遊び中の小学生4人が高波にさらわれ、小5男児（10）が行方不明に。翌10日朝、岩場西側の沖合で発見され死亡が確認された（報道時点で身元確認中）</p>
   <aside class="talk"><span class="tl">話のタネ</span>灯台の南側の磯です。波がある日は磯に降りないよう一言添えられます</aside>
+  
   <p class="src"><span class="cf">出典確認</span><a href="https://news.yahoo.co.jp/articles/45f0e2361e5c2ba05224cb75a4731e58704cc76b" target="_blank" rel="noopener">朝日新聞（Yahoo!ニュース）9/9</a>／<a href="https://news.livedoor.com/article/detail/32287612/" target="_blank" rel="noopener">ライブドアニュース（TBS）9/10</a></p>
 </article><article class="art" data-age="14">
   <figure class="photo"><img src="img/jogashima_harbor.jpg" alt="" loading="lazy" width="480" height="300"><figcaption>城ヶ島漁港</figcaption></figure>
@@ -126,6 +158,7 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
   <h3>渡船さんしろ 9月から火曜定休</h3>
   <p class="fact"><b class="dl">【城ヶ島】</b>城ヶ島渡船「さんしろ」（三崎⇔城ヶ島）は9月から毎週火曜（祝日除く）定休。三崎マリンセンターの運航状況欄に掲載（年の記載なし）</p>
   <aside class="talk"><span class="tl">話のタネ</span>火曜に島へ渡るならバスか車で。渡船はお休みです</aside>
+  
   <p class="src"><span class="cf">要確認</span><a href="https://misaki-marinecenter.subaru-kougyou.jp/" target="_blank" rel="noopener">三崎マリンセンター 運航状況 9/14時点</a></p>
 </article></div></div>
 <div class="month" data-month="2026-04"><h2 class="ym">2026年4月</h2><div class="cols"><article class="art" data-age="150">
@@ -134,6 +167,7 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
   <h3>城ヶ島に鮮魚直売「おさかな市場」開店</h3>
   <p class="fact"><b class="dl">【城ヶ島】</b>「城ヶ島おさかな市場」オープン（三崎観光＝京急グループ）。城ヶ島500-28、バス停「城ヶ島漁港前」徒歩1分。10:00〜18:00、火曜定休。城ヶ島・三崎で揚がった鮮魚と加工品、土産</p>
   <aside class="talk"><span class="tl">話のタネ</span>島に鮮魚の直売所ができました。火曜は休みなので注意</aside>
+  
   <p class="src"><span class="cf">出典確認</span><a href="https://www.keikyu.co.jp/company/news/2026/20260416HP_25007RK.html" target="_blank" rel="noopener">京急電鉄 ニュースリリース 4/16</a></p>
 </article></div></div>
 <div class="month" data-month="2026-02"><h2 class="ym">2026年2月</h2><div class="cols"><article class="art" data-age="200">
@@ -142,6 +176,7 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
   <h3>島に温泉旅館「ふふ 城ヶ島」開業</h3>
   <p class="fact"><b class="dl">【城ヶ島】</b>「ふふ 城ヶ島 海風のしらべ」2/27開業（城ヶ島693、34室）。全室オーシャンビュー・全室に油壺温泉、日本料理、ルーフトップバー、シーカヤック。2食付き2名1室 99,000円〜</p>
   <aside class="talk"><span class="tl">話のタネ</span>島に高級旅館ができました。日帰りは不可のはず、会員さんの反応が楽しみな話題</aside>
+  
   <p class="src"><span class="cf">出典確認</span><a href="https://www.fufujogashima.jp/" target="_blank" rel="noopener">ふふ 城ヶ島 公式</a>／<a href="https://hotelbank.jp/new-hotels/kanagawa-fufujogashima-2602open/" target="_blank" rel="noopener">HotelBank 3/13</a></p>
 </article></div></div>
 <p class="empty" id="none" hidden>この期間に新しい記事はありません。下の「これから」を話題にどうぞ。</p>
@@ -285,5 +320,11 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
   btns.forEach(function(b){b.addEventListener('click',function(){apply(+b.dataset.days);});});
   var init=93; try{init=+localStorage.getItem('miura-days')||93;}catch(e){}
   apply(init);
+  [].forEach.call(document.querySelectorAll('.want'),function(w){
+    var key='miura-want-'+w.dataset.id, b=w.querySelector('.want-btn'), to=w.querySelector('.want-to');
+    try{if(localStorage.getItem(key))w.classList.add('done');}catch(e){}
+    b.addEventListener('click',function(){var open=to.hidden;to.hidden=!open;b.setAttribute('aria-expanded',String(open));});
+    [].forEach.call(w.querySelectorAll('.want-link'),function(a){a.addEventListener('click',function(){w.classList.add('done');try{localStorage.setItem(key,'1');}catch(e){}});});
+  });
 })();
 </script>

@@ -1,0 +1,23 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//miura-board//JA
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:miura-board-2@vaseata.github.io
+DTSTAMP:20260914T233208Z
+DTSTART:20260919T020000Z
+DTEND:20260919T100000Z
+RRULE:FREQ=DAILY;COUNT=5
+SUMMARY:三浦海岸ビールまつり
+LOCATION:線路下スペイスUMICO（神奈川県三浦市南下浦町上
+ 宮田1497・京急三浦海岸駅前）
+DESCRIPTION:三浦海岸ビールまつり 9/19(土)〜23(水祝) 11:00〜1
+ 9:00（最終日17:00）。三浦海岸駅前の線路下スペース UMIC
+ O。クラフトビール日替わり10社、同時にトラック市\n※
+ 最終日9/23は17:00まで\n出典: https://yokosuka.goguynet.jp/2026/09/
+ 07/miurakaigan-beermatsuri2026-09/\n最近の三浦: https://vaseata.githu
+ b.io/miura-board/
+URL:https://vaseata.github.io/miura-board/
+END:VEVENT
+END:VCALENDAR
