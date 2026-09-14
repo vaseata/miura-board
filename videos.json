@@ -2,6 +2,28 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "inOG1C0J3zg",
+   "title": "土曜の夜、ふらっと横須賀三浦半島を目指す男と弾丸シビック｜47歳ドライブvlog",
+   "channel": "タケチヨ ソロ活ロード",
+   "published_text": "11 時間前",
+   "views": "9,329回視聴",
+   "length": "1:03:19",
+   "published": "2026-09-15",
+   "fetched": "2026-09-15",
+   "q": "城ヶ島"
+  },
+  {
+   "id": "k6PjC0LH3pE",
+   "title": "三崎口駅の今と昔【京急線・終点・油壺マリンパーク・みさきまぐろ・城ヶ島・国道１３４号線・三浦市・三浦海岸・横須賀・うらりマルシェ・街の移り変わり・懐かしい景色・遠い記憶・町の歴史・あの頃の思い出】",
+   "channel": "そう遠くない未来過去 / The not-too-distant past and future",
+   "published_text": "12 時間前",
+   "views": "8,826回視聴",
+   "length": "5:08",
+   "published": "2026-09-15",
+   "fetched": "2026-09-15",
+   "q": "油壺"
+  },
+  {
    "id": "MOkZUavnHM4",
    "title": "三浦海岸ライブカメラ 24時間 🌊 波音・海・睡眠 | Miura Beach Live Cam Japan",
    "channel": "湾岸Go (TOKYO BAY LIVE CAMERA)",
@@ -56,6 +78,39 @@
    "published": "2026-09-12",
    "fetched": "2026-09-12",
    "q": "小網代"
+  },
+  {
+   "id": "3EM4NqXq1XI",
+   "title": "【速報】海で小学生くらいの男児が見つかり死亡確認  行方不明の小5男児か  神奈川･三浦市",
+   "channel": "日テレNEWS",
+   "published_text": "4 日前",
+   "views": "139,561回視聴",
+   "length": "1:08",
+   "published": "2026-09-11",
+   "fetched": "2026-09-15",
+   "q": "城ヶ島"
+  },
+  {
+   "id": "l04rqnMdTCU",
+   "title": "【三崎港】ちょい投げキス狙い！のはずがまさかの生き物が！？",
+   "channel": "あさみーちゃんねる Asa×Mii Channel",
+   "published_text": "4 日前",
+   "views": "8,446回視聴",
+   "length": "12:11",
+   "published": "2026-09-11",
+   "fetched": "2026-09-15",
+   "q": "三崎港"
+  },
+  {
+   "id": "pbr3-ZoePv8",
+   "title": "行方不明の小学生発見　病院に搬送も死亡確認　神奈川・三浦市(2026年9月10日)",
+   "channel": "ANNnewsCH",
+   "published_text": "4 日前",
+   "views": "118,453回視聴",
+   "length": "1:10",
+   "published": "2026-09-11",
+   "fetched": "2026-09-15",
+   "q": "三浦市"
   },
   {
    "id": "8sOjuttS_lU",
@@ -166,61 +221,6 @@
    "published": "2026-08-22",
    "fetched": "2026-09-12",
    "q": "油壺"
-  },
-  {
-   "id": "6Vy69ruvvnA",
-   "title": "【Log049】神奈川・三崎港　みさきまぐろの旅",
-   "channel": "TRAVEL NOTE-トラベルノート-",
-   "published_text": "4 週間前",
-   "views": "292回視聴",
-   "length": "7:21",
-   "published": "2026-08-17",
-   "fetched": "2026-09-14",
-   "q": "三崎 マグロ"
-  },
-  {
-   "id": "SfCgpwhmIR4",
-   "title": "【三浦海岸駅前車中泊旅】三浦海岸駅前で車中泊できる？海岸まで歩いて5分の駅前車中泊！教えたくないほど美味しい居酒屋発見！リピ確定！美味しく楽しい三浦半島旅です。",
-   "channel": "abu_can",
-   "published_text": "4 週間前",
-   "views": "350回視聴",
-   "length": "40:54",
-   "published": "2026-08-17",
-   "fetched": "2026-09-14",
-   "q": "三浦海岸"
-  },
-  {
-   "id": "zQmg9KAT3OU",
-   "title": "小網代湾の中心で回ってみた！",
-   "channel": "佐藤デビット",
-   "published_text": "1 か月前",
-   "views": "66回視聴",
-   "length": "0:41",
-   "published": "2026-08-15",
-   "fetched": "2026-09-14",
-   "q": "小網代"
-  },
-  {
-   "id": "KRjG4x4t-qM",
-   "title": "【三崎港食べ歩き】マグロ・海鮮・カフェまで絶品グルメ7選",
-   "channel": "孤独の旅人【心の充電を満たす瞬間】",
-   "published_text": "1 か月前",
-   "views": "2,230回視聴",
-   "length": "13:48",
-   "published": "2026-08-13",
-   "fetched": "2026-09-12",
-   "q": "三崎港"
-  },
-  {
-   "id": "aOmVD7PWZQA",
-   "title": "【小網代の森】首都圏に残る奇跡の自然を歩く｜森から海へ、のんびり散策",
-   "channel": "とことこ山日和",
-   "published_text": "1 か月前",
-   "views": "198回視聴",
-   "length": "12:34",
-   "published": "2026-08-13",
-   "fetched": "2026-09-12",
-   "q": "小網代"
   }
  ]
 }
