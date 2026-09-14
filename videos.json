@@ -2,6 +2,29 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "MOkZUavnHM4",
+   "title": "三浦海岸ライブカメラ 24時間 🌊 波音・海・睡眠 | Miura Beach Live Cam Japan",
+   "channel": "湾岸Go (TOKYO BAY LIVE CAMERA)",
+   "published_text": "",
+   "views": "",
+   "length": "",
+   "live": true,
+   "published": "2026-09-14",
+   "fetched": "2026-09-14",
+   "q": "三浦海岸"
+  },
+  {
+   "id": "0Teo1QGoTiw",
+   "title": "【神奈川県某所】今季は絶好調！？夏の東京湾で2年ぶりの怪物魚が！夏の終わりの時期に、関東地方の三浦半島の東京湾側に面している釣り場で、とある人気ターゲット狙いで釣りしてみたら…！【2026年9月上旬】",
+   "channel": "ちゃんねるよしゅあ",
+   "published_text": "1 日前",
+   "views": "36,159回視聴",
+   "length": "22:25",
+   "published": "2026-09-13",
+   "fetched": "2026-09-14",
+   "q": "三浦海岸"
+  },
+  {
    "id": "58k-G71oqaY",
    "title": "海で流され小学5年生男児行方不明 同級生3人と岩場で遊び高波にさらわれたか ライフジャケット着用せず 神奈川・三浦市（2026年09月09日）",
    "channel": "FNNプライムオンライン",
@@ -11,18 +34,6 @@
    "published": "2026-09-12",
    "fetched": "2026-09-12",
    "manual": true
-  },
-  {
-   "id": "49NubJ78KWU",
-   "title": "【LIVE】三浦海岸ライブカメラ(Live Camera in Miura Beach)",
-   "channel": "WITH SEA",
-   "published_text": "",
-   "views": "",
-   "length": "",
-   "live": true,
-   "published": "2026-09-12",
-   "fetched": "2026-09-12",
-   "q": "三浦海岸"
   },
   {
    "id": "-GR4ixt15FM",
@@ -91,6 +102,17 @@
    "q": "城ヶ島"
   },
   {
+   "id": "rDaPqp9RlxE",
+   "title": "【三浦海岸・津久井浜】三浦沖の青物調査。厳しい午後に45cmイナダがヒット！#カヤックフィッシング #2馬力ボート #kayakfishing #サップフィッシング",
+   "channel": "三浦で釣りタイ",
+   "published_text": "12 日前",
+   "views": "6,003回視聴",
+   "length": "14:58",
+   "published": "2026-09-02",
+   "fetched": "2026-09-14",
+   "q": "三浦海岸"
+  },
+  {
    "id": "82uzirc5S6w",
    "title": "【続報】下宮田跡地農地返還問題【三浦市】#三浦市 #出口嘉一 #れいわ三浦の会",
    "channel": "れいわ三浦の会",
@@ -146,6 +168,28 @@
    "q": "油壺"
   },
   {
+   "id": "6Vy69ruvvnA",
+   "title": "【Log049】神奈川・三崎港　みさきまぐろの旅",
+   "channel": "TRAVEL NOTE-トラベルノート-",
+   "published_text": "4 週間前",
+   "views": "292回視聴",
+   "length": "7:21",
+   "published": "2026-08-17",
+   "fetched": "2026-09-14",
+   "q": "三崎 マグロ"
+  },
+  {
+   "id": "SfCgpwhmIR4",
+   "title": "【三浦海岸駅前車中泊旅】三浦海岸駅前で車中泊できる？海岸まで歩いて5分の駅前車中泊！教えたくないほど美味しい居酒屋発見！リピ確定！美味しく楽しい三浦半島旅です。",
+   "channel": "abu_can",
+   "published_text": "4 週間前",
+   "views": "350回視聴",
+   "length": "40:54",
+   "published": "2026-08-17",
+   "fetched": "2026-09-14",
+   "q": "三浦海岸"
+  },
+  {
    "id": "KRjG4x4t-qM",
    "title": "【三崎港食べ歩き】マグロ・海鮮・カフェまで絶品グルメ7選",
    "channel": "孤独の旅人【心の充電を満たす瞬間】",
@@ -177,50 +221,6 @@
    "published": "2026-08-13",
    "fetched": "2026-09-12",
    "q": "三浦市"
-  },
-  {
-   "id": "zQmg9KAT3OU",
-   "title": "小網代湾の中心で回ってみた！",
-   "channel": "佐藤デビット",
-   "published_text": "1 か月前",
-   "views": "64回視聴",
-   "length": "0:41",
-   "published": "2026-08-13",
-   "fetched": "2026-09-12",
-   "q": "小網代"
-  },
-  {
-   "id": "3jKrUcgRHFU",
-   "title": "【速報】神奈川・三浦市沖で炎上の釣り船が沈没　全員避難してけが人なし(2026年7月19日)",
-   "channel": "ANNnewsCH",
-   "published_text": "1 か月前",
-   "views": "8,557回視聴",
-   "length": "1:02",
-   "published": "2026-08-13",
-   "fetched": "2026-09-12",
-   "q": "三浦市"
-  },
-  {
-   "id": "DXZZUH2P99w",
-   "title": "猫のひたいほどワイド #1766 潜入リポート・朝田淳弥「猫ひた夏の風物詩！？三浦だよ！全員集合！！」（三浦市）",
-   "channel": "テレビ神奈川 tvk3ch",
-   "published_text": "1 か月前",
-   "views": "668回視聴",
-   "length": "8:07",
-   "published": "2026-08-13",
-   "fetched": "2026-09-12",
-   "q": "三浦市"
-  },
-  {
-   "id": "R7WMtOkdnNE",
-   "title": "【三崎港】釣れた魚で泳がせ釣り、高級食材が！サバ、アジは夜まで釣れっぱなし！",
-   "channel": "やし50",
-   "published_text": "2 か月前",
-   "views": "9,312回視聴",
-   "length": "9:47",
-   "published": "2026-07-14",
-   "fetched": "2026-09-12",
-   "q": "三崎港"
   }
  ]
 }

@@ -56,6 +56,13 @@
       "license": "公式サイトの画像",
       "source": "https://www.fufujogashima.jp/",
       "caption": "ふふ 城ヶ島（公式サイト）"
+    },
+    "ogawa_peanut_2026": {
+      "file": "img/ogawa_peanut_2026.jpg",
+      "credit": "カナロコ（og:image）",
+      "license": "出典記事の画像",
+      "source": "https://www.kanaloco.jp/news/culture/bunka/article-1303097.html",
+      "caption": "小川農園の落花生おおまさり（カナロコ）"
     }
   }
 }

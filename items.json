@@ -102,6 +102,60 @@
       ],
       "image": "fufu_2026",
       "headline": "島に温泉旅館「ふふ 城ヶ島」開業"
+    },
+    {
+      "id": 6,
+      "date": "2026-09-27",
+      "area": "三浦海岸",
+      "category": "イベント",
+      "fact": "「三浦海岸inオータムフェス」9/27(日)、三浦海岸（京急三浦海岸駅徒歩5分）。主催 三浦青年会議所。同時開催の地引網大会（10:01〜）は定員に達し受付終了",
+      "talk": "月末の日曜なら三浦海岸がにぎやかです。毎年1万人以上来るそうです",
+      "confidence": "🟢",
+      "image": "miura_beach",
+      "headline": "9/27 三浦海岸inオータムフェス",
+      "sources": [
+        {
+          "url": "https://miura-info.ne.jp/20260927zibikiamitaikai/",
+          "title": "みうら観光ガイド 8/11",
+          "opened": "2026-09-14"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "date": "2026-09-01",
+      "area": "城ヶ島",
+      "category": "交通",
+      "fact": "城ヶ島渡船「さんしろ」（三崎⇔城ヶ島）は9月から毎週火曜（祝日除く）定休。三崎マリンセンターの運航状況欄に掲載（年の記載なし）",
+      "talk": "火曜に島へ渡るならバスか車で。渡船はお休みです",
+      "confidence": "🟡",
+      "image": "jogashima_harbor",
+      "headline": "渡船さんしろ 9月から火曜定休",
+      "sources": [
+        {
+          "url": "https://misaki-marinecenter.subaru-kougyou.jp/",
+          "title": "三崎マリンセンター 運航状況 9/14時点",
+          "opened": "2026-09-14"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "date": "2026-09-10",
+      "area": "三浦市",
+      "category": "季節",
+      "fact": "三浦市六合の「産地直売小川農園」で大粒の落花生「おおまさり」が8月中旬から収穫中。250g 500円（カナロコ 9/10）",
+      "talk": "三浦は大根だけじゃなく落花生も。おおまさりは茹でて食べる大粒です",
+      "confidence": "🟢",
+      "image": "ogawa_peanut_2026",
+      "headline": "六合・小川農園の落花生おおまさり",
+      "sources": [
+        {
+          "url": "https://www.kanaloco.jp/news/culture/bunka/article-1303097.html",
+          "title": "カナロコ 9/10",
+          "opened": "2026-09-14"
+        }
+      ]
     }
   ]
 }
