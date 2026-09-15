@@ -13,7 +13,11 @@
         "title": "富士山とともに 城ヶ島大橋",
         "opened": "2026-09-12"
       },
-      "image": "jogashima_bridge_sunset"
+      "image": "jogashima_bridge_sunset",
+      "tags": [
+        "景色",
+        "富士"
+      ]
     },
     {
       "month_day": "08-11",
@@ -27,7 +31,11 @@
         "title": "富士山とともに 城ヶ島大橋",
         "opened": "2026-09-12"
       },
-      "image": "jogashima_bridge_sunset"
+      "image": "jogashima_bridge_sunset",
+      "tags": [
+        "景色",
+        "富士"
+      ]
     },
     {
       "month_day": "10-03",
@@ -41,7 +49,13 @@
         "title": "みうら観光ガイド イベントカレンダー",
         "opened": "2026-09-12"
       },
-      "image": "misaki_shitamachi"
+      "image": "misaki_shitamachi",
+      "tags": [
+        "祭り",
+        "食",
+        "下町",
+        "夜"
+      ]
     },
     {
       "month_day": "10-15",
@@ -54,7 +68,12 @@
         "url": "https://miura-info.ne.jp/find/イベントカレンダー/",
         "title": "みうら観光ガイド イベントカレンダー",
         "opened": "2026-09-12"
-      }
+      },
+      "tags": [
+        "食",
+        "農",
+        "体験"
+      ]
     },
     {
       "month_day": "11-01",
@@ -68,20 +87,31 @@
         "title": "みうら観光ガイド イベントカレンダー",
         "opened": "2026-09-12"
       },
-      "image": "misaki_harbor"
+      "image": "misaki_harbor",
+      "tags": [
+        "祭り",
+        "食",
+        "マグロ",
+        "花火"
+      ]
     },
     {
-      "month_day": "11-05",
-      "approx": true,
+      "month_day": "11-06",
+      "approx": false,
       "category": "イベント",
-      "fact": "面神楽（海南神社 神楽殿）11月上旬",
-      "talk": "三崎の古い神楽。夜に見られます",
-      "confidence": "🟡",
+      "fact": "面神楽奉納舞（海南神社 神楽殿）11/6・7。日本神話を題材にした仮面黙劇。「恵比寿の舞」は海の守護神が大鯛を釣り上げる演目",
+      "talk": "三崎の古い神楽。夜、神楽殿で見られます",
+      "confidence": "🟢",
       "source": {
-        "url": "https://miura-info.ne.jp/find/イベントカレンダー/",
-        "title": "みうら観光ガイド イベントカレンダー",
-        "opened": "2026-09-12"
-      }
+        "url": "http://kainanjinja.jp/event/index.html",
+        "title": "海南神社 年間行事",
+        "opened": "2026-09-15"
+      },
+      "tags": [
+        "伝統",
+        "神事",
+        "夜"
+      ]
     },
     {
       "month_day": "12-29",
@@ -95,7 +125,53 @@
         "title": "みうら観光ガイド イベントカレンダー",
         "opened": "2026-09-12"
       },
-      "image": "misaki_harbor"
+      "image": "misaki_harbor",
+      "tags": [
+        "食",
+        "朝市"
+      ]
+    },
+    {
+      "month_day": "07-18",
+      "approx": true,
+      "category": "イベント",
+      "tags": [
+        "神輿",
+        "祭り",
+        "伝統",
+        "木遣り",
+        "下町"
+      ],
+      "image": "misaki_shitamachi",
+      "fact": "海南神社 夏例大祭（海の日前の土日・2日間）。江戸時代から続く祭りで、行道獅子を先頭に神輿と山車が下町一帯を巡行。木遣り師の木遣り唄つき（市指定重要無形民俗文化財）",
+      "talk": "三崎の神輿と木遣りの本場はこの祭り。10月のパレードはここから生まれた行事です",
+      "confidence": "🟢",
+      "source": {
+        "url": "http://kainanjinja.jp/event/index.html",
+        "title": "海南神社 年間行事",
+        "opened": "2026-09-15"
+      }
+    },
+    {
+      "month_day": "05-30",
+      "approx": true,
+      "category": "イベント",
+      "tags": [
+        "ラン",
+        "スポーツ",
+        "海",
+        "三浦海岸",
+        "三浦半島"
+      ],
+      "image": "miura_beach",
+      "fact": "横須賀・三浦みちくさマラソン（例年5月末）。三浦海岸発着で三浦半島をまるごと走る 約72km／63km／42km、各300名、エイド15箇所で横須賀・三浦の特産品。2026年は5/30、エントリーは1/8〜3/20だった",
+      "talk": "三浦国際市民マラソンの「次」に語られる大会。ハーフの先にこれがあります",
+      "confidence": "🟡",
+      "source": {
+        "url": "https://www.sportsentry.ne.jp/event/t/103453",
+        "title": "スポーツエントリー 第10回横須賀・三浦みちくさマラソン",
+        "opened": "2026-09-15"
+      }
     }
   ]
 }

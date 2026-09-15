@@ -1,0 +1,23 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//miura-board//JA
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:miura-board-11@vaseata.github.io
+DTSTAMP:20260915T012509Z
+DTSTART:20261025T014500Z
+DTEND:20261025T053000Z
+SUMMARY:第47回 よこすかみこしパレード
+LOCATION:横須賀中央大通り・横須賀フェリーターミナル駐
+ 車場（京急横須賀中央駅 徒歩1分）
+DESCRIPTION:第47回よこすかみこしパレード 10/25(日) 10:45〜14
+ :30（予定）。横須賀中央大通りと横須賀フェリーター
+ ミナル駐車場に市内各所から約50基のみこし・山車が集
+ 結。主催 横須賀市観光協会、共催 横須賀市。会場に駐
+ 車場なし\n※時間は予定。雨天時の扱いは公式ページに
+ 明記なし\n出典: https://yokosuka-kanko.com/events/47th_mikoshi/\n最
+ 近の三浦: https://vaseata.github.io/miura-board/
+URL:https://vaseata.github.io/miura-board/
+END:VEVENT
+END:VCALENDAR

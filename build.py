@@ -185,7 +185,7 @@ def article(x):
     head = x.get("headline") or x["fact"][:22]
     going = x.get("going")
     ran_tail = f'<span class="box going-box">参加予定</span><span class="count">{countdown(x)}</span>' if going else f'<span class="ago">{days_ago(dt)}</span>'
-    return f'''<article class="art{" going" if going else ""}" data-age="{age}">
+    return f'''<article class="art{" going" if going else ""}" data-age="{age}" data-cat="{esc(x["category"])}" data-tags="{esc(",".join(x.get("tags", [])))}">
   {img_html(x.get("image"))}
   <div class="ran"><span class="box">{esc(x["category"])}</span><span class="dt">{jdate(dt)}{end}　</span>{ran_tail}</div>
   <h3>{esc(head)}</h3>
@@ -198,7 +198,7 @@ def article(x):
 </article>'''
 
 def up_article(dt, e):
-    return f'''<article class="art small">
+    return f'''<article class="art small up" data-cat="{esc(e["category"])}" data-tags="{esc(",".join(e.get("tags", [])))}">
   {img_html(e.get("image"))}
   <div class="ran"><span class="box">{esc(e["category"])}</span><span class="dt">{jdate(dt, e.get("approx"))}　<span class="ago">{(dt-TODAY).days}日後</span></span></div>
   <p class="fact">{esc(e["fact"])}</p>
@@ -286,6 +286,10 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
 .src .cf{letter-spacing:.25em;margin-right:10px;color:var(--ink2)}
 .src a{text-decoration:none;border-bottom:1px solid var(--hair);margin-right:10px}
 /* 行ってみたい */
+.toggle .tag-reco{border:1px dashed var(--rule);padding:3px 10px;opacity:1;letter-spacing:.15em}
+.toggle .tag-reco .n{font-weight:700;margin-left:2px}
+.toggle .tag-reco[aria-pressed="true"]{background:var(--ink);color:var(--cream);border-style:solid}
+.box.reco-tag{border-style:dashed}
 .toggle .tag-want{margin-left:auto;border:1px solid var(--rule);padding:3px 10px;opacity:1;letter-spacing:.15em}
 .toggle .tag-want .n{font-weight:700;margin-left:2px}
 .toggle .tag-want[aria-pressed="true"]{background:var(--ink);color:var(--cream)}
@@ -348,7 +352,7 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
   <p class="mh-lead">城ヶ島、三崎、三浦海岸——<br>この町で起きたこと、はじまったこと、季節のこと。</p>
   <div class="areas">城ヶ島 · 三崎 · 三浦海岸 · 油壺 · 小網代</div>
 </header>
-<nav class="toggle" role="group" aria-label="前回来てから"><span class="q">前回のご来訪は</span><button data-days="31">一ヶ月前</button><button data-days="93">三ヶ月前</button><button data-days="184">半年前</button><button data-days="366">一年前</button><button class="tag-want" data-tag="want" aria-pressed="false" hidden>行ってみたい <b class="n">0</b></button></nav>
+<nav class="toggle" role="group" aria-label="前回来てから"><span class="q">前回のご来訪は</span><button data-days="31">一ヶ月前</button><button data-days="93">三ヶ月前</button><button data-days="184">半年前</button><button data-days="366">一年前</button><button class="tag-want" data-tag="want" aria-pressed="false" hidden>行ってみたい <b class="n">0</b></button><button class="tag-reco" data-tag="reco" aria-pressed="false" hidden>おすすめ <b class="n">0</b></button></nav>
 <div id="dated">
 $groups
 <p class="empty" id="none" hidden>この期間に新しい記事はありません。下の「これから」を話題にどうぞ。</p>
@@ -367,34 +371,49 @@ $groups
 <script>
 (function(){
   var btns=[].slice.call(document.querySelectorAll('.toggle button[data-days]'));
-  var tagBtn=document.querySelector('.tag-want');
+  var tagBtn=document.querySelector('.tag-want'), recoBtn=document.querySelector('.tag-reco');
   var arts=[].slice.call(document.querySelectorAll('#dated .art'));
+  var ups=[].slice.call(document.querySelectorAll('.art.up'));
   var months=[].slice.call(document.querySelectorAll('#dated .month'));
   var none=document.getElementById('none');
-  var days=93, tag=false;
+  var days=93, mode='days';
   function get(k){try{return localStorage.getItem(k);}catch(e){return null;}}
   function set(k,v){try{if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v);}catch(e){}}
   function isWant(el){var w=el.querySelector('.want');return !!(w&&w.classList.contains('done'));}
+  function tagsOf(el){return (el.dataset.tags||'').split(',').filter(Boolean);}
+  function badge(el,cls,text,on){var ran=el.querySelector('.ran');if(!ran)return;var t=ran.querySelector('.'+cls);
+    if(on&&!t){t=document.createElement('span');t.className='box '+cls;t.textContent=text;ran.insertBefore(t,ran.children[1]||null);}else if(!on&&t){t.remove();}}
   function render(){
-    btns.forEach(function(b){b.setAttribute('aria-pressed',String(!tag&&+b.dataset.days===days));});
-    var shown=0, first=null, n=0;
+    var wantTags={}, n=0;
+    arts.forEach(function(el){if(isWant(el)){n++;tagsOf(el).forEach(function(t){wantTags[t]=1;});}});
+    function isReco(el){
+      if(isWant(el))return false;
+      var cat=el.dataset.cat; if(cat!=='イベント'&&cat!=='季節')return false;
+      if(el.dataset.age!==undefined&&+el.dataset.age>0)return false;
+      return tagsOf(el).some(function(t){return wantTags[t];});
+    }
+    if(n===0&&mode!=='days'){mode='days';set('miura-mode',null);}
+    btns.forEach(function(b){b.setAttribute('aria-pressed',String(mode==='days'&&+b.dataset.days===days));});
+    var shown=0, first=null, r=0;
     arts.forEach(function(el){
-      var w=isWant(el); if(w)n++;
-      var ok=tag?w:(+el.dataset.age<=days);
+      var w=isWant(el), rc=isReco(el); if(rc)r++;
+      var ok=mode==='want'?w:mode==='reco'?rc:(+el.dataset.age<=days);
       el.hidden=!ok; el.classList.remove('lead'); if(ok){shown++;if(!first)first=el;}
-      var ran=el.querySelector('.ran'), t=ran&&ran.querySelector('.want-tag');
-      if(ran){ if(w&&!t){t=document.createElement('span');t.className='box want-tag';t.textContent='行ってみたい';ran.insertBefore(t,ran.children[1]||null);} else if(!w&&t){t.remove();} }
+      badge(el,'want-tag','行ってみたい',w); badge(el,'reco-tag','おすすめ',n>0&&rc);
     });
+    ups.forEach(function(el){var rc=isReco(el); if(rc)r++; el.hidden=(mode==='reco')?!rc:false; badge(el,'reco-tag','おすすめ',n>0&&rc);});
     if(first)first.classList.add('lead');
     months.forEach(function(m){m.hidden=![].some.call(m.querySelectorAll('.art'),function(el){return !el.hidden;});});
     none.hidden=shown>0;
-    if(tagBtn){tagBtn.hidden=(n===0&&!tag);tagBtn.querySelector('.n').textContent=n;tagBtn.setAttribute('aria-pressed',String(tag));}
-    if(tag&&n===0){tag=false;set('miura-tag',null);return render();}
-    none.textContent=tag?'「行ってみたい」を押した記事はまだありません。':'この期間に新しい記事はありません。下の「これから」を話題にどうぞ。';
+    none.textContent=mode==='want'?'「行ってみたい」を押した記事はまだありません。':mode==='reco'?'この欄には似た行事がありません。下の「これから」を見てください。':'この期間に新しい記事はありません。下の「これから」を話題にどうぞ。';
+    if(tagBtn){tagBtn.hidden=(n===0);tagBtn.querySelector('.n').textContent=n;tagBtn.setAttribute('aria-pressed',String(mode==='want'));}
+    if(recoBtn){recoBtn.hidden=(n===0||r===0);recoBtn.querySelector('.n').textContent=r;recoBtn.setAttribute('aria-pressed',String(mode==='reco'));}
   }
-  btns.forEach(function(b){b.addEventListener('click',function(){days=+b.dataset.days;tag=false;set('miura-days',days);set('miura-tag',null);render();});});
-  if(tagBtn)tagBtn.addEventListener('click',function(){tag=!tag;set('miura-tag',tag?'1':null);render();});
-  days=+get('miura-days')||93; tag=get('miura-tag')==='1';
+  function setMode(m){mode=m;set('miura-mode',m==='days'?null:m);render();}
+  btns.forEach(function(b){b.addEventListener('click',function(){days=+b.dataset.days;set('miura-days',days);setMode('days');});});
+  if(tagBtn)tagBtn.addEventListener('click',function(){setMode(mode==='want'?'days':'want');});
+  if(recoBtn)recoBtn.addEventListener('click',function(){setMode(mode==='reco'?'days':'reco');});
+  days=+get('miura-days')||93; mode=get('miura-mode')||'days';
   [].forEach.call(document.querySelectorAll('.want'),function(w){
     var key='miura-want-'+w.dataset.id, b=w.querySelector('.want-btn'), to=w.querySelector('.want-to'), off=w.querySelector('.want-off');
     function mark(on){w.classList.toggle('done',on);set(key,on?'1':null);if(off)off.hidden=!on;render();}

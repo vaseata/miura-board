@@ -57,6 +57,10 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
 .src .cf{letter-spacing:.25em;margin-right:10px;color:var(--ink2)}
 .src a{text-decoration:none;border-bottom:1px solid var(--hair);margin-right:10px}
 /* 行ってみたい */
+.toggle .tag-reco{border:1px dashed var(--rule);padding:3px 10px;opacity:1;letter-spacing:.15em}
+.toggle .tag-reco .n{font-weight:700;margin-left:2px}
+.toggle .tag-reco[aria-pressed="true"]{background:var(--ink);color:var(--cream);border-style:solid}
+.box.reco-tag{border-style:dashed}
 .toggle .tag-want{margin-left:auto;border:1px solid var(--rule);padding:3px 10px;opacity:1;letter-spacing:.15em}
 .toggle .tag-want .n{font-weight:700;margin-left:2px}
 .toggle .tag-want[aria-pressed="true"]{background:var(--ink);color:var(--cream)}
@@ -121,9 +125,9 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
   <p class="mh-lead">城ヶ島、三崎、三浦海岸——<br>この町で起きたこと、はじまったこと、季節のこと。</p>
   <div class="areas">城ヶ島 · 三崎 · 三浦海岸 · 油壺 · 小網代</div>
 </header>
-<nav class="toggle" role="group" aria-label="前回来てから"><span class="q">前回のご来訪は</span><button data-days="31">一ヶ月前</button><button data-days="93">三ヶ月前</button><button data-days="184">半年前</button><button data-days="366">一年前</button><button class="tag-want" data-tag="want" aria-pressed="false" hidden>行ってみたい <b class="n">0</b></button></nav>
+<nav class="toggle" role="group" aria-label="前回来てから"><span class="q">前回のご来訪は</span><button data-days="31">一ヶ月前</button><button data-days="93">三ヶ月前</button><button data-days="184">半年前</button><button data-days="366">一年前</button><button class="tag-want" data-tag="want" aria-pressed="false" hidden>行ってみたい <b class="n">0</b></button><button class="tag-reco" data-tag="reco" aria-pressed="false" hidden>おすすめ <b class="n">0</b></button></nav>
 <div id="dated">
-<div class="month" data-month="2026-09"><h2 class="ym">2026年9月</h2><div class="cols"><article class="art" data-age="-4">
+<div class="month" data-month="2026-09"><h2 class="ym">2026年9月</h2><div class="cols"><article class="art" data-age="-4" data-cat="イベント" data-tags="食,ビール,三浦海岸,駅前">
   <figure class="photo"><img src="img/beer_2026.jpg" alt="" loading="lazy" width="480" height="300"><figcaption>三浦海岸ビールまつり（号外NET）</figcaption></figure>
   <div class="ran"><span class="box">イベント</span><span class="dt">9/19(土)〜9/23(水)　</span><span class="ago">4日後</span></div>
   <h3>三浦海岸駅前でビールまつり 9/19〜23</h3>
@@ -141,7 +145,7 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
   </div>
   
   <p class="src"><span class="cf">出典確認</span><a href="https://yokosuka.goguynet.jp/2026/09/07/miurakaigan-beermatsuri2026-09/" target="_blank" rel="noopener">号外NET 横須賀・三浦 9/7</a></p>
-</article><article class="art" data-age="-12">
+</article><article class="art" data-age="-12" data-cat="イベント" data-tags="祭り,海,三浦海岸,食">
   <figure class="photo"><img src="img/miura_beach.jpg" alt="" loading="lazy" width="480" height="300"><figcaption>三浦海岸</figcaption></figure>
   <div class="ran"><span class="box">イベント</span><span class="dt">9/27(日)　</span><span class="ago">12日後</span></div>
   <h3>9/27 三浦海岸inオータムフェス</h3>
@@ -160,7 +164,7 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
   
   <p class="src"><span class="cf">出典確認</span><a href="https://miura-info.ne.jp/20260927zibikiamitaikai/" target="_blank" rel="noopener">みうら観光ガイド 8/11</a></p>
 </article></div></div>
-<div class="month" data-month="2026-10"><h2 class="ym">2026年10月</h2><div class="cols"><article class="art" data-age="-18">
+<div class="month" data-month="2026-10"><h2 class="ym">2026年10月</h2><div class="cols"><article class="art" data-age="-18" data-cat="イベント" data-tags="祭り,食,下町,夜">
   <figure class="photo"><img src="img/misaki_shitamachi.jpg" alt="" loading="lazy" width="480" height="300"><figcaption>三崎下町商店街</figcaption></figure>
   <div class="ran"><span class="box">イベント</span><span class="dt">10/3(土)〜10/4(日)　</span><span class="ago">18日後</span></div>
   <h3>みうら夜市 10/3・4、下町が灯ろうで灯る</h3>
@@ -178,7 +182,7 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
   </div>
   
   <p class="src"><span class="cf">出典確認</span><a href="https://miura-info.ne.jp/18miurayoichi/" target="_blank" rel="noopener">みうら観光ガイド（三浦市観光協会）7/30</a></p>
-</article><article class="art going" data-age="-33">
+</article><article class="art going" data-age="-33" data-cat="イベント" data-tags="神輿,祭り,伝統,下町">
   <figure class="photo"><img src="img/misaki_shitamachi.jpg" alt="" loading="lazy" width="480" height="300"><figcaption>三崎下町商店街</figcaption></figure>
   <div class="ran"><span class="box">イベント</span><span class="dt">10/18(日)　</span><span class="box going-box">参加予定</span><span class="count">あと33日</span></div>
   <h3>10/18 第5回 三崎木遣みこしパレード</h3>
@@ -196,8 +200,26 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
   </div>
   <section class="prep"><h4>下調べ<small>2026-09-15 時点</small></h4><dl><dt>どんな行事か</dt><dd>2019年に始まった新しい行事。コロナ禍の中断をはさみ、今年で5回目。三崎下町を中心とした各団体の神輿が港周辺を練る<span class="src"><span class="cf">出典確認</span><a href="https://miurahantou.jp/misaki-mikoshi-parade/" target="_blank" rel="noopener">三浦半島観光情報 8/25更新</a></span></dd><dt>去年（第4回・2025/10/12）</dt><dd>8基の神輿・総勢約500人が、商店街を約1km練り歩いた。前回から「商店街内で完結するルート」に変更（商店の活性化が目的）。うらり正面口前に屋台、時間帯により全面通行止め<span class="src"><span class="cf">出典確認</span><a href="https://www.kanaloco.jp/news/life/article-1214964.html" target="_blank" rel="noopener">カナロコ 2025/10/12</a>／<a href="https://www.townnews.co.jp/0501/2025/10/10/805866.html" target="_blank" rel="noopener">タウンニュース 2025/10/10</a></span></dd><dt>見せ場</dt><dd>神輿を高く差し上げる「さし」と、担ぐときに歌う木遣り唄。披露は三崎公園とうらり前。今年の市の案内では「うらり前（パフォーマンス）」<span class="src"><span class="cf">出典確認</span><a href="https://miurahantou.jp/misaki-mikoshi-parade/" target="_blank" rel="noopener">三浦半島観光情報 8/25更新</a>／<a href="https://www.city.miura.kanagawa.jp/soshiki/kankoshokoka/kankoshokoka_kanko/chiikikankougyouji/11735.html" target="_blank" rel="noopener">三浦市 観光商工課 8/25更新</a></span></dd><dt>木遣りとは</dt><dd>海南神社夏例大祭（三浦市指定重要無形民俗文化財・2017年指定）で木遣り師が神輿渡御の際に歌う唄。三崎の神輿の特徴<span class="src"><span class="cf">出典確認</span><a href="https://www.city.miura.kanagawa.jp/soshiki/bunkasportska/bunkasportska_bunka/shiteibunkazai_soshiki/1337.html" target="_blank" rel="noopener">三浦市 文化財（海南神社夏例大祭）</a></span></dd><dt>参加団体（2023年実績）</dt><dd>東岡区子どもみこし／日の出青年会／入舩青年会／仲崎昭和会／本宮会（花暮区）／西海上宮下会／住吉会（宮城区）／向ケ崎諏訪神社青年会<span class="src"><span class="cf">要確認</span><a href="https://miurahantou.jp/misaki-mikoshi-parade/" target="_blank" rel="noopener">三浦半島観光情報 8/25更新</a></span></dd><dt>去年との違い</dt><dd>開始が1時間遅く、30分短い（去年 13:00〜16:30 → 今年 14:00〜16:00）。フィニッシュは三崎公園からうらり横へ<span class="src"><span class="cf">出典確認</span><a href="https://www.city.miura.kanagawa.jp/soshiki/kankoshokoka/kankoshokoka_kanko/chiikikankougyouji/11735.html" target="_blank" rel="noopener">三浦市 観光商工課 8/25更新</a>／<a href="https://www.townnews.co.jp/0501/2025/10/10/805866.html" target="_blank" rel="noopener">タウンニュース 2025/10/10</a></span></dd><dt>行き方</dt><dd>京急三崎口駅 2番バス乗り場から「三崎港行」「城ヶ島行」「通り矢行」いずれかで「三崎港」下車。車は三崎縦貫道路 高円坊出口→134号。駐車場に限りあり、公共交通推奨<span class="src"><span class="cf">出典確認</span><a href="https://www.city.miura.kanagawa.jp/soshiki/kankoshokoka/kankoshokoka_kanko/chiikikankougyouji/11735.html" target="_blank" rel="noopener">三浦市 観光商工課 8/25更新</a></span></dd></dl><p class="oq"><span class="tl">まだ分からないこと</span>今年の参加基数と団体／屋台が出るか（去年はうらり正面口前）／交通規制の時間帯（去年は時間帯により全面通行止め）／同日に重なる行事（三崎港町まつりは例年10月下旬〜11月上旬の日曜）／当日の天気（1週間前から）</p></section>
   <p class="src"><span class="cf">出典確認</span><a href="https://www.city.miura.kanagawa.jp/soshiki/kankoshokoka/kankoshokoka_kanko/chiikikankougyouji/11735.html" target="_blank" rel="noopener">三浦市 観光商工課 8/25更新</a></p>
+</article><article class="art" data-age="-40" data-cat="イベント" data-tags="神輿,祭り,伝統">
+  
+  <div class="ran"><span class="box">イベント</span><span class="dt">10/25(日)　</span><span class="ago">40日後</span></div>
+  <h3>10/25 よこすかみこしパレード、約50基</h3>
+  <p class="fact"><b class="dl">【横須賀】</b>第47回よこすかみこしパレード 10/25(日) 10:45〜14:30（予定）。横須賀中央大通りと横須賀フェリーターミナル駐車場に市内各所から約50基のみこし・山車が集結。主催 横須賀市観光協会、共催 横須賀市。会場に駐車場なし</p>
+  <aside class="talk"><span class="tl">話のタネ</span>三崎のパレードの1週間後。規模は横須賀の方が大きく50基。京急横須賀中央駅から徒歩1分</aside>
+  
+  <div class="want" data-id="11">
+    <button type="button" class="want-btn" aria-expanded="false">行ってみたい</button>
+    <div class="want-to" hidden>
+      <p class="want-what">第47回 よこすかみこしパレード<br>10/25(日) 10:45〜14:30<br>横須賀中央大通り・横須賀フェリーターミナル駐車場（京急横須賀中央駅 徒歩1分）</p>
+      <a class="want-link" href="ics/11.ics">iPhone のカレンダーに追加</a><a class="want-link" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=%E7%AC%AC47%E5%9B%9E%20%E3%82%88%E3%81%93%E3%81%99%E3%81%8B%E3%81%BF%E3%81%93%E3%81%97%E3%83%91%E3%83%AC%E3%83%BC%E3%83%89&amp;dates=20261025T104500/20261025T143000&amp;ctz=Asia/Tokyo&amp;location=%E6%A8%AA%E9%A0%88%E8%B3%80%E4%B8%AD%E5%A4%AE%E5%A4%A7%E9%80%9A%E3%82%8A%E3%83%BB%E6%A8%AA%E9%A0%88%E8%B3%80%E3%83%95%E3%82%A7%E3%83%AA%E3%83%BC%E3%82%BF%E3%83%BC%E3%83%9F%E3%83%8A%E3%83%AB%E9%A7%90%E8%BB%8A%E5%A0%B4%EF%BC%88%E4%BA%AC%E6%80%A5%E6%A8%AA%E9%A0%88%E8%B3%80%E4%B8%AD%E5%A4%AE%E9%A7%85%20%E5%BE%92%E6%AD%A91%E5%88%86%EF%BC%89&amp;details=%E7%AC%AC47%E5%9B%9E%E3%82%88%E3%81%93%E3%81%99%E3%81%8B%E3%81%BF%E3%81%93%E3%81%97%E3%83%91%E3%83%AC%E3%83%BC%E3%83%89%2010/25%28%E6%97%A5%29%2010:45%E3%80%9C14:30%EF%BC%88%E4%BA%88%E5%AE%9A%EF%BC%89%E3%80%82%E6%A8%AA%E9%A0%88%E8%B3%80%E4%B8%AD%E5%A4%AE%E5%A4%A7%E9%80%9A%E3%82%8A%E3%81%A8%E6%A8%AA%E9%A0%88%E8%B3%80%E3%83%95%E3%82%A7%E3%83%AA%E3%83%BC%E3%82%BF%E3%83%BC%E3%83%9F%E3%83%8A%E3%83%AB%E9%A7%90%E8%BB%8A%E5%A0%B4%E3%81%AB%E5%B8%82%E5%86%85%E5%90%84%E6%89%80%E3%81%8B%E3%82%89%E7%B4%8450%E5%9F%BA%E3%81%AE%E3%81%BF%E3%81%93%E3%81%97%E3%83%BB%E5%B1%B1%E8%BB%8A%E3%81%8C%E9%9B%86%E7%B5%90%E3%80%82%E4%B8%BB%E5%82%AC%20%E6%A8%AA%E9%A0%88%E8%B3%80%E5%B8%82%E8%A6%B3%E5%85%89%E5%8D%94%E4%BC%9A%E3%80%81%E5%85%B1%E5%82%AC%20%E6%A8%AA%E9%A0%88%E8%B3%80%E5%B8%82%E3%80%82%E4%BC%9A%E5%A0%B4%E3%81%AB%E9%A7%90%E8%BB%8A%E5%A0%B4%E3%81%AA%E3%81%97%0A%E2%80%BB%E6%99%82%E9%96%93%E3%81%AF%E4%BA%88%E5%AE%9A%E3%80%82%E9%9B%A8%E5%A4%A9%E6%99%82%E3%81%AE%E6%89%B1%E3%81%84%E3%81%AF%E5%85%AC%E5%BC%8F%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%AB%E6%98%8E%E8%A8%98%E3%81%AA%E3%81%97%0A%E5%87%BA%E5%85%B8:%20https://yokosuka-kanko.com/events/47th_mikoshi/%0A%E6%9C%80%E8%BF%91%E3%81%AE%E4%B8%89%E6%B5%A6:%20https://vaseata.github.io/miura-board/" target="_blank" rel="noopener">Google カレンダーに追加</a>
+      
+      <button type="button" class="want-off" hidden>行ってみたいを外す</button>
+    </div>
+  </div>
+  
+  <p class="src"><span class="cf">出典確認</span><a href="https://yokosuka-kanko.com/events/47th_mikoshi/" target="_blank" rel="noopener">横須賀市観光協会</a></p>
 </article></div></div>
-<div class="month" data-month="2027-03"><h2 class="ym">2027年3月</h2><div class="cols"><article class="art going" data-age="-173">
+<div class="month" data-month="2027-03"><h2 class="ym">2027年3月</h2><div class="cols"><article class="art going" data-age="-173" data-cat="イベント" data-tags="ラン,スポーツ,海,三浦海岸">
   <figure class="photo"><img src="img/miura_beach.jpg" alt="" loading="lazy" width="480" height="300"><figcaption>三浦海岸</figcaption></figure>
   <div class="ran"><span class="box">イベント</span><span class="dt">3/7(日)　</span><span class="box going-box">参加予定</span><span class="count">あと173日</span></div>
   <h3>3/7 第42回 三浦国際市民マラソン</h3>
@@ -216,7 +238,7 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
   <section class="prep"><h4>下調べ<small>2026-09-15 時点</small></h4><dl><dt>種目と時間</dt><dd>ハーフ 10:00発（制限180分・定員7,500・9,000円）／10km 8:20発（90分・2,500・7,000円）／5km 10:30発（50分・2,000・5,500円）／キッズビーチラン 小1〜4（200・1,500円）。学生料金あり<span class="src"><span class="cf">出典確認</span><a href="https://miura-marathon.com/guide/" target="_blank" rel="noopener">公式 大会要項</a></span></dd><dt>エントリー</dt><dd>2026/10/1(木)〜11/24(火)。RUNNET・SPORTS ENTRY・LAWSON Do! SPORTS の3経路。「エントリー状況により、期日前であっても種目ごとに終了」＝先着と読める（明記はなし）。申込後の種目変更・キャンセル不可<span class="src"><span class="cf">出典確認</span><a href="https://miura-marathon.com/entry/" target="_blank" rel="noopener">公式 募集要項</a></span></dd><dt>コース</dt><dd>ハーフは三浦海岸〜城ヶ島折り返し、10kmは松輪折り返し、5kmは金田折り返し。発着は三浦海岸交差点前の砂浜<span class="src"><span class="cf">出典確認</span><a href="https://miura-marathon.com/guide/" target="_blank" rel="noopener">公式 大会要項</a></span></dd><dt>ふるさと納税枠</dt><dd>「ふるさと納税特別エントリー」の案内あり（9/11 お知らせ「ふるさと納税の返礼品について」）。中身は未確認<span class="src"><span class="cf">要確認</span><a href="https://miura-marathon.com/" target="_blank" rel="noopener">三浦国際市民マラソン 公式トップ</a>／<a href="https://miura-marathon.com/entry/" target="_blank" rel="noopener">公式 募集要項</a></span></dd><dt>参加資格</dt><dd>ハーフ 高校生以上／10km 中学生以上／5km 小5以上。当日は健康保険証を持参<span class="src"><span class="cf">出典確認</span><a href="https://miura-marathon.com/guide/" target="_blank" rel="noopener">公式 大会要項</a></span></dd></dl><p class="oq"><span class="tl">まだ分からないこと</span>先着か抽選か（明記なし）／ふるさと納税枠の寄付額と枠数／去年（第41回・2026年）の様子：エントリーが埋まった速さ、当日の混雑、荷物預け／三浦海岸駅からの動線と駅の混雑（朝の京急）／コース高低差（城ヶ島大橋を渡るか）</p></section>
   <p class="src"><span class="cf">出典確認</span><a href="https://miura-marathon.com/guide/" target="_blank" rel="noopener">公式 大会要項</a>／<a href="https://miura-marathon.com/entry/" target="_blank" rel="noopener">公式 募集要項</a>／<a href="https://miura-marathon.com/" target="_blank" rel="noopener">三浦国際市民マラソン 公式トップ</a></p>
 </article></div></div>
-<div class="month" data-month="2026-09"><h2 class="ym">2026年9月</h2><div class="cols"><article class="art" data-age="5">
+<div class="month" data-month="2026-09"><h2 class="ym">2026年9月</h2><div class="cols"><article class="art" data-age="5" data-cat="季節" data-tags="食,農">
   <figure class="photo"><img src="img/ogawa_peanut_2026.jpg" alt="" loading="lazy" width="480" height="300"><figcaption>小川農園の落花生おおまさり（カナロコ）</figcaption></figure>
   <div class="ran"><span class="box">季節</span><span class="dt">9/10(木)　</span><span class="ago">5日前</span></div>
   <h3>六合・小川農園の落花生おおまさり</h3>
@@ -226,7 +248,7 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
   
   
   <p class="src"><span class="cf">出典確認</span><a href="https://www.kanaloco.jp/news/culture/bunka/article-1303097.html" target="_blank" rel="noopener">カナロコ 9/10</a></p>
-</article><article class="art" data-age="6">
+</article><article class="art" data-age="6" data-cat="出来事" data-tags="">
   <figure class="photo"><img src="img/jogashima_lighthouse.jpg" alt="" loading="lazy" width="480" height="300"><figcaption>城ヶ島灯台</figcaption></figure>
   <div class="ran"><span class="box">出来事</span><span class="dt">9/9(水)　</span><span class="ago">6日前</span></div>
   <h3>城ヶ島の磯で小5男児が高波にさらわれ死亡</h3>
@@ -236,7 +258,7 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
   
   
   <p class="src"><span class="cf">出典確認</span><a href="https://news.yahoo.co.jp/articles/45f0e2361e5c2ba05224cb75a4731e58704cc76b" target="_blank" rel="noopener">朝日新聞（Yahoo!ニュース）9/9</a>／<a href="https://news.livedoor.com/article/detail/32287612/" target="_blank" rel="noopener">ライブドアニュース（TBS）9/10</a></p>
-</article><article class="art" data-age="14">
+</article><article class="art" data-age="14" data-cat="交通" data-tags="交通">
   <figure class="photo"><img src="img/jogashima_harbor.jpg" alt="" loading="lazy" width="480" height="300"><figcaption>城ヶ島漁港</figcaption></figure>
   <div class="ran"><span class="box">交通</span><span class="dt">9/1(火)　</span><span class="ago">14日前</span></div>
   <h3>渡船さんしろ 9月から火曜定休</h3>
@@ -247,7 +269,7 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
   
   <p class="src"><span class="cf">要確認</span><a href="https://misaki-marinecenter.subaru-kougyou.jp/" target="_blank" rel="noopener">三崎マリンセンター 運航状況 9/14時点</a></p>
 </article></div></div>
-<div class="month" data-month="2026-04"><h2 class="ym">2026年4月</h2><div class="cols"><article class="art" data-age="150">
+<div class="month" data-month="2026-04"><h2 class="ym">2026年4月</h2><div class="cols"><article class="art" data-age="150" data-cat="店" data-tags="食,魚">
   <figure class="photo"><img src="img/jogashima_harbor.jpg" alt="" loading="lazy" width="480" height="300"><figcaption>城ヶ島漁港</figcaption></figure>
   <div class="ran"><span class="box">店</span><span class="dt">4/18(土)　</span><span class="ago">5ヶ月前</span></div>
   <h3>城ヶ島に鮮魚直売「おさかな市場」開店</h3>
@@ -258,7 +280,7 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
   
   <p class="src"><span class="cf">出典確認</span><a href="https://www.keikyu.co.jp/company/news/2026/20260416HP_25007RK.html" target="_blank" rel="noopener">京急電鉄 ニュースリリース 4/16</a></p>
 </article></div></div>
-<div class="month" data-month="2026-02"><h2 class="ym">2026年2月</h2><div class="cols"><article class="art" data-age="200">
+<div class="month" data-month="2026-02"><h2 class="ym">2026年2月</h2><div class="cols"><article class="art" data-age="200" data-cat="店" data-tags="宿">
   <figure class="photo"><img src="img/fufu_2026.jpg" alt="" loading="lazy" width="480" height="300"><figcaption>ふふ 城ヶ島（公式サイト）</figcaption></figure>
   <div class="ran"><span class="box">店</span><span class="dt">2/27(金)　</span><span class="ago">6ヶ月前</span></div>
   <h3>島に温泉旅館「ふふ 城ヶ島」開業</h3>
@@ -273,31 +295,31 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
 </div>
 <div class="df"><span class="k">次の灯台</span><div class="b"><span class="v">ダイヤモンド富士　5/1(土)頃（228日後）</span><span class="n">城ヶ島大橋から。西北西85km先の富士に日が沈む。年により前後（要確認）</span></div></div>
 <h2 class="men">これから<span class="latin">Coming up · 120 days</span></h2>
-<div class="cols"><article class="art small">
+<div class="cols"><article class="art small up" data-cat="イベント" data-tags="祭り,食,下町,夜">
   <figure class="photo"><img src="img/misaki_shitamachi.jpg" alt="" loading="lazy" width="480" height="300"><figcaption>三崎下町商店街</figcaption></figure>
   <div class="ran"><span class="box">イベント</span><span class="dt">10/3(土)頃　<span class="ago">18日後</span></span></div>
   <p class="fact">みうら夜市（三崎下町商店街）。10月最初の土日</p>
   <aside class="talk"><span class="tl">話のタネ</span>下町の通りが屋台で埋まります</aside>
   <p class="src"><span class="cf">要確認</span><a href="https://miura-info.ne.jp/find/イベントカレンダー/" target="_blank" rel="noopener">みうら観光ガイド イベントカレンダー</a></p>
-</article><article class="art small">
+</article><article class="art small up" data-cat="季節" data-tags="食,農,体験">
   
   <div class="ran"><span class="box">季節</span><span class="dt">10/15(木)頃　<span class="ago">30日後</span></span></div>
   <p class="fact">三浦みかん狩り 開園（10月中旬〜11月下旬）</p>
   <aside class="talk"><span class="tl">話のタネ</span>帰りに寄れます。園によって開園日が違うので要確認</aside>
   <p class="src"><span class="cf">要確認</span><a href="https://miura-info.ne.jp/find/イベントカレンダー/" target="_blank" rel="noopener">みうら観光ガイド イベントカレンダー</a></p>
-</article><article class="art small">
+</article><article class="art small up" data-cat="イベント" data-tags="祭り,食,マグロ,花火">
   <figure class="photo"><img src="img/misaki_harbor.jpg" alt="" loading="lazy" width="480" height="300"><figcaption>三崎港</figcaption></figure>
   <div class="ran"><span class="box">イベント</span><span class="dt">11/1(日)頃　<span class="ago">47日後</span></span></div>
   <p class="fact">三崎港町まつり＋三崎・城ヶ島花火大会（10月下旬〜11月上旬の日曜）</p>
   <aside class="talk"><span class="tl">話のタネ</span>マグロ尽くしの日。花火は20分ほどですが港と島どちらからも見えます</aside>
   <p class="src"><span class="cf">要確認</span><a href="https://miura-info.ne.jp/find/イベントカレンダー/" target="_blank" rel="noopener">みうら観光ガイド イベントカレンダー</a></p>
-</article><article class="art small">
+</article><article class="art small up" data-cat="イベント" data-tags="伝統,神事,夜">
   
-  <div class="ran"><span class="box">イベント</span><span class="dt">11/5(木)頃　<span class="ago">51日後</span></span></div>
-  <p class="fact">面神楽（海南神社 神楽殿）11月上旬</p>
-  <aside class="talk"><span class="tl">話のタネ</span>三崎の古い神楽。夜に見られます</aside>
-  <p class="src"><span class="cf">要確認</span><a href="https://miura-info.ne.jp/find/イベントカレンダー/" target="_blank" rel="noopener">みうら観光ガイド イベントカレンダー</a></p>
-</article><article class="art small">
+  <div class="ran"><span class="box">イベント</span><span class="dt">11/6(金)　<span class="ago">52日後</span></span></div>
+  <p class="fact">面神楽奉納舞（海南神社 神楽殿）11/6・7。日本神話を題材にした仮面黙劇。「恵比寿の舞」は海の守護神が大鯛を釣り上げる演目</p>
+  <aside class="talk"><span class="tl">話のタネ</span>三崎の古い神楽。夜、神楽殿で見られます</aside>
+  <p class="src"><span class="cf">出典確認</span><a href="http://kainanjinja.jp/event/index.html" target="_blank" rel="noopener">海南神社 年間行事</a></p>
+</article><article class="art small up" data-cat="イベント" data-tags="食,朝市">
   <figure class="photo"><img src="img/misaki_harbor.jpg" alt="" loading="lazy" width="480" height="300"><figcaption>三崎港</figcaption></figure>
   <div class="ran"><span class="box">イベント</span><span class="dt">12/29(火)　<span class="ago">105日後</span></span></div>
   <p class="fact">三崎朝市 年末特別セール（12/29・30）</p>
@@ -395,34 +417,49 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
 <script>
 (function(){
   var btns=[].slice.call(document.querySelectorAll('.toggle button[data-days]'));
-  var tagBtn=document.querySelector('.tag-want');
+  var tagBtn=document.querySelector('.tag-want'), recoBtn=document.querySelector('.tag-reco');
   var arts=[].slice.call(document.querySelectorAll('#dated .art'));
+  var ups=[].slice.call(document.querySelectorAll('.art.up'));
   var months=[].slice.call(document.querySelectorAll('#dated .month'));
   var none=document.getElementById('none');
-  var days=93, tag=false;
+  var days=93, mode='days';
   function get(k){try{return localStorage.getItem(k);}catch(e){return null;}}
   function set(k,v){try{if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v);}catch(e){}}
   function isWant(el){var w=el.querySelector('.want');return !!(w&&w.classList.contains('done'));}
+  function tagsOf(el){return (el.dataset.tags||'').split(',').filter(Boolean);}
+  function badge(el,cls,text,on){var ran=el.querySelector('.ran');if(!ran)return;var t=ran.querySelector('.'+cls);
+    if(on&&!t){t=document.createElement('span');t.className='box '+cls;t.textContent=text;ran.insertBefore(t,ran.children[1]||null);}else if(!on&&t){t.remove();}}
   function render(){
-    btns.forEach(function(b){b.setAttribute('aria-pressed',String(!tag&&+b.dataset.days===days));});
-    var shown=0, first=null, n=0;
+    var wantTags={}, n=0;
+    arts.forEach(function(el){if(isWant(el)){n++;tagsOf(el).forEach(function(t){wantTags[t]=1;});}});
+    function isReco(el){
+      if(isWant(el))return false;
+      var cat=el.dataset.cat; if(cat!=='イベント'&&cat!=='季節')return false;
+      if(el.dataset.age!==undefined&&+el.dataset.age>0)return false;
+      return tagsOf(el).some(function(t){return wantTags[t];});
+    }
+    if(n===0&&mode!=='days'){mode='days';set('miura-mode',null);}
+    btns.forEach(function(b){b.setAttribute('aria-pressed',String(mode==='days'&&+b.dataset.days===days));});
+    var shown=0, first=null, r=0;
     arts.forEach(function(el){
-      var w=isWant(el); if(w)n++;
-      var ok=tag?w:(+el.dataset.age<=days);
+      var w=isWant(el), rc=isReco(el); if(rc)r++;
+      var ok=mode==='want'?w:mode==='reco'?rc:(+el.dataset.age<=days);
       el.hidden=!ok; el.classList.remove('lead'); if(ok){shown++;if(!first)first=el;}
-      var ran=el.querySelector('.ran'), t=ran&&ran.querySelector('.want-tag');
-      if(ran){ if(w&&!t){t=document.createElement('span');t.className='box want-tag';t.textContent='行ってみたい';ran.insertBefore(t,ran.children[1]||null);} else if(!w&&t){t.remove();} }
+      badge(el,'want-tag','行ってみたい',w); badge(el,'reco-tag','おすすめ',n>0&&rc);
     });
+    ups.forEach(function(el){var rc=isReco(el); if(rc)r++; el.hidden=(mode==='reco')?!rc:false; badge(el,'reco-tag','おすすめ',n>0&&rc);});
     if(first)first.classList.add('lead');
     months.forEach(function(m){m.hidden=![].some.call(m.querySelectorAll('.art'),function(el){return !el.hidden;});});
     none.hidden=shown>0;
-    if(tagBtn){tagBtn.hidden=(n===0&&!tag);tagBtn.querySelector('.n').textContent=n;tagBtn.setAttribute('aria-pressed',String(tag));}
-    if(tag&&n===0){tag=false;set('miura-tag',null);return render();}
-    none.textContent=tag?'「行ってみたい」を押した記事はまだありません。':'この期間に新しい記事はありません。下の「これから」を話題にどうぞ。';
+    none.textContent=mode==='want'?'「行ってみたい」を押した記事はまだありません。':mode==='reco'?'この欄には似た行事がありません。下の「これから」を見てください。':'この期間に新しい記事はありません。下の「これから」を話題にどうぞ。';
+    if(tagBtn){tagBtn.hidden=(n===0);tagBtn.querySelector('.n').textContent=n;tagBtn.setAttribute('aria-pressed',String(mode==='want'));}
+    if(recoBtn){recoBtn.hidden=(n===0||r===0);recoBtn.querySelector('.n').textContent=r;recoBtn.setAttribute('aria-pressed',String(mode==='reco'));}
   }
-  btns.forEach(function(b){b.addEventListener('click',function(){days=+b.dataset.days;tag=false;set('miura-days',days);set('miura-tag',null);render();});});
-  if(tagBtn)tagBtn.addEventListener('click',function(){tag=!tag;set('miura-tag',tag?'1':null);render();});
-  days=+get('miura-days')||93; tag=get('miura-tag')==='1';
+  function setMode(m){mode=m;set('miura-mode',m==='days'?null:m);render();}
+  btns.forEach(function(b){b.addEventListener('click',function(){days=+b.dataset.days;set('miura-days',days);setMode('days');});});
+  if(tagBtn)tagBtn.addEventListener('click',function(){setMode(mode==='want'?'days':'want');});
+  if(recoBtn)recoBtn.addEventListener('click',function(){setMode(mode==='reco'?'days':'reco');});
+  days=+get('miura-days')||93; mode=get('miura-mode')||'days';
   [].forEach.call(document.querySelectorAll('.want'),function(w){
     var key='miura-want-'+w.dataset.id, b=w.querySelector('.want-btn'), to=w.querySelector('.want-to'), off=w.querySelector('.want-off');
     function mark(on){w.classList.toggle('done',on);set(key,on?'1':null);if(off)off.hidden=!on;render();}
