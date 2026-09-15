@@ -1,0 +1,23 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//miura-board//JA
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:miura-board-10@vaseata.github.io
+DTSTAMP:20260915T011719Z
+DTSTART:20270306T232000Z
+DTEND:20270307T041000Z
+SUMMARY:第42回 三浦国際市民マラソン
+LOCATION:三浦海岸交差点前砂浜（京急三浦海岸駅）
+DESCRIPTION:第42回三浦国際市民マラソン（JALホノルルマラ
+ ソン姉妹マラソン）2027/3/7(日)、三浦海岸交差点前砂浜
+ 発着。ハーフ（城ヶ島折り返し）10:00、10km（松輪折り
+ 返し）8:20、5km（金田折り返し）10:30、キッズビーチラ
+ ン12:25〜。雨天決行。主催 三浦市・スポーツニッポン
+ 新聞社\n※10km 8:20／ハーフ 10:00／5km 10:30／キッズ 12:25〜
+ 13:10。雨天決行\n出典: https://miura-marathon.com/guide/\n最近の
+ 三浦: https://vaseata.github.io/miura-board/
+URL:https://vaseata.github.io/miura-board/
+END:VEVENT
+END:VCALENDAR

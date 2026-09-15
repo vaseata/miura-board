@@ -1,5 +1,5 @@
 {
-  "_note": "日付つきの項目。date は起きた日／始まる日（YYYY-MM-DD）。end は終わる日（任意）。2行ルール：fact=事実1行、talk=話の振り方1行。confidence: 🟢 出典を開いて確認／🟡 一次でない・『頃』／🗣 伝聞。headline=見出し（18字前後）。cal=カレンダー登録用（イベントのみ・任意）：title／place／start・end（HH:MM、無ければ終日）／note。going=true は参加予定（残り日数と下調べを出す。research/open_questions を持つ）",
+  "_note": "日付つきの項目。date は起きた日／始まる日（YYYY-MM-DD）。end は終わる日（任意）。2行ルール：fact=事実1行、talk=話の振り方1行。confidence: 🟢 出典を開いて確認／🟡 一次でない・『頃』／🗣 伝聞。headline=見出し（18字前後）。cal=カレンダー登録用（イベントのみ・任意）：title／place／start・end（HH:MM、無ければ終日）／note。going=true は参加予定（残り日数と下調べを出す。research/open_questions を持つ）。entry={open,close,how,note} でエントリー期間の残り日数を出す",
   "items": [
     {
       "id": 1,
@@ -307,6 +307,122 @@
         "交通規制の時間帯（去年は時間帯により全面通行止め）",
         "同日に重なる行事（三崎港町まつりは例年10月下旬〜11月上旬の日曜）",
         "当日の天気（1週間前から）"
+      ]
+    },
+    {
+      "id": 10,
+      "date": "2027-03-07",
+      "area": "三浦海岸",
+      "category": "イベント",
+      "going": true,
+      "headline": "3/7 第42回 三浦国際市民マラソン",
+      "fact": "第42回三浦国際市民マラソン（JALホノルルマラソン姉妹マラソン）2027/3/7(日)、三浦海岸交差点前砂浜発着。ハーフ（城ヶ島折り返し）10:00、10km（松輪折り返し）8:20、5km（金田折り返し）10:30、キッズビーチラン12:25〜。雨天決行。主催 三浦市・スポーツニッポン新聞社",
+      "talk": "エントリーは10/1から。ハーフは城ヶ島まで行って戻る海沿いのコースです",
+      "confidence": "🟢",
+      "image": "miura_beach",
+      "entry": {
+        "open": "2026-10-01",
+        "close": "2026-11-24",
+        "how": "RUNNET／SPORTS ENTRY（電話 0570-039-846）／LAWSON Do! SPORTS",
+        "note": "エントリー状況により期日前でも種目ごとに終了"
+      },
+      "cal": {
+        "title": "第42回 三浦国際市民マラソン",
+        "place": "三浦海岸交差点前砂浜（京急三浦海岸駅）",
+        "start": "08:20",
+        "end": "13:10",
+        "note": "10km 8:20／ハーフ 10:00／5km 10:30／キッズ 12:25〜13:10。雨天決行"
+      },
+      "sources": [
+        {
+          "url": "https://miura-marathon.com/guide/",
+          "title": "公式 大会要項",
+          "opened": "2026-09-15"
+        },
+        {
+          "url": "https://miura-marathon.com/entry/",
+          "title": "公式 募集要項",
+          "opened": "2026-09-15"
+        },
+        {
+          "url": "https://miura-marathon.com/",
+          "title": "三浦国際市民マラソン 公式トップ",
+          "opened": "2026-09-15"
+        }
+      ],
+      "research": [
+        {
+          "h": "種目と時間",
+          "t": "ハーフ 10:00発（制限180分・定員7,500・9,000円）／10km 8:20発（90分・2,500・7,000円）／5km 10:30発（50分・2,000・5,500円）／キッズビーチラン 小1〜4（200・1,500円）。学生料金あり",
+          "confidence": "🟢",
+          "sources": [
+            {
+              "url": "https://miura-marathon.com/guide/",
+              "title": "公式 大会要項",
+              "opened": "2026-09-15"
+            }
+          ]
+        },
+        {
+          "h": "エントリー",
+          "t": "2026/10/1(木)〜11/24(火)。RUNNET・SPORTS ENTRY・LAWSON Do! SPORTS の3経路。「エントリー状況により、期日前であっても種目ごとに終了」＝先着と読める（明記はなし）。申込後の種目変更・キャンセル不可",
+          "confidence": "🟢",
+          "sources": [
+            {
+              "url": "https://miura-marathon.com/entry/",
+              "title": "公式 募集要項",
+              "opened": "2026-09-15"
+            }
+          ]
+        },
+        {
+          "h": "コース",
+          "t": "ハーフは三浦海岸〜城ヶ島折り返し、10kmは松輪折り返し、5kmは金田折り返し。発着は三浦海岸交差点前の砂浜",
+          "confidence": "🟢",
+          "sources": [
+            {
+              "url": "https://miura-marathon.com/guide/",
+              "title": "公式 大会要項",
+              "opened": "2026-09-15"
+            }
+          ]
+        },
+        {
+          "h": "ふるさと納税枠",
+          "t": "「ふるさと納税特別エントリー」の案内あり（9/11 お知らせ「ふるさと納税の返礼品について」）。中身は未確認",
+          "confidence": "🟡",
+          "sources": [
+            {
+              "url": "https://miura-marathon.com/",
+              "title": "三浦国際市民マラソン 公式トップ",
+              "opened": "2026-09-15"
+            },
+            {
+              "url": "https://miura-marathon.com/entry/",
+              "title": "公式 募集要項",
+              "opened": "2026-09-15"
+            }
+          ]
+        },
+        {
+          "h": "参加資格",
+          "t": "ハーフ 高校生以上／10km 中学生以上／5km 小5以上。当日は健康保険証を持参",
+          "confidence": "🟢",
+          "sources": [
+            {
+              "url": "https://miura-marathon.com/guide/",
+              "title": "公式 大会要項",
+              "opened": "2026-09-15"
+            }
+          ]
+        }
+      ],
+      "open_questions": [
+        "先着か抽選か（明記なし）",
+        "ふるさと納税枠の寄付額と枠数",
+        "去年（第41回・2026年）の様子：エントリーが埋まった速さ、当日の混雑、荷物預け",
+        "三浦海岸駅からの動線と駅の混雑（朝の京急）",
+        "コース高低差（城ヶ島大橋を渡るか）"
       ]
     }
   ]

@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//miura-board//JA
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:miura-board-10-entry@vaseata.github.io
+DTSTAMP:20260915T011719Z
+DTSTART;VALUE=DATE:20261001
+DTEND;VALUE=DATE:20261002
+SUMMARY:エントリー開始：第42回 三浦国際市民マラソン
+LOCATION:RUNNET／SPORTS ENTRY（電話 0570-039-846）／LAWSON Do! SPORTS
+DESCRIPTION:受付 10/1(木)〜11/24(火)。エントリー状況により
+ 期日前でも種目ごとに終了\nhttps://vaseata.github.io/miura-boar
+ d/
+URL:https://vaseata.github.io/miura-board/
+END:VEVENT
+END:VCALENDAR

@@ -27,7 +27,7 @@ def days_ago(dt):
 
 # ---- 日付つき項目（新しい順）。1年より古いものは出さない
 items = [x for x in items if (TODAY - d(x["date"])).days <= 366]
-items.sort(key=lambda x: x["date"], reverse=True)
+items.sort(key=lambda x: (0, (d(x["date"]) - TODAY).days) if d(x["date"]) >= TODAY else (1, (TODAY - d(x["date"])).days))
 
 # ---- 定番：今日から120日以内の次回
 upcoming = []
@@ -124,15 +124,29 @@ def when_text(ev):
     days = jdate(ev["start"]) + (f"〜{jdate(ev['end'])}" if ev["ndays"] > 1 else "")
     return days + (f" {ev['t0']:%H:%M}〜{ev['t1']:%H:%M}" if "t0" in ev else "（終日）")
 
+def entry_event(x, ev):
+    e = x.get("entry")
+    if not e or d(e["open"]) < TODAY: return None
+    o = d(e["open"])
+    return {"id": f"{x['id']}-entry", "title": f"エントリー開始：{ev['title']}", "place": e.get("how", ""),
+            "details": f"受付 {jdate(o)}〜{jdate(d(e['close']))}。" + (e.get("note") or "") + "\n" + PAGE_URL,
+            "start": o, "end": o, "ndays": 1}
+
 def want_html(x):
     ev = cal_event(x)
     if not ev: return ""
     write_ics(ev)
+    en = entry_event(x, ev)
+    en_html = ""
+    if en:
+        write_ics(en)
+        en_html = f'<p class="want-what">エントリー開始日 {jdate(en["start"])}</p><a class="want-link" href="ics/{en["id"]}.ics">iPhone のカレンダーに追加</a><a class="want-link" href="{esc(gcal_url(en))}" target="_blank" rel="noopener">Google カレンダーに追加</a>'
     return f'''<div class="want" data-id="{ev['id']}">
     <button type="button" class="want-btn" aria-expanded="false">行ってみたい</button>
     <div class="want-to" hidden>
       <p class="want-what">{esc(ev["title"])}<br>{esc(when_text(ev))}<br>{esc(ev["place"])}</p>
       <a class="want-link" href="ics/{ev['id']}.ics">iPhone のカレンダーに追加</a><a class="want-link" href="{esc(gcal_url(ev))}" target="_blank" rel="noopener">Google カレンダーに追加</a>
+      {en_html}
     </div>
   </div>'''
 
@@ -144,6 +158,16 @@ def countdown(x):
     if n > 0: return f"あと{n}日"
     if n == 0: return "今日"
     return "終了"
+
+def entry_html(x):
+    e = x.get("entry")
+    if not e: return ""
+    o, c = d(e["open"]), d(e["close"])
+    if TODAY < o: line = f'<b>エントリー開始まで あと{(o-TODAY).days}日</b>（{jdate(o)}〜{jdate(c)}）'
+    elif TODAY <= c: line = f'<b>エントリー受付中 締切まで あと{(c-TODAY).days}日</b>（〜{jdate(c)}）'
+    else: line = f'エントリー締切済（{jdate(c)}）'
+    extra = "".join(f'<span>{esc(v)}</span>' for v in (e.get("how"), e.get("note")) if v)
+    return f'<p class="entry">{line}{extra}</p>'
 
 def prep_html(x):
     rs = x.get("research") or []
@@ -166,6 +190,7 @@ def article(x):
   <h3>{esc(head)}</h3>
   <p class="fact"><b class="dl">【{esc(x["area"])}】</b>{esc(x["fact"])}</p>
   <aside class="talk"><span class="tl">話のタネ</span>{esc(x["talk"])}</aside>
+  {entry_html(x)}
   {want_html(x)}
   {prep_html(x)}
   <p class="src"><span class="cf">{conf(x["confidence"])}</span>{sources_html(x.get("sources", []))}</p>
@@ -270,6 +295,9 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
 .want-link{display:inline-block;font-size:13px;letter-spacing:.1em;text-decoration:none;border-bottom:1px solid var(--rule);margin:2px 18px 4px 0;padding:4px 0}
 /* 参加予定・下調べ */
 .going-box{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.entry{font-size:13px;line-height:1.9;border:1px solid var(--rule);padding:6px 12px;margin:0 0 10px;display:flex;flex-direction:column}
+.entry b{font-size:14.5px;letter-spacing:.08em}
+.entry span{font-size:11.5px;color:var(--ink2)}
 .count{font-size:16px;font-weight:700;letter-spacing:.1em;color:var(--ink);margin-left:auto}
 .art.going{border-left:3px solid var(--rule);padding-left:14px}
 .art.going.lead{border-left:0;padding-left:0}
