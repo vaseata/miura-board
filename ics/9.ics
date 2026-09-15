@@ -1,0 +1,26 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//miura-board//JA
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:miura-board-9@vaseata.github.io
+DTSTAMP:20260915T011534Z
+DTSTART:20261018T050000Z
+DTEND:20261018T070000Z
+SUMMARY:第5回 三崎木遣みこしパレード
+LOCATION:三崎下町（日の出通り→入船すずらん通り→三崎
+ 公園→うらり前→うらり横）
+DESCRIPTION:第5回三崎木遣みこしパレード 10/18(日) 14:00〜16:
+ 00。市内でみこしを持つ団体が集結し三崎下町を練る。
+ 日の出通り（スタート）→入船すずらん通り→三崎公
+ 園（休憩）→うらり前（パフォーマンス）→うらり横
+ （フィニッシュ）。雨天決行。主催 実行委員会、問合
+ せ 三浦市観光商工課\n※雨天決行。駐車場少ないため
+ 公共交通推奨（三崎口駅2番乗り場→三崎港バス停）\n
+ 出典: https://www.city.miura.kanagawa.jp/soshiki/kankoshokoka/kankoshoko
+ ka_kanko/chiikikankougyouji/11735.html\n最近の三浦: https://vaseata.g
+ ithub.io/miura-board/
+URL:https://vaseata.github.io/miura-board/
+END:VEVENT
+END:VCALENDAR

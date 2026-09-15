@@ -139,17 +139,35 @@ def want_html(x):
 ICS_DIR.mkdir(exist_ok=True)
 for f in ICS_DIR.glob("*.ics"): f.unlink()
 
+def countdown(x):
+    n = (d(x["date"]) - TODAY).days
+    if n > 0: return f"あと{n}日"
+    if n == 0: return "今日"
+    return "終了"
+
+def prep_html(x):
+    rs = x.get("research") or []
+    if not rs and not x.get("open_questions"): return ""
+    rows = "".join(f'<dt>{esc(r["h"])}</dt><dd>{esc(r["t"])}<span class="src"><span class="cf">{conf(r.get("confidence","🟡"))}</span>{sources_html(r.get("sources", []))}</span></dd>' for r in rs)
+    oq = x.get("open_questions") or []
+    oq_html = f'<p class="oq"><span class="tl">まだ分からないこと</span>{"／".join(esc(q) for q in oq)}</p>' if oq else ""
+    opened = max((s["opened"] for r in rs for s in r.get("sources", [])), default="")
+    return f'''<section class="prep"><h4>下調べ<small>{esc(opened)} 時点</small></h4><dl>{rows}</dl>{oq_html}</section>'''
+
 def article(x):
     dt = d(x["date"]); age = (TODAY - dt).days
     end = f'〜{jdate(d(x["end"]))}' if x.get("end") else ""
     head = x.get("headline") or x["fact"][:22]
-    return f'''<article class="art" data-age="{age}">
+    going = x.get("going")
+    ran_tail = f'<span class="box going-box">参加予定</span><span class="count">{countdown(x)}</span>' if going else f'<span class="ago">{days_ago(dt)}</span>'
+    return f'''<article class="art{" going" if going else ""}" data-age="{age}">
   {img_html(x.get("image"))}
-  <div class="ran"><span class="box">{esc(x["category"])}</span><span class="dt">{jdate(dt)}{end}　<span class="ago">{days_ago(dt)}</span></span></div>
+  <div class="ran"><span class="box">{esc(x["category"])}</span><span class="dt">{jdate(dt)}{end}　</span>{ran_tail}</div>
   <h3>{esc(head)}</h3>
   <p class="fact"><b class="dl">【{esc(x["area"])}】</b>{esc(x["fact"])}</p>
   <aside class="talk"><span class="tl">話のタネ</span>{esc(x["talk"])}</aside>
   {want_html(x)}
+  {prep_html(x)}
   <p class="src"><span class="cf">{conf(x["confidence"])}</span>{sources_html(x.get("sources", []))}</p>
 </article>'''
 
@@ -250,6 +268,20 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
 .want-to{margin-top:8px;border-left:2px solid var(--rule);padding:2px 0 2px 12px}
 .want-what{font-size:12.5px;line-height:1.8;color:var(--ink2);margin-bottom:6px}
 .want-link{display:inline-block;font-size:13px;letter-spacing:.1em;text-decoration:none;border-bottom:1px solid var(--rule);margin:2px 18px 4px 0;padding:4px 0}
+/* 参加予定・下調べ */
+.going-box{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.count{font-size:16px;font-weight:700;letter-spacing:.1em;color:var(--ink);margin-left:auto}
+.art.going{border-left:3px solid var(--rule);padding-left:14px}
+.art.going.lead{border-left:0;padding-left:0}
+.prep{border-top:3px double var(--rule);border-bottom:1px solid var(--rule);padding:10px 0 8px;margin:4px 0 12px}
+.prep h4{font-size:13px;font-weight:600;letter-spacing:.35em;margin-bottom:8px;display:flex;align-items:baseline;gap:12px}
+.prep h4 small{font-size:10px;font-weight:400;letter-spacing:.15em;color:var(--mute)}
+.prep dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:13px;line-height:1.8}
+.prep dt{font-weight:600;letter-spacing:.08em;white-space:nowrap;color:var(--ink2)}
+.prep dd{margin:0}
+.prep dd .src{display:block}
+.oq{font-size:12.5px;line-height:1.9;color:var(--ink2);margin-top:8px;border-top:1px solid var(--hair);padding-top:6px}
+@media (max-width:480px){ .prep dl{grid-template-columns:1fr;gap:2px 0} .prep dt{margin-top:6px} }
 /* 一面 */
 .art.lead{column-span:all;border-bottom:3px double var(--rule);padding-bottom:22px;margin-bottom:26px}
 .art.lead .photo img{max-height:280px}

@@ -1,5 +1,5 @@
 {
-  "_note": "日付つきの項目。date は起きた日／始まる日（YYYY-MM-DD）。end は終わる日（任意）。2行ルール：fact=事実1行、talk=話の振り方1行。confidence: 🟢 出典を開いて確認／🟡 一次でない・『頃』／🗣 伝聞。headline=見出し（18字前後）。cal=カレンダー登録用（イベントのみ・任意）：title／place／start・end（HH:MM、無ければ終日）／note",
+  "_note": "日付つきの項目。date は起きた日／始まる日（YYYY-MM-DD）。end は終わる日（任意）。2行ルール：fact=事実1行、talk=話の振り方1行。confidence: 🟢 出典を開いて確認／🟡 一次でない・『頃』／🗣 伝聞。headline=見出し（18字前後）。cal=カレンダー登録用（イベントのみ・任意）：title／place／start・end（HH:MM、無ければ終日）／note。going=true は参加予定（残り日数と下調べを出す。research/open_questions を持つ）",
   "items": [
     {
       "id": 1,
@@ -173,6 +173,140 @@
           "title": "カナロコ 9/10",
           "opened": "2026-09-14"
         }
+      ]
+    },
+    {
+      "id": 9,
+      "date": "2026-10-18",
+      "area": "三崎",
+      "category": "イベント",
+      "going": true,
+      "headline": "10/18 第5回 三崎木遣みこしパレード",
+      "fact": "第5回三崎木遣みこしパレード 10/18(日) 14:00〜16:00。市内でみこしを持つ団体が集結し三崎下町を練る。日の出通り（スタート）→入船すずらん通り→三崎公園（休憩）→うらり前（パフォーマンス）→うらり横（フィニッシュ）。雨天決行。主催 実行委員会、問合せ 三浦市観光商工課",
+      "talk": "木遣りの声は海南神社の夏祭りと同じ唄。神輿を高く差し上げる「さし」が見せ場で、うらり前で披露されます",
+      "confidence": "🟢",
+      "image": "misaki_shitamachi",
+      "cal": {
+        "title": "第5回 三崎木遣みこしパレード",
+        "place": "三崎下町（日の出通り→入船すずらん通り→三崎公園→うらり前→うらり横）",
+        "start": "14:00",
+        "end": "16:00",
+        "note": "雨天決行。駐車場少ないため公共交通推奨（三崎口駅2番乗り場→三崎港バス停）"
+      },
+      "sources": [
+        {
+          "url": "https://www.city.miura.kanagawa.jp/soshiki/kankoshokoka/kankoshokoka_kanko/chiikikankougyouji/11735.html",
+          "title": "三浦市 観光商工課 8/25更新",
+          "opened": "2026-09-15"
+        }
+      ],
+      "research": [
+        {
+          "h": "どんな行事か",
+          "t": "2019年に始まった新しい行事。コロナ禍の中断をはさみ、今年で5回目。三崎下町を中心とした各団体の神輿が港周辺を練る",
+          "confidence": "🟢",
+          "sources": [
+            {
+              "url": "https://miurahantou.jp/misaki-mikoshi-parade/",
+              "title": "三浦半島観光情報 8/25更新",
+              "opened": "2026-09-15"
+            }
+          ]
+        },
+        {
+          "h": "去年（第4回・2025/10/12）",
+          "t": "8基の神輿・総勢約500人が、商店街を約1km練り歩いた。前回から「商店街内で完結するルート」に変更（商店の活性化が目的）。うらり正面口前に屋台、時間帯により全面通行止め",
+          "confidence": "🟢",
+          "sources": [
+            {
+              "url": "https://www.kanaloco.jp/news/life/article-1214964.html",
+              "title": "カナロコ 2025/10/12",
+              "opened": "2026-09-15"
+            },
+            {
+              "url": "https://www.townnews.co.jp/0501/2025/10/10/805866.html",
+              "title": "タウンニュース 2025/10/10",
+              "opened": "2026-09-15"
+            }
+          ]
+        },
+        {
+          "h": "見せ場",
+          "t": "神輿を高く差し上げる「さし」と、担ぐときに歌う木遣り唄。披露は三崎公園とうらり前。今年の市の案内では「うらり前（パフォーマンス）」",
+          "confidence": "🟢",
+          "sources": [
+            {
+              "url": "https://miurahantou.jp/misaki-mikoshi-parade/",
+              "title": "三浦半島観光情報 8/25更新",
+              "opened": "2026-09-15"
+            },
+            {
+              "url": "https://www.city.miura.kanagawa.jp/soshiki/kankoshokoka/kankoshokoka_kanko/chiikikankougyouji/11735.html",
+              "title": "三浦市 観光商工課 8/25更新",
+              "opened": "2026-09-15"
+            }
+          ]
+        },
+        {
+          "h": "木遣りとは",
+          "t": "海南神社夏例大祭（三浦市指定重要無形民俗文化財・2017年指定）で木遣り師が神輿渡御の際に歌う唄。三崎の神輿の特徴",
+          "confidence": "🟢",
+          "sources": [
+            {
+              "url": "https://www.city.miura.kanagawa.jp/soshiki/bunkasportska/bunkasportska_bunka/shiteibunkazai_soshiki/1337.html",
+              "title": "三浦市 文化財（海南神社夏例大祭）",
+              "opened": "2026-09-15"
+            }
+          ]
+        },
+        {
+          "h": "参加団体（2023年実績）",
+          "t": "東岡区子どもみこし／日の出青年会／入舩青年会／仲崎昭和会／本宮会（花暮区）／西海上宮下会／住吉会（宮城区）／向ケ崎諏訪神社青年会",
+          "confidence": "🟡",
+          "sources": [
+            {
+              "url": "https://miurahantou.jp/misaki-mikoshi-parade/",
+              "title": "三浦半島観光情報 8/25更新",
+              "opened": "2026-09-15"
+            }
+          ]
+        },
+        {
+          "h": "去年との違い",
+          "t": "開始が1時間遅く、30分短い（去年 13:00〜16:30 → 今年 14:00〜16:00）。フィニッシュは三崎公園からうらり横へ",
+          "confidence": "🟢",
+          "sources": [
+            {
+              "url": "https://www.city.miura.kanagawa.jp/soshiki/kankoshokoka/kankoshokoka_kanko/chiikikankougyouji/11735.html",
+              "title": "三浦市 観光商工課 8/25更新",
+              "opened": "2026-09-15"
+            },
+            {
+              "url": "https://www.townnews.co.jp/0501/2025/10/10/805866.html",
+              "title": "タウンニュース 2025/10/10",
+              "opened": "2026-09-15"
+            }
+          ]
+        },
+        {
+          "h": "行き方",
+          "t": "京急三崎口駅 2番バス乗り場から「三崎港行」「城ヶ島行」「通り矢行」いずれかで「三崎港」下車。車は三崎縦貫道路 高円坊出口→134号。駐車場に限りあり、公共交通推奨",
+          "confidence": "🟢",
+          "sources": [
+            {
+              "url": "https://www.city.miura.kanagawa.jp/soshiki/kankoshokoka/kankoshokoka_kanko/chiikikankougyouji/11735.html",
+              "title": "三浦市 観光商工課 8/25更新",
+              "opened": "2026-09-15"
+            }
+          ]
+        }
+      ],
+      "open_questions": [
+        "今年の参加基数と団体",
+        "屋台が出るか（去年はうらり正面口前）",
+        "交通規制の時間帯（去年は時間帯により全面通行止め）",
+        "同日に重なる行事（三崎港町まつりは例年10月下旬〜11月上旬の日曜）",
+        "当日の天気（1週間前から）"
       ]
     }
   ]

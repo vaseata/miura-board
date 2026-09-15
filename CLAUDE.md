@@ -82,3 +82,10 @@
 - **GitHub Pages: https://vaseata.github.io/miura-board/** ← 会員さんに見せる／iPhoneに置くのはこちら（ログイン不要）。`main` に push すると数十秒で反映
 - Artifact（claude.ai）は下書き確認用。Share 設定に依存する
 - `build.py` は2本書く：`index.html`（完全なHTML・Pages用）と `artifact.html`（断片・Artifact用。同じURLに `url` 指定で publish）
+
+## 参加予定の行事（`going: true`・2026-09-15 追加）
+
+- ヤヌキが「参加するかもしれない」と言った行事は `items.json` の項目に `"going": true` を付ける。`build.py` が **残り日数**（あとN日）と **下調べ** の欄を出す
+- 下調べは `research: [{h, t, confidence, sources}]`（見出し／本文／確信度／開いた出典）と `open_questions: [...]`（まだ分からないこと）で持つ
+- **毎朝タスクは going の項目を優先して調べ直す**：公式ページの更新（時間・コース・規制）、当日1週間前からは天気、`open_questions` が解けたら research に移して消す。当日を過ぎたら `going` を外す（記録は残す）
+- 出典は開いたものだけ。去年の実績と今年の案内は分けて書く（混ぜない）
