@@ -52,7 +52,7 @@
 
 - Artifact URL: https://claude.ai/code/artifact/5e63a0ef-6d92-4428-a9da-26e837d9ed5c
 - 再公開は `index.html` を同じURL（`url` 指定）で publish する。創刊 2026-09-12
-- 定期タスク: `miura-daily`（毎朝7:00、アプリ起動中のみ動く）
+- 定期タスク: `miura-board-daily`（毎朝7:00、アプリ起動中のみ動く。2026-09-15 に Miura フォルダ紐付けで作り直し。旧 `miura-daily` は削除）
 
 ## 写真サムネイル（2026-09-12 追加）
 
