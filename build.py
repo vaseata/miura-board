@@ -147,6 +147,7 @@ def want_html(x):
       <p class="want-what">{esc(ev["title"])}<br>{esc(when_text(ev))}<br>{esc(ev["place"])}</p>
       <a class="want-link" href="ics/{ev['id']}.ics">iPhone のカレンダーに追加</a><a class="want-link" href="{esc(gcal_url(ev))}" target="_blank" rel="noopener">Google カレンダーに追加</a>
       {en_html}
+      <button type="button" class="want-off" hidden>行ってみたいを外す</button>
     </div>
   </div>'''
 
@@ -285,6 +286,11 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
 .src .cf{letter-spacing:.25em;margin-right:10px;color:var(--ink2)}
 .src a{text-decoration:none;border-bottom:1px solid var(--hair);margin-right:10px}
 /* 行ってみたい */
+.toggle .tag-want{margin-left:auto;border:1px solid var(--rule);padding:3px 10px;opacity:1;letter-spacing:.15em}
+.toggle .tag-want .n{font-weight:700;margin-left:2px}
+.toggle .tag-want[aria-pressed="true"]{background:var(--ink);color:var(--cream)}
+.box.want-tag{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.want-off{font-size:11px;letter-spacing:.15em;color:var(--mute);background:none;border:0;cursor:pointer;padding:4px 0;margin-left:6px;text-decoration:underline;text-underline-offset:3px}
 .want{margin:0 0 10px}
 .want-btn{font:inherit;font-size:13px;letter-spacing:.2em;color:var(--ink);background:none;border:1px solid var(--rule);padding:5px 14px;cursor:pointer;min-height:36px}
 .want-btn:focus-visible,.want-link:focus-visible{outline:1px solid currentColor;outline-offset:3px}
@@ -342,7 +348,7 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
   <p class="mh-lead">城ヶ島、三崎、三浦海岸——<br>この町で起きたこと、はじまったこと、季節のこと。</p>
   <div class="areas">城ヶ島 · 三崎 · 三浦海岸 · 油壺 · 小網代</div>
 </header>
-<nav class="toggle" role="group" aria-label="前回来てから"><span class="q">前回のご来訪は</span><button data-days="31">一ヶ月前</button><button data-days="93">三ヶ月前</button><button data-days="184">半年前</button><button data-days="366">一年前</button></nav>
+<nav class="toggle" role="group" aria-label="前回来てから"><span class="q">前回のご来訪は</span><button data-days="31">一ヶ月前</button><button data-days="93">三ヶ月前</button><button data-days="184">半年前</button><button data-days="366">一年前</button><button class="tag-want" data-tag="want" aria-pressed="false" hidden>行ってみたい <b class="n">0</b></button></nav>
 <div id="dated">
 $groups
 <p class="empty" id="none" hidden>この期間に新しい記事はありません。下の「これから」を話題にどうぞ。</p>
@@ -360,28 +366,44 @@ $groups
 </main>
 <script>
 (function(){
-  var btns=[].slice.call(document.querySelectorAll('.toggle button'));
+  var btns=[].slice.call(document.querySelectorAll('.toggle button[data-days]'));
+  var tagBtn=document.querySelector('.tag-want');
   var arts=[].slice.call(document.querySelectorAll('#dated .art'));
   var months=[].slice.call(document.querySelectorAll('#dated .month'));
   var none=document.getElementById('none');
-  function apply(days){
-    btns.forEach(function(b){b.setAttribute('aria-pressed',String(+b.dataset.days===days));});
-    var shown=0, first=null;
-    arts.forEach(function(el){var ok=+el.dataset.age<=days;el.hidden=!ok;el.classList.remove('lead');if(ok){shown++;if(!first)first=el;}});
+  var days=93, tag=false;
+  function get(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+  function set(k,v){try{if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v);}catch(e){}}
+  function isWant(el){var w=el.querySelector('.want');return !!(w&&w.classList.contains('done'));}
+  function render(){
+    btns.forEach(function(b){b.setAttribute('aria-pressed',String(!tag&&+b.dataset.days===days));});
+    var shown=0, first=null, n=0;
+    arts.forEach(function(el){
+      var w=isWant(el); if(w)n++;
+      var ok=tag?w:(+el.dataset.age<=days);
+      el.hidden=!ok; el.classList.remove('lead'); if(ok){shown++;if(!first)first=el;}
+      var ran=el.querySelector('.ran'), t=ran&&ran.querySelector('.want-tag');
+      if(ran){ if(w&&!t){t=document.createElement('span');t.className='box want-tag';t.textContent='行ってみたい';ran.insertBefore(t,ran.children[1]||null);} else if(!w&&t){t.remove();} }
+    });
     if(first)first.classList.add('lead');
     months.forEach(function(m){m.hidden=![].some.call(m.querySelectorAll('.art'),function(el){return !el.hidden;});});
     none.hidden=shown>0;
-    try{localStorage.setItem('miura-days',days);}catch(e){}
+    if(tagBtn){tagBtn.hidden=(n===0&&!tag);tagBtn.querySelector('.n').textContent=n;tagBtn.setAttribute('aria-pressed',String(tag));}
+    if(tag&&n===0){tag=false;set('miura-tag',null);return render();}
+    none.textContent=tag?'「行ってみたい」を押した記事はまだありません。':'この期間に新しい記事はありません。下の「これから」を話題にどうぞ。';
   }
-  btns.forEach(function(b){b.addEventListener('click',function(){apply(+b.dataset.days);});});
-  var init=93; try{init=+localStorage.getItem('miura-days')||93;}catch(e){}
-  apply(init);
+  btns.forEach(function(b){b.addEventListener('click',function(){days=+b.dataset.days;tag=false;set('miura-days',days);set('miura-tag',null);render();});});
+  if(tagBtn)tagBtn.addEventListener('click',function(){tag=!tag;set('miura-tag',tag?'1':null);render();});
+  days=+get('miura-days')||93; tag=get('miura-tag')==='1';
   [].forEach.call(document.querySelectorAll('.want'),function(w){
-    var key='miura-want-'+w.dataset.id, b=w.querySelector('.want-btn'), to=w.querySelector('.want-to');
-    try{if(localStorage.getItem(key))w.classList.add('done');}catch(e){}
+    var key='miura-want-'+w.dataset.id, b=w.querySelector('.want-btn'), to=w.querySelector('.want-to'), off=w.querySelector('.want-off');
+    function mark(on){w.classList.toggle('done',on);set(key,on?'1':null);if(off)off.hidden=!on;render();}
+    if(get(key))mark(true);
     b.addEventListener('click',function(){var open=to.hidden;to.hidden=!open;b.setAttribute('aria-expanded',String(open));});
-    [].forEach.call(w.querySelectorAll('.want-link'),function(a){a.addEventListener('click',function(){w.classList.add('done');try{localStorage.setItem(key,'1');}catch(e){}});});
+    [].forEach.call(w.querySelectorAll('.want-link'),function(a){a.addEventListener('click',function(){mark(true);});});
+    if(off)off.addEventListener('click',function(){mark(false);});
   });
+  render();
 })();
 </script>
 ''').substitute(issue=issue_no, ymd=f"{TODAY.year}年{TODAY.month}月{TODAY.day}日", ymd_latin=TODAY.strftime('%Y.%m.%d'), wd=WD[TODAY.weekday()],

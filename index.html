@@ -57,6 +57,11 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
 .src .cf{letter-spacing:.25em;margin-right:10px;color:var(--ink2)}
 .src a{text-decoration:none;border-bottom:1px solid var(--hair);margin-right:10px}
 /* 行ってみたい */
+.toggle .tag-want{margin-left:auto;border:1px solid var(--rule);padding:3px 10px;opacity:1;letter-spacing:.15em}
+.toggle .tag-want .n{font-weight:700;margin-left:2px}
+.toggle .tag-want[aria-pressed="true"]{background:var(--ink);color:var(--cream)}
+.box.want-tag{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.want-off{font-size:11px;letter-spacing:.15em;color:var(--mute);background:none;border:0;cursor:pointer;padding:4px 0;margin-left:6px;text-decoration:underline;text-underline-offset:3px}
 .want{margin:0 0 10px}
 .want-btn{font:inherit;font-size:13px;letter-spacing:.2em;color:var(--ink);background:none;border:1px solid var(--rule);padding:5px 14px;cursor:pointer;min-height:36px}
 .want-btn:focus-visible,.want-link:focus-visible{outline:1px solid currentColor;outline-offset:3px}
@@ -116,7 +121,7 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
   <p class="mh-lead">城ヶ島、三崎、三浦海岸——<br>この町で起きたこと、はじまったこと、季節のこと。</p>
   <div class="areas">城ヶ島 · 三崎 · 三浦海岸 · 油壺 · 小網代</div>
 </header>
-<nav class="toggle" role="group" aria-label="前回来てから"><span class="q">前回のご来訪は</span><button data-days="31">一ヶ月前</button><button data-days="93">三ヶ月前</button><button data-days="184">半年前</button><button data-days="366">一年前</button></nav>
+<nav class="toggle" role="group" aria-label="前回来てから"><span class="q">前回のご来訪は</span><button data-days="31">一ヶ月前</button><button data-days="93">三ヶ月前</button><button data-days="184">半年前</button><button data-days="366">一年前</button><button class="tag-want" data-tag="want" aria-pressed="false" hidden>行ってみたい <b class="n">0</b></button></nav>
 <div id="dated">
 <div class="month" data-month="2026-09"><h2 class="ym">2026年9月</h2><div class="cols"><article class="art" data-age="-4">
   <figure class="photo"><img src="img/beer_2026.jpg" alt="" loading="lazy" width="480" height="300"><figcaption>三浦海岸ビールまつり（号外NET）</figcaption></figure>
@@ -131,6 +136,7 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
       <p class="want-what">三浦海岸ビールまつり<br>9/19(土)〜9/23(水) 11:00〜19:00<br>線路下スペイスUMICO（神奈川県三浦市南下浦町上宮田1497・京急三浦海岸駅前）</p>
       <a class="want-link" href="ics/2.ics">iPhone のカレンダーに追加</a><a class="want-link" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=%E4%B8%89%E6%B5%A6%E6%B5%B7%E5%B2%B8%E3%83%93%E3%83%BC%E3%83%AB%E3%81%BE%E3%81%A4%E3%82%8A&amp;dates=20260919T110000/20260919T190000&amp;ctz=Asia/Tokyo&amp;location=%E7%B7%9A%E8%B7%AF%E4%B8%8B%E3%82%B9%E3%83%9A%E3%82%A4%E3%82%B9UMICO%EF%BC%88%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E4%B8%89%E6%B5%A6%E5%B8%82%E5%8D%97%E4%B8%8B%E6%B5%A6%E7%94%BA%E4%B8%8A%E5%AE%AE%E7%94%B01497%E3%83%BB%E4%BA%AC%E6%80%A5%E4%B8%89%E6%B5%A6%E6%B5%B7%E5%B2%B8%E9%A7%85%E5%89%8D%EF%BC%89&amp;details=%E4%B8%89%E6%B5%A6%E6%B5%B7%E5%B2%B8%E3%83%93%E3%83%BC%E3%83%AB%E3%81%BE%E3%81%A4%E3%82%8A%209/19%28%E5%9C%9F%29%E3%80%9C23%28%E6%B0%B4%E7%A5%9D%29%2011:00%E3%80%9C19:00%EF%BC%88%E6%9C%80%E7%B5%82%E6%97%A517:00%EF%BC%89%E3%80%82%E4%B8%89%E6%B5%A6%E6%B5%B7%E5%B2%B8%E9%A7%85%E5%89%8D%E3%81%AE%E7%B7%9A%E8%B7%AF%E4%B8%8B%E3%82%B9%E3%83%9A%E3%83%BC%E3%82%B9%20UMICO%E3%80%82%E3%82%AF%E3%83%A9%E3%83%95%E3%83%88%E3%83%93%E3%83%BC%E3%83%AB%E6%97%A5%E6%9B%BF%E3%82%8F%E3%82%8A10%E7%A4%BE%E3%80%81%E5%90%8C%E6%99%82%E3%81%AB%E3%83%88%E3%83%A9%E3%83%83%E3%82%AF%E5%B8%82%0A%E2%80%BB%E6%9C%80%E7%B5%82%E6%97%A59/23%E3%81%AF17:00%E3%81%BE%E3%81%A7%0A%E5%87%BA%E5%85%B8:%20https://yokosuka.goguynet.jp/2026/09/07/miurakaigan-beermatsuri2026-09/%0A%E6%9C%80%E8%BF%91%E3%81%AE%E4%B8%89%E6%B5%A6:%20https://vaseata.github.io/miura-board/&amp;recur=RRULE:FREQ%3DDAILY%3BCOUNT%3D5" target="_blank" rel="noopener">Google カレンダーに追加</a>
       
+      <button type="button" class="want-off" hidden>行ってみたいを外す</button>
     </div>
   </div>
   
@@ -148,6 +154,7 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
       <p class="want-what">三浦海岸inオータムフェス<br>9/27(日)（終日）<br>三浦海岸（京急三浦海岸駅 徒歩5分）</p>
       <a class="want-link" href="ics/6.ics">iPhone のカレンダーに追加</a><a class="want-link" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=%E4%B8%89%E6%B5%A6%E6%B5%B7%E5%B2%B8in%E3%82%AA%E3%83%BC%E3%82%BF%E3%83%A0%E3%83%95%E3%82%A7%E3%82%B9&amp;dates=20260927/20260928&amp;ctz=Asia/Tokyo&amp;location=%E4%B8%89%E6%B5%A6%E6%B5%B7%E5%B2%B8%EF%BC%88%E4%BA%AC%E6%80%A5%E4%B8%89%E6%B5%A6%E6%B5%B7%E5%B2%B8%E9%A7%85%20%E5%BE%92%E6%AD%A95%E5%88%86%EF%BC%89&amp;details=%E3%80%8C%E4%B8%89%E6%B5%A6%E6%B5%B7%E5%B2%B8in%E3%82%AA%E3%83%BC%E3%82%BF%E3%83%A0%E3%83%95%E3%82%A7%E3%82%B9%E3%80%8D9/27%28%E6%97%A5%29%E3%80%81%E4%B8%89%E6%B5%A6%E6%B5%B7%E5%B2%B8%EF%BC%88%E4%BA%AC%E6%80%A5%E4%B8%89%E6%B5%A6%E6%B5%B7%E5%B2%B8%E9%A7%85%E5%BE%92%E6%AD%A95%E5%88%86%EF%BC%89%E3%80%82%E4%B8%BB%E5%82%AC%20%E4%B8%89%E6%B5%A6%E9%9D%92%E5%B9%B4%E4%BC%9A%E8%AD%B0%E6%89%80%E3%80%82%E5%90%8C%E6%99%82%E9%96%8B%E5%82%AC%E3%81%AE%E5%9C%B0%E5%BC%95%E7%B6%B2%E5%A4%A7%E4%BC%9A%EF%BC%8810:01%E3%80%9C%EF%BC%89%E3%81%AF%E5%AE%9A%E5%93%A1%E3%81%AB%E9%81%94%E3%81%97%E5%8F%97%E4%BB%98%E7%B5%82%E4%BA%86%0A%E2%80%BB%E6%9C%AC%E4%BD%93%E3%81%AE%E9%96%8B%E5%82%AC%E6%99%82%E9%96%93%E3%81%AF%E5%87%BA%E5%85%B8%E3%81%AB%E8%A8%98%E8%BC%89%E3%81%AA%E3%81%97%EF%BC%88%E7%B5%82%E6%97%A5%E3%81%A7%E7%99%BB%E9%8C%B2%EF%BC%89%0A%E5%87%BA%E5%85%B8:%20https://miura-info.ne.jp/20260927zibikiamitaikai/%0A%E6%9C%80%E8%BF%91%E3%81%AE%E4%B8%89%E6%B5%A6:%20https://vaseata.github.io/miura-board/" target="_blank" rel="noopener">Google カレンダーに追加</a>
       
+      <button type="button" class="want-off" hidden>行ってみたいを外す</button>
     </div>
   </div>
   
@@ -166,6 +173,7 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
       <p class="want-what">第18回 みうら夜市〜灯ろうナイトウォーク〜<br>10/3(土)〜10/4(日) 16:00〜21:00<br>三崎下町商店街（三崎銀座通り・入船すずらん通り・日の出通り）</p>
       <a class="want-link" href="ics/3.ics">iPhone のカレンダーに追加</a><a class="want-link" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=%E7%AC%AC18%E5%9B%9E%20%E3%81%BF%E3%81%86%E3%82%89%E5%A4%9C%E5%B8%82%E3%80%9C%E7%81%AF%E3%82%8D%E3%81%86%E3%83%8A%E3%82%A4%E3%83%88%E3%82%A6%E3%82%A9%E3%83%BC%E3%82%AF%E3%80%9C&amp;dates=20261003T160000/20261003T210000&amp;ctz=Asia/Tokyo&amp;location=%E4%B8%89%E5%B4%8E%E4%B8%8B%E7%94%BA%E5%95%86%E5%BA%97%E8%A1%97%EF%BC%88%E4%B8%89%E5%B4%8E%E9%8A%80%E5%BA%A7%E9%80%9A%E3%82%8A%E3%83%BB%E5%85%A5%E8%88%B9%E3%81%99%E3%81%9A%E3%82%89%E3%82%93%E9%80%9A%E3%82%8A%E3%83%BB%E6%97%A5%E3%81%AE%E5%87%BA%E9%80%9A%E3%82%8A%EF%BC%89&amp;details=%E7%AC%AC18%E5%9B%9E%20%E3%81%BF%E3%81%86%E3%82%89%E5%A4%9C%E5%B8%82%E3%80%9C%E7%81%AF%E3%82%8D%E3%81%86%E3%83%8A%E3%82%A4%E3%83%88%E3%82%A6%E3%82%A9%E3%83%BC%E3%82%AF%E3%80%9C%2010/3%28%E5%9C%9F%29%E3%83%BB4%28%E6%97%A5%29%2016:00%E3%80%9C21:00%E3%80%82%E4%B8%89%E5%B4%8E%E4%B8%8B%E7%94%BA%E5%95%86%E5%BA%97%E8%A1%97%EF%BC%88%E4%B8%89%E5%B4%8E%E9%8A%80%E5%BA%A7%E9%80%9A%E3%82%8A%E3%83%BB%E5%85%A5%E8%88%B9%E3%81%99%E3%81%9A%E3%82%89%E3%82%93%E9%80%9A%E3%82%8A%E3%83%BB%E6%97%A5%E3%81%AE%E5%87%BA%E9%80%9A%E3%82%8A%EF%BC%89%0A%E5%87%BA%E5%85%B8:%20https://miura-info.ne.jp/18miurayoichi/%0A%E6%9C%80%E8%BF%91%E3%81%AE%E4%B8%89%E6%B5%A6:%20https://vaseata.github.io/miura-board/&amp;recur=RRULE:FREQ%3DDAILY%3BCOUNT%3D2" target="_blank" rel="noopener">Google カレンダーに追加</a>
       
+      <button type="button" class="want-off" hidden>行ってみたいを外す</button>
     </div>
   </div>
   
@@ -183,6 +191,7 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
       <p class="want-what">第5回 三崎木遣みこしパレード<br>10/18(日) 14:00〜16:00<br>三崎下町（日の出通り→入船すずらん通り→三崎公園→うらり前→うらり横）</p>
       <a class="want-link" href="ics/9.ics">iPhone のカレンダーに追加</a><a class="want-link" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=%E7%AC%AC5%E5%9B%9E%20%E4%B8%89%E5%B4%8E%E6%9C%A8%E9%81%A3%E3%81%BF%E3%81%93%E3%81%97%E3%83%91%E3%83%AC%E3%83%BC%E3%83%89&amp;dates=20261018T140000/20261018T160000&amp;ctz=Asia/Tokyo&amp;location=%E4%B8%89%E5%B4%8E%E4%B8%8B%E7%94%BA%EF%BC%88%E6%97%A5%E3%81%AE%E5%87%BA%E9%80%9A%E3%82%8A%E2%86%92%E5%85%A5%E8%88%B9%E3%81%99%E3%81%9A%E3%82%89%E3%82%93%E9%80%9A%E3%82%8A%E2%86%92%E4%B8%89%E5%B4%8E%E5%85%AC%E5%9C%92%E2%86%92%E3%81%86%E3%82%89%E3%82%8A%E5%89%8D%E2%86%92%E3%81%86%E3%82%89%E3%82%8A%E6%A8%AA%EF%BC%89&amp;details=%E7%AC%AC5%E5%9B%9E%E4%B8%89%E5%B4%8E%E6%9C%A8%E9%81%A3%E3%81%BF%E3%81%93%E3%81%97%E3%83%91%E3%83%AC%E3%83%BC%E3%83%89%2010/18%28%E6%97%A5%29%2014:00%E3%80%9C16:00%E3%80%82%E5%B8%82%E5%86%85%E3%81%A7%E3%81%BF%E3%81%93%E3%81%97%E3%82%92%E6%8C%81%E3%81%A4%E5%9B%A3%E4%BD%93%E3%81%8C%E9%9B%86%E7%B5%90%E3%81%97%E4%B8%89%E5%B4%8E%E4%B8%8B%E7%94%BA%E3%82%92%E7%B7%B4%E3%82%8B%E3%80%82%E6%97%A5%E3%81%AE%E5%87%BA%E9%80%9A%E3%82%8A%EF%BC%88%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%88%EF%BC%89%E2%86%92%E5%85%A5%E8%88%B9%E3%81%99%E3%81%9A%E3%82%89%E3%82%93%E9%80%9A%E3%82%8A%E2%86%92%E4%B8%89%E5%B4%8E%E5%85%AC%E5%9C%92%EF%BC%88%E4%BC%91%E6%86%A9%EF%BC%89%E2%86%92%E3%81%86%E3%82%89%E3%82%8A%E5%89%8D%EF%BC%88%E3%83%91%E3%83%95%E3%82%A9%E3%83%BC%E3%83%9E%E3%83%B3%E3%82%B9%EF%BC%89%E2%86%92%E3%81%86%E3%82%89%E3%82%8A%E6%A8%AA%EF%BC%88%E3%83%95%E3%82%A3%E3%83%8B%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%89%E3%80%82%E9%9B%A8%E5%A4%A9%E6%B1%BA%E8%A1%8C%E3%80%82%E4%B8%BB%E5%82%AC%20%E5%AE%9F%E8%A1%8C%E5%A7%94%E5%93%A1%E4%BC%9A%E3%80%81%E5%95%8F%E5%90%88%E3%81%9B%20%E4%B8%89%E6%B5%A6%E5%B8%82%E8%A6%B3%E5%85%89%E5%95%86%E5%B7%A5%E8%AA%B2%0A%E2%80%BB%E9%9B%A8%E5%A4%A9%E6%B1%BA%E8%A1%8C%E3%80%82%E9%A7%90%E8%BB%8A%E5%A0%B4%E5%B0%91%E3%81%AA%E3%81%84%E3%81%9F%E3%82%81%E5%85%AC%E5%85%B1%E4%BA%A4%E9%80%9A%E6%8E%A8%E5%A5%A8%EF%BC%88%E4%B8%89%E5%B4%8E%E5%8F%A3%E9%A7%852%E7%95%AA%E4%B9%97%E3%82%8A%E5%A0%B4%E2%86%92%E4%B8%89%E5%B4%8E%E6%B8%AF%E3%83%90%E3%82%B9%E5%81%9C%EF%BC%89%0A%E5%87%BA%E5%85%B8:%20https://www.city.miura.kanagawa.jp/soshiki/kankoshokoka/kankoshokoka_kanko/chiikikankougyouji/11735.html%0A%E6%9C%80%E8%BF%91%E3%81%AE%E4%B8%89%E6%B5%A6:%20https://vaseata.github.io/miura-board/" target="_blank" rel="noopener">Google カレンダーに追加</a>
       
+      <button type="button" class="want-off" hidden>行ってみたいを外す</button>
     </div>
   </div>
   <section class="prep"><h4>下調べ<small>2026-09-15 時点</small></h4><dl><dt>どんな行事か</dt><dd>2019年に始まった新しい行事。コロナ禍の中断をはさみ、今年で5回目。三崎下町を中心とした各団体の神輿が港周辺を練る<span class="src"><span class="cf">出典確認</span><a href="https://miurahantou.jp/misaki-mikoshi-parade/" target="_blank" rel="noopener">三浦半島観光情報 8/25更新</a></span></dd><dt>去年（第4回・2025/10/12）</dt><dd>8基の神輿・総勢約500人が、商店街を約1km練り歩いた。前回から「商店街内で完結するルート」に変更（商店の活性化が目的）。うらり正面口前に屋台、時間帯により全面通行止め<span class="src"><span class="cf">出典確認</span><a href="https://www.kanaloco.jp/news/life/article-1214964.html" target="_blank" rel="noopener">カナロコ 2025/10/12</a>／<a href="https://www.townnews.co.jp/0501/2025/10/10/805866.html" target="_blank" rel="noopener">タウンニュース 2025/10/10</a></span></dd><dt>見せ場</dt><dd>神輿を高く差し上げる「さし」と、担ぐときに歌う木遣り唄。披露は三崎公園とうらり前。今年の市の案内では「うらり前（パフォーマンス）」<span class="src"><span class="cf">出典確認</span><a href="https://miurahantou.jp/misaki-mikoshi-parade/" target="_blank" rel="noopener">三浦半島観光情報 8/25更新</a>／<a href="https://www.city.miura.kanagawa.jp/soshiki/kankoshokoka/kankoshokoka_kanko/chiikikankougyouji/11735.html" target="_blank" rel="noopener">三浦市 観光商工課 8/25更新</a></span></dd><dt>木遣りとは</dt><dd>海南神社夏例大祭（三浦市指定重要無形民俗文化財・2017年指定）で木遣り師が神輿渡御の際に歌う唄。三崎の神輿の特徴<span class="src"><span class="cf">出典確認</span><a href="https://www.city.miura.kanagawa.jp/soshiki/bunkasportska/bunkasportska_bunka/shiteibunkazai_soshiki/1337.html" target="_blank" rel="noopener">三浦市 文化財（海南神社夏例大祭）</a></span></dd><dt>参加団体（2023年実績）</dt><dd>東岡区子どもみこし／日の出青年会／入舩青年会／仲崎昭和会／本宮会（花暮区）／西海上宮下会／住吉会（宮城区）／向ケ崎諏訪神社青年会<span class="src"><span class="cf">要確認</span><a href="https://miurahantou.jp/misaki-mikoshi-parade/" target="_blank" rel="noopener">三浦半島観光情報 8/25更新</a></span></dd><dt>去年との違い</dt><dd>開始が1時間遅く、30分短い（去年 13:00〜16:30 → 今年 14:00〜16:00）。フィニッシュは三崎公園からうらり横へ<span class="src"><span class="cf">出典確認</span><a href="https://www.city.miura.kanagawa.jp/soshiki/kankoshokoka/kankoshokoka_kanko/chiikikankougyouji/11735.html" target="_blank" rel="noopener">三浦市 観光商工課 8/25更新</a>／<a href="https://www.townnews.co.jp/0501/2025/10/10/805866.html" target="_blank" rel="noopener">タウンニュース 2025/10/10</a></span></dd><dt>行き方</dt><dd>京急三崎口駅 2番バス乗り場から「三崎港行」「城ヶ島行」「通り矢行」いずれかで「三崎港」下車。車は三崎縦貫道路 高円坊出口→134号。駐車場に限りあり、公共交通推奨<span class="src"><span class="cf">出典確認</span><a href="https://www.city.miura.kanagawa.jp/soshiki/kankoshokoka/kankoshokoka_kanko/chiikikankougyouji/11735.html" target="_blank" rel="noopener">三浦市 観光商工課 8/25更新</a></span></dd></dl><p class="oq"><span class="tl">まだ分からないこと</span>今年の参加基数と団体／屋台が出るか（去年はうらり正面口前）／交通規制の時間帯（去年は時間帯により全面通行止め）／同日に重なる行事（三崎港町まつりは例年10月下旬〜11月上旬の日曜）／当日の天気（1週間前から）</p></section>
@@ -201,6 +210,7 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
       <p class="want-what">第42回 三浦国際市民マラソン<br>3/7(日) 08:20〜13:10<br>三浦海岸交差点前砂浜（京急三浦海岸駅）</p>
       <a class="want-link" href="ics/10.ics">iPhone のカレンダーに追加</a><a class="want-link" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=%E7%AC%AC42%E5%9B%9E%20%E4%B8%89%E6%B5%A6%E5%9B%BD%E9%9A%9B%E5%B8%82%E6%B0%91%E3%83%9E%E3%83%A9%E3%82%BD%E3%83%B3&amp;dates=20270307T082000/20270307T131000&amp;ctz=Asia/Tokyo&amp;location=%E4%B8%89%E6%B5%A6%E6%B5%B7%E5%B2%B8%E4%BA%A4%E5%B7%AE%E7%82%B9%E5%89%8D%E7%A0%82%E6%B5%9C%EF%BC%88%E4%BA%AC%E6%80%A5%E4%B8%89%E6%B5%A6%E6%B5%B7%E5%B2%B8%E9%A7%85%EF%BC%89&amp;details=%E7%AC%AC42%E5%9B%9E%E4%B8%89%E6%B5%A6%E5%9B%BD%E9%9A%9B%E5%B8%82%E6%B0%91%E3%83%9E%E3%83%A9%E3%82%BD%E3%83%B3%EF%BC%88JAL%E3%83%9B%E3%83%8E%E3%83%AB%E3%83%AB%E3%83%9E%E3%83%A9%E3%82%BD%E3%83%B3%E5%A7%89%E5%A6%B9%E3%83%9E%E3%83%A9%E3%82%BD%E3%83%B3%EF%BC%892027/3/7%28%E6%97%A5%29%E3%80%81%E4%B8%89%E6%B5%A6%E6%B5%B7%E5%B2%B8%E4%BA%A4%E5%B7%AE%E7%82%B9%E5%89%8D%E7%A0%82%E6%B5%9C%E7%99%BA%E7%9D%80%E3%80%82%E3%83%8F%E3%83%BC%E3%83%95%EF%BC%88%E5%9F%8E%E3%83%B6%E5%B3%B6%E6%8A%98%E3%82%8A%E8%BF%94%E3%81%97%EF%BC%8910:00%E3%80%8110km%EF%BC%88%E6%9D%BE%E8%BC%AA%E6%8A%98%E3%82%8A%E8%BF%94%E3%81%97%EF%BC%898:20%E3%80%815km%EF%BC%88%E9%87%91%E7%94%B0%E6%8A%98%E3%82%8A%E8%BF%94%E3%81%97%EF%BC%8910:30%E3%80%81%E3%82%AD%E3%83%83%E3%82%BA%E3%83%93%E3%83%BC%E3%83%81%E3%83%A9%E3%83%B312:25%E3%80%9C%E3%80%82%E9%9B%A8%E5%A4%A9%E6%B1%BA%E8%A1%8C%E3%80%82%E4%B8%BB%E5%82%AC%20%E4%B8%89%E6%B5%A6%E5%B8%82%E3%83%BB%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%84%E3%83%8B%E3%83%83%E3%83%9D%E3%83%B3%E6%96%B0%E8%81%9E%E7%A4%BE%0A%E2%80%BB10km%208:20%EF%BC%8F%E3%83%8F%E3%83%BC%E3%83%95%2010:00%EF%BC%8F5km%2010:30%EF%BC%8F%E3%82%AD%E3%83%83%E3%82%BA%2012:25%E3%80%9C13:10%E3%80%82%E9%9B%A8%E5%A4%A9%E6%B1%BA%E8%A1%8C%0A%E5%87%BA%E5%85%B8:%20https://miura-marathon.com/guide/%0A%E6%9C%80%E8%BF%91%E3%81%AE%E4%B8%89%E6%B5%A6:%20https://vaseata.github.io/miura-board/" target="_blank" rel="noopener">Google カレンダーに追加</a>
       <p class="want-what">エントリー開始日 10/1(木)</p><a class="want-link" href="ics/10-entry.ics">iPhone のカレンダーに追加</a><a class="want-link" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=%E3%82%A8%E3%83%B3%E3%83%88%E3%83%AA%E3%83%BC%E9%96%8B%E5%A7%8B%EF%BC%9A%E7%AC%AC42%E5%9B%9E%20%E4%B8%89%E6%B5%A6%E5%9B%BD%E9%9A%9B%E5%B8%82%E6%B0%91%E3%83%9E%E3%83%A9%E3%82%BD%E3%83%B3&amp;dates=20261001/20261002&amp;ctz=Asia/Tokyo&amp;location=RUNNET%EF%BC%8FSPORTS%20ENTRY%EF%BC%88%E9%9B%BB%E8%A9%B1%200570-039-846%EF%BC%89%EF%BC%8FLAWSON%20Do%21%20SPORTS&amp;details=%E5%8F%97%E4%BB%98%2010/1%28%E6%9C%A8%29%E3%80%9C11/24%28%E7%81%AB%29%E3%80%82%E3%82%A8%E3%83%B3%E3%83%88%E3%83%AA%E3%83%BC%E7%8A%B6%E6%B3%81%E3%81%AB%E3%82%88%E3%82%8A%E6%9C%9F%E6%97%A5%E5%89%8D%E3%81%A7%E3%82%82%E7%A8%AE%E7%9B%AE%E3%81%94%E3%81%A8%E3%81%AB%E7%B5%82%E4%BA%86%0Ahttps://vaseata.github.io/miura-board/" target="_blank" rel="noopener">Google カレンダーに追加</a>
+      <button type="button" class="want-off" hidden>行ってみたいを外す</button>
     </div>
   </div>
   <section class="prep"><h4>下調べ<small>2026-09-15 時点</small></h4><dl><dt>種目と時間</dt><dd>ハーフ 10:00発（制限180分・定員7,500・9,000円）／10km 8:20発（90分・2,500・7,000円）／5km 10:30発（50分・2,000・5,500円）／キッズビーチラン 小1〜4（200・1,500円）。学生料金あり<span class="src"><span class="cf">出典確認</span><a href="https://miura-marathon.com/guide/" target="_blank" rel="noopener">公式 大会要項</a></span></dd><dt>エントリー</dt><dd>2026/10/1(木)〜11/24(火)。RUNNET・SPORTS ENTRY・LAWSON Do! SPORTS の3経路。「エントリー状況により、期日前であっても種目ごとに終了」＝先着と読める（明記はなし）。申込後の種目変更・キャンセル不可<span class="src"><span class="cf">出典確認</span><a href="https://miura-marathon.com/entry/" target="_blank" rel="noopener">公式 募集要項</a></span></dd><dt>コース</dt><dd>ハーフは三浦海岸〜城ヶ島折り返し、10kmは松輪折り返し、5kmは金田折り返し。発着は三浦海岸交差点前の砂浜<span class="src"><span class="cf">出典確認</span><a href="https://miura-marathon.com/guide/" target="_blank" rel="noopener">公式 大会要項</a></span></dd><dt>ふるさと納税枠</dt><dd>「ふるさと納税特別エントリー」の案内あり（9/11 お知らせ「ふるさと納税の返礼品について」）。中身は未確認<span class="src"><span class="cf">要確認</span><a href="https://miura-marathon.com/" target="_blank" rel="noopener">三浦国際市民マラソン 公式トップ</a>／<a href="https://miura-marathon.com/entry/" target="_blank" rel="noopener">公式 募集要項</a></span></dd><dt>参加資格</dt><dd>ハーフ 高校生以上／10km 中学生以上／5km 小5以上。当日は健康保険証を持参<span class="src"><span class="cf">出典確認</span><a href="https://miura-marathon.com/guide/" target="_blank" rel="noopener">公式 大会要項</a></span></dd></dl><p class="oq"><span class="tl">まだ分からないこと</span>先着か抽選か（明記なし）／ふるさと納税枠の寄付額と枠数／去年（第41回・2026年）の様子：エントリーが埋まった速さ、当日の混雑、荷物預け／三浦海岸駅からの動線と駅の混雑（朝の京急）／コース高低差（城ヶ島大橋を渡るか）</p></section>
@@ -384,28 +394,44 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
 </main>
 <script>
 (function(){
-  var btns=[].slice.call(document.querySelectorAll('.toggle button'));
+  var btns=[].slice.call(document.querySelectorAll('.toggle button[data-days]'));
+  var tagBtn=document.querySelector('.tag-want');
   var arts=[].slice.call(document.querySelectorAll('#dated .art'));
   var months=[].slice.call(document.querySelectorAll('#dated .month'));
   var none=document.getElementById('none');
-  function apply(days){
-    btns.forEach(function(b){b.setAttribute('aria-pressed',String(+b.dataset.days===days));});
-    var shown=0, first=null;
-    arts.forEach(function(el){var ok=+el.dataset.age<=days;el.hidden=!ok;el.classList.remove('lead');if(ok){shown++;if(!first)first=el;}});
+  var days=93, tag=false;
+  function get(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+  function set(k,v){try{if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v);}catch(e){}}
+  function isWant(el){var w=el.querySelector('.want');return !!(w&&w.classList.contains('done'));}
+  function render(){
+    btns.forEach(function(b){b.setAttribute('aria-pressed',String(!tag&&+b.dataset.days===days));});
+    var shown=0, first=null, n=0;
+    arts.forEach(function(el){
+      var w=isWant(el); if(w)n++;
+      var ok=tag?w:(+el.dataset.age<=days);
+      el.hidden=!ok; el.classList.remove('lead'); if(ok){shown++;if(!first)first=el;}
+      var ran=el.querySelector('.ran'), t=ran&&ran.querySelector('.want-tag');
+      if(ran){ if(w&&!t){t=document.createElement('span');t.className='box want-tag';t.textContent='行ってみたい';ran.insertBefore(t,ran.children[1]||null);} else if(!w&&t){t.remove();} }
+    });
     if(first)first.classList.add('lead');
     months.forEach(function(m){m.hidden=![].some.call(m.querySelectorAll('.art'),function(el){return !el.hidden;});});
     none.hidden=shown>0;
-    try{localStorage.setItem('miura-days',days);}catch(e){}
+    if(tagBtn){tagBtn.hidden=(n===0&&!tag);tagBtn.querySelector('.n').textContent=n;tagBtn.setAttribute('aria-pressed',String(tag));}
+    if(tag&&n===0){tag=false;set('miura-tag',null);return render();}
+    none.textContent=tag?'「行ってみたい」を押した記事はまだありません。':'この期間に新しい記事はありません。下の「これから」を話題にどうぞ。';
   }
-  btns.forEach(function(b){b.addEventListener('click',function(){apply(+b.dataset.days);});});
-  var init=93; try{init=+localStorage.getItem('miura-days')||93;}catch(e){}
-  apply(init);
+  btns.forEach(function(b){b.addEventListener('click',function(){days=+b.dataset.days;tag=false;set('miura-days',days);set('miura-tag',null);render();});});
+  if(tagBtn)tagBtn.addEventListener('click',function(){tag=!tag;set('miura-tag',tag?'1':null);render();});
+  days=+get('miura-days')||93; tag=get('miura-tag')==='1';
   [].forEach.call(document.querySelectorAll('.want'),function(w){
-    var key='miura-want-'+w.dataset.id, b=w.querySelector('.want-btn'), to=w.querySelector('.want-to');
-    try{if(localStorage.getItem(key))w.classList.add('done');}catch(e){}
+    var key='miura-want-'+w.dataset.id, b=w.querySelector('.want-btn'), to=w.querySelector('.want-to'), off=w.querySelector('.want-off');
+    function mark(on){w.classList.toggle('done',on);set(key,on?'1':null);if(off)off.hidden=!on;render();}
+    if(get(key))mark(true);
     b.addEventListener('click',function(){var open=to.hidden;to.hidden=!open;b.setAttribute('aria-expanded',String(open));});
-    [].forEach.call(w.querySelectorAll('.want-link'),function(a){a.addEventListener('click',function(){w.classList.add('done');try{localStorage.setItem(key,'1');}catch(e){}});});
+    [].forEach.call(w.querySelectorAll('.want-link'),function(a){a.addEventListener('click',function(){mark(true);});});
+    if(off)off.addEventListener('click',function(){mark(false);});
   });
+  render();
 })();
 </script>
 </body>
