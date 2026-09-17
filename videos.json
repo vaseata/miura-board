@@ -2,15 +2,15 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
-   "id": "49NubJ78KWU",
-   "title": "【LIVE】三浦海岸ライブカメラ(Live Camera in Miura Beach)",
-   "channel": "WITH SEA",
+   "id": "MOkZUavnHM4",
+   "title": "三浦海岸ライブカメラ 24時間 🌊 波音・海・睡眠 | Miura Beach Live Cam Japan",
+   "channel": "湾岸Go (TOKYO BAY LIVE CAMERA)",
    "published_text": "",
    "views": "",
    "length": "",
    "live": true,
-   "published": "2026-09-17",
-   "fetched": "2026-09-17",
+   "published": "2026-09-18",
+   "fetched": "2026-09-18",
    "q": "三浦海岸"
   },
   {
@@ -67,6 +67,17 @@
    "published": "2026-09-14",
    "fetched": "2026-09-17",
    "q": "三崎 マグロ"
+  },
+  {
+   "id": "_WpBbE8oB88",
+   "title": "【カマス＆アジ狙い】9月初旬の三浦海岸で店長とボート釣り！果たして釣果は？",
+   "channel": "ヒット三浦海岸チャンネル",
+   "published_text": "4 日前",
+   "views": "10,734回視聴",
+   "length": "15:56",
+   "published": "2026-09-14",
+   "fetched": "2026-09-18",
+   "q": "三浦海岸"
   },
   {
    "id": "0Teo1QGoTiw",
@@ -201,26 +212,15 @@
    "q": "三浦市"
   },
   {
-   "id": "TGqZKAGeZX4",
-   "title": "［三浦半島］青物釣り‼︎イナダ・ショゴが異常発生⁉︎早巻きパターンで連発してきた！#釣り#ショアジギング#三浦半島 ",
-   "channel": "おしめし",
+   "id": "82uzirc5S6w",
+   "title": "【続報】下宮田跡地農地返還問題【三浦市】#三浦市 #出口嘉一 #れいわ三浦の会",
+   "channel": "れいわ三浦の会",
    "published_text": "2 週間前",
-   "views": "32,202回視聴",
-   "length": "14:43",
-   "published": "2026-09-03",
-   "fetched": "2026-09-17",
-   "q": "三浦海岸"
-  },
-  {
-   "id": "k_TCWdV2Org",
-   "title": "ふふ・城ヶ島・絶景ホテル紹介・ラグジュアリー客室露天風呂付部屋",
-   "channel": "あんドーナツ",
-   "published_text": "10 日前",
-   "views": "419回視聴",
-   "length": "8:23",
-   "published": "2026-09-02",
-   "fetched": "2026-09-12",
-   "q": "城ヶ島"
+   "views": "1,175回視聴",
+   "length": "1:17",
+   "published": "2026-09-04",
+   "fetched": "2026-09-18",
+   "q": "三浦市"
   }
  ]
 }
