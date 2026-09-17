@@ -57,7 +57,7 @@ def img_html(key, cls="photo"):
     return f'<figure class="{cls}"><img src="{esc(p["file"])}" alt="" loading="lazy" width="480" height="300"><figcaption>{esc(p.get("caption", ""))}</figcaption></figure>'
 
 def sources_html(srcs):
-    return "／".join(f'<a href="{esc(s["url"])}" target="_blank" rel="noopener">{esc(s["title"])}</a>' for s in srcs)
+    return "／".join(f'<a href="{esc(s["url"])}" target="_blank" rel="noopener">{esc(s["title"])}</a>' if s.get("url") else f'<span>{esc(s["title"])}</span>' for s in srcs)
 
 # ---- 「行ってみたい」→ カレンダー登録（イベントのみ・終わっていないもの）
 PAGE_URL = "https://vaseata.github.io/miura-board/"
