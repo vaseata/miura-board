@@ -314,12 +314,12 @@ h3{font-size:19px;font-weight:600;letter-spacing:.06em;line-height:1.55;margin-b
 .prep{border-top:3px double var(--rule);border-bottom:1px solid var(--rule);padding:10px 0 8px;margin:4px 0 12px}
 .prep h4{font-size:13px;font-weight:600;letter-spacing:.35em;margin-bottom:8px;display:flex;align-items:baseline;gap:12px}
 .prep h4 small{font-size:10px;font-weight:400;letter-spacing:.15em;color:var(--mute)}
-.prep dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:13px;line-height:1.8}
-.prep dt{font-weight:600;letter-spacing:.08em;white-space:nowrap;color:var(--ink2)}
+.prep dl{font-size:13px;line-height:1.8}
+.prep dt{font-weight:600;letter-spacing:.08em;color:var(--ink2);margin-top:8px}
+.prep dt:first-child{margin-top:0}
 .prep dd{margin:0}
 .prep dd .src{display:block}
 .oq{font-size:12.5px;line-height:1.9;color:var(--ink2);margin-top:8px;border-top:1px solid var(--hair);padding-top:6px}
-@media (max-width:480px){ .prep dl{grid-template-columns:1fr;gap:2px 0} .prep dt{margin-top:6px} }
 /* 一面 */
 .art.lead{column-span:all;border-bottom:3px double var(--rule);padding-bottom:22px;margin-bottom:26px}
 .art.lead .photo img{max-height:280px}
