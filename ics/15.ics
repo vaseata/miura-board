@@ -1,0 +1,25 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//miura-board//JA
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:miura-board-15@vaseata.github.io
+DTSTAMP:20260918T002956Z
+DTSTART:20260927T013000Z
+DTEND:20260927T113000Z
+SUMMARY:芋煮ロックフェスティバル2026
+LOCATION:三崎港うらり交流広場（神奈川県三浦市三崎5-3-1
+ ）
+DESCRIPTION:芋煮ロックフェスティバル2026 9/27(日) 10:30〜20:3
+ 0、三崎港うらり交流広場（三浦市三崎5-3-1）。参加は
+ 「芋煮サポーターズパス」6\,500円（税込・高校生以下
+ フリーパス）、当日会場受付でリストバンドと交換し
+ て入場。出演はカーネーション、GOING UNDER GROUND、前野
+ 健太ほか7組。雨天決行。主催 SHIGURECORDS\n※入場には芋
+ 煮サポーターズパス（6\,500円・Peatixで事前購入）が必
+ 要。当日受付でリストバンドと交換\n出典: https://www.shig
+ urecords.com/\n最近の三浦: https://vaseata.github.io/miura-board/
+URL:https://vaseata.github.io/miura-board/
+END:VEVENT
+END:VCALENDAR
