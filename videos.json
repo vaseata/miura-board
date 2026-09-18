@@ -2,16 +2,60 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
-   "id": "MOkZUavnHM4",
-   "title": "三浦海岸ライブカメラ 24時間 🌊 波音・海・睡眠 | Miura Beach Live Cam Japan",
-   "channel": "湾岸Go (TOKYO BAY LIVE CAMERA)",
+   "id": "dWSG7ucdCzQ",
+   "title": "【ドローン】撮影記録Cine’ movies  Vlog風 城ヶ島(夏)神奈川県三浦市",
+   "channel": "ダメリノ(空撮チャンネル)",
+   "published_text": "13 時間前",
+   "views": "82回視聴",
+   "length": "11:54",
+   "published": "2026-09-19",
+   "fetched": "2026-09-19",
+   "q": "城ヶ島"
+  },
+  {
+   "id": "vf3DOa25z58",
+   "title": "「もったいない！食材レスキュー～三浦半島～」かながわ旬菜ナビ 2026/9/13放送",
+   "channel": "テレビ神奈川 tvk3ch",
+   "published_text": "14 時間前",
+   "views": "1,409回視聴",
+   "length": "25:38",
+   "published": "2026-09-19",
+   "fetched": "2026-09-19",
+   "q": "城ヶ島"
+  },
+  {
+   "id": "4g5wict_BQg",
+   "title": "【城ヶ島】結婚式オープニングムービー | WEDDING MOVIE",
+   "channel": "Ces Wedding",
+   "published_text": "15 時間前",
+   "views": "15回視聴",
+   "length": "2:11",
+   "published": "2026-09-19",
+   "fetched": "2026-09-19",
+   "q": "城ヶ島"
+  },
+  {
+   "id": "49NubJ78KWU",
+   "title": "【LIVE】三浦海岸ライブカメラ(Live Camera in Miura Beach)",
+   "channel": "WITH SEA",
    "published_text": "",
    "views": "",
    "length": "",
    "live": true,
-   "published": "2026-09-18",
-   "fetched": "2026-09-18",
+   "published": "2026-09-19",
+   "fetched": "2026-09-19",
    "q": "三浦海岸"
+  },
+  {
+   "id": "ddlMbMxag8g",
+   "title": "ロードスター6MT vlog 城ヶ島ツーリングでヤエーに挑戦！！",
+   "channel": "カワサキダビッドソンのモトブログ",
+   "published_text": "1 日前",
+   "views": "163回視聴",
+   "length": "7:29",
+   "published": "2026-09-18",
+   "fetched": "2026-09-19",
+   "q": "城ヶ島"
   },
   {
    "id": "0elgry4vDbw",
@@ -23,6 +67,17 @@
    "published": "2026-09-17",
    "fetched": "2026-09-17",
    "q": "三浦市"
+  },
+  {
+   "id": "xcbuTesPhgY",
+   "title": "【スルメイカ釣り】城ヶ島沖から洲崎沖へ　　　　　第3回おまつり修行                                                                ",
+   "channel": "ton sun channel",
+   "published_text": "3 日前",
+   "views": "4,251回視聴",
+   "length": "21:35",
+   "published": "2026-09-16",
+   "fetched": "2026-09-19",
+   "q": "城ヶ島"
   },
   {
    "id": "inOG1C0J3zg",
@@ -165,61 +220,6 @@
    "length": "1:10",
    "published": "2026-09-11",
    "fetched": "2026-09-15",
-   "q": "三浦市"
-  },
-  {
-   "id": "8sOjuttS_lU",
-   "title": "【神奈川･城ヶ島】海に流され行方不明の小5男児(10)   10日朝沖合で発見も死亡",
-   "channel": "日テレNEWS",
-   "published_text": "2 日前",
-   "views": "195,388回視聴",
-   "length": "1:03",
-   "published": "2026-09-10",
-   "fetched": "2026-09-12",
-   "q": "城ヶ島"
-  },
-  {
-   "id": "93HE0SCgP0M",
-   "title": "【速報】行方不明の小学5年生の男児　海に沈んでいるのを発見、搬送も死亡　神奈川・三浦市｜TBS NEWS DIG",
-   "channel": "TBS NEWS DIG Powered by JNN",
-   "published_text": "2 日前",
-   "views": "126,079回視聴",
-   "length": "0:39",
-   "published": "2026-09-10",
-   "fetched": "2026-09-12",
-   "q": "城ヶ島"
-  },
-  {
-   "id": "XueQiMHY57c",
-   "title": "「小学生の子どもが流された」 神奈川・三浦市の海岸で小5男児が高波に流されたか【スーパーJチャンネル】(2026年9月9日)",
-   "channel": "ANNnewsCH",
-   "published_text": "2 日前",
-   "views": "12,492回視聴",
-   "length": "0:47",
-   "published": "2026-09-10",
-   "fetched": "2026-09-12",
-   "q": "三浦市"
-  },
-  {
-   "id": "rT1ZFdciPYA",
-   "title": "【速報】神奈川・三浦市に「レベル4土砂災害危険警報」(2026年9月6日)",
-   "channel": "ANNnewsCH",
-   "published_text": "10 日前",
-   "views": "65,113回視聴",
-   "length": "1:00",
-   "published": "2026-09-07",
-   "fetched": "2026-09-17",
-   "q": "三浦市"
-  },
-  {
-   "id": "82uzirc5S6w",
-   "title": "【続報】下宮田跡地農地返還問題【三浦市】#三浦市 #出口嘉一 #れいわ三浦の会",
-   "channel": "れいわ三浦の会",
-   "published_text": "2 週間前",
-   "views": "1,175回視聴",
-   "length": "1:17",
-   "published": "2026-09-04",
-   "fetched": "2026-09-18",
    "q": "三浦市"
   }
  ]
