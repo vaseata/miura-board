@@ -1,81 +1,88 @@
 {
-  "_note": "サムネイル台帳。items の image はこのキー。場所写真は Commons の自由ライセンス、出典写真は og:image",
-  "images": {
-    "jogashima_lighthouse": {
-      "file": "img/jogashima_lighthouse.jpg",
-      "credit": "<a href=\"//commons.wikimedia.org/wiki/User:Aspere\" title=\"Us",
-      "license": "CC0",
-      "source": "https://commons.wikimedia.org/wiki/File:250429_Jogashima_Lighthouse_01.jpg",
-      "caption": "城ヶ島灯台"
-    },
-    "jogashima_bridge_sunset": {
-      "file": "img/jogashima_bridge_sunset.jpg",
-      "credit": "kauhoshi",
-      "license": "CC BY 3.0",
-      "source": "https://commons.wikimedia.org/wiki/File:夕日と城ヶ島大橋.JPG",
-      "caption": "夕日と城ヶ島大橋"
-    },
-    "jogashima_harbor": {
-      "file": "img/jogashima_harbor.jpg",
-      "credit": "<a href=\"//commons.wikimedia.org/wiki/User:Aspere\" title=\"Us",
-      "license": "CC0",
-      "source": "https://commons.wikimedia.org/wiki/File:250429_Jogashima_Harbor_02.jpg",
-      "caption": "城ヶ島漁港"
-    },
-    "misaki_harbor": {
-      "file": "img/misaki_harbor.jpg",
-      "credit": "<a href=\"//commons.wikimedia.org/wiki/User:Aspere\" title=\"Us",
-      "license": "CC0",
-      "source": "https://commons.wikimedia.org/wiki/File:250429_Misaki_Harbor_01.jpg",
-      "caption": "三崎港"
-    },
-    "misaki_shitamachi": {
-      "file": "img/misaki_shitamachi.jpg",
-      "credit": "<a href=\"//commons.wikimedia.org/wiki/User:Asturio_Cantabrio",
-      "license": "CC BY-SA 4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Misaki_Shopping_Street_ac_(1).jpg",
-      "caption": "三崎下町商店街"
-    },
-    "miura_beach": {
-      "file": "img/miura_beach.jpg",
-      "credit": "<a href=\"//commons.wikimedia.org/wiki/User:Aspere\" title=\"Us",
-      "license": "CC0",
-      "source": "https://commons.wikimedia.org/wiki/File:250429_Miura_Beach_01.jpg",
-      "caption": "三浦海岸"
-    },
-    "beer_2026": {
-      "file": "img/beer_2026.jpg",
-      "credit": "号外NET 横須賀・三浦（記事og:image）",
-      "license": "出典記事の画像",
-      "source": "https://yokosuka.goguynet.jp/2026/09/07/miurakaigan-beermatsuri2026-09/",
-      "caption": "三浦海岸ビールまつり（号外NET）"
-    },
-    "fufu_2026": {
-      "file": "img/fufu_2026.jpg",
-      "credit": "ふふ 城ヶ島 公式（og:image）",
-      "license": "公式サイトの画像",
-      "source": "https://www.fufujogashima.jp/",
-      "caption": "ふふ 城ヶ島（公式サイト）"
-    },
-    "ogawa_peanut_2026": {
-      "file": "img/ogawa_peanut_2026.jpg",
-      "credit": "カナロコ（og:image）",
-      "license": "出典記事の画像",
-      "source": "https://www.kanaloco.jp/news/culture/bunka/article-1303097.html",
-      "caption": "小川農園の落花生おおまさり（カナロコ）"
-    },
-    "lighthouse_open_2026": {
-      "file": "img/lighthouse_open_2026.jpg",
-      "credit": "みうら観光ガイド（三浦市観光協会・og:image）",
-      "license": "出典記事の画像",
-      "source": "https://miura-info.ne.jp/20260919jyogashimatoudai/",
-      "caption": "城ケ島灯台（みうら観光ガイド）"
-    },
-    "kessan_2026": {
-      "file": "img/kessan_2026.jpg",
-      "credit": "カナロコ（神奈川新聞）（og:image）",
-      "license": "出典記事の画像",
-      "source": "https://www.kanaloco.jp/news/government/article-1304415.html"
-    }
+ "_note": "サムネイル台帳。items の image はこのキー。場所写真は Commons の自由ライセンス、出典写真は og:image",
+ "images": {
+  "jogashima_lighthouse": {
+   "file": "img/jogashima_lighthouse.jpg",
+   "credit": "<a href=\"//commons.wikimedia.org/wiki/User:Aspere\" title=\"Us",
+   "license": "CC0",
+   "source": "https://commons.wikimedia.org/wiki/File:250429_Jogashima_Lighthouse_01.jpg",
+   "caption": "城ヶ島灯台"
+  },
+  "jogashima_bridge_sunset": {
+   "file": "img/jogashima_bridge_sunset.jpg",
+   "credit": "kauhoshi",
+   "license": "CC BY 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:夕日と城ヶ島大橋.JPG",
+   "caption": "夕日と城ヶ島大橋"
+  },
+  "jogashima_harbor": {
+   "file": "img/jogashima_harbor.jpg",
+   "credit": "<a href=\"//commons.wikimedia.org/wiki/User:Aspere\" title=\"Us",
+   "license": "CC0",
+   "source": "https://commons.wikimedia.org/wiki/File:250429_Jogashima_Harbor_02.jpg",
+   "caption": "城ヶ島漁港"
+  },
+  "misaki_harbor": {
+   "file": "img/misaki_harbor.jpg",
+   "credit": "<a href=\"//commons.wikimedia.org/wiki/User:Aspere\" title=\"Us",
+   "license": "CC0",
+   "source": "https://commons.wikimedia.org/wiki/File:250429_Misaki_Harbor_01.jpg",
+   "caption": "三崎港"
+  },
+  "misaki_shitamachi": {
+   "file": "img/misaki_shitamachi.jpg",
+   "credit": "<a href=\"//commons.wikimedia.org/wiki/User:Asturio_Cantabrio",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Misaki_Shopping_Street_ac_(1).jpg",
+   "caption": "三崎下町商店街"
+  },
+  "miura_beach": {
+   "file": "img/miura_beach.jpg",
+   "credit": "<a href=\"//commons.wikimedia.org/wiki/User:Aspere\" title=\"Us",
+   "license": "CC0",
+   "source": "https://commons.wikimedia.org/wiki/File:250429_Miura_Beach_01.jpg",
+   "caption": "三浦海岸"
+  },
+  "beer_2026": {
+   "file": "img/beer_2026.jpg",
+   "credit": "号外NET 横須賀・三浦（記事og:image）",
+   "license": "出典記事の画像",
+   "source": "https://yokosuka.goguynet.jp/2026/09/07/miurakaigan-beermatsuri2026-09/",
+   "caption": "三浦海岸ビールまつり（号外NET）"
+  },
+  "fufu_2026": {
+   "file": "img/fufu_2026.jpg",
+   "credit": "ふふ 城ヶ島 公式（og:image）",
+   "license": "公式サイトの画像",
+   "source": "https://www.fufujogashima.jp/",
+   "caption": "ふふ 城ヶ島（公式サイト）"
+  },
+  "ogawa_peanut_2026": {
+   "file": "img/ogawa_peanut_2026.jpg",
+   "credit": "カナロコ（og:image）",
+   "license": "出典記事の画像",
+   "source": "https://www.kanaloco.jp/news/culture/bunka/article-1303097.html",
+   "caption": "小川農園の落花生おおまさり（カナロコ）"
+  },
+  "lighthouse_open_2026": {
+   "file": "img/lighthouse_open_2026.jpg",
+   "credit": "みうら観光ガイド（三浦市観光協会・og:image）",
+   "license": "出典記事の画像",
+   "source": "https://miura-info.ne.jp/20260919jyogashimatoudai/",
+   "caption": "城ケ島灯台（みうら観光ガイド）"
+  },
+  "kessan_2026": {
+   "file": "img/kessan_2026.jpg",
+   "credit": "カナロコ（神奈川新聞）（og:image）",
+   "license": "出典記事の画像",
+   "source": "https://www.kanaloco.jp/news/government/article-1304415.html"
+  },
+  "miura_shiyakusho": {
+   "file": "img/miura_shiyakusho.jpg",
+   "credit": "カナロコ（神奈川新聞）（og:image）",
+   "license": "出典記事の画像",
+   "source": "https://www.kanaloco.jp/news/social/article-1305676.html",
+   "caption": "三浦市役所（資料写真）"
   }
+ }
 }

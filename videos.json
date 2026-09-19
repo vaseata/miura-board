@@ -2,6 +2,18 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "MOkZUavnHM4",
+   "title": "三浦海岸ライブカメラ 24時間 🌊 波音・海・睡眠 | Miura Beach Live Cam Japan",
+   "channel": "湾岸Go (TOKYO BAY LIVE CAMERA)",
+   "published_text": "",
+   "views": "",
+   "length": "",
+   "live": true,
+   "published": "2026-09-20",
+   "fetched": "2026-09-20",
+   "q": "三浦海岸"
+  },
+  {
    "id": "dWSG7ucdCzQ",
    "title": "【ドローン】撮影記録Cine’ movies  Vlog風 城ヶ島(夏)神奈川県三浦市",
    "channel": "ダメリノ(空撮チャンネル)",
@@ -33,18 +45,6 @@
    "published": "2026-09-19",
    "fetched": "2026-09-19",
    "q": "城ヶ島"
-  },
-  {
-   "id": "49NubJ78KWU",
-   "title": "【LIVE】三浦海岸ライブカメラ(Live Camera in Miura Beach)",
-   "channel": "WITH SEA",
-   "published_text": "",
-   "views": "",
-   "length": "",
-   "live": true,
-   "published": "2026-09-19",
-   "fetched": "2026-09-19",
-   "q": "三浦海岸"
   },
   {
    "id": "ddlMbMxag8g",
