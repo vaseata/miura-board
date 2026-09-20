@@ -2,15 +2,15 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
-   "id": "MOkZUavnHM4",
-   "title": "三浦海岸ライブカメラ 24時間 🌊 波音・海・睡眠 | Miura Beach Live Cam Japan",
-   "channel": "湾岸Go (TOKYO BAY LIVE CAMERA)",
+   "id": "49NubJ78KWU",
+   "title": "【LIVE】三浦海岸ライブカメラ(Live Camera in Miura Beach)",
+   "channel": "WITH SEA",
    "published_text": "",
    "views": "",
    "length": "",
    "live": true,
-   "published": "2026-09-20",
-   "fetched": "2026-09-20",
+   "published": "2026-09-21",
+   "fetched": "2026-09-21",
    "q": "三浦海岸"
   },
   {
