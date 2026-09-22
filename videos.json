@@ -2,16 +2,93 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
-   "id": "MOkZUavnHM4",
-   "title": "三浦海岸ライブカメラ 24時間 🌊 波音・海・睡眠 | Miura Beach Live Cam Japan",
-   "channel": "湾岸Go (TOKYO BAY LIVE CAMERA)",
+   "id": "yNlKD6efWEg",
+   "title": "【台風25号】神奈川県内で土砂崩れ相次ぐ  救助活動続く三浦市では",
+   "channel": "日テレNEWS",
+   "published_text": "15 時間前",
+   "views": "46,310回視聴",
+   "length": "1:33",
+   "published": "2026-09-23",
+   "fetched": "2026-09-23",
+   "q": "城ヶ島"
+  },
+  {
+   "id": "49NubJ78KWU",
+   "title": "【LIVE】三浦海岸ライブカメラ(Live Camera in Miura Beach)",
+   "channel": "WITH SEA",
    "published_text": "",
    "views": "",
    "length": "",
    "live": true,
-   "published": "2026-09-22",
-   "fetched": "2026-09-22",
+   "published": "2026-09-23",
+   "fetched": "2026-09-23",
    "q": "三浦海岸"
+  },
+  {
+   "id": "IyhmeJsif3c",
+   "title": "神奈川県三浦市などで土砂崩れ相次ぐ【台風25号被害】",
+   "channel": "朝日新聞",
+   "published_text": "18 時間前",
+   "views": "32,366回視聴",
+   "length": "1:34",
+   "published": "2026-09-23",
+   "fetched": "2026-09-23",
+   "q": "三浦海岸"
+  },
+  {
+   "id": "iKKJDPv8IKw",
+   "title": "【台風25号/横須賀市/三浦市】翌朝の状況をオフロードバイクで確認してきました",
+   "channel": "ZEN WHEELER",
+   "published_text": "6 時間前",
+   "views": "5,672回視聴",
+   "length": "8:51",
+   "published": "2026-09-23",
+   "fetched": "2026-09-23",
+   "q": "三浦市"
+  },
+  {
+   "id": "ZeAlBoDWFdg",
+   "title": "神奈川県三浦市で台風被害　行方不明者の捜索続く",
+   "channel": "毎日新聞",
+   "published_text": "16 時間前",
+   "views": "14,859回視聴",
+   "length": "1:06",
+   "published": "2026-09-23",
+   "fetched": "2026-09-23",
+   "q": "三浦市"
+  },
+  {
+   "id": "C63iNaiLY1w",
+   "title": "台風25号　神奈川・三浦市で土砂崩れ 60代女性死亡　2人と連絡取れず(2026年9月22日)",
+   "channel": "ANNnewsCH",
+   "published_text": "19 時間前",
+   "views": "20,145回視聴",
+   "length": "1:40",
+   "published": "2026-09-23",
+   "fetched": "2026-09-23",
+   "q": "三浦市"
+  },
+  {
+   "id": "puig4zxw9zw",
+   "title": "神奈川・三浦市で土砂崩れ　住宅に土砂流入で1階部分が崩れる　30代女性と連絡取れず（2026年09月22日）",
+   "channel": "FNNプライムオンライン",
+   "published_text": "19 時間前",
+   "views": "17,747回視聴",
+   "length": "1:24",
+   "published": "2026-09-23",
+   "fetched": "2026-09-23",
+   "q": "三浦市"
+  },
+  {
+   "id": "9moJvssBPa4",
+   "title": "【台風25号被害】千葉・佐倉市で川が氾濫 住宅街が一面茶色に…神奈川･横須賀市､三浦市では土砂崩れで多くの被害が発生～天達気象予報士解説【ノンストップ！】",
+   "channel": "ノンストップ!公式ch.",
+   "published_text": "19 時間前",
+   "views": "220,227回視聴",
+   "length": "19:58",
+   "published": "2026-09-23",
+   "fetched": "2026-09-23",
+   "q": "三浦市"
   },
   {
    "id": "KBy8q25uG5w",
@@ -144,83 +221,6 @@
    "published": "2026-09-14",
    "fetched": "2026-09-18",
    "q": "三浦海岸"
-  },
-  {
-   "id": "0Teo1QGoTiw",
-   "title": "【神奈川県某所】今季は絶好調！？夏の東京湾で2年ぶりの怪物魚が！夏の終わりの時期に、関東地方の三浦半島の東京湾側に面している釣り場で、とある人気ターゲット狙いで釣りしてみたら…！【2026年9月上旬】",
-   "channel": "ちゃんねるよしゅあ",
-   "published_text": "1 日前",
-   "views": "36,159回視聴",
-   "length": "22:25",
-   "published": "2026-09-13",
-   "fetched": "2026-09-14",
-   "q": "三浦海岸"
-  },
-  {
-   "id": "58k-G71oqaY",
-   "title": "海で流され小学5年生男児行方不明 同級生3人と岩場で遊び高波にさらわれたか ライフジャケット着用せず 神奈川・三浦市（2026年09月09日）",
-   "channel": "FNNプライムオンライン",
-   "published_text": "",
-   "views": "",
-   "length": "",
-   "published": "2026-09-12",
-   "fetched": "2026-09-12",
-   "manual": true
-  },
-  {
-   "id": "-GR4ixt15FM",
-   "title": "【9月最新!】青物キタｱｱｱ!!!!こうやって釣る！神奈川サーフで秋の釣り調査! #東京湾 #三浦半島 #三浦海岸 #青物 #ショゴ #イナダ #ブリ #マゴチ  #ヒラメ #fishing #海釣り",
-   "channel": "なっしぃの釣り研究",
-   "published_text": "15 時間前",
-   "views": "8,933回視聴",
-   "length": "27:38",
-   "published": "2026-09-12",
-   "fetched": "2026-09-12",
-   "q": "三浦海岸"
-  },
-  {
-   "id": "AwbW62qvovk",
-   "title": "♯382【小網代ボート釣り】鯛・青物狙い！夏の浅場はポイント×釣り方次第で絶好調！？",
-   "channel": "ボート釣り名人万ちゃんの釣り美学",
-   "published_text": "23 時間前",
-   "views": "2,433回視聴",
-   "length": "27:01",
-   "published": "2026-09-12",
-   "fetched": "2026-09-12",
-   "q": "小網代"
-  },
-  {
-   "id": "QLTZoxJCGqM",
-   "title": "［三浦海岸］ついにヤツがきた！サーフ釣果情報も！［9/6速報］",
-   "channel": "-FULLLOCK-",
-   "published_text": "5 日前",
-   "views": "6,509回視聴",
-   "length": "9:41",
-   "published": "2026-09-12",
-   "fetched": "2026-09-17",
-   "q": "三浦海岸"
-  },
-  {
-   "id": "3EM4NqXq1XI",
-   "title": "【速報】海で小学生くらいの男児が見つかり死亡確認  行方不明の小5男児か  神奈川･三浦市",
-   "channel": "日テレNEWS",
-   "published_text": "4 日前",
-   "views": "139,561回視聴",
-   "length": "1:08",
-   "published": "2026-09-11",
-   "fetched": "2026-09-15",
-   "q": "城ヶ島"
-  },
-  {
-   "id": "l04rqnMdTCU",
-   "title": "【三崎港】ちょい投げキス狙い！のはずがまさかの生き物が！？",
-   "channel": "あさみーちゃんねる Asa×Mii Channel",
-   "published_text": "4 日前",
-   "views": "8,446回視聴",
-   "length": "12:11",
-   "published": "2026-09-11",
-   "fetched": "2026-09-15",
-   "q": "三崎港"
   }
  ]
 }
