@@ -2,6 +2,40 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "wepZsTdqGd4",
+   "title": "【三崎港】エサ取り名人に10歳が挑む🎣達人フッキング…肝パンカワハギ✨ガチ調理！極上の煮付け＆刺身で晩酌したら最高すぎた🤤",
+   "channel": "つり姫もも©チャンネル",
+   "published_text": "14 時間前",
+   "views": "435回視聴",
+   "length": "11:15",
+   "published": "2026-09-24",
+   "fetched": "2026-09-24",
+   "q": "三崎港"
+  },
+  {
+   "id": "MOkZUavnHM4",
+   "title": "三浦海岸ライブカメラ 24時間 🌊 波音・海・睡眠 | Miura Beach Live Cam Japan",
+   "channel": "湾岸Go (TOKYO BAY LIVE CAMERA)",
+   "published_text": "",
+   "views": "",
+   "length": "",
+   "live": true,
+   "published": "2026-09-24",
+   "fetched": "2026-09-24",
+   "q": "三浦海岸"
+  },
+  {
+   "id": "TzvtbNO9YaE",
+   "title": "相模湾ヨットフェスティバルレース(SYF)2026‗無修正ロングバージョン",
+   "channel": "JSAF外洋三崎",
+   "published_text": "6 時間前",
+   "views": "2回視聴",
+   "length": "59:53",
+   "published": "2026-09-24",
+   "fetched": "2026-09-24",
+   "q": "三浦半島 三崎"
+  },
+  {
    "id": "yNlKD6efWEg",
    "title": "【台風25号】神奈川県内で土砂崩れ相次ぐ  救助活動続く三浦市では",
    "channel": "日テレNEWS",
@@ -11,18 +45,6 @@
    "published": "2026-09-23",
    "fetched": "2026-09-23",
    "q": "城ヶ島"
-  },
-  {
-   "id": "49NubJ78KWU",
-   "title": "【LIVE】三浦海岸ライブカメラ(Live Camera in Miura Beach)",
-   "channel": "WITH SEA",
-   "published_text": "",
-   "views": "",
-   "length": "",
-   "live": true,
-   "published": "2026-09-23",
-   "fetched": "2026-09-23",
-   "q": "三浦海岸"
   },
   {
    "id": "IyhmeJsif3c",
@@ -100,6 +122,17 @@
    "published": "2026-09-22",
    "fetched": "2026-09-22",
    "q": "三浦海岸"
+  },
+  {
+   "id": "1u3yz76zqQk",
+   "title": "三浦半島西部から鶴岡八幡宮へ。深夜の珍道中を楽しむ男｜47歳ドライブvlog",
+   "channel": "タケチヨ ソロ活ロード",
+   "published_text": "2 日前",
+   "views": "8,693回視聴",
+   "length": "55:05",
+   "published": "2026-09-22",
+   "fetched": "2026-09-24",
+   "q": "油壺"
   },
   {
    "id": "dWSG7ucdCzQ",
@@ -188,39 +221,6 @@
    "published": "2026-09-15",
    "fetched": "2026-09-15",
    "q": "油壺"
-  },
-  {
-   "id": "hLmTGqaQ2hs",
-   "title": "2026年9月13日三浦市三崎朝市",
-   "channel": "びんちゃん貧乏な",
-   "published_text": "3 日前",
-   "views": "2,067回視聴",
-   "length": "15:36",
-   "published": "2026-09-14",
-   "fetched": "2026-09-17",
-   "q": "三浦市"
-  },
-  {
-   "id": "WTHIjt90duk",
-   "title": "みさきまぐろきっぷの旅  三崎口・三浦海岸",
-   "channel": "Takaya代表の休日",
-   "published_text": "3 日前",
-   "views": "165回視聴",
-   "length": "6:09",
-   "published": "2026-09-14",
-   "fetched": "2026-09-17",
-   "q": "三崎 マグロ"
-  },
-  {
-   "id": "_WpBbE8oB88",
-   "title": "【カマス＆アジ狙い】9月初旬の三浦海岸で店長とボート釣り！果たして釣果は？",
-   "channel": "ヒット三浦海岸チャンネル",
-   "published_text": "4 日前",
-   "views": "10,734回視聴",
-   "length": "15:56",
-   "published": "2026-09-14",
-   "fetched": "2026-09-18",
-   "q": "三浦海岸"
   }
  ]
 }

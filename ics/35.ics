@@ -1,0 +1,23 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//miura-board//JA
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:miura-board-35@vaseata.github.io
+DTSTAMP:20260923T233503Z
+DTSTART:20261025T010000Z
+DTEND:20261025T070000Z
+SUMMARY:令和8年度 三崎港町まつり
+LOCATION:みうら・みさき海の駅“うらり”（三浦市三崎5-3
+ -1）
+DESCRIPTION:令和8年度 三崎港町まつり 10/25(日) 10:00〜16:00、
+ みうら・みさき海の駅“うらり”。まぐろ・魚介藻類
+ ・水産加工品の展示即売など。主催 三崎港町まつり実
+ 行委員会（市の10月行事予定・9/17公表）\n出典: https://ww
+ w.city.miura.kanagawa.jp/soshiki/seisakuka/seisakuka_hisho/shichonoheya/pr
+ essrelease/202609/13116.html\n最近の三浦: https://vaseata.github.io/m
+ iura-board/
+URL:https://vaseata.github.io/miura-board/
+END:VEVENT
+END:VCALENDAR

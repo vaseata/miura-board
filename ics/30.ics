@@ -1,0 +1,23 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//miura-board//JA
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:miura-board-30@vaseata.github.io
+DTSTAMP:20260923T233503Z
+DTSTART:20261003T020000Z
+DTEND:20261003T083000Z
+SUMMARY:海業フェスタ＠みうら・みさき海の駅
+LOCATION:みうら・みさき海の駅“うらり”及び周辺（三浦
+ 市三崎5-3-1）
+DESCRIPTION:海業フェスタ＠みうら・みさき海の駅 10/3(土) 1
+ 1:00〜17:30、うらりと周辺。主催 三浦海業公社。同日12:0
+ 0〜17:00にうらり敷地内で県警出展にあわせた防犯キャ
+ ンペーンも（市の10月行事予定・9/17公表）\n出典: https:/
+ /www.city.miura.kanagawa.jp/soshiki/seisakuka/seisakuka_hisho/shichonoheya
+ /pressrelease/202609/13116.html\n最近の三浦: https://vaseata.github.i
+ o/miura-board/
+URL:https://vaseata.github.io/miura-board/
+END:VEVENT
+END:VCALENDAR

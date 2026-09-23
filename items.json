@@ -354,6 +354,23 @@
        "opened": "2026-09-15"
       }
      ]
+    },
+    {
+     "h": "同じ時期の三崎の行事",
+     "t": "市の10月行事予定（9/17公表）では、三崎港町まつりは10/25(日)で、パレード（10/18）とは重ならない。パレードは市の予定表でも14:00〜16:00、三崎下町周辺",
+     "confidence": "🟢",
+     "sources": [
+      {
+       "url": "https://www.city.miura.kanagawa.jp/soshiki/seisakuka/seisakuka_hisho/shichonoheya/pressrelease/202609/13116.html",
+       "title": "三浦市 主な月間行事予定（10月）9/17公表",
+       "opened": "2026-09-24"
+      },
+      {
+       "url": "https://www.city.miura.kanagawa.jp/material/files/group/5/2026091702.pdf",
+       "title": "三浦市 月間行事予定10月（PDF）",
+       "opened": "2026-09-24"
+      }
+     ]
     }
    ],
    "open_questions": [
@@ -361,7 +378,6 @@
     "今年の参加基数と団体",
     "屋台が出るか（去年はうらり正面口前）",
     "交通規制の時間帯（去年は時間帯により全面通行止め）",
-    "同日に重なる行事（三崎港町まつりは例年10月下旬〜11月上旬の日曜）",
     "当日の天気（1週間前から）"
    ],
    "tags": [
@@ -1133,6 +1149,260 @@
      "url": "https://www.misakikanko.co.jp/news/2026/09/35.html",
      "title": "三崎観光（京急）お知らせ 2026-09-22",
      "opened": "2026-09-23"
+    }
+   ]
+  },
+  {
+   "id": 28,
+   "date": "2026-09-23",
+   "area": "三浦市",
+   "category": "出来事",
+   "headline": "台風25号の被害、土砂崩れ88件・通行止め54カ所に",
+   "fact": "三浦市の発表（9/23 17時現在）：台風25号による人的被害は死亡1人（初声町和田）・重症1人（諏訪）・行方不明1人（南下浦町上宮田）。土砂崩れは88件、通行止め・通行不能は国道134号和田付近など計54カ所。避難所は南下浦コミュニティセンター（4世帯11人）と初声市民センター（4世帯4人）",
+   "talk": "台風のあと市内の崖崩れは88件、通行止めも50カ所を超えていて、車で回るなら道の確認が要ります",
+   "confidence": "🟢",
+   "image": "miura_shiyakusho",
+   "tags": [
+    "防災"
+   ],
+   "sources": [
+    {
+     "url": "https://www.city.miura.kanagawa.jp/soshiki/seisakuka/seisakuka_hisho/shichonoheya/pressrelease/202609/2026092302.html",
+     "title": "三浦市 プレスリリース 9/23（17時現在）",
+     "opened": "2026-09-24"
+    },
+    {
+     "url": "https://www.city.miura.kanagawa.jp/soshiki/seisakuka/seisakuka_hisho/shichonoheya/pressrelease/202609/2026092301.html",
+     "title": "三浦市 プレスリリース 9/23（8時現在）",
+     "opened": "2026-09-24"
+    }
+   ]
+  },
+  {
+   "id": 29,
+   "date": "2026-09-23",
+   "area": "三浦市",
+   "category": "出来事",
+   "headline": "旭小が25日まで休校、潮風アリーナなど臨時閉鎖",
+   "fact": "台風25号の土砂流入で旭小学校は敷地内を立入制限、9/25まで休校（28日以降は未定）。潮風アリーナ・南下浦コミュニティセンター・初声市民センターは臨時閉鎖中。罹災証明書は9/24から市役所分館3階で受付（三浦市 9/23 17時現在）",
+   "talk": "旭小は土砂が入って休校中、潮風アリーナも今は閉まっています",
+   "confidence": "🟢",
+   "image": "miura_shiyakusho",
+   "tags": [
+    "防災"
+   ],
+   "sources": [
+    {
+     "url": "https://www.city.miura.kanagawa.jp/soshiki/seisakuka/seisakuka_hisho/shichonoheya/pressrelease/202609/2026092302.html",
+     "title": "三浦市 プレスリリース 9/23（17時現在）",
+     "opened": "2026-09-24"
+    }
+   ]
+  },
+  {
+   "id": 30,
+   "date": "2026-10-03",
+   "area": "三崎",
+   "category": "イベント",
+   "headline": "10/3 うらりで「海業フェスタ」",
+   "fact": "海業フェスタ＠みうら・みさき海の駅 10/3(土) 11:00〜17:30、うらりと周辺。主催 三浦海業公社。同日12:00〜17:00にうらり敷地内で県警出展にあわせた防犯キャンペーンも（市の10月行事予定・9/17公表）",
+   "talk": "夜市の初日の昼、うらりで海業フェスタ。昼はうらり、夕方から下町の夜市と回れます",
+   "confidence": "🟢",
+   "image": "misaki_harbor",
+   "tags": [
+    "食",
+    "海",
+    "港"
+   ],
+   "cal": {
+    "title": "海業フェスタ＠みうら・みさき海の駅",
+    "place": "みうら・みさき海の駅“うらり”及び周辺（三浦市三崎5-3-1）",
+    "start": "11:00",
+    "end": "17:30"
+   },
+   "sources": [
+    {
+     "url": "https://www.city.miura.kanagawa.jp/soshiki/seisakuka/seisakuka_hisho/shichonoheya/pressrelease/202609/13116.html",
+     "title": "三浦市 主な月間行事予定（10月）9/17公表",
+     "opened": "2026-09-24"
+    },
+    {
+     "url": "https://www.city.miura.kanagawa.jp/material/files/group/5/2026091702.pdf",
+     "title": "三浦市 月間行事予定10月（PDF）",
+     "opened": "2026-09-24"
+    }
+   ]
+  },
+  {
+   "id": 31,
+   "date": "2026-10-03",
+   "end": "2026-10-04",
+   "area": "三崎",
+   "category": "イベント",
+   "headline": "夜市で「三崎のねぎとろ」が当たるガラポン",
+   "fact": "新ブランド「三崎のねぎとろ」のPR第2弾。10/3(土)・4(日) 16:00〜21:00、第18回みうら夜市の会場でアンケート協力者にねぎとろが当たるガラポン抽選会。参加事業者は2社増えて11事業者。楽天ふるさと納税でも扱う（三浦市 9/16）",
+   "talk": "市が売り出し中の「三崎のねぎとろ」、夜市でアンケートに答えるとガラポンで当たるそうです",
+   "confidence": "🟢",
+   "image": "misaki_shitamachi",
+   "tags": [
+    "食",
+    "マグロ",
+    "下町",
+    "夜"
+   ],
+   "cal": {
+    "title": "三崎のねぎとろ ガラポン抽選会（みうら夜市内）",
+    "place": "三崎下町商店街（第18回みうら夜市 会場内）",
+    "start": "16:00",
+    "end": "21:00"
+   },
+   "sources": [
+    {
+     "url": "https://www.city.miura.kanagawa.jp/soshiki/seisakuka/seisakuka_hisho/shichonoheya/pressrelease/202609/2026091601.html",
+     "title": "三浦市 プレスリリース 9/16",
+     "opened": "2026-09-24"
+    },
+    {
+     "url": "https://www.city.miura.kanagawa.jp/material/files/group/5/2026091702.pdf",
+     "title": "三浦市 月間行事予定10月（PDF）",
+     "opened": "2026-09-24"
+    }
+   ]
+  },
+  {
+   "id": 32,
+   "date": "2026-10-04",
+   "area": "三崎",
+   "category": "イベント",
+   "headline": "10/4 第54回いなりっこ発表会",
+   "fact": "第54回いなりっこ発表会 10/4(日) 13:00〜16:00、三浦市民ホール（うらり2階）。「いなりっこ」は三浦市指定重要無形民俗文化財。主催 三浦海業公社（市の10月行事予定・9/17公表）",
+   "talk": "夜市2日目の昼、うらり2階で三崎の郷土芸能「いなりっこ」の発表会があります",
+   "confidence": "🟢",
+   "image": "misaki_harbor",
+   "tags": [
+    "伝統",
+    "祭り"
+   ],
+   "cal": {
+    "title": "第54回 いなりっこ発表会",
+    "place": "三浦市民ホール（みうら・みさき海の駅“うらり”2階）",
+    "start": "13:00",
+    "end": "16:00"
+   },
+   "sources": [
+    {
+     "url": "https://www.city.miura.kanagawa.jp/soshiki/seisakuka/seisakuka_hisho/shichonoheya/pressrelease/202609/13116.html",
+     "title": "三浦市 主な月間行事予定（10月）9/17公表",
+     "opened": "2026-09-24"
+    },
+    {
+     "url": "https://www.city.miura.kanagawa.jp/material/files/group/5/2026091702.pdf",
+     "title": "三浦市 月間行事予定10月（PDF）",
+     "opened": "2026-09-24"
+    }
+   ]
+  },
+  {
+   "id": 33,
+   "date": "2026-10-23",
+   "area": "三浦市",
+   "category": "イベント",
+   "headline": "10/23 夜、菊名の飴屋踊り",
+   "fact": "菊名の飴屋踊り 10/23(金) 19:00〜21:00、菊名区民会館前広場。白山神社例祭として奉納。神奈川県指定無形民俗文化財。主催 菊名のあめや踊り保存会（市の10月行事予定・9/17公表）",
+   "talk": "県の無形民俗文化財の踊りが、菊名で夜に奉納されます。平日の夜です",
+   "confidence": "🟢",
+   "image": null,
+   "tags": [
+    "伝統",
+    "祭り",
+    "夜"
+   ],
+   "cal": {
+    "title": "菊名の飴屋踊り（白山神社例祭）",
+    "place": "菊名区民会館前広場（三浦市南下浦町菊名）",
+    "start": "19:00",
+    "end": "21:00"
+   },
+   "sources": [
+    {
+     "url": "https://www.city.miura.kanagawa.jp/soshiki/seisakuka/seisakuka_hisho/shichonoheya/pressrelease/202609/13116.html",
+     "title": "三浦市 主な月間行事予定（10月）9/17公表",
+     "opened": "2026-09-24"
+    },
+    {
+     "url": "https://www.city.miura.kanagawa.jp/material/files/group/5/2026091702.pdf",
+     "title": "三浦市 月間行事予定10月（PDF）",
+     "opened": "2026-09-24"
+    }
+   ]
+  },
+  {
+   "id": 34,
+   "date": "2026-10-24",
+   "end": "2026-10-25",
+   "area": "三浦市",
+   "category": "イベント",
+   "headline": "10/24・25 花とみどりのつどい、苗木配布も",
+   "fact": "三浦花とみどりのつどい 10/24(土) 9:00〜21:00・25(日) 9:00〜15:00、市民交流センター・ニナイテ（ベイシア2階）。フラワーロード写真展、横須賀市博物館の出張展示など。先着100人程度（1家族1本）にブルーベリーの苗木を配布。フラワーアレンジメント教室（定員20人）は10/6から電話で先着受付（市の10月行事予定・9/17公表）",
+   "talk": "ベイシアの2階で花とみどりのつどい。先着でブルーベリーの苗がもらえます",
+   "confidence": "🟢",
+   "image": null,
+   "tags": [
+    "花"
+   ],
+   "cal": {
+    "title": "三浦花とみどりのつどい",
+    "place": "市民交流センター・ニナイテ（ベイシア2階）",
+    "start": "09:00",
+    "end": "15:00",
+    "note": "10/24(土)は21:00まで、10/25(日)は15:00まで"
+   },
+   "sources": [
+    {
+     "url": "https://www.city.miura.kanagawa.jp/soshiki/seisakuka/seisakuka_hisho/shichonoheya/pressrelease/202609/13116.html",
+     "title": "三浦市 主な月間行事予定（10月）9/17公表",
+     "opened": "2026-09-24"
+    },
+    {
+     "url": "https://www.city.miura.kanagawa.jp/material/files/group/5/2026091702.pdf",
+     "title": "三浦市 月間行事予定10月（PDF）",
+     "opened": "2026-09-24"
+    }
+   ]
+  },
+  {
+   "id": 35,
+   "date": "2026-10-25",
+   "area": "三崎",
+   "category": "イベント",
+   "headline": "10/25 三崎港町まつり、うらりで",
+   "fact": "令和8年度 三崎港町まつり 10/25(日) 10:00〜16:00、みうら・みさき海の駅“うらり”。まぐろ・魚介藻類・水産加工品の展示即売など。主催 三崎港町まつり実行委員会（市の10月行事予定・9/17公表）",
+   "talk": "今年の港町まつりは10/25。マグロ尽くしの日です",
+   "confidence": "🟢",
+   "image": "misaki_harbor",
+   "tags": [
+    "食",
+    "マグロ",
+    "祭り",
+    "海",
+    "港"
+   ],
+   "cal": {
+    "title": "令和8年度 三崎港町まつり",
+    "place": "みうら・みさき海の駅“うらり”（三浦市三崎5-3-1）",
+    "start": "10:00",
+    "end": "16:00"
+   },
+   "sources": [
+    {
+     "url": "https://www.city.miura.kanagawa.jp/soshiki/seisakuka/seisakuka_hisho/shichonoheya/pressrelease/202609/13116.html",
+     "title": "三浦市 主な月間行事予定（10月）9/17公表",
+     "opened": "2026-09-24"
+    },
+    {
+     "url": "https://www.city.miura.kanagawa.jp/material/files/group/5/2026091702.pdf",
+     "title": "三浦市 月間行事予定10月（PDF）",
+     "opened": "2026-09-24"
     }
    ]
   }

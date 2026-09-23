@@ -1,0 +1,23 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//miura-board//JA
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:miura-board-31@vaseata.github.io
+DTSTAMP:20260923T233503Z
+DTSTART:20261003T070000Z
+DTEND:20261003T120000Z
+RRULE:FREQ=DAILY;COUNT=2
+SUMMARY:三崎のねぎとろ ガラポン抽選会（みうら夜市内）
+LOCATION:三崎下町商店街（第18回みうら夜市 会場内）
+DESCRIPTION:新ブランド「三崎のねぎとろ」のPR第2弾。10/3(
+ 土)・4(日) 16:00〜21:00、第18回みうら夜市の会場でアンケ
+ ート協力者にねぎとろが当たるガラポン抽選会。参加
+ 事業者は2社増えて11事業者。楽天ふるさと納税でも扱
+ う（三浦市 9/16）\n出典: https://www.city.miura.kanagawa.jp/soshik
+ i/seisakuka/seisakuka_hisho/shichonoheya/pressrelease/202609/2026091601.ht
+ ml\n最近の三浦: https://vaseata.github.io/miura-board/
+URL:https://vaseata.github.io/miura-board/
+END:VEVENT
+END:VCALENDAR

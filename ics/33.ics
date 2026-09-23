@@ -1,0 +1,21 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//miura-board//JA
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:miura-board-33@vaseata.github.io
+DTSTAMP:20260923T233503Z
+DTSTART:20261023T100000Z
+DTEND:20261023T120000Z
+SUMMARY:菊名の飴屋踊り（白山神社例祭）
+LOCATION:菊名区民会館前広場（三浦市南下浦町菊名）
+DESCRIPTION:菊名の飴屋踊り 10/23(金) 19:00〜21:00、菊名区民
+ 会館前広場。白山神社例祭として奉納。神奈川県指定
+ 無形民俗文化財。主催 菊名のあめや踊り保存会（市の1
+ 0月行事予定・9/17公表）\n出典: https://www.city.miura.kanagawa.
+ jp/soshiki/seisakuka/seisakuka_hisho/shichonoheya/pressrelease/202609/1311
+ 6.html\n最近の三浦: https://vaseata.github.io/miura-board/
+URL:https://vaseata.github.io/miura-board/
+END:VEVENT
+END:VCALENDAR
