@@ -2,6 +2,29 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "49NubJ78KWU",
+   "title": "【LIVE】三浦海岸ライブカメラ(Live Camera in Miura Beach)",
+   "channel": "WITH SEA",
+   "published_text": "",
+   "views": "",
+   "length": "",
+   "live": true,
+   "published": "2026-09-25",
+   "fetched": "2026-09-25",
+   "q": "三浦海岸"
+  },
+  {
+   "id": "GtAIIB7nMZY",
+   "title": "【ヘリ空撮】神奈川･千葉では死者10人･行方不明4人に…台風25号の影響続く　神奈川･三浦市の現在の様子　土砂が流れ込んだ小学校は臨時休校に（2026年9月24日）",
+   "channel": "TBS NEWS DIG Powered by JNN",
+   "published_text": "19 時間前",
+   "views": "29,744回視聴",
+   "length": "1:46",
+   "published": "2026-09-25",
+   "fetched": "2026-09-25",
+   "q": "三浦市"
+  },
+  {
    "id": "wepZsTdqGd4",
    "title": "【三崎港】エサ取り名人に10歳が挑む🎣達人フッキング…肝パンカワハギ✨ガチ調理！極上の煮付け＆刺身で晩酌したら最高すぎた🤤",
    "channel": "つり姫もも©チャンネル",
@@ -11,18 +34,6 @@
    "published": "2026-09-24",
    "fetched": "2026-09-24",
    "q": "三崎港"
-  },
-  {
-   "id": "MOkZUavnHM4",
-   "title": "三浦海岸ライブカメラ 24時間 🌊 波音・海・睡眠 | Miura Beach Live Cam Japan",
-   "channel": "湾岸Go (TOKYO BAY LIVE CAMERA)",
-   "published_text": "",
-   "views": "",
-   "length": "",
-   "live": true,
-   "published": "2026-09-24",
-   "fetched": "2026-09-24",
-   "q": "三浦海岸"
   },
   {
    "id": "TzvtbNO9YaE",
@@ -113,6 +124,17 @@
    "q": "三浦市"
   },
   {
+   "id": "yWj6f7Kd4mM",
+   "title": "【速報】台風で4人死亡、6人不明 神奈川県三浦市で土砂崩れ",
+   "channel": "共同通信  KYODO NEWS",
+   "published_text": "2 日前",
+   "views": "12,324回視聴",
+   "length": "0:31",
+   "published": "2026-09-23",
+   "fetched": "2026-09-25",
+   "q": "三浦市"
+  },
+  {
    "id": "KBy8q25uG5w",
    "title": "【台風２５号】三浦半島で１人死亡、２人安否不明　土砂災害が続発、大きな爪痕／神奈川新聞（カナロコ）",
    "channel": "kanaloco",
@@ -199,28 +221,6 @@
    "published": "2026-09-16",
    "fetched": "2026-09-19",
    "q": "城ヶ島"
-  },
-  {
-   "id": "inOG1C0J3zg",
-   "title": "土曜の夜、ふらっと横須賀三浦半島を目指す男と弾丸シビック｜47歳ドライブvlog",
-   "channel": "タケチヨ ソロ活ロード",
-   "published_text": "11 時間前",
-   "views": "9,329回視聴",
-   "length": "1:03:19",
-   "published": "2026-09-15",
-   "fetched": "2026-09-15",
-   "q": "城ヶ島"
-  },
-  {
-   "id": "k6PjC0LH3pE",
-   "title": "三崎口駅の今と昔【京急線・終点・油壺マリンパーク・みさきまぐろ・城ヶ島・国道１３４号線・三浦市・三浦海岸・横須賀・うらりマルシェ・街の移り変わり・懐かしい景色・遠い記憶・町の歴史・あの頃の思い出】",
-   "channel": "そう遠くない未来過去 / The not-too-distant past and future",
-   "published_text": "12 時間前",
-   "views": "8,826回視聴",
-   "length": "5:08",
-   "published": "2026-09-15",
-   "fetched": "2026-09-15",
-   "q": "油壺"
   }
  ]
 }

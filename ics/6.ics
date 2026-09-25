@@ -5,7 +5,7 @@ CALSCALE:GREGORIAN
 METHOD:PUBLISH
 BEGIN:VEVENT
 UID:miura-board-6@vaseata.github.io
-DTSTAMP:20260923T233503Z
+DTSTAMP:20260925T011436Z
 DTSTART;VALUE=DATE:20260927
 DTEND;VALUE=DATE:20260928
 SUMMARY:三浦海岸inオータムフェス
@@ -13,9 +13,10 @@ LOCATION:三浦海岸（京急三浦海岸駅 徒歩5分）
 DESCRIPTION:「三浦海岸inオータムフェス」9/27(日)、三浦海
  岸（京急三浦海岸駅徒歩5分）。主催 三浦青年会議所。
  同時開催の地引網大会（10:01〜）は定員に達し受付終了
- \n※本体の開催時間は出典に記載なし（終日で登録）\n
- 出典: https://miura-info.ne.jp/20260927zibikiamitaikai/\n最近の三浦
- : https://vaseata.github.io/miura-board/
+ 。→ 地引網大会は雨天予報のため不開催（延期は検討
+ 中、観光協会）\n※本体の開催時間は出典に記載なし（
+ 終日で登録）\n出典: https://miura-info.ne.jp/20260927zibikiamitaik
+ ai/\n最近の三浦: https://vaseata.github.io/miura-board/
 URL:https://vaseata.github.io/miura-board/
 END:VEVENT
 END:VCALENDAR
