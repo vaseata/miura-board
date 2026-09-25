@@ -2,16 +2,49 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
-   "id": "49NubJ78KWU",
-   "title": "【LIVE】三浦海岸ライブカメラ(Live Camera in Miura Beach)",
-   "channel": "WITH SEA",
+   "id": "jC1OsW0-JfE",
+   "title": "2026-09-25 三崎港メジナ釣り見物",
+   "channel": "mst tkhs",
+   "published_text": "13 時間前",
+   "views": "14回視聴",
+   "length": "4:02",
+   "published": "2026-09-26",
+   "fetched": "2026-09-26",
+   "q": "三崎 マグロ"
+  },
+  {
+   "id": "ViUAJ-bdLvw",
+   "title": "2ドア・クロスシートの京急2100系に乗って優雅に三浦半島へマグロ旅　#鉄道 #電車 #京急 #京急2100形 #三浦半島 #三崎港 ",
+   "channel": "鉄のソノリティ",
+   "published_text": "12 時間前",
+   "views": "7回視聴",
+   "length": "11:00",
+   "published": "2026-09-26",
+   "fetched": "2026-09-26",
+   "q": "三崎 マグロ"
+  },
+  {
+   "id": "MOkZUavnHM4",
+   "title": "三浦海岸ライブカメラ 24時間 🌊 波音・海・睡眠 | Miura Beach Live Cam Japan",
+   "channel": "湾岸Go (TOKYO BAY LIVE CAMERA)",
    "published_text": "",
    "views": "",
    "length": "",
    "live": true,
-   "published": "2026-09-25",
-   "fetched": "2026-09-25",
+   "published": "2026-09-26",
+   "fetched": "2026-09-26",
    "q": "三浦海岸"
+  },
+  {
+   "id": "BervptrCkhc",
+   "title": "【中継】「土砂がアパートの1階を押し流し…」台風25号の大雨で土砂崩れ　20代女性の捜索続く　神奈川・三浦市　台風26号が北上中　来週関東に影響か｜旬感LIVE とれたてっ!〈カンテレNEWS〉",
+   "channel": "カンテレNEWS",
+   "published_text": "14 時間前",
+   "views": "14,917回視聴",
+   "length": "5:35",
+   "published": "2026-09-26",
+   "fetched": "2026-09-26",
+   "q": "三浦市"
   },
   {
    "id": "GtAIIB7nMZY",
@@ -186,39 +219,6 @@
    "views": "15回視聴",
    "length": "2:11",
    "published": "2026-09-19",
-   "fetched": "2026-09-19",
-   "q": "城ヶ島"
-  },
-  {
-   "id": "ddlMbMxag8g",
-   "title": "ロードスター6MT vlog 城ヶ島ツーリングでヤエーに挑戦！！",
-   "channel": "カワサキダビッドソンのモトブログ",
-   "published_text": "1 日前",
-   "views": "163回視聴",
-   "length": "7:29",
-   "published": "2026-09-18",
-   "fetched": "2026-09-19",
-   "q": "城ヶ島"
-  },
-  {
-   "id": "0elgry4vDbw",
-   "title": "2026.9.13 三浦市 金田漁港ツーリング🏍️【edited by 神🐷四 ハクション大魔王🧞】",
-   "channel": "こびん",
-   "published_text": "21 時間前",
-   "views": "3,154回視聴",
-   "length": "8:23",
-   "published": "2026-09-17",
-   "fetched": "2026-09-17",
-   "q": "三浦市"
-  },
-  {
-   "id": "xcbuTesPhgY",
-   "title": "【スルメイカ釣り】城ヶ島沖から洲崎沖へ　　　　　第3回おまつり修行                                                                ",
-   "channel": "ton sun channel",
-   "published_text": "3 日前",
-   "views": "4,251回視聴",
-   "length": "21:35",
-   "published": "2026-09-16",
    "fetched": "2026-09-19",
    "q": "城ヶ島"
   }
