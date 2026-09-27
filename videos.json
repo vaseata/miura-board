@@ -2,6 +2,29 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "49NubJ78KWU",
+   "title": "【LIVE】三浦海岸ライブカメラ(Live Camera in Miura Beach)",
+   "channel": "WITH SEA",
+   "published_text": "",
+   "views": "",
+   "length": "",
+   "live": true,
+   "published": "2026-09-27",
+   "fetched": "2026-09-27",
+   "q": "三浦海岸"
+  },
+  {
+   "id": "XkosCOaSJ4w",
+   "title": "油壺マリンパークのイルカ",
+   "channel": "Natsuki Mori",
+   "published_text": "12 時間前",
+   "views": "0 回視聴",
+   "length": "0:31",
+   "published": "2026-09-27",
+   "fetched": "2026-09-27",
+   "q": "油壺"
+  },
+  {
    "id": "jC1OsW0-JfE",
    "title": "2026-09-25 三崎港メジナ釣り見物",
    "channel": "mst tkhs",
@@ -24,18 +47,6 @@
    "q": "三崎 マグロ"
   },
   {
-   "id": "MOkZUavnHM4",
-   "title": "三浦海岸ライブカメラ 24時間 🌊 波音・海・睡眠 | Miura Beach Live Cam Japan",
-   "channel": "湾岸Go (TOKYO BAY LIVE CAMERA)",
-   "published_text": "",
-   "views": "",
-   "length": "",
-   "live": true,
-   "published": "2026-09-26",
-   "fetched": "2026-09-26",
-   "q": "三浦海岸"
-  },
-  {
    "id": "BervptrCkhc",
    "title": "【中継】「土砂がアパートの1階を押し流し…」台風25号の大雨で土砂崩れ　20代女性の捜索続く　神奈川・三浦市　台風26号が北上中　来週関東に影響か｜旬感LIVE とれたてっ!〈カンテレNEWS〉",
    "channel": "カンテレNEWS",
@@ -45,6 +56,17 @@
    "published": "2026-09-26",
    "fetched": "2026-09-26",
    "q": "三浦市"
+  },
+  {
+   "id": "4wGMM0WNTmw",
+   "title": "【三浦海岸】台風通過後のリアルな海。ベイト消失の激渋状態からの執念のイナワラ捕獲！#kayakfishing #カヤックフィッシング #supfishing #2馬力ボート #青物 #三浦海岸",
+   "channel": "三浦で釣りタイ",
+   "published_text": "1 日前",
+   "views": "4,751回視聴",
+   "length": "21:03",
+   "published": "2026-09-26",
+   "fetched": "2026-09-27",
+   "q": "三浦海岸"
   },
   {
    "id": "GtAIIB7nMZY",
@@ -196,28 +218,6 @@
    "published_text": "13 時間前",
    "views": "82回視聴",
    "length": "11:54",
-   "published": "2026-09-19",
-   "fetched": "2026-09-19",
-   "q": "城ヶ島"
-  },
-  {
-   "id": "vf3DOa25z58",
-   "title": "「もったいない！食材レスキュー～三浦半島～」かながわ旬菜ナビ 2026/9/13放送",
-   "channel": "テレビ神奈川 tvk3ch",
-   "published_text": "14 時間前",
-   "views": "1,409回視聴",
-   "length": "25:38",
-   "published": "2026-09-19",
-   "fetched": "2026-09-19",
-   "q": "城ヶ島"
-  },
-  {
-   "id": "4g5wict_BQg",
-   "title": "【城ヶ島】結婚式オープニングムービー | WEDDING MOVIE",
-   "channel": "Ces Wedding",
-   "published_text": "15 時間前",
-   "views": "15回視聴",
-   "length": "2:11",
    "published": "2026-09-19",
    "fetched": "2026-09-19",
    "q": "城ヶ島"
