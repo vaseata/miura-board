@@ -1561,6 +1561,32 @@
    "tags": [
     "防災"
    ]
+  },
+  {
+   "id": 43,
+   "date": "2026-09-27",
+   "area": "三浦市",
+   "category": "出来事",
+   "headline": "上宮田の現場で不明女性とみられる遺体（9/27）",
+   "fact": "9/27、三浦市南下浦町上宮田の土砂崩れ現場で行方不明だった20代女性とみられる人が見つかり、12:58に救出完了（死亡・身元は確認中）。市の発表（9/27 18時現在）：土砂崩れ143件、避難は南下浦コミュニティセンター6世帯14人、自衛隊の災害派遣部隊は撤収。旭小は9/28〜10/2オンライン授業、図書館全館は9/28まで・潮風アリーナは10/2まで閉鎖",
+   "talk": "上宮田で不明だった方は27日に見つかったそうです。土砂崩れは143件、自衛隊は撤収したそうです",
+   "confidence": "🟢",
+   "image": "miura_shiyakusho",
+   "sources": [
+    {
+     "url": "https://www.city.miura.kanagawa.jp/soshiki/seisakuka/seisakuka_hisho/shichonoheya/pressrelease/202609/2026092702.html",
+     "title": "三浦市 報道発表 2026-09-27",
+     "opened": "2026-09-28"
+    },
+    {
+     "url": "https://www.kanaloco.jp/news/social/article-1307787.html",
+     "title": "カナロコ 2026-09-27",
+     "opened": "2026-09-28"
+    }
+   ],
+   "tags": [
+    "防災"
+   ]
   }
  ]
 }

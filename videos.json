@@ -2,16 +2,60 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
-   "id": "49NubJ78KWU",
-   "title": "【LIVE】三浦海岸ライブカメラ(Live Camera in Miura Beach)",
-   "channel": "WITH SEA",
+   "id": "shB1NlRQ-Tg",
+   "title": "【神奈川・三浦市】台風25号で土砂崩れに巻き込まれたアパートから1人発見されるも死亡　6日前から行方不明の20代女性か",
+   "channel": "日テレNEWS",
+   "published_text": "13 時間前",
+   "views": "30,313回視聴",
+   "length": "1:09",
+   "published": "2026-09-28",
+   "fetched": "2026-09-28",
+   "q": "城ヶ島"
+  },
+  {
+   "id": "MOkZUavnHM4",
+   "title": "三浦海岸ライブカメラ 24時間 🌊 波音・海・睡眠 | Miura Beach Live Cam Japan",
+   "channel": "湾岸Go (TOKYO BAY LIVE CAMERA)",
    "published_text": "",
    "views": "",
    "length": "",
    "live": true,
-   "published": "2026-09-27",
-   "fetched": "2026-09-27",
+   "published": "2026-09-28",
+   "fetched": "2026-09-28",
    "q": "三浦海岸"
+  },
+  {
+   "id": "iQd_-vD2Fqo",
+   "title": "2026年9月27日三浦市金田湾朝市",
+   "channel": "びんちゃん貧乏な",
+   "published_text": "22 時間前",
+   "views": "2,131回視聴",
+   "length": "7:02",
+   "published": "2026-09-28",
+   "fetched": "2026-09-28",
+   "q": "小網代"
+  },
+  {
+   "id": "g5RRI0ZOagA",
+   "title": "台風25号 千葉と神奈川12人死亡　三浦市で不明女性の捜索　印旛沼では堤防の復旧作業(2026年9月27日)",
+   "channel": "ANNnewsCH",
+   "published_text": "18 時間前",
+   "views": "16,572回視聴",
+   "length": "1:32",
+   "published": "2026-09-28",
+   "fetched": "2026-09-28",
+   "q": "三浦市"
+  },
+  {
+   "id": "7OC6kHPh56A",
+   "title": "台風２５号　三浦市の土砂崩れ現場で２０代女性とみられる人を発見",
+   "channel": "tvk News Link【公式】",
+   "published_text": "12 時間前",
+   "views": "6,353回視聴",
+   "length": "0:29",
+   "published": "2026-09-28",
+   "fetched": "2026-09-28",
+   "q": "三浦市"
   },
   {
    "id": "XkosCOaSJ4w",
@@ -67,6 +111,17 @@
    "published": "2026-09-26",
    "fetched": "2026-09-27",
    "q": "三浦海岸"
+  },
+  {
+   "id": "VL8ZkK5uoPs",
+   "title": "♯384【小網代ボート釣り】鯛・青物狙い！ルアーとコマセのリレー釣り！？",
+   "channel": "ボート釣り名人万ちゃんの釣り美学",
+   "published_text": "2 日前",
+   "views": "4,118回視聴",
+   "length": "26:43",
+   "published": "2026-09-26",
+   "fetched": "2026-09-28",
+   "q": "小網代"
   },
   {
    "id": "GtAIIB7nMZY",
@@ -166,61 +221,6 @@
    "published": "2026-09-23",
    "fetched": "2026-09-23",
    "q": "三浦市"
-  },
-  {
-   "id": "9moJvssBPa4",
-   "title": "【台風25号被害】千葉・佐倉市で川が氾濫 住宅街が一面茶色に…神奈川･横須賀市､三浦市では土砂崩れで多くの被害が発生～天達気象予報士解説【ノンストップ！】",
-   "channel": "ノンストップ!公式ch.",
-   "published_text": "19 時間前",
-   "views": "220,227回視聴",
-   "length": "19:58",
-   "published": "2026-09-23",
-   "fetched": "2026-09-23",
-   "q": "三浦市"
-  },
-  {
-   "id": "yWj6f7Kd4mM",
-   "title": "【速報】台風で4人死亡、6人不明 神奈川県三浦市で土砂崩れ",
-   "channel": "共同通信  KYODO NEWS",
-   "published_text": "2 日前",
-   "views": "12,324回視聴",
-   "length": "0:31",
-   "published": "2026-09-23",
-   "fetched": "2026-09-25",
-   "q": "三浦市"
-  },
-  {
-   "id": "KBy8q25uG5w",
-   "title": "【台風２５号】三浦半島で１人死亡、２人安否不明　土砂災害が続発、大きな爪痕／神奈川新聞（カナロコ）",
-   "channel": "kanaloco",
-   "published_text": "7 時間前",
-   "views": "16,844回視聴",
-   "length": "0:11",
-   "published": "2026-09-22",
-   "fetched": "2026-09-22",
-   "q": "三浦海岸"
-  },
-  {
-   "id": "1u3yz76zqQk",
-   "title": "三浦半島西部から鶴岡八幡宮へ。深夜の珍道中を楽しむ男｜47歳ドライブvlog",
-   "channel": "タケチヨ ソロ活ロード",
-   "published_text": "2 日前",
-   "views": "8,693回視聴",
-   "length": "55:05",
-   "published": "2026-09-22",
-   "fetched": "2026-09-24",
-   "q": "油壺"
-  },
-  {
-   "id": "dWSG7ucdCzQ",
-   "title": "【ドローン】撮影記録Cine’ movies  Vlog風 城ヶ島(夏)神奈川県三浦市",
-   "channel": "ダメリノ(空撮チャンネル)",
-   "published_text": "13 時間前",
-   "views": "82回視聴",
-   "length": "11:54",
-   "published": "2026-09-19",
-   "fetched": "2026-09-19",
-   "q": "城ヶ島"
   }
  ]
 }
