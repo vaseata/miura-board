@@ -2,6 +2,62 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "OlltkCSdfNM",
+   "title": "【#城ヶ島】#おきらく釣行【2026/09/25】",
+   "channel": "おきらく釣行 & 株",
+   "published_text": "10 時間前",
+   "views": "1,440回視聴",
+   "length": "12:15",
+   "published": "2026-09-29",
+   "fetched": "2026-09-29",
+   "q": "城ヶ島"
+  },
+  {
+   "id": "49NubJ78KWU",
+   "title": "【LIVE】三浦海岸ライブカメラ(Live Camera in Miura Beach)",
+   "channel": "WITH SEA",
+   "published_text": "",
+   "views": "",
+   "length": "",
+   "live": true,
+   "published": "2026-09-29",
+   "fetched": "2026-09-29",
+   "q": "三浦海岸"
+  },
+  {
+   "id": "eOZnBGv64XU",
+   "title": "YRP野比駅の今と昔【京急線・久里浜・野比駅・横須賀リサーチパーク・三浦海岸・三崎口・野比温泉・国道１３４号線・粟田・長沢・野比海岸・街の移り変わり・懐かしい景色・遠い記憶・町の歴史・あの頃の思い出】",
+   "channel": "そう遠くない未来過去 / The not-too-distant past and future",
+   "published_text": "12 時間前",
+   "views": "7,594回視聴",
+   "length": "4:38",
+   "published": "2026-09-29",
+   "fetched": "2026-09-29",
+   "q": "三浦海岸"
+  },
+  {
+   "id": "WQhsaaV7HME",
+   "title": "台風２５号から１週間　神奈川の死者５人に　三浦市立旭小は通学見通し立たず",
+   "channel": "tvk News Link【公式】",
+   "published_text": "18 時間前",
+   "views": "9,065回視聴",
+   "length": "1:18",
+   "published": "2026-09-29",
+   "fetched": "2026-09-29",
+   "q": "三浦市"
+  },
+  {
+   "id": "DlEwBwmX_7M",
+   "title": "【みうら海王】簡単に釣れる高級魚！楽しすぎて",
+   "channel": "烈火雷鳴れつのれっつりごー",
+   "published_text": "9 時間前",
+   "views": "1,385回視聴",
+   "length": "0:56",
+   "published": "2026-09-29",
+   "fetched": "2026-09-29",
+   "q": "三浦市"
+  },
+  {
    "id": "shB1NlRQ-Tg",
    "title": "【神奈川・三浦市】台風25号で土砂崩れに巻き込まれたアパートから1人発見されるも死亡　6日前から行方不明の20代女性か",
    "channel": "日テレNEWS",
@@ -11,18 +67,6 @@
    "published": "2026-09-28",
    "fetched": "2026-09-28",
    "q": "城ヶ島"
-  },
-  {
-   "id": "MOkZUavnHM4",
-   "title": "三浦海岸ライブカメラ 24時間 🌊 波音・海・睡眠 | Miura Beach Live Cam Japan",
-   "channel": "湾岸Go (TOKYO BAY LIVE CAMERA)",
-   "published_text": "",
-   "views": "",
-   "length": "",
-   "live": true,
-   "published": "2026-09-28",
-   "fetched": "2026-09-28",
-   "q": "三浦海岸"
   },
   {
    "id": "iQd_-vD2Fqo",
@@ -55,6 +99,17 @@
    "length": "0:29",
    "published": "2026-09-28",
    "fetched": "2026-09-28",
+   "q": "三浦市"
+  },
+  {
+   "id": "0iTcejm_FW8",
+   "title": "神奈川・三浦市で新たに1人の遺体発見　行方不明の20代女性か｜TBS NEWS DIG",
+   "channel": "TBS NEWS DIG Powered by JNN",
+   "published_text": "1 日前",
+   "views": "54,150回視聴",
+   "length": "0:35",
+   "published": "2026-09-28",
+   "fetched": "2026-09-29",
    "q": "三浦市"
   },
   {
@@ -166,61 +221,6 @@
    "published": "2026-09-23",
    "fetched": "2026-09-23",
    "q": "城ヶ島"
-  },
-  {
-   "id": "IyhmeJsif3c",
-   "title": "神奈川県三浦市などで土砂崩れ相次ぐ【台風25号被害】",
-   "channel": "朝日新聞",
-   "published_text": "18 時間前",
-   "views": "32,366回視聴",
-   "length": "1:34",
-   "published": "2026-09-23",
-   "fetched": "2026-09-23",
-   "q": "三浦海岸"
-  },
-  {
-   "id": "iKKJDPv8IKw",
-   "title": "【台風25号/横須賀市/三浦市】翌朝の状況をオフロードバイクで確認してきました",
-   "channel": "ZEN WHEELER",
-   "published_text": "6 時間前",
-   "views": "5,672回視聴",
-   "length": "8:51",
-   "published": "2026-09-23",
-   "fetched": "2026-09-23",
-   "q": "三浦市"
-  },
-  {
-   "id": "ZeAlBoDWFdg",
-   "title": "神奈川県三浦市で台風被害　行方不明者の捜索続く",
-   "channel": "毎日新聞",
-   "published_text": "16 時間前",
-   "views": "14,859回視聴",
-   "length": "1:06",
-   "published": "2026-09-23",
-   "fetched": "2026-09-23",
-   "q": "三浦市"
-  },
-  {
-   "id": "C63iNaiLY1w",
-   "title": "台風25号　神奈川・三浦市で土砂崩れ 60代女性死亡　2人と連絡取れず(2026年9月22日)",
-   "channel": "ANNnewsCH",
-   "published_text": "19 時間前",
-   "views": "20,145回視聴",
-   "length": "1:40",
-   "published": "2026-09-23",
-   "fetched": "2026-09-23",
-   "q": "三浦市"
-  },
-  {
-   "id": "puig4zxw9zw",
-   "title": "神奈川・三浦市で土砂崩れ　住宅に土砂流入で1階部分が崩れる　30代女性と連絡取れず（2026年09月22日）",
-   "channel": "FNNプライムオンライン",
-   "published_text": "19 時間前",
-   "views": "17,747回視聴",
-   "length": "1:24",
-   "published": "2026-09-23",
-   "fetched": "2026-09-23",
-   "q": "三浦市"
   }
  ]
 }
