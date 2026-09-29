@@ -65,7 +65,7 @@ JST = datetime.timezone(datetime.timedelta(hours=9))
 ICS_DIR = HERE / "ics"
 
 def cal_event(x):
-    if x.get("category") != "イベント": return None
+    if x.get("category") != "イベント" or x.get("cancelled"): return None
     start, end = d(x["date"]), d(x.get("end") or x["date"])
     if end < TODAY: return None
     c = x.get("cal", {})
@@ -212,7 +212,7 @@ def card(x, lead_ok=True):
     going = x.get("going")
     has_prep = bool(x.get("research") or x.get("open_questions"))
     more = '<span class="more">下調べあり</span>' if has_prep else ""
-    return f'''<article class="art{" going" if going else ""}" data-age="{age}" data-cat="{esc(x["category"])}" data-tags="{esc(",".join(x.get("tags", [])))}">
+    return f'''<article class="art{" going" if going else ""}" data-age="{age}" data-cat="{esc(x["category"])}" data-tags="{esc(",".join([] if x.get("cancelled") else x.get("tags", [])))}">
   {thumb_html(x.get("image"), x["area"])}
   <div class="ran"><span class="cat">{esc(x["category"])}</span><span class="area">{esc(x["area"])}</span>{status(x)}</div>
   <h3><button type="button" class="open">{esc(head)}</button></h3>
