@@ -1,0 +1,27 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//miura-board//JA
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:miura-board-49@vaseata.github.io
+DTSTAMP:20261001T061503Z
+DTSTART;VALUE=DATE:20261003
+DTEND;VALUE=DATE:20270101
+SUMMARY:三崎マグロ茜身デジタルスタンプラリー2026
+LOCATION:三浦市内の飲食・物販店と観光スポット（全34カ
+ 所）
+DESCRIPTION:「三崎マグロ茜身デジタルスタンプラリー2026
+ 」10/3(土)〜12/31(木)23:59。三浦市内の飲食・物販店と観
+ 光スポット全34カ所で、店内のQRコードかGPSでスタンプ
+ を集めて賞品に応募する。参加無料・アプリ不要、茜
+ 身メニュー以外の食事や買い物も対象。ペア宿泊券な
+ ど合計140名に当たる。主催 三浦商工会議所・まぐろ未
+ 病改善効果研究会（号外NET 9/30、観光協会だより10月号
+ ）\n※最終日は12/31 23:59まで。参加無料。スポットと賞
+ 品は公式インスタグラムで案内\n出典: https://yokosuka.goguy
+ net.jp/2026/09/30/misakimaguroakanemi-digital-stamp-rally2026/\n最近の
+ 三浦: https://vaseata.github.io/miura-board/
+URL:https://vaseata.github.io/miura-board/
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,26 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//miura-board//JA
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:miura-board-50@vaseata.github.io
+DTSTAMP:20261001T061503Z
+DTSTART:20261012T020000Z
+DTEND:20261012T073000Z
+SUMMARY:ホワイトハロウィン2026
+LOCATION:うらりマルシェ（三浦市民ホール）
+DESCRIPTION:みうら観光大使・川村エミコさんプロデュース
+ 「ホワイトハロウィン2026」10/12(月・祝) 11:00〜16:30（最
+ 終受付16:00）、うらりマルシェ（三浦市民ホール）。お
+ 笑いステージは13:30開場・14:00開演で、出演予定は なな
+ め45°・錦笑亭満堂・やしろ優・たんぽぽ。フォトブー
+ ス、ランタン作り、仮装ランウェイ（一日チケット購
+ 入で仮装した人のみ）。チケット制（観光協会だより10
+ 月号）\n※最終受付16:00。お笑いステージ 13:30開場／14:0
+ 0開演。チケット制\n出典: https://www.miura-info.ne.jp/wp-content
+ /uploads//2026/10/協会だより-2026.10.pdf\n最近の三浦: https://va
+ seata.github.io/miura-board/
+URL:https://vaseata.github.io/miura-board/
+END:VEVENT
+END:VCALENDAR
