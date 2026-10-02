@@ -2,6 +2,29 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "MOkZUavnHM4",
+   "title": "三浦海岸ライブカメラ 24時間 🌊 波音・海・睡眠 | Miura Beach Live Cam Japan",
+   "channel": "湾岸Go (TOKYO BAY LIVE CAMERA)",
+   "published_text": "",
+   "views": "",
+   "length": "",
+   "live": true,
+   "published": "2026-10-03",
+   "fetched": "2026-10-03",
+   "q": "三浦海岸"
+  },
+  {
+   "id": "SutD0gd16qY",
+   "title": "台風25号による大雨 三浦半島で土砂崩れ多数 なぜ住宅街で？土砂災害から命を守る【News Linkオンライン】",
+   "channel": "tvk News Link【公式】",
+   "published_text": "15 時間前",
+   "views": "6,643回視聴",
+   "length": "10:24",
+   "published": "2026-10-03",
+   "fetched": "2026-10-03",
+   "q": "三浦市"
+  },
+  {
    "id": "6aQi2E92C3Y",
    "title": "【bZ4X Touring】俳優・宮沢氷魚と三崎の魅力を堪能する旅",
    "channel": "トヨタ YouTubeショールーム",
@@ -11,18 +34,6 @@
    "published": "2026-10-01",
    "fetched": "2026-10-01",
    "q": "城ヶ島"
-  },
-  {
-   "id": "49NubJ78KWU",
-   "title": "【LIVE】三浦海岸ライブカメラ(Live Camera in Miura Beach)",
-   "channel": "WITH SEA",
-   "published_text": "",
-   "views": "",
-   "length": "",
-   "live": true,
-   "published": "2026-10-01",
-   "fetched": "2026-10-01",
-   "q": "三浦海岸"
   },
   {
    "id": "NxxBNtbsUw8",
@@ -210,17 +221,6 @@
    "published": "2026-09-26",
    "fetched": "2026-09-27",
    "q": "三浦海岸"
-  },
-  {
-   "id": "VL8ZkK5uoPs",
-   "title": "♯384【小網代ボート釣り】鯛・青物狙い！ルアーとコマセのリレー釣り！？",
-   "channel": "ボート釣り名人万ちゃんの釣り美学",
-   "published_text": "2 日前",
-   "views": "4,118回視聴",
-   "length": "26:43",
-   "published": "2026-09-26",
-   "fetched": "2026-09-28",
-   "q": "小網代"
   }
  ]
 }
