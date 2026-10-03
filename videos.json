@@ -2,6 +2,17 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "e1ttqMG5McM",
+   "title": "【ここは必見！！極上の場所！！三浦海岸の海辺で車中泊！！】神奈川県下浦海岸で海が目の前！！ハイエースキャンピングカーOMC銀河で鎌倉小町や報国寺など旅。#キャンピングカー #ハイエース #車中泊",
+   "channel": "コウandミリー CHANNEL",
+   "published_text": "13 時間前",
+   "views": "2,606回視聴",
+   "length": "23:58",
+   "published": "2026-10-04",
+   "fetched": "2026-10-04",
+   "q": "三浦海岸"
+  },
+  {
    "id": "MOkZUavnHM4",
    "title": "三浦海岸ライブカメラ 24時間 🌊 波音・海・睡眠 | Miura Beach Live Cam Japan",
    "channel": "湾岸Go (TOKYO BAY LIVE CAMERA)",
@@ -210,17 +221,6 @@
    "published": "2026-09-26",
    "fetched": "2026-09-26",
    "q": "三浦市"
-  },
-  {
-   "id": "4wGMM0WNTmw",
-   "title": "【三浦海岸】台風通過後のリアルな海。ベイト消失の激渋状態からの執念のイナワラ捕獲！#kayakfishing #カヤックフィッシング #supfishing #2馬力ボート #青物 #三浦海岸",
-   "channel": "三浦で釣りタイ",
-   "published_text": "1 日前",
-   "views": "4,751回視聴",
-   "length": "21:03",
-   "published": "2026-09-26",
-   "fetched": "2026-09-27",
-   "q": "三浦海岸"
   }
  ]
 }
