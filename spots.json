@@ -1,0 +1,1408 @@
+{
+ "_note": "店・場所の台帳（ガイドブック guide/ 用）。status が ◎ のものだけ guide/index.html に載る。候補 は guide/review.html だけ。walk_min は build が home からの直線距離×1.3÷80m/分で計算（目安）。closed は定休曜日 0=月…6=日（不明は null）。season は月の配列。hours/closed/price は公式か観光協会の個別ページを開いた日を last_checked に書く。開けない数字は null",
+ "home": {
+  "name": "三浦A邸",
+  "address": "三浦市三崎1丁目1"
+ },
+ "spots": [
+  {
+   "id": "urari_marche",
+   "name": "うらりマルシェ（さかな館・やさい館）",
+   "name_en": null,
+   "category": "食べる",
+   "tags": [
+    "マグロ",
+    "海鮮",
+    "直売",
+    "食べ歩き",
+    "野菜"
+   ],
+   "area": "三崎",
+   "lat": 35.141064,
+   "lon": 139.616974,
+   "address": "三浦市三崎5-3-1",
+   "hours": "さかな館 9:00〜17:00（日曜7:00〜）／やさい館 10:00〜17:00（土日祝9:00〜）※要確認",
+   "closed": [],
+   "closed_note": "館は年中無休。店ごとに定休あり（火曜・水曜など）",
+   "closed_until": null,
+   "season": null,
+   "price": null,
+   "access": null,
+   "note": "1階が魚、2階が三浦野菜の産直市場。マグロの切り落とし、浜焼き、食べ歩き。渡船・観光船・レンタサイクルの拠点でもある",
+   "note_en": null,
+   "image": "misaki_harbor",
+   "links": {
+    "official": "https://www.umigyo.co.jp/marche/",
+    "map": null
+   },
+   "sources": [
+    {
+     "url": "https://www.umigyo.co.jp/marche/marche-sakana.html",
+     "title": "うらりマルシェ さかな館（店舗一覧）",
+     "opened": "2026-10-05"
+    },
+    {
+     "url": "https://www.umigyo.co.jp/",
+     "title": "三浦市海業公社 トップ",
+     "opened": "2026-10-05"
+    }
+   ],
+   "confidence": "🟡",
+   "status": "候補",
+   "last_checked": "2026-10-05",
+   "owner_note": "営業時間は公式ページに明記がなく、検索要約の値。確認待ち"
+  },
+  {
+   "id": "misaki_asaichi",
+   "name": "三崎朝市",
+   "name_en": null,
+   "category": "食べる",
+   "tags": [
+    "朝市",
+    "マグロ",
+    "日曜",
+    "早起き"
+   ],
+   "area": "三崎",
+   "lat": 35.141403,
+   "lon": 139.615479,
+   "address": "三浦市三崎5丁目3806番地先（三崎魚市場手前の朝市広場）",
+   "hours": "日曜 5:00〜8:30",
+   "closed": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "closed_note": "年末年始は休み（12/29〜1/10。12/29・30は年末特別セール）",
+   "closed_until": null,
+   "season": null,
+   "price": "入場無料。新港駐車場は朝市中2時間無料券",
+   "access": null,
+   "note": "日曜の朝だけの市。マグロの切り落とし・干物・三浦野菜が並ぶ。7時がピークなので早めに",
+   "note_en": null,
+   "image": "misaki_harbor",
+   "links": {
+    "official": "http://www.misaki-asaichi.com/",
+    "map": null
+   },
+   "sources": [
+    {
+     "url": "http://www.misaki-asaichi.com/access.html",
+     "title": "三崎朝市協同組合 公式（アクセス）",
+     "opened": "2026-10-05"
+    },
+    {
+     "url": "https://www.kanagawa-kankou.or.jp/spot/660",
+     "title": "観光かながわNOW 三崎朝市",
+     "opened": "2026-10-05"
+    }
+   ],
+   "confidence": "🟢",
+   "status": "候補",
+   "last_checked": "2026-10-05",
+   "owner_note": ""
+  },
+  {
+   "id": "jogashima_osakana",
+   "name": "城ヶ島おさかな市場",
+   "name_en": null,
+   "category": "食べる",
+   "tags": [
+    "鮮魚",
+    "直売",
+    "土産",
+    "城ヶ島"
+   ],
+   "area": "城ヶ島",
+   "lat": 35.13504,
+   "lon": 139.616959,
+   "address": "三浦市三崎町城ヶ島500-28",
+   "hours": "10:00〜18:00",
+   "closed": [
+    1
+   ],
+   "closed_note": "火曜が祝日の場合は翌日休",
+   "closed_until": null,
+   "season": null,
+   "price": null,
+   "access": "バス停「城ヶ島漁港前」徒歩1分。渡船で島へ渡っても近い",
+   "note": "2026年4月にできた鮮魚の直売所（京急グループ）。城ヶ島・三崎で揚がった魚と加工品、土産",
+   "note_en": null,
+   "image": "jogashima_harbor",
+   "links": {
+    "official": "https://www.keikyu.co.jp/company/news/2026/20260416HP_25007RK.html",
+    "map": null
+   },
+   "sources": [
+    {
+     "url": "https://www.keikyu.co.jp/company/news/2026/20260416HP_25007RK.html",
+     "title": "京急電鉄 ニュースリリース 2026/4/16",
+     "opened": "2026-09-12"
+    }
+   ],
+   "confidence": "🟢",
+   "status": "候補",
+   "last_checked": "2026-10-05",
+   "owner_note": ""
+  },
+  {
+   "id": "shirokuma",
+   "name": "ミサキのシロクマ（かき氷カフェ MiX）",
+   "name_en": null,
+   "category": "食べる",
+   "tags": [
+    "かき氷",
+    "カフェ",
+    "スイーツ"
+   ],
+   "area": "三崎",
+   "lat": 35.140572,
+   "lon": 139.619888,
+   "address": "三浦市三崎2-10-3 1F",
+   "hours": "12:00〜19:00（11〜4月は18:00まで）※要確認",
+   "closed": [
+    3,
+    4
+   ],
+   "closed_note": "木・金休み（要確認）。9/28〜10/2は臨時休業だった",
+   "closed_until": null,
+   "season": null,
+   "price": null,
+   "access": null,
+   "note": "一年中かき氷の店。季節ごとの「シロクマ」（ブドウ、おはぎ、チョコミント…）が名物",
+   "note_en": null,
+   "image": "shirokuma_2026",
+   "links": {
+    "official": "https://mix-shirokuma.bitter.jp/",
+    "map": null
+   },
+   "sources": [
+    {
+     "url": "https://mix-shirokuma.bitter.jp/",
+     "title": "ミサキのシロクマ 公式（メニュー・臨時休業）",
+     "opened": "2026-10-05"
+    }
+   ],
+   "confidence": "🟡",
+   "status": "候補",
+   "last_checked": "2026-10-05",
+   "owner_note": "営業時間・定休日は公式トップに無く検索要約の値"
+  },
+  {
+   "id": "kurobatei",
+   "name": "くろば亭",
+   "name_en": null,
+   "category": "食べる",
+   "tags": [
+    "マグロ",
+    "料理",
+    "下町"
+   ],
+   "area": "三崎",
+   "lat": null,
+   "lon": null,
+   "address": null,
+   "hours": null,
+   "closed": null,
+   "closed_note": null,
+   "closed_until": null,
+   "season": null,
+   "price": null,
+   "access": null,
+   "note": "観光協会のグルメ一覧（三崎・下町）に載るマグロ料理の店。営業時間・定休は未確認",
+   "note_en": null,
+   "image": null,
+   "links": {
+    "official": "https://miura-info.ne.jp/gourmet-misaki/",
+    "map": null
+   },
+   "sources": [
+    {
+     "url": "https://miura-info.ne.jp/gourmet-misaki/",
+     "title": "みうら観光ガイド グルメ（三崎・下町）一覧",
+     "opened": "2026-10-05"
+    }
+   ],
+   "confidence": "🟡",
+   "status": "候補",
+   "last_checked": "2026-10-05",
+   "owner_note": "詳細は個別ページを開いてから"
+  },
+  {
+   "id": "uoichiba_shokudo",
+   "name": "三崎・魚市場食堂",
+   "name_en": null,
+   "category": "食べる",
+   "tags": [
+    "マグロ",
+    "食堂",
+    "海鮮"
+   ],
+   "area": "三崎",
+   "lat": null,
+   "lon": null,
+   "address": null,
+   "hours": null,
+   "closed": null,
+   "closed_note": null,
+   "closed_until": null,
+   "season": null,
+   "price": null,
+   "access": null,
+   "note": "観光協会のグルメ一覧に載る魚市場の食堂。営業時間・定休は未確認",
+   "note_en": null,
+   "image": null,
+   "links": {
+    "official": "https://miura-info.ne.jp/gourmet-misaki/",
+    "map": null
+   },
+   "sources": [
+    {
+     "url": "https://miura-info.ne.jp/gourmet-misaki/",
+     "title": "みうら観光ガイド グルメ（三崎・下町）一覧",
+     "opened": "2026-10-05"
+    }
+   ],
+   "confidence": "🟡",
+   "status": "候補",
+   "last_checked": "2026-10-05",
+   "owner_note": ""
+  },
+  {
+   "id": "misaki_donuts",
+   "name": "ミサキドーナツ 三崎本店",
+   "name_en": null,
+   "category": "食べる",
+   "tags": [
+    "ドーナツ",
+    "カフェ",
+    "土産",
+    "下町"
+   ],
+   "area": "三崎",
+   "lat": null,
+   "lon": null,
+   "address": null,
+   "hours": null,
+   "closed": null,
+   "closed_note": null,
+   "closed_until": null,
+   "season": null,
+   "price": null,
+   "access": null,
+   "note": "観光協会のグルメ・土産一覧に載る下町のドーナツ店。営業時間・定休は未確認",
+   "note_en": null,
+   "image": null,
+   "links": {
+    "official": "https://miura-info.ne.jp/souvenir-misaki/",
+    "map": null
+   },
+   "sources": [
+    {
+     "url": "https://miura-info.ne.jp/souvenir-misaki/",
+     "title": "みうら観光ガイド おみやげ（三崎・下町）",
+     "opened": "2026-10-05"
+    },
+    {
+     "url": "https://miura-info.ne.jp/gourmet-misaki/",
+     "title": "みうら観光ガイド グルメ（三崎・下町）",
+     "opened": "2026-10-05"
+    }
+   ],
+   "confidence": "🟡",
+   "status": "候補",
+   "last_checked": "2026-10-05",
+   "owner_note": ""
+  },
+  {
+   "id": "miura_brewery",
+   "name": "三浦ブルワリー",
+   "name_en": null,
+   "category": "食べる",
+   "tags": [
+    "ビール",
+    "クラフトビール",
+    "土産"
+   ],
+   "area": "三崎",
+   "lat": null,
+   "lon": null,
+   "address": null,
+   "hours": null,
+   "closed": null,
+   "closed_note": null,
+   "closed_until": null,
+   "season": null,
+   "price": null,
+   "access": null,
+   "note": "観光協会のグルメ・土産一覧に載る地ビール。営業時間・定休は未確認",
+   "note_en": null,
+   "image": null,
+   "links": {
+    "official": "https://miura-info.ne.jp/gourmet-misaki/",
+    "map": null
+   },
+   "sources": [
+    {
+     "url": "https://miura-info.ne.jp/gourmet-misaki/",
+     "title": "みうら観光ガイド グルメ（三崎・下町）",
+     "opened": "2026-10-05"
+    }
+   ],
+   "confidence": "🟡",
+   "status": "候補",
+   "last_checked": "2026-10-05",
+   "owner_note": ""
+  },
+  {
+   "id": "jogashima_park",
+   "name": "県立城ヶ島公園",
+   "name_en": null,
+   "category": "見る・歩く",
+   "tags": [
+    "展望",
+    "水仙",
+    "ハイキング",
+    "富士",
+    "絶景"
+   ],
+   "area": "城ヶ島",
+   "lat": 35.13083,
+   "lon": 139.62611,
+   "address": "三浦市三崎町城ヶ島",
+   "hours": "終日（駐車場 8:00〜17:00、4〜9月は19:00まで）",
+   "closed": [],
+   "closed_note": null,
+   "closed_until": null,
+   "season": null,
+   "price": "無料（駐車場 普通車1日500円）",
+   "access": "三崎口駅2番乗り場から城ヶ島行き約30分「白秋碑前」徒歩5分",
+   "note": "崖の上の遊歩道から海と富士山。1月中旬〜2月中旬は30万株の八重咲き水仙。ミシュラン・グリーンガイド2つ星",
+   "note_en": null,
+   "image": null,
+   "links": {
+    "official": "https://www.pref.kanagawa.jp/docs/wk7/cnt/f11539/p35617.html",
+    "map": null
+   },
+   "sources": [
+    {
+     "url": "https://www.pref.kanagawa.jp/docs/wk7/cnt/f11539/p35617.html",
+     "title": "神奈川県 城ケ島公園",
+     "opened": "2026-10-05"
+    },
+    {
+     "url": "https://miura-info.ne.jp/sightseeing/nature-2/",
+     "title": "みうら観光ガイド 城ケ島公園",
+     "opened": "2026-10-05"
+    }
+   ],
+   "confidence": "🟢",
+   "status": "候補",
+   "last_checked": "2026-10-05",
+   "owner_note": ""
+  },
+  {
+   "id": "jogashima_lighthouse",
+   "name": "城ヶ島灯台",
+   "name_en": null,
+   "category": "見る・歩く",
+   "tags": [
+    "灯台",
+    "展望",
+    "歴史",
+    "絶景"
+   ],
+   "area": "城ヶ島",
+   "lat": 35.13508,
+   "lon": 139.61116,
+   "address": "三浦市三崎町城ヶ島",
+   "hours": "終日（外観）",
+   "closed": [],
+   "closed_note": null,
+   "closed_until": null,
+   "season": null,
+   "price": "無料",
+   "access": "バス停「城ヶ島」徒歩5分",
+   "note": "明治3年、フランス人技師ヴェルニー設計。日本で5番目に灯った西洋式灯台。ふもとに商店街と磯",
+   "note_en": null,
+   "image": "jogashima_lighthouse",
+   "links": {
+    "official": "https://miura-info.ne.jp/sightseeing/nature-4/",
+    "map": null
+   },
+   "sources": [
+    {
+     "url": "https://miura-info.ne.jp/sightseeing/nature-4/",
+     "title": "みうら観光ガイド 城ヶ島灯台",
+     "opened": "2026-10-05"
+    }
+   ],
+   "confidence": "🟢",
+   "status": "候補",
+   "last_checked": "2026-10-05",
+   "owner_note": ""
+  },
+  {
+   "id": "umanose",
+   "name": "馬の背洞門",
+   "name_en": null,
+   "category": "見る・歩く",
+   "tags": [
+    "絶景",
+    "岩場",
+    "散歩",
+    "自然"
+   ],
+   "area": "城ヶ島",
+   "lat": null,
+   "lon": null,
+   "address": null,
+   "hours": "終日",
+   "closed": [],
+   "closed_note": null,
+   "closed_until": null,
+   "season": null,
+   "price": "無料",
+   "access": "バス停「白秋碑前」徒歩15分／「城ヶ島」徒歩25分。公園側・灯台側どちらからも",
+   "note": "波が削った海蝕洞門。足元が険しいので歩きやすい靴で。洞門の上は崩落の恐れで通行禁止。トイレなし",
+   "note_en": null,
+   "image": null,
+   "links": {
+    "official": "https://miura-info.ne.jp/sightseeing/nature-7/",
+    "map": null
+   },
+   "sources": [
+    {
+     "url": "https://miura-info.ne.jp/sightseeing/nature-7/",
+     "title": "みうら観光ガイド 馬の背洞門",
+     "opened": "2026-10-05"
+    }
+   ],
+   "confidence": "🟢",
+   "status": "候補",
+   "last_checked": "2026-10-05",
+   "owner_note": ""
+  },
+  {
+   "id": "jogashima_bridge",
+   "name": "城ヶ島大橋",
+   "name_en": null,
+   "category": "見る・歩く",
+   "tags": [
+    "絶景",
+    "夕日",
+    "富士",
+    "散歩",
+    "ダイヤモンド富士"
+   ],
+   "area": "城ヶ島",
+   "lat": 35.138022,
+   "lon": 139.622629,
+   "address": null,
+   "hours": "終日",
+   "closed": [],
+   "closed_note": null,
+   "closed_until": null,
+   "season": null,
+   "price": "無料（徒歩・自転車・車）",
+   "access": null,
+   "note": "全長575m、歩いて渡れる。東に房総、南に伊豆大島、西に富士山。夕暮れは橋が染まる。5月初めと8月中旬の夕方は橋からダイヤモンド富士",
+   "note_en": null,
+   "image": "jogashima_bridge_sunset",
+   "links": {
+    "official": "https://miura-info.ne.jp/sightseeing/nature-3/",
+    "map": null
+   },
+   "sources": [
+    {
+     "url": "https://miura-info.ne.jp/sightseeing/nature-3/",
+     "title": "みうら観光ガイド 城ケ島大橋",
+     "opened": "2026-10-05"
+    },
+    {
+     "url": "https://fujisantotomoni.jp/spot/城ヶ島大橋",
+     "title": "富士山とともに 城ヶ島大橋",
+     "opened": "2026-09-12"
+    }
+   ],
+   "confidence": "🟢",
+   "status": "候補",
+   "last_checked": "2026-10-05",
+   "owner_note": ""
+  },
+  {
+   "id": "koajiro",
+   "name": "小網代の森",
+   "name_en": null,
+   "category": "見る・歩く",
+   "tags": [
+    "森",
+    "ハイキング",
+    "干潟",
+    "自然",
+    "木道"
+   ],
+   "area": "小網代",
+   "lat": 35.16389,
+   "lon": 139.63333,
+   "address": null,
+   "hours": "4〜9月 7:00〜18:00、10〜3月 7:00〜17:00",
+   "closed": [],
+   "closed_note": "台風被害のため11月末まで全面閉鎖（県の案内・2026-10-05時点）",
+   "closed_until": "2026-11-30",
+   "season": null,
+   "price": "無料",
+   "access": "三崎口駅からバス約4分「引橋」徒歩5分。駐車場なし",
+   "note": "森から干潟、海までひと続きの約1.6kmの木道。引橋入口から約1時間。長袖・長ズボン推奨、ペット・自転車不可",
+   "note_en": null,
+   "image": null,
+   "links": {
+    "official": "https://www.pref.kanagawa.jp/docs/d2t/kankyo/p820028.html",
+    "map": null
+   },
+   "sources": [
+    {
+     "url": "https://www.pref.kanagawa.jp/docs/d2t/kankyo/p820028.html",
+     "title": "神奈川県 小網代の森について",
+     "opened": "2026-10-05"
+    }
+   ],
+   "confidence": "🟢",
+   "status": "候補",
+   "last_checked": "2026-10-05",
+   "owner_note": ""
+  },
+  {
+   "id": "kainan",
+   "name": "海南神社",
+   "name_en": null,
+   "category": "見る・歩く",
+   "tags": [
+    "神社",
+    "歴史",
+    "御朱印",
+    "祭り",
+    "下町"
+   ],
+   "area": "三崎",
+   "lat": 35.14276,
+   "lon": 139.61884,
+   "address": "三浦市三崎4-12-11",
+   "hours": "社務所 9:00〜18:00",
+   "closed": [],
+   "closed_note": null,
+   "closed_until": null,
+   "season": null,
+   "price": "無料",
+   "access": null,
+   "note": "982年創建、三崎の総鎮守。海上安全・大漁・商売繁盛。7月の夏例大祭と11月の面神楽はここ。A邸から歩いてすぐ",
+   "note_en": null,
+   "image": null,
+   "links": {
+    "official": "http://kainanjinja.jp/",
+    "map": null
+   },
+   "sources": [
+    {
+     "url": "http://kainanjinja.jp/",
+     "title": "海南神社 公式",
+     "opened": "2026-10-05"
+    },
+    {
+     "url": "http://kainanjinja.jp/event/index.html",
+     "title": "海南神社 年間行事",
+     "opened": "2026-09-15"
+    }
+   ],
+   "confidence": "🟢",
+   "status": "候補",
+   "last_checked": "2026-10-05",
+   "owner_note": ""
+  },
+  {
+   "id": "aburatsubo",
+   "name": "油壺湾",
+   "name_en": null,
+   "category": "見る・歩く",
+   "tags": [
+    "湾",
+    "景勝地",
+    "ヨット",
+    "散歩",
+    "海水浴"
+   ],
+   "area": "油壺",
+   "lat": 35.16021,
+   "lon": 139.6172,
+   "address": null,
+   "hours": "終日",
+   "closed": [],
+   "closed_note": null,
+   "closed_until": null,
+   "season": null,
+   "price": "無料（市営駐車場102台 520円/回 8:30〜17:00）",
+   "access": "バス停「油壺」すぐ",
+   "note": "入り組んだ静かな湾で「かながわの景勝50選」。奥にヨットハーバー、旧新井城跡。夏は荒井浜・横堀の海水浴場",
+   "note_en": null,
+   "image": null,
+   "links": {
+    "official": "https://miura-info.ne.jp/sightseeing/nature-12/",
+    "map": null
+   },
+   "sources": [
+    {
+     "url": "https://miura-info.ne.jp/sightseeing/nature-12/",
+     "title": "みうら観光ガイド 油壺湾",
+     "opened": "2026-10-05"
+    }
+   ],
+   "confidence": "🟢",
+   "status": "候補",
+   "last_checked": "2026-10-05",
+   "owner_note": ""
+  },
+  {
+   "id": "awasaki",
+   "name": "安房埼灯台",
+   "name_en": null,
+   "category": "見る・歩く",
+   "tags": [
+    "灯台",
+    "公園",
+    "展望"
+   ],
+   "area": "城ヶ島",
+   "lat": 35.130415,
+   "lon": 139.627506,
+   "address": null,
+   "hours": "終日（外観）",
+   "closed": [],
+   "closed_note": null,
+   "closed_until": null,
+   "season": null,
+   "price": "無料",
+   "access": null,
+   "note": "城ヶ島公園の東の先端にある灯台。公園の遊歩道の終点",
+   "note_en": null,
+   "image": null,
+   "links": {
+    "official": "https://miura-info.ne.jp/sightseeing/nature-5/",
+    "map": null
+   },
+   "sources": [
+    {
+     "url": "https://miura-info.ne.jp/sightseeing_category/sightseeing_category1/",
+     "title": "みうら観光ガイド 自然景観・景勝地 一覧",
+     "opened": "2026-10-05"
+    }
+   ],
+   "confidence": "🟡",
+   "status": "候補",
+   "last_checked": "2026-10-05",
+   "owner_note": "個別ページ未開封。座標は Commons の写真位置"
+  },
+  {
+   "id": "miura_beach",
+   "name": "三浦海岸",
+   "name_en": null,
+   "category": "見る・歩く",
+   "tags": [
+    "ビーチ",
+    "海水浴",
+    "散歩",
+    "夏",
+    "駅近"
+   ],
+   "area": "三浦海岸",
+   "lat": 35.185056,
+   "lon": 139.655176,
+   "address": "三浦市南下浦町上宮田",
+   "hours": "終日（海水浴場は2026年7/18〜8/30）",
+   "closed": [],
+   "closed_note": null,
+   "closed_until": null,
+   "season": null,
+   "price": "無料（シャワー無料、ロッカー有料）",
+   "access": "三浦海岸駅 徒歩5分",
+   "note": "三浦半島最大の砂浜。夏は海水浴、ほかの季節は散歩と夕景。駅前に観光案内所とレンタサイクル",
+   "note_en": null,
+   "image": "miura_beach",
+   "links": {
+    "official": "https://miura-info.ne.jp/sightseeing/beach-1/",
+    "map": null
+   },
+   "sources": [
+    {
+     "url": "https://miura-info.ne.jp/sightseeing/beach-1/",
+     "title": "みうら観光ガイド 三浦海岸",
+     "opened": "2026-10-05"
+    }
+   ],
+   "confidence": "🟢",
+   "status": "候補",
+   "last_checked": "2026-10-05",
+   "owner_note": ""
+  },
+  {
+   "id": "sanshiro",
+   "name": "渡船さんしろ（三崎⇔城ヶ島）",
+   "name_en": null,
+   "category": "体験する",
+   "tags": [
+    "渡船",
+    "船",
+    "城ヶ島",
+    "自転車OK"
+   ],
+   "area": "三崎",
+   "lat": 35.141064,
+   "lon": 139.616974,
+   "address": "三浦市三崎5-3-1（うらり前）",
+   "hours": "10:00〜16:00",
+   "closed": [
+    1
+   ],
+   "closed_note": "2026年9月から火曜定休（祝日除く）。観光協会ページは「年中無休」のままなので注意",
+   "closed_until": null,
+   "season": null,
+   "price": "大人500円、小学生300円。1日乗り放題 大人1,000円",
+   "access": null,
+   "note": "うらり前と城ヶ島を結ぶ小さな渡船。自転車は無料で載せられ、ペットもOK（リード）",
+   "note_en": null,
+   "image": "jogashima_harbor",
+   "links": {
+    "official": "https://misaki-marinecenter.subaru-kougyou.jp/",
+    "map": null
+   },
+   "sources": [
+    {
+     "url": "https://miura-info.ne.jp/sightseeing/move-2/",
+     "title": "みうら観光ガイド 渡船さんしろ",
+     "opened": "2026-10-05"
+    },
+    {
+     "url": "https://misaki-marinecenter.subaru-kougyou.jp/",
+     "title": "三崎マリンセンター 運航状況",
+     "opened": "2026-09-14"
+    }
+   ],
+   "confidence": "🟢",
+   "status": "候補",
+   "last_checked": "2026-10-05",
+   "owner_note": ""
+  },
+  {
+   "id": "nijiiro",
+   "name": "水中観光船 にじいろさかな号",
+   "name_en": null,
+   "category": "体験する",
+   "tags": [
+    "船",
+    "子ども",
+    "魚",
+    "体験"
+   ],
+   "area": "三崎",
+   "lat": 35.141064,
+   "lon": 139.616974,
+   "address": "三浦市三崎5-3-1（うらり前）",
+   "hours": "9:20〜16:00 全7便（夏季8便）。チケット販売9:00〜",
+   "closed": [],
+   "closed_note": "年中無休（荒天時は要確認）",
+   "closed_until": null,
+   "season": null,
+   "price": "大人1,700円、小学生800円、未就学児200円",
+   "access": null,
+   "note": "半潜水の観光船。城ヶ島大橋をくぐって海中展望へ。魚やカモメへのエサやりができる",
+   "note_en": null,
+   "image": null,
+   "links": {
+    "official": "https://miura-info.ne.jp/sightseeing/move-1/",
+    "map": null
+   },
+   "sources": [
+    {
+     "url": "https://miura-info.ne.jp/sightseeing/move-1/",
+     "title": "みうら観光ガイド にじいろさかな号",
+     "opened": "2026-10-05"
+    }
+   ],
+   "confidence": "🟢",
+   "status": "候補",
+   "last_checked": "2026-10-05",
+   "owner_note": ""
+  },
+  {
+   "id": "js_fishing",
+   "name": "J'sフィッシング（城ヶ島 海上イケス釣堀）",
+   "name_en": null,
+   "category": "体験する",
+   "tags": [
+    "釣り",
+    "体験",
+    "子ども",
+    "手ぶら"
+   ],
+   "area": "城ヶ島",
+   "lat": 35.13348,
+   "lon": 139.617081,
+   "address": "三浦市三崎町城ヶ島650-70",
+   "hours": "9:00〜16:00",
+   "closed": [
+    1
+   ],
+   "closed_note": null,
+   "closed_until": null,
+   "season": null,
+   "price": "体験1時間 3,000円〜、釣り放題1時間 5,500円〜（税別）",
+   "access": null,
+   "note": "手ぶらで釣れる海上のイケス。要予約（電話 046-854-9891・Web）",
+   "note_en": null,
+   "image": null,
+   "links": {
+    "official": "https://miura-info.ne.jp/sightseeing/hobby-1/",
+    "map": null
+   },
+   "sources": [
+    {
+     "url": "https://miura-info.ne.jp/sightseeing/hobby-1/",
+     "title": "みうら観光ガイド J'sフィッシング",
+     "opened": "2026-10-05"
+    }
+   ],
+   "confidence": "🟢",
+   "status": "候補",
+   "last_checked": "2026-10-05",
+   "owner_note": ""
+  },
+  {
+   "id": "jdc",
+   "name": "城ヶ島ダイビングセンター",
+   "name_en": null,
+   "category": "体験する",
+   "tags": [
+    "ダイビング",
+    "体験",
+    "海"
+   ],
+   "area": "城ヶ島",
+   "lat": 35.136814,
+   "lon": 139.612381,
+   "address": "三浦市三崎町城ケ島658",
+   "hours": "7:30〜16:30",
+   "closed": [],
+   "closed_note": "メンテナンス日あり",
+   "closed_until": null,
+   "season": null,
+   "price": "体験ダイビング 12,000円（税別）",
+   "access": null,
+   "note": "初心者向けの体験ダイビングあり。電話 046-882-0700",
+   "note_en": null,
+   "image": null,
+   "links": {
+    "official": "http://jdc-net.jp/",
+    "map": null
+   },
+   "sources": [
+    {
+     "url": "https://miura-info.ne.jp/sightseeing/hobby-4/",
+     "title": "みうら観光ガイド 城ヶ島ダイビングセンター",
+     "opened": "2026-10-05"
+    }
+   ],
+   "confidence": "🟢",
+   "status": "候補",
+   "last_checked": "2026-10-05",
+   "owner_note": ""
+  },
+  {
+   "id": "mikan",
+   "name": "三浦みかん狩り",
+   "name_en": null,
+   "category": "季節",
+   "tags": [
+    "みかん",
+    "農",
+    "秋",
+    "子ども",
+    "体験"
+   ],
+   "area": "三浦海岸",
+   "lat": null,
+   "lon": null,
+   "address": null,
+   "hours": "10/15〜11/30（雨天休園）",
+   "closed": [],
+   "closed_note": null,
+   "closed_until": null,
+   "season": [
+    10,
+    11
+   ],
+   "price": "小学生以上1,200円、未就学900円、2歳以下無料（約1kgの土産付き）",
+   "access": "三崎口駅前か三浦海岸駅前の観光案内所で園を案内。予約不要（20名以上は要予約）",
+   "note": "市内9園（上宮田・菊名・金田・和田）。秋のA邸ならこれ。帰りに寄れる",
+   "note_en": null,
+   "image": null,
+   "links": {
+    "official": "https://miura-info.ne.jp/sightseeing/experience-4/",
+    "map": null
+   },
+   "sources": [
+    {
+     "url": "https://miura-info.ne.jp/sightseeing/experience-4/",
+     "title": "みうら観光ガイド みかん狩り",
+     "opened": "2026-10-05"
+    }
+   ],
+   "confidence": "🟢",
+   "status": "候補",
+   "last_checked": "2026-10-05",
+   "owner_note": ""
+  },
+  {
+   "id": "otb",
+   "name": "KEIKYU OPEN TOP BUS MIURA",
+   "name_en": null,
+   "category": "体験する",
+   "tags": [
+    "バス",
+    "観光",
+    "絶景",
+    "屋根なし"
+   ],
+   "area": "三浦海岸",
+   "lat": 35.188629,
+   "lon": 139.652847,
+   "address": "三浦海岸駅前 案内所",
+   "hours": "10:15／12:30（片道 約40分）、15:00（周遊 約90分）",
+   "closed": [],
+   "closed_note": "毎月第2水曜は定期点検で運休。雨天・荒天は運休あり",
+   "closed_until": null,
+   "season": null,
+   "price": "片道1,500円、周遊2,000円（デジタル優待あり）",
+   "access": null,
+   "note": "屋根なし2階建てバス。みさきまぐろきっぷの引換券でも乗れる",
+   "note_en": null,
+   "image": null,
+   "links": {
+    "official": "https://www.keikyu.co.jp/information/otb-miura/",
+    "map": null
+   },
+   "sources": [
+    {
+     "url": "https://www.keikyu.co.jp/information/otb-miura/",
+     "title": "京急 OPEN TOP BUS MIURA 公式",
+     "opened": "2026-10-05"
+    },
+    {
+     "url": "https://miura-info.ne.jp/sightseeing/keikyu-open-top-bus-miura/",
+     "title": "みうら観光ガイド",
+     "opened": "2026-10-05"
+    }
+   ],
+   "confidence": "🟢",
+   "status": "候補",
+   "last_checked": "2026-10-05",
+   "owner_note": ""
+  },
+  {
+   "id": "maholova",
+   "name": "マホロバ・マインズ三浦 日帰り入浴",
+   "name_en": null,
+   "category": "体験する",
+   "tags": [
+    "温泉",
+    "入浴",
+    "三浦海岸"
+   ],
+   "area": "三浦海岸",
+   "lat": 35.181999,
+   "lon": 139.650726,
+   "address": "三浦市南下浦町上宮田3231",
+   "hours": "11:00〜15:00",
+   "closed": null,
+   "closed_note": null,
+   "closed_until": null,
+   "season": null,
+   "price": "1,300円（小学生以上均一、未就学児無料）。タオル別",
+   "access": "三浦海岸駅 徒歩7分、無料送迎あり",
+   "note": "駅近のホテルの日帰り温泉。海を見たあとにひと風呂",
+   "note_en": null,
+   "image": null,
+   "links": {
+    "official": "https://www.maholova-minds.com/spring/index.html",
+    "map": null
+   },
+   "sources": [
+    {
+     "url": "https://miura-info.ne.jp/sightseeing/bathing-2/",
+     "title": "みうら観光ガイド マホロバ日帰り入浴",
+     "opened": "2026-10-05"
+    }
+   ],
+   "confidence": "🟢",
+   "status": "候補",
+   "last_checked": "2026-10-05",
+   "owner_note": ""
+  },
+  {
+   "id": "misaki_shitamachi",
+   "name": "三崎下町商店街",
+   "name_en": null,
+   "category": "買う",
+   "tags": [
+    "商店街",
+    "土産",
+    "散歩",
+    "下町"
+   ],
+   "area": "三崎",
+   "lat": 35.140606,
+   "lon": 139.618851,
+   "address": null,
+   "hours": null,
+   "closed": null,
+   "closed_note": null,
+   "closed_until": null,
+   "season": null,
+   "price": null,
+   "access": null,
+   "note": "A邸のある下町。観光協会の土産一覧には魚音本店・嶋清（菓子）・丸清製麺・三富染物店・や印直売所・くろば亭工房などが並ぶ。10月は夜市、神輿パレードの舞台",
+   "note_en": null,
+   "image": "misaki_shitamachi",
+   "links": {
+    "official": "https://miura-info.ne.jp/souvenir-misaki/",
+    "map": null
+   },
+   "sources": [
+    {
+     "url": "https://miura-info.ne.jp/souvenir-misaki/",
+     "title": "みうら観光ガイド おみやげ（三崎・下町）",
+     "opened": "2026-10-05"
+    }
+   ],
+   "confidence": "🟢",
+   "status": "候補",
+   "last_checked": "2026-10-05",
+   "owner_note": ""
+  },
+  {
+   "id": "keikyu_bus",
+   "name": "京急バス（三崎口駅⇔三崎港・城ヶ島）",
+   "name_en": null,
+   "category": "移動",
+   "tags": [
+    "バス",
+    "三崎口",
+    "城ヶ島"
+   ],
+   "area": "三崎口",
+   "lat": 35.1775,
+   "lon": 139.63319,
+   "address": "三崎口駅 2番乗り場",
+   "hours": null,
+   "closed": [],
+   "closed_note": null,
+   "closed_until": null,
+   "season": null,
+   "price": null,
+   "access": "三崎口駅2番乗り場から「三崎港行」「城ヶ島行」「通り矢行」。A邸は「三崎港」下車。運賃・時刻は京急バス公式で",
+   "note": "三崎口駅からA邸最寄りの「三崎港」まではバス。城ヶ島行きに乗れば橋を渡って島まで",
+   "note_en": null,
+   "image": null,
+   "links": {
+    "official": "https://www.keikyu-bus.co.jp/",
+    "map": null
+   },
+   "sources": [
+    {
+     "url": "https://www.city.miura.kanagawa.jp/soshiki/kankoshokoka/kankoshokoka_kanko/chiikikankougyouji/11735.html",
+     "title": "三浦市（バス乗り場の案内）",
+     "opened": "2026-10-05"
+    }
+   ],
+   "confidence": "🟡",
+   "status": "候補",
+   "last_checked": "2026-10-05",
+   "owner_note": "所要時間・運賃は公式時刻表を開けていない"
+  },
+  {
+   "id": "rentacycle",
+   "name": "みうらレンタサイクル（電動）",
+   "name_en": null,
+   "category": "移動",
+   "tags": [
+    "自転車",
+    "電動",
+    "乗り捨て"
+   ],
+   "area": "三崎",
+   "lat": 35.141064,
+   "lon": 139.616974,
+   "address": null,
+   "hours": "うらり 9:00〜17:00（三崎口駅・三浦海岸駅 9:30〜17:00、城ヶ島は返却のみ 9:00〜16:00）",
+   "closed": null,
+   "closed_note": null,
+   "closed_until": null,
+   "season": null,
+   "price": "電動 3時間1,000円、1日1,800円。乗り捨て600円",
+   "access": null,
+   "note": "三崎口駅・うらり・城ヶ島・三浦海岸駅・ソレイユの丘で乗り捨てOK。Web予約（みさきまぐろきっぷは直接）",
+   "note_en": null,
+   "image": null,
+   "links": {
+    "official": "https://miura-info.ne.jp/find/rentalcycle/",
+    "map": null
+   },
+   "sources": [
+    {
+     "url": "https://miura-info.ne.jp/find/rentalcycle/",
+     "title": "みうら観光ガイド みうらレンタサイクル",
+     "opened": "2026-10-05"
+    }
+   ],
+   "confidence": "🟢",
+   "status": "候補",
+   "last_checked": "2026-10-05",
+   "owner_note": ""
+  },
+  {
+   "id": "umikaze",
+   "name": "うみかぜサイクル（ロード・クロスバイク）",
+   "name_en": null,
+   "category": "移動",
+   "tags": [
+    "自転車",
+    "ロードバイク",
+    "三浦海岸"
+   ],
+   "area": "三浦海岸",
+   "lat": 35.186203,
+   "lon": 139.655273,
+   "address": "三浦市南下浦町上宮田3316-4",
+   "hours": "9:00〜18:00前後（季節で変動）",
+   "closed": [
+    2
+   ],
+   "closed_note": "水曜・不定休",
+   "closed_until": null,
+   "season": null,
+   "price": "クロスバイク 3時間2,500円、電動クロス1,800円、ロード4,300円",
+   "access": null,
+   "note": "半島一周を走る人向け。子ども用もあり",
+   "note_en": null,
+   "image": null,
+   "links": {
+    "official": "https://www.miura-umikaze.jp/",
+    "map": null
+   },
+   "sources": [
+    {
+     "url": "https://miura-info.ne.jp/sightseeing/move-5/",
+     "title": "みうら観光ガイド うみかぜサイクル",
+     "opened": "2026-10-05"
+    }
+   ],
+   "confidence": "🟢",
+   "status": "候補",
+   "last_checked": "2026-10-05",
+   "owner_note": ""
+  },
+  {
+   "id": "parking",
+   "name": "駐車場（うらり・三崎漁港・城ヶ島）",
+   "name_en": null,
+   "category": "移動",
+   "tags": [
+    "駐車場",
+    "車"
+   ],
+   "area": "三崎",
+   "lat": 35.141064,
+   "lon": 139.616974,
+   "address": null,
+   "hours": "うらり・三崎漁港交流広場・新港は24時間。城ヶ島公園は8:00〜17:00（4〜9月は19:00）",
+   "closed": [],
+   "closed_note": null,
+   "closed_until": null,
+   "season": null,
+   "price": "うらり 1時間240円・12時間最大700円／三崎漁港交流広場 1時間210円／城ヶ島公園 1日500円（ワンデーパス）",
+   "access": null,
+   "note": "車のゲスト向け。城ヶ島はワンデーパスで島内の駐車場を出入り自由",
+   "note_en": null,
+   "image": null,
+   "links": {
+    "official": "https://miura-info.ne.jp/access/parking/",
+    "map": null
+   },
+   "sources": [
+    {
+     "url": "https://miura-info.ne.jp/access/parking/",
+     "title": "みうら観光ガイド 駐車場",
+     "opened": "2026-10-05"
+    }
+   ],
+   "confidence": "🟢",
+   "status": "候補",
+   "last_checked": "2026-10-05",
+   "owner_note": ""
+  },
+  {
+   "id": "tourist_info",
+   "name": "三崎口駅前観光案内所",
+   "name_en": null,
+   "category": "困ったとき",
+   "tags": [
+    "案内所",
+    "英語",
+    "荷物"
+   ],
+   "area": "三崎口",
+   "lat": 35.178379,
+   "lon": 139.633423,
+   "address": "三浦市初声町下宮田495（三崎口駅改札外）",
+   "hours": "9:30〜17:00（4〜9月は17:30まで）",
+   "closed": [],
+   "closed_note": "年末年始を除き無休",
+   "closed_until": null,
+   "season": null,
+   "price": null,
+   "access": null,
+   "note": "英語対応スタッフ。レンタサイクルの貸出・返却、みかん狩りの案内もここ",
+   "note_en": null,
+   "image": null,
+   "links": {
+    "official": "https://miura-info.ne.jp/access/tourist-information/",
+    "map": null
+   },
+   "sources": [
+    {
+     "url": "https://miura-info.ne.jp/access/tourist-information/",
+     "title": "みうら観光ガイド 観光案内所",
+     "opened": "2026-10-05"
+    }
+   ],
+   "confidence": "🟢",
+   "status": "候補",
+   "last_checked": "2026-10-05",
+   "owner_note": ""
+  },
+  {
+   "id": "hospital",
+   "name": "三浦市立病院",
+   "name_en": null,
+   "category": "困ったとき",
+   "tags": [
+    "病院",
+    "救急"
+   ],
+   "area": "三崎",
+   "lat": 35.144527,
+   "lon": 139.628052,
+   "address": "三浦市岬陽町4-33",
+   "hours": null,
+   "closed": null,
+   "closed_note": null,
+   "closed_until": null,
+   "season": null,
+   "price": null,
+   "access": null,
+   "note": "救急告示病院（救急患者を受け入れ）。電話 046-882-2111。診療受付時間は病院に確認",
+   "note_en": null,
+   "image": null,
+   "links": {
+    "official": "https://www.city.miura.kanagawa.jp/soshiki/shiritsubyoinjimukyoku/4/2122.html",
+    "map": null
+   },
+   "sources": [
+    {
+     "url": "https://www.city.miura.kanagawa.jp/soshiki/shiritsubyoinjimukyoku/4/2122.html",
+     "title": "三浦市 病院概要",
+     "opened": "2026-10-05"
+    }
+   ],
+   "confidence": "🟢",
+   "status": "候補",
+   "last_checked": "2026-10-05",
+   "owner_note": ""
+  },
+  {
+   "id": "emergency",
+   "name": "急なとき（110・119）",
+   "name_en": null,
+   "category": "困ったとき",
+   "tags": [
+    "救急",
+    "警察",
+    "電話"
+   ],
+   "area": "三浦市",
+   "lat": null,
+   "lon": null,
+   "address": null,
+   "hours": "24時間",
+   "closed": [],
+   "closed_note": null,
+   "closed_until": null,
+   "season": null,
+   "price": null,
+   "access": null,
+   "note": "救急・火事は119、事件・事故は110。A邸の住所はA邸の住所を伝える",
+   "note_en": null,
+   "image": null,
+   "links": {
+    "official": null,
+    "map": null
+   },
+   "sources": [],
+   "confidence": "🟢",
+   "status": "候補",
+   "last_checked": "2026-10-05",
+   "owner_note": ""
+  },
+  {
+   "id": "hazard",
+   "name": "津波・災害のとき",
+   "name_en": null,
+   "category": "困ったとき",
+   "tags": [
+    "防災",
+    "津波",
+    "避難"
+   ],
+   "area": "三崎",
+   "lat": null,
+   "lon": null,
+   "address": null,
+   "hours": "—",
+   "closed": [],
+   "closed_note": null,
+   "closed_until": null,
+   "season": null,
+   "price": null,
+   "access": null,
+   "note": "A邸の地盤は標高約6.6m、津波の浸水想定は5〜10m。地震で強い揺れを感じたら高台へ。避難先と道順はハザードマップのページに",
+   "note_en": null,
+   "image": null,
+   "links": {
+    "official": "../hazard.html",
+    "map": null
+   },
+   "sources": [
+    {
+     "url": "../hazard.html",
+     "title": "A邸ハザードマップ（このサイト）",
+     "opened": "2026-10-05"
+    }
+   ],
+   "confidence": "🟢",
+   "status": "候補",
+   "last_checked": "2026-10-05",
+   "owner_note": ""
+  }
+ ]
+}

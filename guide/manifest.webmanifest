@@ -1,0 +1,20 @@
+{
+ "name": "三浦A邸 ガイドブック",
+ "short_name": "A邸ガイド",
+ "start_url": "./",
+ "display": "browser",
+ "background_color": "#FFFFFF",
+ "theme_color": "#0A5A8C",
+ "icons": [
+  {
+   "src": "../img/icon-180.png",
+   "sizes": "180x180",
+   "type": "image/png"
+  },
+  {
+   "src": "../img/icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  }
+ ]
+}

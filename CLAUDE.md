@@ -98,3 +98,17 @@
 - トップは「これから・開催中」「最近のできごと」「毎年の定番」「映像欄」の4面。各記事はサムネイル付きカードのグリッドで、各面の先頭が大きく出る（一面）
 - カードには 見出し・日付・話のタネ1行 だけを出す。事実・行ってみたい・下調べ・出典は、タップで開く詳細シート（`<dialog>`）に入れる
 - 見出しは `headline` を使う（無ければ fact の先頭を切る）。**新しい項目には必ず `headline` を付ける**（25字程度）
+
+## ガイドブック（guide/・2026-10-05 新設）
+
+- **目的**：A邸のゲストに「おすすめのお店・場所・イベントは？」と聞かれたら「このページ」で済む。URL は https://vaseata.github.io/miura-board/guide/ 。近況ボードとは別ページで、データ（items／calendar／places／videos）を共有する
+- **生成**：`guide_build.py`（自己完結。`python3 build.py` の末尾からも呼ばれるので毎朝の手順は変えない）→ `guide/index.html`（ゲスト用・1ページ・カテゴリタブ）、`guide/review.html`（候補の確認用・noindex）、`guide/manifest.webmanifest`
+- **台帳は `spots.json`**。`home` に A邸の座標。各項目：`id name category tags area lat lon address hours closed closed_note closed_until season price access note image links sources confidence status last_checked owner_note`
+  - `category` は7値固定：食べる／見る・歩く／体験する／買う／移動／困ったとき／季節（季節だけは `season` の月に「今の季節」面へ出る）
+  - `closed` は定休曜日の配列 0=月…6=日。不明は `null`（「今日やっている」では表示＋「定休日 要確認」）。臨時休業は `closed_until`
+  - `status`：`候補`（review にだけ出る）／`◎`（公開）／`休止`（非表示・記録は残す）。**◎にできるのはヤヌキだけ。Claude は必ず 候補 で足す**
+  - `hours／closed／price` は公式か観光協会の個別ページを開いた日を `last_checked` に書く。開けない数字は `null` にして `owner_note` に理由
+  - 徒歩時間は JSON に書かない。build が home からの直線距離×1.3÷80m/分 を切り上げて「徒歩N分」。ページには「目安」と明記。lat/lon は地理院の住所検索（`msearch.gsi.go.jp/address-search/AddressSearch?q=`）か Wikipedia の座標で取り、`sources` に残す
+- **候補→◎の流れ**：Claude が候補を足す → `python3 build.py` → `guide/review.html` をヤヌキに見せる → 「◎: id, id」の返事で `status` を書き換え → push
+- **毎朝タスクに追加の1行**：月初と、`last_checked` が90日より古い◎項目は公式ページを開いて `hours／closed／price／closed_until` を確認し `last_checked` を更新。変化（閉店・休業・時間変更）があれば `items.json` にも出来事として追記。変化なしなら触らない
+- 出典ルールは items と同じ（開いたものだけ）。絞り込み状態は URL ハッシュ（`#cat=食べる&tag=マグロ&open=1&near=1`）で共有できる
