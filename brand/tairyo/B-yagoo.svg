@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1200" role="img" aria-label="三浦A邸 屋号旗（縦）"><title>三浦A邸 屋号旗（縦）</title><defs>
+<pattern id="seigaiha" width="80" height="40" patternUnits="userSpaceOnUse">
+ <g fill="none" stroke="#0A5A8C" stroke-width="3">
+ <circle cx="0" cy="40" r="38"/><circle cx="0" cy="40" r="26"/><circle cx="0" cy="40" r="14"/>
+ <circle cx="80" cy="40" r="38"/><circle cx="80" cy="40" r="26"/><circle cx="80" cy="40" r="14"/>
+ <circle cx="40" cy="20" r="38"/><circle cx="40" cy="20" r="26"/><circle cx="40" cy="20" r="14"/></g></pattern>
+<pattern id="hatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-35)"><line x1="0" y1="0" x2="0" y2="9" stroke="#0A5A8C" stroke-width="3"/></pattern>
+<clipPath id="tunaclip"><path id="tb" d="M0 90 C70 -20 330 -50 570 30 L710 -10 L690 80 L745 190 L580 135 C350 270 90 240 0 90 Z"/></clipPath>
+</defs><rect width="800" height="1200" fill="#FBF8F1"/><rect x="40" y="40" width="720" height="1120" fill="none" stroke="#0A5A8C" stroke-width="8"/>
+<circle cx="400" cy="250" r="95" fill="#B8243A"/><polygon points="285,259 195,250 285,241" fill="#B8243A"/><polygon points="286,233 200,204 290,216" fill="#B8243A"/><polygon points="293,208 215,161 301,192" fill="#B8243A"/><polygon points="305,186 240,122 316,171" fill="#B8243A"/><polygon points="321,166 272,90 336,155" fill="#B8243A"/><polygon points="342,151 311,65 358,143" fill="#B8243A"/><polygon points="366,140 354,50 383,136" fill="#B8243A"/><polygon points="391,135 400,45 409,135" fill="#B8243A"/><polygon points="417,136 446,50 434,140" fill="#B8243A"/><polygon points="442,143 489,65 458,151" fill="#B8243A"/><polygon points="464,155 528,90 479,166" fill="#B8243A"/><polygon points="484,171 560,122 495,186" fill="#B8243A"/><polygon points="499,192 585,161 507,208" fill="#B8243A"/><polygon points="510,216 600,204 514,233" fill="#B8243A"/><polygon points="515,241 605,250 515,259" fill="#B8243A"/>
+<g style="font-family:'Shippori Mincho','Hiragino Mincho ProN','Yu Mincho',serif;font-weight:800;font-size:260px" fill="#14202B" text-anchor="middle"><text x="400" y="610">三</text><text x="400" y="860">浦</text><text x="400" y="1110">邸</text></g>
+<text x="635" y="520" style="font-family:'Shippori Mincho','Hiragino Mincho ProN','Yu Mincho',serif;font-weight:800;font-size:110px" fill="#B8243A" text-anchor="middle">A</text>
+<g transform="translate(125,1080)"><circle r="45" fill="none" stroke="#14202B" stroke-width="5.3999999999999995"/>
+<path d="M0 -27.9 Q6.975 -6.975 27.9 0 Q6.975 6.975 0 27.9 Q-6.975 6.975 -27.9 0 Q-6.975 -6.975 0 -27.9 Z" fill="#14202B"/></g></svg>

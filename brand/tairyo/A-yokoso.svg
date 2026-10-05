@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="三浦A邸へようこそ（ホワイトボード準拠）"><title>三浦A邸へようこそ（ホワイトボード準拠）</title><defs>
+<pattern id="seigaiha" width="80" height="40" patternUnits="userSpaceOnUse">
+ <g fill="none" stroke="#0A5A8C" stroke-width="3">
+ <circle cx="0" cy="40" r="38"/><circle cx="0" cy="40" r="26"/><circle cx="0" cy="40" r="14"/>
+ <circle cx="80" cy="40" r="38"/><circle cx="80" cy="40" r="26"/><circle cx="80" cy="40" r="14"/>
+ <circle cx="40" cy="20" r="38"/><circle cx="40" cy="20" r="26"/><circle cx="40" cy="20" r="14"/></g></pattern>
+<pattern id="hatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-35)"><line x1="0" y1="0" x2="0" y2="9" stroke="#0A5A8C" stroke-width="3"/></pattern>
+<clipPath id="tunaclip"><path id="tb" d="M0 90 C70 -20 330 -50 570 30 L710 -10 L690 80 L745 190 L580 135 C350 270 90 240 0 90 Z"/></clipPath>
+</defs><rect width="1200" height="800" fill="#FBF8F1"/><circle cx="960" cy="380" r="100" fill="#B8243A"/><polygon points="844,410 694,427 841,392" fill="#B8243A"/><polygon points="840,375 692,349 842,357" fill="#B8243A"/><polygon points="846,341 712,273 854,324" fill="#B8243A"/><polygon points="862,310 753,206 874,296" fill="#B8243A"/><polygon points="886,285 812,154 902,275" fill="#B8243A"/><polygon points="917,268 883,121 935,263" fill="#B8243A"/><polygon points="951,260 960,110 969,260" fill="#B8243A"/><polygon points="985,263 1037,121 1003,268" fill="#B8243A"/><polygon points="1018,275 1108,154 1034,285" fill="#B8243A"/><polygon points="1046,296 1167,206 1058,310" fill="#B8243A"/><polygon points="1066,324 1208,273 1074,341" fill="#B8243A"/><polygon points="1078,357 1228,349 1080,375" fill="#B8243A"/><polygon points="1079,392 1226,427 1076,410" fill="#B8243A"/>
+<path d="M420 650 L610 360 L650 330 L690 360 L880 650 Z" fill="#0A5A8C"/><path d="M540 450 L610 360 L650 330 L690 360 L740 430 L700 405 L670 450 L640 410 L600 455 Z" fill="#FBF8F1"/>
+<g transform="translate(30,500) scale(1.1,1.1)" fill="none" stroke="#0A5A8C" stroke-width="9" stroke-linecap="round">
+<path d="M0 160 C0 60 60 0 140 0 C200 0 240 40 240 90 C240 130 205 150 175 135 C150 122 155 90 180 90"/>
+<path d="M0 160 C30 130 60 130 90 160 C110 180 140 180 160 160"/></g><g transform="translate(1170,500) scale(-1.1,1.1)" fill="none" stroke="#0A5A8C" stroke-width="9" stroke-linecap="round">
+<path d="M0 160 C0 60 60 0 140 0 C200 0 240 40 240 90 C240 130 205 150 175 135 C150 122 155 90 180 90"/>
+<path d="M0 160 C30 130 60 130 90 160 C110 180 140 180 160 160"/></g>
+<g transform="translate(190,440) scale(0.95,0.95)">
+<path d="M0 90 C70 -20 330 -50 570 30 L710 -10 L690 80 L745 190 L580 135 C350 270 90 240 0 90 Z" fill="#FBF8F1" stroke="#0A5A8C" stroke-width="9" stroke-linejoin="round"/>
+<g clip-path="url(#tunaclip)"><path d="M0 -60 H800 V70 C500 20 200 40 0 100 Z" fill="url(#hatch)" opacity=".9"/></g>
+<path d="M200 -10 L260 -90 L370 -5 Z" fill="#0A5A8C"/>
+<path d="M120 150 L215 235 L245 140 Z" fill="#0A5A8C"/>
+<path d="M70 118 C150 150 240 140 300 110" fill="none" stroke="#0A5A8C" stroke-width="7" stroke-linecap="round"/>
+<circle cx="78" cy="68" r="17" fill="#FBF8F1" stroke="#0A5A8C" stroke-width="7"/><circle cx="78" cy="68" r="6" fill="#0A5A8C"/>
+</g>
+<rect y="690" width="1200" height="110" fill="url(#seigaiha)"/>
+<text x="560" y="165" text-anchor="middle" style="font-family:'Shippori Mincho','Hiragino Mincho ProN','Yu Mincho',serif;font-weight:800;font-size:120px;letter-spacing:.1em" fill="#14202B">三浦A邸</text>
+<text x="560" y="240" text-anchor="middle" style="font-family:'Shippori Mincho','Hiragino Mincho ProN','Yu Mincho',serif;font-weight:800;font-size:52px;letter-spacing:.35em" fill="#14202B">へようこそ</text>
+<g transform="translate(1070,640)"><circle r="48" fill="none" stroke="#14202B" stroke-width="5.76"/>
+<path d="M0 -29.759999999999998 Q7.4399999999999995 -7.4399999999999995 29.759999999999998 0 Q7.4399999999999995 7.4399999999999995 0 29.759999999999998 Q-7.4399999999999995 7.4399999999999995 -29.759999999999998 0 Q-7.4399999999999995 -7.4399999999999995 0 -29.759999999999998 Z" fill="#14202B"/></g></svg>

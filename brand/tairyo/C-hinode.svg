@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" role="img" aria-label="三浦A邸 日の出と波（正方形）"><title>三浦A邸 日の出と波（正方形）</title><defs>
+<pattern id="seigaiha" width="80" height="40" patternUnits="userSpaceOnUse">
+ <g fill="none" stroke="#0A5A8C" stroke-width="3">
+ <circle cx="0" cy="40" r="38"/><circle cx="0" cy="40" r="26"/><circle cx="0" cy="40" r="14"/>
+ <circle cx="80" cy="40" r="38"/><circle cx="80" cy="40" r="26"/><circle cx="80" cy="40" r="14"/>
+ <circle cx="40" cy="20" r="38"/><circle cx="40" cy="20" r="26"/><circle cx="40" cy="20" r="14"/></g></pattern>
+<pattern id="hatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-35)"><line x1="0" y1="0" x2="0" y2="9" stroke="#0A5A8C" stroke-width="3"/></pattern>
+<clipPath id="tunaclip"><path id="tb" d="M0 90 C70 -20 330 -50 570 30 L710 -10 L690 80 L745 190 L580 135 C350 270 90 240 0 90 Z"/></clipPath>
+</defs><rect width="1000" height="1000" fill="#FBF8F1"/><circle cx="500" cy="400" r="240" fill="#B8243A"/><polygon points="236,421 30,400 236,379" fill="#B8243A"/><polygon points="237,369 39,308 245,328" fill="#B8243A"/><polygon points="248,318 66,220 264,280" fill="#B8243A"/><polygon points="269,271 109,139 292,236" fill="#B8243A"/><polygon points="298,228 168,68 328,198" fill="#B8243A"/><polygon points="336,192 239,9 371,169" fill="#B8243A"/><polygon points="380,164 320,-34 418,148" fill="#B8243A"/><polygon points="428,145 408,-61 469,137" fill="#B8243A"/><polygon points="479,136 500,-70 521,136" fill="#B8243A"/><polygon points="531,137 592,-61 572,145" fill="#B8243A"/><polygon points="582,148 680,-34 620,164" fill="#B8243A"/><polygon points="629,169 761,9 664,192" fill="#B8243A"/><polygon points="672,198 832,68 702,228" fill="#B8243A"/><polygon points="708,236 891,139 731,271" fill="#B8243A"/><polygon points="736,280 934,220 752,318" fill="#B8243A"/><polygon points="755,328 961,308 763,369" fill="#B8243A"/><polygon points="764,379 970,400 764,421" fill="#B8243A"/>
+<rect y="560" width="1000" height="440" fill="#FBF8F1"/><rect y="560" width="1000" height="440" fill="url(#seigaiha)" opacity=".55"/>
+<rect x="110" y="680" width="780" height="210" fill="#FBF8F1" stroke="#0A5A8C" stroke-width="8"/>
+<text x="500" y="820" text-anchor="middle" style="font-family:'Shippori Mincho','Hiragino Mincho ProN','Yu Mincho',serif;font-weight:800;font-size:140px;letter-spacing:.08em" fill="#14202B">三浦A邸</text></svg>
