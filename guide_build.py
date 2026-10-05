@@ -36,7 +36,13 @@ def haversine(a, b):
 
 def build():
     spots_doc = json.load(open(HERE / "spots.json"))
-    home = spots_doc["home"]
+    # A邸の座標は公開しない。home.local.json（.gitignore）にだけ置く。無ければ徒歩時間は出さない
+    home = dict(spots_doc.get("home") or {})
+    hl = HERE / "home.local.json"
+    if hl.exists():
+        home.update(json.load(open(hl)))
+    else:
+        print("home.local.json が無いので、徒歩時間は計算しません")
     spots = spots_doc["spots"]
     items = json.load(open(HERE / "items.json"))["items"]
     cal = json.load(open(HERE / "calendar.json"))["events"]
@@ -45,7 +51,7 @@ def build():
 
     # ---- 徒歩時間（目安）
     for s in spots:
-        if s.get("lat") and s.get("lon"):
+        if home.get("lat") and s.get("lat") and s.get("lon"):
             m = haversine((home["lat"], home["lon"]), (s["lat"], s["lon"]))
             s["_dist_m"] = int(m)
             s["_walk"] = math.ceil(m * 1.3 / 80)

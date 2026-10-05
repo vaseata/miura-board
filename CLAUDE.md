@@ -103,7 +103,7 @@
 
 - **目的**：A邸のゲストに「おすすめのお店・場所・イベントは？」と聞かれたら「このページ」で済む。URL は https://vaseata.github.io/miura-board/guide/ 。近況ボードとは別ページで、データ（items／calendar／places／videos）を共有する
 - **生成**：`guide_build.py`（自己完結。`python3 build.py` の末尾からも呼ばれるので毎朝の手順は変えない）→ `guide/index.html`（ゲスト用・1ページ・カテゴリタブ）、`guide/review.html`（候補の確認用・noindex）、`guide/manifest.webmanifest`
-- **台帳は `spots.json`**。`home` に A邸の座標。各項目：`id name category tags area lat lon address hours closed closed_note closed_until season price access note image links sources confidence status last_checked owner_note`
+- **台帳は `spots.json`**。A邸の座標は公開しない：`home.local.json`（`.gitignore`。`{"name","lat","lon"}`）にだけ置き、`spots.json` の `home` には名前だけ。ファイルが無い環境では徒歩時間を出さない。各項目：`id name category tags area lat lon address hours closed closed_note closed_until season price access note image links sources confidence status last_checked owner_note`
   - `category` は7値固定：食べる／見る・歩く／体験する／買う／移動／困ったとき／季節（季節だけは `season` の月に「今の季節」面へ出る）
   - `closed` は定休曜日の配列 0=月…6=日。不明は `null`（「今日やっている」では表示＋「定休日 要確認」）。臨時休業は `closed_until`
   - `status`：`候補`（review にだけ出る）／`◎`（公開）／`休止`（非表示・記録は残す）。**◎にできるのはヤヌキだけ。Claude は必ず 候補 で足す**

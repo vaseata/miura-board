@@ -1,8 +1,7 @@
 {
  "_note": "店・場所の台帳（ガイドブック guide/ 用）。status が ◎ のものだけ guide/index.html に載る。候補 は guide/review.html だけ。walk_min は build が home からの直線距離×1.3÷80m/分で計算（目安）。closed は定休曜日 0=月…6=日（不明は null）。season は月の配列。hours/closed/price は公式か観光協会の個別ページを開いた日を last_checked に書く。開けない数字は null",
  "home": {
-  "name": "三浦A邸",
-  "address": "三浦市三崎1丁目1"
+  "name": "三浦A邸"
  },
  "spots": [
   {
