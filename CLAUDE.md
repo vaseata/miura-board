@@ -111,4 +111,5 @@
   - 徒歩時間は JSON に書かない。build が home からの直線距離×1.3÷80m/分 を切り上げて「徒歩N分」。ページには「目安」と明記。lat/lon は地理院の住所検索（`msearch.gsi.go.jp/address-search/AddressSearch?q=`）か Wikipedia の座標で取り、`sources` に残す
 - **候補→◎の流れ**：Claude が候補を足す → `python3 build.py` → `guide/review.html` をヤヌキに見せる → 「◎: id, id」の返事で `status` を書き換え → push
 - **毎朝タスクに追加の1行**：月初と、`last_checked` が90日より古い◎項目は公式ページを開いて `hours／closed／price／closed_until` を確認し `last_checked` を更新。変化（閉店・休業・時間変更）があれば `items.json` にも出来事として追記。変化なしなら触らない
+- **ダイヤモンド富士はガイドに常設しない**（2026-10-05 ヤヌキ指示）。次回が30日以内に入ったときだけ「今の季節」にカードで出る（自動）。4月末・8月上旬が近づいたら items.json にも記事として追記する
 - 出典ルールは items と同じ（開いたものだけ）。絞り込み状態は URL ハッシュ（`#cat=食べる&tag=マグロ&open=1&near=1`）で共有できる

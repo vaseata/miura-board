@@ -153,7 +153,11 @@ def build():
 
     season_html = "".join(spot_card(s) for s in season_spots)
     events_html = "".join(ev_card(*t) for t in ev) + "".join(up_card(dt, e) for dt, e in ups)
-    df_line = f'{jdate(nxt_df[0], nxt_df[1].get("approx"))}（{(nxt_df[0]-TODAY).days}日後）' if nxt_df else "—"
+    # ダイヤモンド富士は常設しない。30日以内に来るときだけ「今の季節」にカードで出す
+    df_card = ""
+    if nxt_df and (nxt_df[0] - TODAY).days <= 30:
+        dt, e = nxt_df
+        df_card = f'''<a class="art ev" href="{BOARD}">{thumb(e.get("image"), "城ヶ島")}<div class="ran"><span class="cat">季節</span><span class="area">城ヶ島大橋</span><span class="st soon">{(dt-TODAY).days}日後</span></div><h3>ダイヤモンド富士 {jdate(dt, e.get("approx"))}</h3><p class="dt">日没・城ヶ島大橋から</p><p class="lede">{esc(e["talk"])}</p></a>'''
     spots_html = "".join(spot_card(s) for s in published)
     tabs = "".join(f'<button type="button" data-cat="{esc(c)}" aria-pressed="false">{esc(c)}</button>' for c in CATS)
     counts = {c: sum(1 for s in published if s["category"] == c) for c in CATS}
@@ -287,8 +291,7 @@ a{color:inherit} button{font:inherit;color:inherit}
 
 <section class="sec" id="season">
   <h2 class="men">今の季節<span class="latin">$month</span></h2>
-  <div class="df"><span class="k">次のダイヤモンド富士</span><span class="v">$df</span><span class="n">城ヶ島大橋から。西北西85km先の富士に日が沈む（年により前後）</span></div>
-  <div class="grid">$season$events</div>
+  <div class="grid">$df$season$events</div>
   $season_empty
 </section>
 
@@ -372,7 +375,7 @@ a{color:inherit} button{font:inherit;color:inherit}
 </body>
 </html>
 ''').substitute(ymd=f"{TODAY.year}年{TODAY.month}月{TODAY.day}日", board=BOARD, month=f"{TODAY.month}月 · {TODAY.strftime('%B')}",
-                 df=df_line, season=season_html, events=events_html,
+                 df=df_card, season=season_html, events=events_html,
                  season_empty='' if (season_html or events_html) else '<p class="empty">いまは季節の項目がありません。</p>',
                  total=len(published), tabs="".join(f'<button type="button" data-cat="{esc(c)}" aria-pressed="false">{esc(c)}<span class="n">{counts[c]}</span></button>' for c in CATS),
                  spots=spots_html or '<p class="empty">掲載中の場所はまだありません。</p>', credits=credits, cats_json=json.dumps(CATS, ensure_ascii=False))
