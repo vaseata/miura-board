@@ -1385,17 +1385,17 @@
    "season": null,
    "price": null,
    "access": null,
-   "note": "A邸の地盤は標高約6.6m、津波の浸水想定は5〜10m。地震で強い揺れを感じたら高台へ。避難先と道順はハザードマップのページに",
+   "note": "三浦市の津波・高潮・土砂災害ハザードマップ（市の公式ページ）。地震で強い揺れを感じたら高台へ",
    "note_en": null,
    "image": null,
    "links": {
-    "official": "../hazard.html",
+    "official": "https://www.city.miura.kanagawa.jp/kurashi/anzen_anshin/6/1/1/hazardmap/7650.html",
     "map": null
    },
    "sources": [
     {
-     "url": "../hazard.html",
-     "title": "A邸ハザードマップ（このサイト）",
+     "url": "https://www.city.miura.kanagawa.jp/kurashi/anzen_anshin/6/1/1/hazardmap/7650.html",
+     "title": "三浦市 ハザードマップについて",
      "opened": "2026-10-05"
     }
    ],

@@ -1,3 +1,6 @@
 img/raw/
 .DS_Store
 __pycache__/
+hazard-share.src.html
+m/.token
+hazard.html

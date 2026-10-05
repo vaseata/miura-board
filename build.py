@@ -439,7 +439,7 @@ button{font:inherit;color:inherit}
   <h1 class="daiji"><small>三浦A邸 近況ボード</small>最近の三浦</h1>
   <div class="issue"><span class="no">第$issue号</span><br>$ymd（$wd）</div>
   <p class="mh-lead">城ヶ島・三崎・三浦海岸・油壺・小網代 ── この町で起きたこと、はじまったこと、季節のこと。記事をタップすると詳しく読めます。</p>
-  <p class="mh-lead"><a href="guide/"><b>ゲスト向けガイドブック（食べる・見る・体験する）→</b></a>　<a href="hazard.html"><b>A邸の災害リスク → ハザードマップ</b></a></p>
+  <p class="mh-lead"><a href="guide/"><b>ゲスト向けガイドブック（食べる・見る・体験する）→</b></a></p>
 </header>
 <nav class="toggle" role="group" aria-label="前回来てから"><span class="q">前回のご来訪</span><button data-days="31">1ヶ月前</button><button data-days="93">3ヶ月前</button><button data-days="184">半年前</button><button data-days="366">1年前</button><button class="tag-want" data-tag="want" aria-pressed="false" hidden>行ってみたい <b class="n">0</b></button><button class="tag-reco" data-tag="reco" aria-pressed="false" hidden>おすすめ <b class="n">0</b></button></nav>
 <section class="sec dated" id="soon"><h2 class="men">これから・開催中<span class="latin">Coming up</span></h2><div class="grid">$soon</div></section>

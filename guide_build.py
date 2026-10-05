@@ -286,7 +286,7 @@ a{color:inherit} button{font:inherit;color:inherit}
 <header class="masthead">
   <h1 class="daiji"><small>MIURA A-TEI · GUIDE</small>三浦A邸<br>ガイドブック</h1>
   <p class="mh-lead">三崎・城ヶ島・三浦海岸で、食べる・見る・体験する・買う。A邸からの徒歩時間つき。<br>$ymd 現在。毎朝自動で更新しています。</p>
-  <p class="mh-links"><a href="$board">最近の三浦（近況・イベント）→</a><a href="../hazard.html">津波・災害のときは →</a></p>
+  <p class="mh-links"><a href="$board">最近の三浦（近況・イベント）→</a></p>
 </header>
 
 <section class="sec" id="season">
@@ -308,7 +308,7 @@ a{color:inherit} button{font:inherit;color:inherit}
 <footer class="okuzuke">
 出典確認＝公式や観光協会の案内を開いて確かめたもの／要確認＝一次でない・未確認。営業時間・定休は変わることがあります（各項目の「確認」日を参照）。<br>
 徒歩時間は A邸からの直線距離×1.3÷80m/分 の目安。写真：Wikimedia Commons（$credits）、公式サイト、出典記事の og:image。<br>
-<a href="$board">最近の三浦</a> · <a href="../hazard.html">ハザードマップ</a> · Since 2026.10 · By Yanuki
+<a href="$board">最近の三浦</a> · Since 2026.10 · By Yanuki
 </footer>
 </main>
 <dialog id="sheet" aria-label="詳細"><div class="sheet-in"><div class="sheet-bar"><button type="button" class="sheet-close">閉じる</button></div><div class="sheet-body"></div></div></dialog>
