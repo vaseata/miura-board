@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="color-scheme" content="light">
+<title>三浦A邸 おすすめマップ</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.css">
+<style>
+:root{--sea:#EE5C95;--tuna:#C2336E;--ink:#3a1f2b;--mute:#8a6577;--line:#F7C9DC;--soft:#FFE8F1;--bk:#2a1018}
+*{box-sizing:border-box}
+body{margin:0;background:#FFF6FA;color:var(--ink);font:16px/1.7 -apple-system,"Hiragino Maru Gothic ProN","Hiragino Sans","Hiragino Kaku Gothic ProN",sans-serif}
+header{max-width:720px;margin:0 auto;padding:18px 16px 14px;background:radial-gradient(circle at 18px 18px,#fff 0 11px,transparent 12px) 0 0/72px 72px,radial-gradient(circle at 54px 54px,#fff 0 11px,transparent 12px) 0 0/72px 72px,#F7A8C8;border-bottom:3px solid var(--bk)}
+@media(min-width:720px){header{border-radius:0 0 18px 18px}}
+.k{color:var(--bk);font-weight:700;letter-spacing:.2em;font-size:13px}
+h1{font-size:25px;line-height:1.35;margin:4px 0 8px;color:#fff;text-shadow:-2px -2px 0 var(--bk),2px -2px 0 var(--bk),-2px 2px 0 var(--bk),2px 2px 0 var(--bk),0 3px 0 var(--bk),3px 0 0 var(--bk),-3px 0 0 var(--bk),0 -3px 0 var(--bk);letter-spacing:.04em}
+header p{margin:0;color:var(--bk);font-size:14px;background:rgba(255,255,255,.78);border-radius:12px;padding:8px 10px}
+.go{display:inline-block;margin:12px 0 0;background:var(--sea);color:#fff;text-decoration:none;font-weight:700;font-size:15px;padding:9px 18px;border-radius:99px;border:2.5px solid var(--bk);box-shadow:0 3px 0 var(--bk)}
+#map{height:56vh;min-height:340px;max-width:720px;margin:10px auto 0;border-top:3px solid var(--bk);border-bottom:3px solid var(--bk)}
+.leaflet-tile-pane{filter:grayscale(.6) sepia(.1) brightness(1.08) contrast(.92)}
+.pin{width:30px;height:30px;border-radius:50%;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;border:2.5px solid var(--bk);box-shadow:0 2px 0 var(--bk)}
+.leaflet-popup-content{font:14px/1.55 -apple-system,"Hiragino Sans",sans-serif;margin:10px 12px}
+.leaflet-popup-content b{font-size:15px}
+main{max-width:720px;margin:0 auto;padding:6px 16px 40px}
+.legend{font-size:13px;color:var(--mute);margin:10px 0}.legend i{display:inline-block;width:12px;height:12px;border:1.5px solid var(--bk);border-radius:50%;margin:0 4px 0 10px;vertical-align:-1px}
+.item{display:flex;gap:12px;border:2px solid var(--line);border-radius:18px;padding:12px;margin:0 0 12px;cursor:pointer;background:#fff;box-shadow:0 3px 0 var(--line)}
+.item .n{flex:none;width:30px;height:30px;border-radius:50%;font-weight:700;display:flex;align-items:center;justify-content:center;border:2.5px solid var(--bk)}
+.item h3{font-size:17px;margin:0;line-height:1.4}
+.item .c{color:var(--tuna);font-weight:700;font-size:14px;margin:2px 0}
+.item .m{font-size:13px;color:var(--mute)}
+.item .note{font-size:14px;margin:2px 0}
+.un{font-size:13px;color:#5a3a00;background:#FFF0A8;border-radius:8px;padding:3px 8px;margin:4px 0}
+.add{margin-top:6px}.addb{font:inherit;font-size:13px;color:var(--tuna);background:#fff;border:2px solid var(--sea);border-radius:99px;padding:4px 12px}.add textarea{margin:6px 0 0}
+.item a{color:var(--sea);font-size:13px}
+h2{font-size:19px;color:var(--tuna);margin:30px 0 4px;scroll-margin-top:12px}
+h2::before{content:"💗 "}
+.sub{font-size:14px;color:var(--mute);margin:0 0 10px}
+.x{border:2px dashed var(--sea);border-radius:16px;background:#fff;padding:12px;margin:0 0 10px}
+input[type=text],textarea{width:100%;font:inherit;font-size:16px;border:2px solid var(--line);border-radius:12px;padding:8px 10px;color:var(--ink);background:#fff;margin-bottom:6px}
+.btn{display:block;width:100%;min-height:52px;border:2.5px solid var(--bk);border-radius:99px;font:inherit;font-size:16px;font-weight:700;margin:10px 0;color:var(--bk);background:#fff;box-shadow:0 3px 0 var(--bk)}
+.btn.line{background:var(--sea);color:#fff}
+pre{white-space:pre-wrap;word-break:break-word;background:var(--soft);border-radius:14px;padding:12px;font:13px/1.6 ui-monospace,Menlo,monospace;max-height:260px;overflow:auto}
+.small{font-size:13px;color:var(--mute)}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:99px;font-size:14px;opacity:0;transition:.2s;pointer-events:none}
+.toast.on{opacity:1}
+</style></head><body>
+<header>
+<div class="k">🎀 三浦A邸 ⭐</div>
+<h1>華さんの<br>おすすめマップ 💖</h1>
+<p>キッチンの回遊マップのマークから作りました（22件）。地図とリストを見て、お店ごとに<b>ひとこと</b>を足したり、<b>これ以外のおすすめ</b>を教えてください。</p>
+<a class="go" href="#more">これ以外のおすすめを書く ↓</a>
+</header>
+<div id="map" role="application" aria-label="おすすめのお店の地図"></div>
+<main>
+<div class="legend">番号は下のリストと同じ（白い丸の数字は、重なったお店の数。押すと広がります）<i style="background:#EE5C95"></i>食べる<i style="background:#E8B06A"></i>買う<i style="background:#5BB0E8"></i>暮らし</div>
+<div id="list"></div>
+<p class="small">営業時間などは目安で、載せる前に確認します。</p>
+
+<div id="unres"></div>
+<h2 id="more">これ以外のおすすめはありますか？</h2>
+<p class="sub">店名とひとことだけで十分です（5件まで）。すでに載っているお店への<b>ひとこと</b>は、リストの各お店の「＋ ひとこと追加」から書けます。思いつかなければ、空のままで大丈夫です。</p>
+<div id="extras"></div>
+<h2>地図で違うところ</h2>
+<p class="sub">閉店・場所の違い・コメントを直したい店があれば、自由に書いてください。</p>
+<textarea id="fix" rows="3" placeholder="例：3番はお休みの日が変わりました"></textarea>
+<h2>送る</h2>
+<input type="text" id="who" placeholder="お名前（任意） 例：華" autocomplete="off">
+<pre id="out">まだ何も書かれていません。</pre>
+<button class="btn line" id="line" type="button">LINEで矢貫に送る</button>
+<button class="btn" id="copy" type="button">文章をコピーする</button>
+<p class="small">途中でやめても、この端末に自動で残ります。「LINEで送る」が開かないときは、コピーしてLINEに貼ってください。</p>
+</main>
+<div class="toast" id="toast"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.js"></script>
+<script>
+(function(){
+var D=[{"id": "kurobatei", "name": "くろば亭", "cat": "食べる", "area": "三崎", "lat": 35.141872, "lon": 139.621399, "c": "", "note": "観光協会のグルメ一覧（三崎・下町）に載るマグロ料理の店", "hours": "11:00〜20:00（LO19:30）", "closed": "水休み", "url": "https://miura-info.ne.jp/gourmet-misaki/", "color": "#EE5C95", "fg": "#fff", "conf": "🟡", "unsure": ""}, {"id": "misaki_donuts", "name": "ミサキドーナツ 三崎本店", "cat": "食べる", "area": "三崎", "lat": 35.141113, "lon": 139.618439, "c": "", "note": "観光協会のグルメ・土産一覧に載る下町のドーナツ店", "hours": "平日 11:00〜17:00／土日祝 10:00〜18:00", "closed": "水休み", "url": "https://miura-info.ne.jp/souvenir-misaki/", "color": "#EE5C95", "fg": "#fff", "conf": "🟢", "unsure": ""}, {"id": "kinoyo", "name": "三崎 まぐろ料理 寿司 紀の代", "cat": "食べる", "area": "三崎", "lat": 35.14193, "lon": 139.621506, "c": "", "note": "明治創業のまぐろ料理・寿司店。4種のまぐろを盛る「とろとろ丼」が看板。座敷あり・カード不可", "hours": "月・水〜金 11:00〜15:00（LO14:30）、17:00〜20:00（LO19:00）／土日祝 11:00〜20:30（LO19:00）", "closed": "火休み", "url": "https://savorjapan.com/0006117514", "color": "#EE5C95", "fg": "#fff", "conf": "🟡", "unsure": ""}, {"id": "korakutei", "name": "港楽亭", "cat": "食べる", "area": "三崎", "lat": 35.141598, "lon": 139.617569, "c": "あんかけそば", "note": "三崎まぐろラーメンの店。中華料理。カード・QR決済可", "hours": "月〜金 11:30〜15:00（LO14:00）／土日 11:30〜15:00、17:30〜21:00（LO20:00）。スープ切れで終了", "closed": "水休み", "url": "https://tabelog.com/kanagawa/A1406/A140603/14020968/", "color": "#EE5C95", "fg": "#fff", "conf": "🟡", "unsure": ""}, {"id": "bocca", "name": "ミサキ イタリアーノ ボッカ", "cat": "食べる", "area": "三崎", "lat": 35.141346, "lon": 139.617264, "c": "おいしいイタリアン", "note": "港を望む2階の海鮮イタリアン。コースあり。近くの三崎港交流プラザの駐車場割引あり", "hours": "水〜日 11:30〜15:00、18:00〜22:00（金は昼のみの記載あり）", "closed": "月／火休み", "url": "https://tabelog.com/kanagawa/A1406/A140603/14056067/", "color": "#EE5C95", "fg": "#fff", "conf": "🟡", "unsure": ""}, {"id": "misakipresso", "name": "ミサキプレッソ", "cat": "食べる", "area": "三崎", "lat": 35.14072, "lon": 139.618652, "c": "", "note": "イタリアンのダイニングバー兼カフェ。夏季は「三浦オムライス」を出す。10席、駐車場あり", "hours": "", "closed": "", "url": "https://hamoni.jp/shop/NcmOEx5nDH7nmw4Epp7C", "color": "#EE5C95", "fg": "#fff", "conf": "🟡", "unsure": ""}, {"id": "shokubomiura", "name": "食房miura", "cat": "食べる", "area": "三崎", "lat": 35.143501, "lon": 139.620331, "c": "", "note": "三浦半島の魚を出す居酒屋。アジフライ、刺身、漬物、カレー。座敷・掘りごたつ、駐車場あり", "hours": "17:30〜22:00（月曜の記載。祝日は変動）", "closed": "", "url": "https://hamoni.jp/shop/lTJCsCHUn2KBXfbUhrdL", "color": "#EE5C95", "fg": "#fff", "conf": "🟡", "unsure": ""}, {"id": "yatai_misaki", "name": "屋台（居酒屋）", "cat": "食べる", "area": "三崎", "lat": 35.1399067, "lon": 139.618006, "c": "おでん、お好み焼き", "note": "おでん・ツナもんじゃ・お好み焼きの居酒屋。鉄板つきのお座敷と、屋台形式のカウンターがある", "hours": "18:00から（閉店時刻は未確認）", "closed": "", "url": "https://maps.app.goo.gl/LNVK8Nd3LJbK3QRk8", "color": "#EE5C95", "fg": "#fff", "conf": "🟡", "unsure": ""}, {"id": "daiki_sakanatosakana", "name": "サカナと酒菜 だ粋 -DAIKI-", "cat": "食べる", "area": "三崎", "lat": 35.141586, "lon": 139.617081, "c": "", "note": "三崎港の路地裏にある和食居酒屋。三崎港の魚と地野菜を刺身・塩焼き・煮付けなどで出す（2024年12月開店）", "hours": "平日 16:00〜23:00（L.O.22:00）／土日祝 12:00〜23:00（L.O.22:00）", "closed": "月休み", "url": "https://da-iki-misaki.com/", "color": "#EE5C95", "fg": "#fff", "conf": "🟢", "unsure": ""}, {"id": "chochin_tokyo_1", "name": "提灯東京 1号店 ごはんとおさけ", "cat": "食べる", "area": "三崎", "lat": 35.1430752, "lon": 139.622536, "c": "", "note": "三崎港にある居酒屋。元スナックの店舗を使い、串焼き・油そば・冷麺などを出す（2022年12月開店、店名に1号店）", "hours": "18:00から（曜日ごとの時間は未確認）", "closed": "", "url": "https://gooone.help/20230531/1990/", "color": "#EE5C95", "fg": "#fff", "conf": "🟡", "unsure": "場所はGoogleマップで確認（三崎1-5-7）。曜日ごとの営業時間は未確認です。"}, {"id": "otoyu", "name": "居酒屋 音由", "cat": "食べる", "area": "三崎", "lat": 35.140999, "lon": 139.620178, "c": "何でもおいしい！", "note": "三崎下町商店街から路地を入った居酒屋。マグロ漁船のまかないを作っていた店主の魚料理が名物（席24席）", "hours": "月〜土 17:00〜23:30", "closed": "日休み", "url": "https://tabelog.com/kanagawa/A1406/A140603/14041869/", "color": "#EE5C95", "fg": "#fff", "conf": "🟡", "unsure": ""}, {"id": "keimaru", "name": "おさかな工房 慶丸", "cat": "買う", "area": "三崎", "lat": 35.141224, "lon": 139.620026, "c": "マグロ買うならココ！", "note": "三崎2丁目のマグロ・鮮魚の直売店。食べログの口コミでは漁師の直売所で、マグロの稀少部位や珍味を扱う", "hours": "", "closed": "", "url": "https://tabelog.com/kanagawa/A1406/A140603/14083015/", "color": "#E8B06A", "fg": "#2a1018", "conf": "🟡", "unsure": "Googleマップに掲載はあります（口コミ1件）が、営業時間の記載がなく、今も営業しているか未確認です。"}, {"id": "tabegotoya_minato", "name": "たべごとや みなと", "cat": "食べる", "area": "三崎", "lat": 35.139942, "lon": 139.618835, "c": "アジアン、平日昼はお弁当あり", "note": "アジアのエッセンスを加えた家庭料理の店。三浦半島の食材を使い、昼はお弁当・お惣菜の販売（2022年5月開店、姉妹が営む）", "hours": "水 11:30〜14:00／木〜土 11:30〜14:00・18:00〜22:00／日 17:00〜21:00", "closed": "月／火休み", "url": "https://www.kanaloco.jp/news/life/article-927910.html", "color": "#EE5C95", "fg": "#fff", "conf": "🟡", "unsure": "お弁当の販売日は確認中です。"}, {"id": "chuka_botan", "name": "中華料理 牡丹", "cat": "食べる", "area": "三崎", "lat": 35.14072, "lon": 139.618652, "c": "美味しい中華、シュウマイ", "note": "三崎の老舗町中華。70年以上の歴史。手作りジャンボ焼売と、炭火焼き叉焼（チャーシュー）を使ったワンタン麺が人気", "hours": "11:30〜15:00／17:00〜21:00（月〜水は14:30〜17:00休みの日あり）", "closed": "木休み", "url": "https://newcal.jp/feature/misakiguchi-botan_1", "color": "#EE5C95", "fg": "#fff", "conf": "🟡", "unsure": ""}, {"id": "kinmedai_koukai", "name": "金目鯛専門店 公海", "cat": "食べる", "area": "三崎", "lat": 35.1412279, "lon": 139.6184688, "c": "金目", "note": "金目鯛の専門店。金目鯛の漬け丼・煮付定食・焼魚定食・刺身定食、塩味のあら汁。店頭で切身や味噌漬も販売", "hours": "平日 11:00〜15:00／土日祝 10:30〜15:30（夜は要予約 18:00〜20:00・コース5,000円〜）", "closed": "月休み", "url": "https://kanagawa-kankou.or.jp/spot/7008", "color": "#EE5C95", "fg": "#fff", "conf": "🟢", "unsure": ""}, {"id": "sushi_ohata", "name": "鮨 おおはた", "cat": "食べる", "area": "三崎", "lat": 35.140064, "lon": 139.617325, "c": "", "note": "三崎港の鮮魚店・大畑鮮魚（三崎の大畑鮮魚）が開いた鮨店。2026年8月オープン。朝市の日曜は早朝営業", "hours": "水〜金 11:00〜15:00（L.O.14:30）・17:00〜22:00（L.O.21:30）／土 11:00〜21:00／日 5:00〜9:00・11:00〜17:00", "closed": "月／火休み", "url": "https://misaki-gyo.com", "color": "#EE5C95", "fg": "#fff", "conf": "🟡", "unsure": ""}, {"id": "asameshi_arube", "name": "朝めし あるべ", "cat": "食べる", "area": "三崎", "lat": 35.141598, "lon": 139.617569, "c": "朝ごはん", "note": "三崎港バス停の近くの朝めし屋。三浦野菜と地元食材の朝ごはん。間借りの日替わり店が入る仕組み（運営はMISAKI STAYLE）", "hours": "水〜日 6:00〜10:00", "closed": "月／火休み", "url": "https://misaki-stayle.com/", "color": "#EE5C95", "fg": "#fff", "conf": "🟡", "unsure": "Googleマップのオーナー投稿：当面の間、初めて来店するお客さまの受け入れを休止中です（野菜の仕入れが少ないため）。再開時期は未確認です。"}, {"id": "watatsumi_misaki", "name": "三崎鮪と旬の魚 わたつみ", "cat": "食べる", "area": "三崎", "lat": 35.141586, "lon": 139.617081, "c": "", "note": "三崎港うらりの正面、一本裏の通りにある海鮮の店。三崎のマグロと旬の魚（30席・2階座敷）", "hours": "11:30〜20:00", "closed": "水休み", "url": "https://tabelog.com/kanagawa/A1406/A140603/14061017/", "color": "#EE5C95", "fg": "#fff", "conf": "🟡", "unsure": "Googleマップでも三崎5-1-15です（「だ粋」と同じ番地。同じ建物かもしれません）。営業時間の記載はありません。"}, {"id": "joshuya_curry_yakiudon", "name": "上州屋", "cat": "食べる", "area": "天神町", "lat": 35.1487194, "lon": 139.6220694, "c": "焼きうどん", "note": "三浦市天神町の食堂。名物はカレー焼きうどん（口コミで1,000円前後）。13席", "hours": "11:00〜15:00／17:00〜19:00", "closed": "水休み", "url": "https://tabelog.com/kanagawa/A1406/A140603/14019242/", "color": "#EE5C95", "fg": "#fff", "conf": "🟡", "unsure": ""}, {"id": "ichigoichie", "name": "食道楽 いちごいちえ", "cat": "食べる", "area": "城山町", "lat": 35.144547, "lon": 139.620071, "c": "", "note": "三浦市城山町（三崎港の北）の定食・居酒屋。まぐろと地魚、刺身盛り合わせ、海鮮丼など", "hours": "12:00〜14:00／17:00〜21:00", "closed": "水／木休み", "url": "https://tabelog.com/kanagawa/A1406/A140603/14094180/", "color": "#EE5C95", "fg": "#fff", "conf": "🟡", "unsure": "城山町のお店です。華さんの「いちごいちえ」はここですか？"}, {"id": "ryoushigoya", "name": "漁師小屋", "cat": "食べる", "area": "三崎", "lat": 35.1414511, "lon": 139.620717, "c": "", "note": "シーフード・海鮮料理店（Googleマップの分類）。三崎1丁目", "hours": "記載なし", "closed": "", "url": "https://www.google.com/maps/search/%E6%BC%81%E5%B8%AB%E5%B0%8F%E5%B1%8B+%E4%B8%89%E5%B4%8E", "color": "#EE5C95", "fg": "#fff", "conf": "🟡", "unsure": "Googleマップの「漁師小屋」（三崎1丁目15、口コミ8件、営業時間の記載なし）です。華さんのお店ですか？"}, {"id": "yaoshige", "name": "八百重", "cat": "買う", "area": "城山町", "lat": 35.1438382, "lon": 139.6197322, "c": "お弁当", "note": "青果店。手作りの惣菜とお弁当がある（Googleマップのクチコミ）", "hours": "営業終了 18:00（曜日ごとの時間は未確認）", "closed": "", "url": "https://www.google.com/maps/search/%E5%85%AB%E7%99%BE%E9%87%8D+%E4%B8%89%E5%B4%8E", "color": "#E8B06A", "fg": "#2a1018", "conf": "🟡", "unsure": ""}],U=[];
+var KEY="miuraA-hana-map-v1",st={x:[],fix:"",who:"",m:{}};
+for(var i=0;i<5;i++)st.x.push({n:"",c:""});
+function load(){try{var j=JSON.parse(localStorage.getItem(KEY)||"null");if(j&&j.x){st=j;if(!st.m)st.m={}}}catch(e){}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
+function $(s){return document.querySelector(s)}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function toast(t){var e=$("#toast");e.textContent=t;e.classList.add("on");setTimeout(function(){e.classList.remove("on")},1800)}
+// 地図（OpenStreetMap。道と店名が見える標準の地図を、やわらかい暖色に）。A邸の位置は出さない
+var pts=D.filter(function(d){return d.lat&&d.lon});
+var map=L.map("map",{scrollWheelZoom:false});
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:'© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors',maxZoom:19}).addTo(map);
+var markers={};
+var group=L.markerClusterGroup({showCoverageOnHover:false,maxClusterRadius:34,spiderfyOnMaxZoom:true,iconCreateFunction:function(c){var n=c.getChildCount();return L.divIcon({className:"",html:'<div class="pin" style="width:38px;height:38px;background:#fff;color:#C2336E;font-size:15px">'+n+'</div>',iconSize:[38,38]})}});
+map.addLayer(group);
+function pop(d,n){return '<b>'+n+'. '+esc(d.name)+'</b>'+(d.c?'<br><span style="color:#C2336E;font-weight:700">'+esc(d.c)+'</span>':'')+(d.note?'<br>'+esc(d.note):'')+(d.hours?'<br><span style="color:#6b6258">'+esc(d.hours)+'</span>':'')}
+D.forEach(function(d,i){var n=i+1;
+ if(d.lat&&d.lon){var ic=L.divIcon({className:"",html:'<div class="pin" style="background:'+d.color+';color:'+d.fg+'">'+n+'</div>',iconSize:[30,30],iconAnchor:[15,15],popupAnchor:[0,-14]});
+  markers[d.id]=L.marker([d.lat,d.lon],{icon:ic,title:d.name}).bindPopup(pop(d,n));group.addLayer(markers[d.id])}});
+if(pts.length){map.fitBounds(L.latLngBounds(pts.map(function(d){return [d.lat,d.lon]})).pad(.15))}else{map.setView([35.1415,139.6195],15)}
+// リスト
+var html="";D.forEach(function(d,i){var n=i+1;
+ html+='<div class="item" data-id="'+d.id+'"><div class="n" style="background:'+d.color+';color:'+d.fg+'">'+n+'</div><div><h3>'+esc(d.name)+'</h3>'+(d.c?'<div class="c">'+esc(d.c)+'</div>':'')+
+ '<div class="note">'+esc(d.note)+'</div>'+(d.unsure?'<div class="un">確認：'+esc(d.unsure)+'</div>':'')+'<div class="m">'+esc([d.area,d.hours,d.closed].filter(Boolean).join(" ／ "))+'</div>'+
+ (d.url?'<a href="'+esc(d.url)+'" target="_blank" rel="noopener">リンク</a>':'')+(d.lat?'':'<span class="m">（地図の位置は未確認）</span>')+'<div class="add"><button type="button" class="addb" data-id="'+d.id+'">'+(st.m[d.id]?'✎ ひとこと追加（書きました）':'＋ ひとこと追加')+'</button><textarea class="addt" data-id="'+d.id+'" rows="2" placeholder="ここがいい／頼むならこれ／混む時間 など" aria-label="'+esc(d.name)+'のひとこと"'+(st.m[d.id]?'':' hidden')+'>'+esc(st.m[d.id]||'')+'</textarea></div></div></div>'});
+$("#list").innerHTML=html;
+document.querySelectorAll(".item").forEach(function(el){el.onclick=function(e){if(e.target.tagName==="A"||e.target.closest(".add"))return;var m=markers[el.dataset.id];if(m){window.scrollTo({top:$("#map").offsetTop-8,behavior:"smooth"});group.zoomToShowLayer(m,function(){map.setView(m.getLatLng(),Math.max(map.getZoom(),17));m.openPopup()})}}});
+if(U.length){var u='<h2>場所が分からなかったお店</h2><p class="sub">マップに載っていたけれど、特定できませんでした。分かれば、下の欄に教えてください。</p>';U.forEach(function(x){u+='<div class="item" style="cursor:default"><div><h3>'+esc(x.name)+'</h3><div class="m">'+esc(x.hint)+'</div></div></div>'});$("#unres").innerHTML=u}
+document.querySelectorAll(".addb").forEach(function(b){b.onclick=function(){var t=b.parentNode.querySelector("textarea");t.hidden=!t.hidden;if(!t.hidden)t.focus()}});
+document.querySelectorAll(".addt").forEach(function(t){t.oninput=function(){var v=t.value.trim();if(v)st.m[t.dataset.id]=t.value;else delete st.m[t.dataset.id];t.parentNode.querySelector("button").textContent=v?"✎ ひとこと追加（書きました）":"＋ ひとこと追加";save();summary()}});
+// 追加フォーム
+function renderExtras(){var box=$("#extras");box.innerHTML="";st.x.forEach(function(x,i){var d=document.createElement("div");d.className="x";
+ d.innerHTML='<input type="text" placeholder="店名" aria-label="お店の名前"><textarea rows="2" placeholder="ひとこと（何がおすすめか）" aria-label="ひとこと"></textarea>';
+ var a=d.querySelector("input"),b=d.querySelector("textarea");a.value=x.n||"";b.value=x.c||"";
+ a.oninput=function(){st.x[i].n=a.value;save();summary()};b.oninput=function(){st.x[i].c=b.value;save();summary()};box.appendChild(d)})}
+function text(){var L=["【三浦A邸 おすすめのお店｜家守"+((st.who||"").trim()?"："+st.who.trim():"")+"】"];
+ var ex=st.x.filter(function(x){return (x.n||"").trim()});
+ var mm=D.filter(function(d){return (st.m[d.id]||"").trim()});
+ if(mm.length){L.push("");L.push("💬 ひとこと追加");mm.forEach(function(d){L.push("・"+d.name+"（"+d.id+"）："+st.m[d.id].replace(/\s+/g," ").trim())})}
+ if(ex.length){L.push("");L.push("＋ 追加したいお店");ex.forEach(function(x){L.push("・"+x.n.trim()+((x.c||"").trim()?"："+x.c.replace(/\s+/g," ").trim():""))})}
+ if((st.fix||"").trim()){L.push("");L.push("✎ 直したいところ");L.push(st.fix.trim())}
+ return {text:L.join("\n"),empty:!ex.length&&!mm.length&&!(st.fix||"").trim()}}
+function summary(){var r=text();$("#out").textContent=r.empty?"まだ何も書かれていません。":r.text}
+$("#fix").oninput=function(){st.fix=this.value;save();summary()};
+$("#who").oninput=function(){st.who=this.value;save();summary()};
+$("#copy").onclick=function(){var t=text().text;if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){toast("コピーしました")},function(){fb(t)})}else fb(t)};
+function fb(t){var a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();try{document.execCommand("copy");toast("コピーしました")}catch(e){toast("コピーできませんでした")}a.remove()}
+$("#line").onclick=function(){var r=text();if(r.empty){toast("まだ何も書かれていません");return}location.href="https://line.me/R/msg/text/?"+encodeURIComponent(r.text)};
+load();renderExtras();$("#fix").value=st.fix||"";$("#who").value=st.who||"";summary();
+})();
+</script></body></html>
