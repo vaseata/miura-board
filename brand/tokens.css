@@ -1,0 +1,26 @@
+/* 三浦A邸 デザイントークン（唯一の正）
+   Web・ハザードマップ・近況ボード・ガイドは、ここの値に合わせる。
+   チラシ／LINEは BRAND.md の同じ値（HEX）を使う。 */
+:root{
+  /* 色 */
+  --bg:#FFFFFF; --ink:#14202B; --ink2:#3E4C58; --mute:#5A6A77;
+  --rule:#14202B; --hair:#D9E1E8; --tint:#F2F6F9;
+  --sea:#0A5A8C;  --sea-tint:#E6F0F6;   /* 主役：海の青 */
+  --tuna:#B8243A; --tuna-tint:#FBEAEC;  /* 差し色：マグロの赤（注意・強調に限る） */
+  --on:#FFFFFF;
+  /* 書体 */
+  --mincho:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
+  --gothic:"Zen Kaku Gothic New","Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+  /* 形 */
+  --shadow:0 18px 50px rgba(10,40,70,.22);
+  --radius:0;            /* 角は立てる。丸めない */
+  --rule-w:2px;          /* 見出し下の太罫 */
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E151B; --ink:#E7EDF2; --ink2:#C3CED7; --mute:#8FA0AD;
+    --rule:#E7EDF2; --hair:#26333E; --tint:#15202A;
+    --sea:#5DB0E4; --sea-tint:#10283A; --tuna:#F0697C; --tuna-tint:#3A1820; --on:#0E151B;
+    --shadow:0 18px 50px rgba(0,0,0,.6);
+  }
+}
