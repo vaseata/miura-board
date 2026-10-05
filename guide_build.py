@@ -174,20 +174,12 @@ def build():
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{
+:root{ color-scheme:light;
   --bg:#FFFFFF; --ink:#14202B; --ink2:#3E4C58; --mute:#4F6070; --rule:#14202B; --hair:#D9E1E8; --tint:#F2F6F9;
   --sea:#0A5A8C; --sea-tint:#E6F0F6; --tuna:#B8243A; --tuna-tint:#FBEAEC; --on:#FFFFFF;
   --shadow:0 18px 50px rgba(10,40,70,.22);
   --mincho:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
   --gothic:"Zen Kaku Gothic New","Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
-}
-@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
-  --bg:#0E151B; --ink:#E7EDF2; --ink2:#C3CED7; --mute:#9DAEBB; --rule:#E7EDF2; --hair:#26333E; --tint:#15202A;
-  --sea:#5DB0E4; --sea-tint:#10283A; --tuna:#F0697C; --tuna-tint:#3A1820; --on:#0E151B; --shadow:0 18px 50px rgba(0,0,0,.6);
-}}
-:root[data-theme="dark"]{
-  --bg:#0E151B; --ink:#E7EDF2; --ink2:#C3CED7; --mute:#9DAEBB; --rule:#E7EDF2; --hair:#26333E; --tint:#15202A;
-  --sea:#5DB0E4; --sea-tint:#10283A; --tuna:#F0697C; --tuna-tint:#3A1820; --on:#0E151B; --shadow:0 18px 50px rgba(0,0,0,.6);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--gothic);background:var(--bg);color:var(--ink);line-height:1.75;font-size:15.5px;font-feature-settings:"palt";-webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -391,7 +383,7 @@ a{color:inherit} button{font:inherit;color:inherit}
         src = sources_html(s.get("sources", []))
         return f'''<tr><td><code>{esc(s["id"])}</code></td><td>{esc(s["category"])}</td><td><b>{esc(s["name"])}</b><br><small>{esc(s.get("note") or "")}</small></td><td>{esc(s["area"])}<br><small>{f"徒歩{s['_walk']}分" if s["_walk"] is not None else "座標なし"}</small></td><td><small>{esc(s.get("hours") or "—")}<br>{esc(closed_text(s))}<br>{esc(s.get("price") or "")}</small></td><td><small>{conf(s.get("confidence","🟡"))} {esc(s.get("last_checked") or "")}<br>{src}</small></td></tr>'''
     review = f'''<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>ガイドブック 候補の確認</title>
-<style>body{{font-family:-apple-system,"Hiragino Sans",sans-serif;font-size:14px;line-height:1.6;color:#14202B;margin:0;padding:16px}}h1{{font-size:18px;margin:0 0 6px}}p{{margin:0 0 12px;color:#3E4C58}}table{{border-collapse:collapse;width:100%}}th,td{{border-top:1px solid #D9E1E8;padding:8px 6px;vertical-align:top;text-align:left}}th{{font-size:12px;color:#5A6A77;background:#F2F6F9}}code{{background:#F2F6F9;padding:1px 5px}}small{{color:#5A6A77}}.pub{{color:#0A5A8C}}</style></head><body>
+<style>body{{font-family:-apple-system,"Hiragino Sans",sans-serif;font-size:14px;line-height:1.6;color:#14202B;margin:0;padding:16px}}h1{{font-size:18px;margin:0 0 6px}}p{{margin:0 0 12px;color:#3E4C58}}table{{border-collapse:collapse;width:100%}}th,td{{border-top:1px solid #D9E1E8;padding:8px 6px;vertical-align:top;text-align:left}}th{{font-size:12px;color:#5A6A77;background:#F2F6F9}}@media(max-width:700px){{thead,tr:first-child{{display:none}}tr{{display:block;border-top:2px solid #0A5A8C;padding:8px 0}}td{{display:block;border:0;padding:2px 0}}td:first-child{{font-weight:700}}}}code{{background:#F2F6F9;padding:1px 5px}}small{{color:#5A6A77}}.pub{{color:#0A5A8C}}</style></head><body>
 <h1>ガイドブック 候補の確認（{TODAY.isoformat()}）</h1>
 <p>載せてよいものは id を伝えてください（例「◎: misaki_asaichi, urari」）。掲載中は {len(published)} 件、候補は {len(candidates)} 件。</p>
 <h2>候補（未掲載）</h2>
