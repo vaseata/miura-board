@@ -10,13 +10,13 @@
 :root{--sea:#EE5C95;--tuna:#C2336E;--ink:#3a1f2b;--mute:#8a6577;--line:#F7C9DC;--soft:#FFE8F1;--bk:#2a1018}
 *{box-sizing:border-box}
 body{margin:0;background:#FFF6FA;color:var(--ink);font:16px/1.7 -apple-system,"Hiragino Maru Gothic ProN","Hiragino Sans","Hiragino Kaku Gothic ProN",sans-serif}
-header{max-width:720px;margin:0 auto;padding:18px 16px 14px;background:radial-gradient(circle at 18px 18px,#fff 0 11px,transparent 12px) 0 0/72px 72px,radial-gradient(circle at 54px 54px,#fff 0 11px,transparent 12px) 0 0/72px 72px,#F7A8C8;border-bottom:3px solid var(--bk)}
-@media(min-width:720px){header{border-radius:0 0 18px 18px}}
-.k{color:var(--bk);font-weight:700;letter-spacing:.2em;font-size:13px}
-h1{font-size:25px;line-height:1.35;margin:4px 0 8px;color:#fff;text-shadow:-2px -2px 0 var(--bk),2px -2px 0 var(--bk),-2px 2px 0 var(--bk),2px 2px 0 var(--bk),0 3px 0 var(--bk),3px 0 0 var(--bk),-3px 0 0 var(--bk),0 -3px 0 var(--bk);letter-spacing:.04em}
-header p{margin:0;color:var(--bk);font-size:14px;background:rgba(255,255,255,.78);border-radius:12px;padding:8px 10px}
-.go{display:inline-block;margin:12px 0 0;background:var(--sea);color:#fff;text-decoration:none;font-weight:700;font-size:15px;padding:9px 18px;border-radius:99px;border:2.5px solid var(--bk);box-shadow:0 3px 0 var(--bk)}
-#map{height:56vh;min-height:340px;max-width:720px;margin:10px auto 0;border-top:3px solid var(--bk);border-bottom:3px solid var(--bk)}
+header{max-width:720px;margin:0 auto;padding:10px 16px 9px;background:radial-gradient(circle at 14px 14px,rgba(255,255,255,.7) 0 6px,transparent 7px) 0 0/44px 44px,radial-gradient(circle at 36px 36px,rgba(255,255,255,.7) 0 6px,transparent 7px) 0 0/44px 44px,#FBD3E3;border-bottom:2px solid var(--bk)}
+@media(min-width:720px){header{border-radius:0 0 14px 14px}}
+.k{display:none}
+h1{font-size:19px;line-height:1.3;margin:0;color:var(--bk);letter-spacing:.03em;display:inline}
+header p{margin:3px 0 0;color:var(--mute);font-size:12.5px;line-height:1.55}
+.go{color:var(--tuna);font-weight:700;font-size:12.5px;text-decoration:underline;white-space:nowrap}
+#map{height:64vh;min-height:380px;max-width:720px;margin:0 auto;border-top:2px solid var(--bk);border-bottom:2px solid var(--bk)}
 .leaflet-tile-pane{filter:grayscale(.6) sepia(.1) brightness(1.08) contrast(.92)}
 .pin{width:30px;height:30px;border-radius:50%;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;border:2.5px solid var(--bk);box-shadow:0 2px 0 var(--bk)}
 .leaflet-popup-content{font:14px/1.55 -apple-system,"Hiragino Sans",sans-serif;margin:10px 12px}
@@ -45,10 +45,8 @@ pre{white-space:pre-wrap;word-break:break-word;background:var(--soft);border-rad
 .toast.on{opacity:1}
 </style></head><body>
 <header>
-<div class="k">🎀 三浦A邸 ⭐</div>
-<h1>華さんの<br>おすすめマップ 💖</h1>
-<p>キッチンの回遊マップのマークから作りました（22件）。地図とリストを見て、お店ごとに<b>ひとこと</b>を足したり、<b>これ以外のおすすめ</b>を教えてください。</p>
-<a class="go" href="#more">これ以外のおすすめを書く ↓</a>
+<h1>💖 華さんのおすすめマップ</h1>
+<p>お店ごとに「ひとこと」を足したり、これ以外のおすすめを教えてください（22件）。　<a class="go" href="#more">おすすめを書く ↓</a></p>
 </header>
 <div id="map" role="application" aria-label="おすすめのお店の地図"></div>
 <main>
