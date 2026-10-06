@@ -2,6 +2,39 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "o_NyOpgro2U",
+   "title": "秋の城ヶ島のご紹介",
+   "channel": "Tony",
+   "published_text": "22 分前",
+   "views": "0 回視聴",
+   "length": "8:55",
+   "published": "2026-10-07",
+   "fetched": "2026-10-07",
+   "q": "城ヶ島"
+  },
+  {
+   "id": "-SDLWvmGTDQ",
+   "title": "【10月最新!】ショゴ実釣解説！周りが渋くても釣る！神奈川サーフで秋の釣り調査! #東京湾 #三浦半島 #三浦海岸 #青物 #ショゴ #イナダ #ブリ #マゴチ  #ヒラメ #fishing #海釣り",
+   "channel": "なっしぃの釣り研究",
+   "published_text": "14 時間前",
+   "views": "5,259回視聴",
+   "length": "31:36",
+   "published": "2026-10-07",
+   "fetched": "2026-10-07",
+   "q": "三浦海岸"
+  },
+  {
+   "id": "co3g1lOUOhM",
+   "title": "【Vlog】ふふ城ヶ島で過ごす1泊2日🌙✨｜全室オーシャンビュー客室🌊,海鮮ディナー🦞,絶品朝ごはん🍚,葉山ランチ🍽️",
+   "channel": "mango",
+   "published_text": "1 日前",
+   "views": "1,716回視聴",
+   "length": "19:45",
+   "published": "2026-10-06",
+   "fetched": "2026-10-07",
+   "q": "城ヶ島"
+  },
+  {
    "id": "NcM4SIEpBNo",
    "title": "［三浦半島］青物釣り‼︎三浦サーフでショゴが連発ヒット⁉︎イナダ・ショゴの攻略方法を徹底解説！#釣り#ショアジギング#三浦半島 ",
    "channel": "おしめし",
@@ -188,39 +221,6 @@
    "published": "2026-09-28",
    "fetched": "2026-09-28",
    "q": "三浦市"
-  },
-  {
-   "id": "0iTcejm_FW8",
-   "title": "神奈川・三浦市で新たに1人の遺体発見　行方不明の20代女性か｜TBS NEWS DIG",
-   "channel": "TBS NEWS DIG Powered by JNN",
-   "published_text": "1 日前",
-   "views": "54,150回視聴",
-   "length": "0:35",
-   "published": "2026-09-28",
-   "fetched": "2026-09-29",
-   "q": "三浦市"
-  },
-  {
-   "id": "XkosCOaSJ4w",
-   "title": "油壺マリンパークのイルカ",
-   "channel": "Natsuki Mori",
-   "published_text": "12 時間前",
-   "views": "0 回視聴",
-   "length": "0:31",
-   "published": "2026-09-27",
-   "fetched": "2026-09-27",
-   "q": "油壺"
-  },
-  {
-   "id": "jC1OsW0-JfE",
-   "title": "2026-09-25 三崎港メジナ釣り見物",
-   "channel": "mst tkhs",
-   "published_text": "13 時間前",
-   "views": "14回視聴",
-   "length": "4:02",
-   "published": "2026-09-26",
-   "fetched": "2026-09-26",
-   "q": "三崎 マグロ"
   }
  ]
 }
