@@ -1,0 +1,29 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//miura-board//JA
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:miura-board-58@vaseata.github.io
+DTSTAMP:20261007T220327Z
+DTSTART;VALUE=DATE:20261031
+DTEND;VALUE=DATE:20261105
+SUMMARY:ANAウインドサーフィンワールドカップ横須賀・三
+ 浦大会
+LOCATION:津久井浜海岸
+DESCRIPTION:ANAウインドサーフィンワールドカップ横須賀・
+ 三浦大会が10/31(土)〜11/4(水)の5日間、津久井浜海岸で開
+ 催。2026年PWAワールドツアー最終戦で、世界のトップラ
+ イダー約80名がフォイルスラロームで競う。10/31〜11/3は
+ 10:00〜16:00に「極旨ジャパン」「ヨーロッパマルシェ」
+ 、11/1(日)はFMヨコハマのステージ。海上観覧船やマリン
+ スポーツ体験会も（実行委員会リリース 10/2・三浦市公
+ 表）\n※レースの時刻はリリースに記載なし（最低風速
+ 4m/s〜で実施）。極旨ジャパン／ヨーロッパマルシェは1
+ 0/31〜11/3の10:00〜16:00。11/1(日)はFMヨコハマ「PRIME TIME」
+ のステージ（14時からLIVE）\n出典: https://www.city.miura.kanag
+ awa.jp/soshiki/seisakuka/seisakuka_hisho/shichonoheya/pressrelease/202610/
+ 2026100201.html\n最近の三浦: https://vaseata.github.io/miura-board/
+URL:https://vaseata.github.io/miura-board/
+END:VEVENT
+END:VCALENDAR

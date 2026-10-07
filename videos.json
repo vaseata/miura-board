@@ -2,6 +2,28 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "t5UxDnaZEJo",
+   "title": "横須賀・三浦半島　台風25号からの復旧状況を確認する",
+   "channel": "ウナ蔵 / Unazo's Totsuka Life Japan",
+   "published_text": "13 時間前",
+   "views": "1,538回視聴",
+   "length": "28:00",
+   "published": "2026-10-08",
+   "fetched": "2026-10-08",
+   "q": "三崎 マグロ"
+  },
+  {
+   "id": "oiyJWoMVSts",
+   "title": "夜の三浦半島 南端ドライブ｜城ヶ島入り口から三浦海岸まで【e VITARA 車載4K】",
+   "channel": "ひとり、道すがら。",
+   "published_text": "5 時間前",
+   "views": "1 回視聴",
+   "length": "16:46",
+   "published": "2026-10-08",
+   "fetched": "2026-10-08",
+   "q": "三浦海岸"
+  },
+  {
    "id": "o_NyOpgro2U",
    "title": "秋の城ヶ島のご紹介",
    "channel": "Tony",
@@ -24,6 +46,17 @@
    "q": "三浦海岸"
   },
   {
+   "id": "a9zcmZ2f1C4",
+   "title": "ヒット三浦海岸でボート釣り。大波乗り越えたその先には…！！！",
+   "channel": "KEIちゃんねる",
+   "published_text": "1 日前",
+   "views": "254回視聴",
+   "length": "9:59",
+   "published": "2026-10-07",
+   "fetched": "2026-10-08",
+   "q": "三浦海岸"
+  },
+  {
    "id": "co3g1lOUOhM",
    "title": "【Vlog】ふふ城ヶ島で過ごす1泊2日🌙✨｜全室オーシャンビュー客室🌊,海鮮ディナー🦞,絶品朝ごはん🍚,葉山ランチ🍽️",
    "channel": "mango",
@@ -33,6 +66,17 @@
    "published": "2026-10-06",
    "fetched": "2026-10-07",
    "q": "城ヶ島"
+  },
+  {
+   "id": "PHzJhIicpWA",
+   "title": "【三崎港】10歳釣りガール、初めての朝まずめで大漁なるか!?",
+   "channel": "つり姫もも©チャンネル",
+   "published_text": "2 日前",
+   "views": "1,887回視聴",
+   "length": "15:36",
+   "published": "2026-10-06",
+   "fetched": "2026-10-08",
+   "q": "三崎 マグロ"
   },
   {
    "id": "NcM4SIEpBNo",
@@ -176,50 +220,6 @@
    "length": "0:56",
    "published": "2026-09-29",
    "fetched": "2026-09-29",
-   "q": "三浦市"
-  },
-  {
-   "id": "shB1NlRQ-Tg",
-   "title": "【神奈川・三浦市】台風25号で土砂崩れに巻き込まれたアパートから1人発見されるも死亡　6日前から行方不明の20代女性か",
-   "channel": "日テレNEWS",
-   "published_text": "13 時間前",
-   "views": "30,313回視聴",
-   "length": "1:09",
-   "published": "2026-09-28",
-   "fetched": "2026-09-28",
-   "q": "城ヶ島"
-  },
-  {
-   "id": "iQd_-vD2Fqo",
-   "title": "2026年9月27日三浦市金田湾朝市",
-   "channel": "びんちゃん貧乏な",
-   "published_text": "22 時間前",
-   "views": "2,131回視聴",
-   "length": "7:02",
-   "published": "2026-09-28",
-   "fetched": "2026-09-28",
-   "q": "小網代"
-  },
-  {
-   "id": "g5RRI0ZOagA",
-   "title": "台風25号 千葉と神奈川12人死亡　三浦市で不明女性の捜索　印旛沼では堤防の復旧作業(2026年9月27日)",
-   "channel": "ANNnewsCH",
-   "published_text": "18 時間前",
-   "views": "16,572回視聴",
-   "length": "1:32",
-   "published": "2026-09-28",
-   "fetched": "2026-09-28",
-   "q": "三浦市"
-  },
-  {
-   "id": "7OC6kHPh56A",
-   "title": "台風２５号　三浦市の土砂崩れ現場で２０代女性とみられる人を発見",
-   "channel": "tvk News Link【公式】",
-   "published_text": "12 時間前",
-   "views": "6,353回視聴",
-   "length": "0:29",
-   "published": "2026-09-28",
-   "fetched": "2026-09-28",
    "q": "三浦市"
   }
  ]

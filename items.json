@@ -2007,6 +2007,171 @@
      "opened": "2026-10-07"
     }
    ]
+  },
+  {
+   "id": 58,
+   "date": "2026-10-31",
+   "end": "2026-11-04",
+   "area": "三浦海岸",
+   "category": "イベント",
+   "headline": "10/31〜11/4 ウインドサーフィンW杯、津久井浜",
+   "fact": "ANAウインドサーフィンワールドカップ横須賀・三浦大会が10/31(土)〜11/4(水)の5日間、津久井浜海岸で開催。2026年PWAワールドツアー最終戦で、世界のトップライダー約80名がフォイルスラロームで競う。10/31〜11/3は10:00〜16:00に「極旨ジャパン」「ヨーロッパマルシェ」、11/1(日)はFMヨコハマのステージ。海上観覧船やマリンスポーツ体験会も（実行委員会リリース 10/2・三浦市公表）",
+   "talk": "月末から津久井浜でウインドサーフィンのワールドカップです。年間王者が決まる最終戦で、浜には食の屋台も並ぶそうです",
+   "confidence": "🟢",
+   "image": "miura_beach",
+   "tags": [
+    "海",
+    "スポーツ",
+    "食",
+    "三浦海岸"
+   ],
+   "cal": {
+    "title": "ANAウインドサーフィンワールドカップ横須賀・三浦大会",
+    "place": "津久井浜海岸",
+    "note": "レースの時刻はリリースに記載なし（最低風速4m/s〜で実施）。極旨ジャパン／ヨーロッパマルシェは10/31〜11/3の10:00〜16:00。11/1(日)はFMヨコハマ「PRIME TIME」のステージ（14時からLIVE）"
+   },
+   "sources": [
+    {
+     "url": "https://www.city.miura.kanagawa.jp/soshiki/seisakuka/seisakuka_hisho/shichonoheya/pressrelease/202610/2026100201.html",
+     "title": "三浦市 報道発表 2026-10-02",
+     "opened": "2026-10-08"
+    },
+    {
+     "url": "https://www.city.miura.kanagawa.jp/material/files/group/5/2026100201.pdf",
+     "title": "実行委員会ニュースリリース 2026-10-02（PDF）",
+     "opened": "2026-10-08"
+    }
+   ]
+  },
+  {
+   "id": 59,
+   "date": "2026-10-03",
+   "area": "三崎",
+   "category": "出来事",
+   "headline": "「三崎のねぎとろ」、ふるさと納税の返礼品に",
+   "fact": "三浦市が新ブランド「三崎のねぎとろ」をふるさと納税の返礼品として展開。既存6業者に新規5業者が加わり計11業者。寄付額は7千円〜3万7千円で、額に応じて100g〜2.7kgのネギトロが届く。寄付額は2022年をピークに低迷しており、巻き返しを図る（カナロコ 10/3）",
+   "talk": "市が「三崎のねぎとろ」を売り出していて、ふるさと納税でも11業者のネギトロが選べるようになったそうです",
+   "confidence": "🟢",
+   "image": "negitoro_2026",
+   "tags": [
+    "食",
+    "マグロ",
+    "市政"
+   ],
+   "sources": [
+    {
+     "url": "https://www.kanaloco.jp/news/government/article-1309438.html",
+     "title": "カナロコ 2026-10-03",
+     "opened": "2026-10-08"
+    }
+   ]
+  },
+  {
+   "id": 60,
+   "date": "2026-10-05",
+   "area": "三浦市",
+   "category": "出来事",
+   "headline": "みうら市民まつり（11/15）中止、防災訓練も",
+   "fact": "三浦市が10/5、11/15(日)に予定していた「みうら市民まつり」の中止を発表。台風25号で市内各地が大きな被害を受けている状況を踏まえたもの。11/7(土)の令和8年度三浦市総合防災訓練も中止（市発表 10/5・10/7）",
+   "talk": "11月15日のみうら市民まつりは、台風の被害を受けて今年は中止だそうです",
+   "confidence": "🟢",
+   "image": "miura_shiyakusho",
+   "tags": [
+    "災害",
+    "祭り"
+   ],
+   "sources": [
+    {
+     "url": "https://www.city.miura.kanagawa.jp/soshiki/seisakuka/seisakuka_hisho/shichonoheya/pressrelease/202610/2026100502.html",
+     "title": "三浦市 報道発表 2026-10-05",
+     "opened": "2026-10-08"
+    },
+    {
+     "url": "https://www.city.miura.kanagawa.jp/soshiki/seisakuka/seisakuka_hisho/shichonoheya/pressrelease/202610/2026100702.html",
+     "title": "三浦市 報道発表 2026-10-07",
+     "opened": "2026-10-08"
+    }
+   ]
+  },
+  {
+   "id": 61,
+   "date": "2026-10-06",
+   "area": "三浦市",
+   "category": "出来事",
+   "headline": "市が1億円の補正予算、台風の災害復旧に",
+   "fact": "三浦市が10/6付で令和8年度一般会計補正予算（第4号）1億円を専決処分。台風25号の災害復旧に対応するため予備費を追加するもので、財源は繰入金。補正後の予算額は226億376万5千円（市発表 10/7）。土砂撤去に充て、12/9開会の市議会第4回定例会に報告する（カナロコ 10/7）",
+   "talk": "市は台風の土砂撤去などのために、1億円の補正予算を急ぎで組んだそうです",
+   "confidence": "🟢",
+   "image": "miura_shiyakusho",
+   "tags": [
+    "災害",
+    "市政"
+   ],
+   "sources": [
+    {
+     "url": "https://www.city.miura.kanagawa.jp/soshiki/seisakuka/seisakuka_hisho/shichonoheya/pressrelease/202610/2026100701.html",
+     "title": "三浦市 報道発表 2026-10-07",
+     "opened": "2026-10-08"
+    },
+    {
+     "url": "https://www.city.miura.kanagawa.jp/material/files/group/5/2026100701.pdf",
+     "title": "補正予算（第4号）の概要（PDF）",
+     "opened": "2026-10-08"
+    },
+    {
+     "url": "https://www.kanaloco.jp/news/government/article-1310559.html",
+     "title": "カナロコ 2026-10-07",
+     "opened": "2026-10-08"
+    }
+   ]
+  },
+  {
+   "id": 62,
+   "date": "2026-10-07",
+   "area": "三浦市",
+   "category": "出来事",
+   "headline": "被災者支援窓口を10/9開設、応急住宅の受付も",
+   "fact": "三浦市が10/9(金)10時、市役所分館3階会議室（罹災証明窓口ブース内）に被災者支援窓口を開設。10/8(木)9時からは災害救助法に基づく賃貸型応急住宅の供与・住宅の応急修理・障害物の除去の支援を始める。弁護士や建築士らの士業等相談窓口は10/5に同じ場所に設置済み（市発表 10/7）。県も横須賀・三浦の被災者への賃貸型応急住宅の供与を発表（カナロコ 10/7）",
+   "talk": "台風で家が傷んだ方向けに、市役所分館に支援の窓口ができて、仮の住まいの受付も始まったそうです",
+   "confidence": "🟢",
+   "image": "miura_shiyakusho",
+   "tags": [
+    "災害",
+    "防災"
+   ],
+   "sources": [
+    {
+     "url": "https://www.city.miura.kanagawa.jp/soshiki/seisakuka/seisakuka_hisho/shichonoheya/pressrelease/202610/2026100702.html",
+     "title": "三浦市 報道発表 2026-10-07",
+     "opened": "2026-10-08"
+    },
+    {
+     "url": "https://www.kanaloco.jp/news/government/article-1310640.html",
+     "title": "カナロコ 2026-10-07",
+     "opened": "2026-10-08"
+    }
+   ]
+  },
+  {
+   "id": 63,
+   "date": "2026-10-07",
+   "area": "三浦市",
+   "category": "出来事",
+   "headline": "県議選、三浦市と横須賀市が合区に",
+   "fact": "神奈川県議会の議員定数等検討委員会が10/7、来春の県議選に向け、定数105を維持したうえで三浦市選挙区（定数1）と横須賀市選挙区（定数4）を「強制合区」とすることを全会一致で決定（カナロコ 10/8）",
+   "talk": "来春の県議選から、三浦市は横須賀市と同じ選挙区になることが決まったそうです",
+   "confidence": "🟢",
+   "image": "miura_shiyakusho",
+   "tags": [
+    "市政"
+   ],
+   "sources": [
+    {
+     "url": "https://www.kanaloco.jp/news/government/article-1310688.html",
+     "title": "カナロコ 2026-10-08",
+     "opened": "2026-10-08"
+    }
+   ]
   }
  ]
 }
