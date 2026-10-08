@@ -2,6 +2,50 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "dxB5eM6jWVs",
+   "title": "【三浦半島】三浦市の最高峰で神奈川県で最も低い山へ！",
+   "channel": "とびねこVlog",
+   "published_text": "12 時間前",
+   "views": "4,957回視聴",
+   "length": "15:19",
+   "published": "2026-10-09",
+   "fetched": "2026-10-09",
+   "q": "三浦海岸"
+  },
+  {
+   "id": "bp3m1t8K4n4",
+   "title": "【夜釣り比較】Insta360 Ace Pro 2「通常 vs PureVideo」城ヶ島ライトゲーム",
+   "channel": "SWおぢさん",
+   "published_text": "8 分前",
+   "views": "0 回視聴",
+   "length": "5:48",
+   "published": "2026-10-09",
+   "fetched": "2026-10-09",
+   "q": "城ヶ島"
+  },
+  {
+   "id": "iS22UMr7SAI",
+   "title": "【三崎港・北条湾】2026年9月27日午前6時半頃の北条湾岸壁周辺の様子",
+   "channel": "猫とウサギと釣りの動画チャンネル",
+   "published_text": "11 時間前",
+   "views": "6回視聴",
+   "length": "1:24",
+   "published": "2026-10-09",
+   "fetched": "2026-10-09",
+   "q": "三崎港"
+  },
+  {
+   "id": "V2mSG5akSRg",
+   "title": "Fujiko band Jpopメドレー　油壺ヨットクラブ秋祭り",
+   "channel": "juhwanjp55",
+   "published_text": "6 時間前",
+   "views": "11回視聴",
+   "length": "9:50",
+   "published": "2026-10-09",
+   "fetched": "2026-10-09",
+   "q": "油壺"
+  },
+  {
    "id": "t5UxDnaZEJo",
    "title": "横須賀・三浦半島　台風25号からの復旧状況を確認する",
    "channel": "ウナ蔵 / Unazo's Totsuka Life Japan",
@@ -101,6 +145,17 @@
    "q": "小網代"
   },
   {
+   "id": "henzxoHFfYw",
+   "title": "【神奈川】三浦岩礁から三崎港へ｜海とレトロな港町を歩く Miura Coast to Misaki Port Walking Tour",
+   "channel": "コメ",
+   "published_text": "4 日前",
+   "views": "32回視聴",
+   "length": "1:15:55",
+   "published": "2026-10-05",
+   "fetched": "2026-10-09",
+   "q": "三浦半島 三崎"
+  },
+  {
    "id": "e1ttqMG5McM",
    "title": "【ここは必見！！極上の場所！！三浦海岸の海辺で車中泊！！】神奈川県下浦海岸で海が目の前！！ハイエースキャンピングカーOMC銀河で鎌倉小町や報国寺など旅。#キャンピングカー #ハイエース #車中泊",
    "channel": "コウandミリー CHANNEL",
@@ -166,61 +221,6 @@
    "published": "2026-09-30",
    "fetched": "2026-09-30",
    "q": "三浦海岸"
-  },
-  {
-   "id": "lIfYRIlSV04",
-   "title": "神奈川県の三浦半島3市町で土砂崩れ280件超　国がTECーFОRCEを派遣",
-   "channel": "tvk News Link【公式】",
-   "published_text": "17 時間前",
-   "views": "5,821回視聴",
-   "length": "1:35",
-   "published": "2026-09-30",
-   "fetched": "2026-09-30",
-   "q": "三浦海岸"
-  },
-  {
-   "id": "OlltkCSdfNM",
-   "title": "【#城ヶ島】#おきらく釣行【2026/09/25】",
-   "channel": "おきらく釣行 & 株",
-   "published_text": "10 時間前",
-   "views": "1,440回視聴",
-   "length": "12:15",
-   "published": "2026-09-29",
-   "fetched": "2026-09-29",
-   "q": "城ヶ島"
-  },
-  {
-   "id": "eOZnBGv64XU",
-   "title": "YRP野比駅の今と昔【京急線・久里浜・野比駅・横須賀リサーチパーク・三浦海岸・三崎口・野比温泉・国道１３４号線・粟田・長沢・野比海岸・街の移り変わり・懐かしい景色・遠い記憶・町の歴史・あの頃の思い出】",
-   "channel": "そう遠くない未来過去 / The not-too-distant past and future",
-   "published_text": "12 時間前",
-   "views": "7,594回視聴",
-   "length": "4:38",
-   "published": "2026-09-29",
-   "fetched": "2026-09-29",
-   "q": "三浦海岸"
-  },
-  {
-   "id": "WQhsaaV7HME",
-   "title": "台風２５号から１週間　神奈川の死者５人に　三浦市立旭小は通学見通し立たず",
-   "channel": "tvk News Link【公式】",
-   "published_text": "18 時間前",
-   "views": "9,065回視聴",
-   "length": "1:18",
-   "published": "2026-09-29",
-   "fetched": "2026-09-29",
-   "q": "三浦市"
-  },
-  {
-   "id": "DlEwBwmX_7M",
-   "title": "【みうら海王】簡単に釣れる高級魚！楽しすぎて",
-   "channel": "烈火雷鳴れつのれっつりごー",
-   "published_text": "9 時間前",
-   "views": "1,385回視聴",
-   "length": "0:56",
-   "published": "2026-09-29",
-   "fetched": "2026-09-29",
-   "q": "三浦市"
   }
  ]
 }
