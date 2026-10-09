@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+%%ROBOTS%%
+<meta name="color-scheme" content="light">
+<title>三浦A邸 おすすめマップ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.css">
+<style>
+/* 閲覧専用の公開版。ホームページに埋め込める（?embed=1 でタイトルを隠す）。
+   色と書体は :root の変数だけで差し替えられる。 */
+:root{
+  --ink:#2b1520; --ink-2:#6d5160; --accent:#C2336E; --accent-2:#EE5C95; --soft:#FFF2F8; --soft-2:#FFD6E6;
+  --line:#F2C6DA; --bg:#FFF5F9; --card:#fff; --polka:#F9BDD6;
+  --font:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Hiragino Sans","Noto Sans JP",sans-serif;
+  --r:22px; --sticker:0 4px 0 var(--ink);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:500 16px/1.7 var(--font);-webkit-text-size-adjust:100%}
+.wrap{max-width:760px;margin:0 auto;padding:16px 16px 40px}
+body.embed{background:transparent}
+body.embed .hero{display:none}
+body.embed .wrap{padding-top:8px}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid #5BB0E8;outline-offset:2px}
+button{font:inherit;color:inherit}
+
+.hero{position:relative;border:2.5px solid var(--ink);border-radius:var(--r);box-shadow:var(--sticker);padding:22px 20px 18px;
+  background:radial-gradient(circle at 12px 12px,rgba(255,255,255,.8) 0 5px,transparent 5.5px) 0 0/36px 36px,radial-gradient(circle at 30px 30px,rgba(255,255,255,.8) 0 5px,transparent 5.5px) 0 0/36px 36px,var(--polka)}
+.eyebrow{margin:0 0 4px;font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--accent)}
+h1{margin:0;font-size:clamp(24px,6.4vw,32px);line-height:1.25;font-weight:700;letter-spacing:.02em}
+h1 span{display:inline-block}
+.lede{margin:10px 0 0;font-size:14.5px;line-height:1.75;max-width:32em}
+.draft{margin:16px 0 0;padding:10px 14px;background:#FFF3C4;border:1.5px solid #E5C964;border-radius:14px;font-size:13.5px;line-height:1.6}
+
+/* 絞り込み */
+.filters{margin-top:20px;display:grid;gap:10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:42px;padding:0 16px;border:2px solid var(--ink);border-radius:99px;background:#fff;font-weight:700;font-size:14.5px;cursor:pointer;box-shadow:0 2px 0 var(--ink)}
+.chip[aria-pressed=true]{background:var(--accent);color:#fff}
+.chip small{font-weight:500;opacity:.8;margin-left:4px}
+.chips.sc .chip{min-height:36px;font-size:13.5px;border-color:var(--accent);color:var(--accent);box-shadow:none;padding:0 13px}
+.chips.sc .chip[aria-pressed=true]{color:#fff}
+
+/* 地図 */
+.mapcard{margin-top:16px;border:2.5px solid var(--ink);border-radius:var(--r);box-shadow:var(--sticker);background:#fff;overflow:hidden}
+#map{height:clamp(320px,56vh,540px);background:#ece7ea}
+.mapfoot{border-top:2.5px solid var(--ink);padding:10px 16px;font-size:12.5px;color:var(--ink-2);line-height:1.55}
+.leaflet-tile-pane{filter:grayscale(.55) sepia(.1) brightness(1.07) contrast(.93)}
+.leaflet-bar{border:2px solid var(--ink)!important;border-radius:12px!important;overflow:hidden;box-shadow:none!important}
+.leaflet-bar a{color:var(--ink)!important}
+.pin{width:30px;height:30px;border-radius:50%;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;border:2.5px solid var(--ink);box-shadow:0 2px 0 var(--ink)}
+.leaflet-popup-content-wrapper{border:2px solid var(--ink);border-radius:16px;box-shadow:0 3px 0 var(--ink)}
+.leaflet-popup-content{font:500 14px/1.6 var(--font);margin:12px 14px;color:var(--ink)}
+.leaflet-popup-tip{border:2px solid var(--ink);box-shadow:none}
+.leaflet-control-attribution{font-size:10px}
+
+/* リスト */
+h2{display:flex;align-items:baseline;gap:10px;margin:32px 0 14px;font-size:20px;line-height:1.35;font-weight:700}
+h2 small{font-size:13px;font-weight:500;color:var(--ink-2)}
+.item{display:grid;grid-template-columns:36px minmax(0,1fr);gap:0 12px;background:var(--card);border:2px solid var(--line);border-radius:var(--r);padding:16px 14px 14px;margin:0 0 14px;cursor:pointer}
+.item .n{width:36px;height:36px;border-radius:50%;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;border:2.5px solid var(--ink);box-shadow:0 2px 0 var(--ink)}
+.item h3{margin:0;font-size:18px;line-height:1.4;font-weight:700}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.tag{font-size:12px;font-weight:700;color:var(--accent);background:var(--soft);border:1.5px solid var(--line);border-radius:99px;padding:0 9px;line-height:22px}
+.tag.chk{color:#7a5a00;background:#FFF3C4;border-color:#E5C964}
+.hearts{margin:8px 0 0;font-size:18px;letter-spacing:1px;line-height:1.2}
+.quote{margin:10px 0 0;padding:8px 12px;background:var(--soft-2);border-radius:14px 14px 14px 4px;font-weight:700;font-size:14.5px;line-height:1.6}
+.quote b{display:block;font-size:11.5px;letter-spacing:.08em;color:var(--accent);margin-bottom:2px}
+.note{margin:10px 0 0;font-size:14.5px;line-height:1.7}
+.meta{margin:6px 0 0;font-size:13px;line-height:1.6;color:var(--ink-2)}
+.meta a{margin-left:6px}
+.empty{padding:28px 16px;text-align:center;color:var(--ink-2);background:#fff;border:2px dashed var(--line);border-radius:var(--r)}
+.foot{margin-top:24px;font-size:12.5px;color:var(--ink-2);line-height:1.7}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media (min-width:720px){.wrap{padding-top:32px}.item{padding:18px 18px 16px}}
+</style></head><body>
+<div class="wrap">
+
+<header class="hero">
+  <p class="eyebrow">三浦A邸</p>
+  <h1><span>%%KEEPER%%の</span> <span>おすすめマップ</span></h1>
+  <p class="lede">三崎・城ヶ島の、ごはんと買い物のお店です。気になるお店を押すと、地図の場所と、ひとことが見られます。</p>
+  %%DRAFT%%
+</header>
+
+<div class="filters">
+  <div class="chips" id="cats" role="group" aria-label="ジャンルで絞り込む"></div>
+  <div class="chips sc" id="scs" role="group" aria-label="シーンで絞り込む"></div>
+</div>
+
+<section class="mapcard" aria-label="おすすめのお店の地図">
+  <div id="map" role="application" aria-label="地図"></div>
+  <div class="mapfoot">番号はリストと同じです。白い丸の数字は、重なっているお店の数です（押すと広がります）。</div>
+</section>
+
+<h2 id="lh">お店リスト <small id="lc"></small></h2>
+<div id="list" aria-live="polite"></div>
+
+<p class="foot">営業時間・定休日は変わることがあります。お出かけの前に、お店の情報もご確認ください。地図は © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors。</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.js"></script>
+<script>
+(function(){
+var D=%%DATA%%, KEEPER="%%KEEPER%%";
+var CATS=[["all","すべて"],["食べる","食べる"],["買う","買う"],["困ったとき","暮らし"]];
+var st={cat:"all",sc:""};
+function $(s){return document.querySelector(s)}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function hs(n,m){m=m||5;var o="";for(var i=1;i<=m;i++)o+=i<=n?"❤️":"♡";return o}
+if(/[?&]embed=1/.test(location.search))document.body.classList.add("embed");
+
+var touch=("ontouchstart" in window)||navigator.maxTouchPoints>0;
+var map=L.map("map",{scrollWheelZoom:false,dragging:!touch,tap:false});
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:'© OpenStreetMap',maxZoom:19}).addTo(map);
+var group=L.markerClusterGroup({showCoverageOnHover:false,maxClusterRadius:34,spiderfyOnMaxZoom:true,iconCreateFunction:function(c){return L.divIcon({className:"",html:'<div class="pin" style="width:38px;height:38px;background:#fff;color:var(--accent);font-size:15px">'+c.getChildCount()+'</div>',iconSize:[38,38]})}});
+map.addLayer(group);
+var markers={};
+function pop(d,n){return '<b>'+n+'. '+esc(d.name)+'</b>'+(d.r?'<br>'+hs(d.r,d.rm):'')+(d.c?'<br><span style="color:var(--accent);font-weight:700">'+esc(d.c)+'</span>':'')+(d.note?'<br>'+esc(d.note):'')}
+
+function visible(){return D.filter(function(d){return (st.cat==="all"||d.cat===st.cat)&&(!st.sc||(d.w||[]).indexOf(st.sc)>=0)})}
+function render(){
+  var rows=visible();
+  group.clearLayers();markers={};
+  var pts=[];
+  var html="";
+  rows.forEach(function(d,i){var n=i+1;
+    if(d.lat&&d.lon){var ic=L.divIcon({className:"",html:'<div class="pin" style="background:'+d.color+';color:'+d.fg+'">'+n+'</div>',iconSize:[30,30],iconAnchor:[15,15],popupAnchor:[0,-14]});
+      var m=L.marker([d.lat,d.lon],{icon:ic,title:d.name}).bindPopup(pop(d,n));markers[d.id]=m;group.addLayer(m);pts.push([d.lat,d.lon])}
+    html+='<article class="item" data-id="'+d.id+'"><div class="n" style="background:'+d.color+';color:'+d.fg+'">'+n+'</div><div>'
+     +'<h3>'+esc(d.name)+'</h3>'
+     +'<div class="tags">'+(d.area?'<span class="tag">'+esc(d.area)+'</span>':'')+(d.w||[]).map(function(w){return '<span class="tag">'+esc(w)+'</span>'}).join('')+(d.draft?'<span class="tag chk">確認中</span>':'')+'</div>'
+     +(d.r?'<div class="hearts" aria-label="'+KEEPER+'の評価 '+d.r+'/'+d.rm+'">'+hs(d.r,d.rm)+'</div>':'')
+     +(d.c?'<p class="quote"><b>'+esc(KEEPER)+'のひとこと</b>'+esc(d.c)+'</p>':'')
+     +'<p class="note">'+esc(d.note)+'</p>'
+     +'<p class="meta">'+esc([d.hours,d.closed].filter(Boolean).join(" ／ "))+(d.url?'<a href="'+esc(d.url)+'" target="_blank" rel="noopener">お店の情報</a>':'')+'</p>'
+     +'</div></article>'});
+  $("#list").innerHTML=rows.length?html:'<div class="empty">このジャンルのお店は、まだありません。</div>';
+  $("#lc").textContent=rows.length+"軒";
+  if(pts.length)map.fitBounds(L.latLngBounds(pts).pad(.15));else map.setView([35.1415,139.6195],15);
+  document.querySelectorAll(".item").forEach(function(el){el.onclick=function(e){if(e.target.closest("a"))return;var m=markers[el.dataset.id];if(m){window.scrollTo({top:$("#map").getBoundingClientRect().top+window.scrollY-12});group.zoomToShowLayer(m,function(){map.setView(m.getLatLng(),Math.max(map.getZoom(),17));m.openPopup()})}}});
+}
+function chips(){
+  var c=$("#cats");c.innerHTML="";
+  CATS.forEach(function(x){var n=x[0]==="all"?D.length:D.filter(function(d){return d.cat===x[0]}).length;if(x[0]!=="all"&&!n)return;
+    var b=document.createElement("button");b.type="button";b.className="chip";b.setAttribute("aria-pressed",st.cat===x[0]);b.innerHTML=esc(x[1])+'<small>'+n+'</small>';
+    b.onclick=function(){st.cat=x[0];chips();render()};c.appendChild(b)});
+  var sc=[];D.forEach(function(d){(d.w||[]).forEach(function(w){if(sc.indexOf(w)<0)sc.push(w)})});
+  var s=$("#scs");s.innerHTML="";s.hidden=!sc.length;
+  sc.forEach(function(w){var b=document.createElement("button");b.type="button";b.className="chip";b.setAttribute("aria-pressed",st.sc===w);b.textContent=w;
+    b.onclick=function(){st.sc=(st.sc===w?"":w);chips();render()};s.appendChild(b)});
+}
+chips();render();
+})();
+</script></body></html>
