@@ -1,0 +1,28 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//miura-board//JA
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:miura-board-65@vaseata.github.io
+DTSTAMP:20261009T220340Z
+DTSTART;VALUE=DATE:20261024
+DTEND;VALUE=DATE:20261025
+SUMMARY:三浦海岸地引網大会／三浦海岸inオータムフェス
+LOCATION:三浦海岸（京急三浦海岸駅 徒歩5分）
+DESCRIPTION:9/27に天候不良で中止になった「三浦海岸地引
+ 網大会」が10/24(土)に再開催。三浦海岸inオータムフェ
+ ス（主催 三浦青年会議所）と同時開催で、受付9:30〜9:4
+ 5（フェス会場本部テント、京急三浦海岸駅徒歩5分）、
+ 10:00開会、10:01から地引網（約30分）。高校生以上2\,000
+ 円・小中学生1\,000円・未就学児無料（当日現金）。申
+ 込はGoogleフォームで10/20(火)まで、高校生以上40〜100人
+ 。荒天・荒波なら中止（観光協会 10/7）\n※地引網は受
+ 付9:30〜9:45（フェス会場本部テント）・10:00開会・10:01
+ 開始、約30分。要申込（10/20まで）。フェスの終了時刻
+ は出典に記載なし（終日で登録）。荒天・荒波は中止\n
+ 出典: https://miura-info.ne.jp/zibiki-miura1024/\n最近の三浦: https
+ ://vaseata.github.io/miura-board/
+URL:https://vaseata.github.io/miura-board/
+END:VEVENT
+END:VCALENDAR

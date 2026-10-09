@@ -2,6 +2,28 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "xZYZ8_sFiPA",
+   "title": "【再up】畑の間を抜け岩堂山へ三浦半島南端ぶら散歩！",
+   "channel": "とびねこVlog",
+   "published_text": "13 時間前",
+   "views": "1,354回視聴",
+   "length": "13:37",
+   "published": "2026-10-10",
+   "fetched": "2026-10-10",
+   "q": "三浦海岸"
+  },
+  {
+   "id": "b2A6iSwD4Lo",
+   "title": "「台風の前は魚がよく釣れる」は本当か｜雨の三浦半島釣り13時間",
+   "channel": "バックラッシュがほどけない",
+   "published_text": "13 時間前",
+   "views": "667回視聴",
+   "length": "17:40",
+   "published": "2026-10-10",
+   "fetched": "2026-10-10",
+   "q": "三浦海岸"
+  },
+  {
    "id": "dxB5eM6jWVs",
    "title": "【三浦半島】三浦市の最高峰で神奈川県で最も低い山へ！",
    "channel": "とびねこVlog",
@@ -199,28 +221,6 @@
    "published": "2026-10-01",
    "fetched": "2026-10-01",
    "q": "城ヶ島"
-  },
-  {
-   "id": "NxxBNtbsUw8",
-   "title": "城ヶ島岸壁でフカセとダンゴ釣りをするも、餌取りが多いので邪道サビキをしたらまさかの高級魚が釣れた！",
-   "channel": "釣りしましょう",
-   "published_text": "13 時間前",
-   "views": "2,827回視聴",
-   "length": "14:55",
-   "published": "2026-09-30",
-   "fetched": "2026-09-30",
-   "q": "城ヶ島"
-  },
-  {
-   "id": "YeE6xxjxJhE",
-   "title": "【三浦海岸】午後の3時間勝負！強烈なアタリの正体は70cm級のブリワラ!! #kayakfishing #カヤックフィッシング #boatfishing #2馬力ボート #サップフィッシング",
-   "channel": "三浦で釣りタイ",
-   "published_text": "22 時間前",
-   "views": "4,483回視聴",
-   "length": "21:36",
-   "published": "2026-09-30",
-   "fetched": "2026-09-30",
-   "q": "三浦海岸"
   }
  ]
 }
