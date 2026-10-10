@@ -7,10 +7,10 @@ import json, pathlib, sys
 
 HERE = pathlib.Path(__file__).parent
 OUT = HERE / "guide"
-KEEPER = "家守・華さん"
+KEEPER = "家守"  # 名前を出すなら "家守・華さん" に変える
 WD = "月火水木金土日"
-COLOR = {"食べる": "#EE5C95", "買う": "#E8B06A", "困ったとき": "#5BB0E8"}
-FG = {"食べる": "#fff", "買う": "#2a1018", "困ったとき": "#fff"}
+COLOR = {"食べる": "#0A5A8C", "買う": "#8A5A00", "困ったとき": "#3E7C59"}
+FG = {"食べる": "#fff", "買う": "#fff", "困ったとき": "#fff"}
 HIDE_FLAG = ("今はおすすめしない", "閉店・移転した")
 
 def rows(doc, include_draft):
