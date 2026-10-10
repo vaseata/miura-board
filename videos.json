@@ -2,6 +2,28 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "OV0AhtG7rkc",
+   "title": "【超1級ポイントに水中カメラ入れました】　三崎港　超低温冷蔵庫前　釣りの参考に",
+   "channel": "釣り場",
+   "published_text": "12 時間前",
+   "views": "306回視聴",
+   "length": "36:17",
+   "published": "2026-10-11",
+   "fetched": "2026-10-11",
+   "q": "三崎港"
+  },
+  {
+   "id": "Efex61b3PFE",
+   "title": "【三崎港】でイカ釣り！エギングでコウイカ1杯…一晩泳がせ釣りをした結果は？",
+   "channel": "げんちゃんねる",
+   "published_text": "22 時間前",
+   "views": "84回視聴",
+   "length": "2:33",
+   "published": "2026-10-11",
+   "fetched": "2026-10-11",
+   "q": "三崎港"
+  },
+  {
    "id": "xZYZ8_sFiPA",
    "title": "【再up】畑の間を抜け岩堂山へ三浦半島南端ぶら散歩！",
    "channel": "とびねこVlog",
@@ -199,28 +221,6 @@
    "published": "2026-10-03",
    "fetched": "2026-10-03",
    "q": "三浦海岸"
-  },
-  {
-   "id": "SutD0gd16qY",
-   "title": "台風25号による大雨 三浦半島で土砂崩れ多数 なぜ住宅街で？土砂災害から命を守る【News Linkオンライン】",
-   "channel": "tvk News Link【公式】",
-   "published_text": "15 時間前",
-   "views": "6,643回視聴",
-   "length": "10:24",
-   "published": "2026-10-03",
-   "fetched": "2026-10-03",
-   "q": "三浦市"
-  },
-  {
-   "id": "6aQi2E92C3Y",
-   "title": "【bZ4X Touring】俳優・宮沢氷魚と三崎の魅力を堪能する旅",
-   "channel": "トヨタ YouTubeショールーム",
-   "published_text": "5 時間前",
-   "views": "674回視聴",
-   "length": "6:48",
-   "published": "2026-10-01",
-   "fetched": "2026-10-01",
-   "q": "城ヶ島"
   }
  ]
 }

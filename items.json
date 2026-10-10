@@ -416,6 +416,23 @@
        "opened": "2026-10-02"
       }
      ]
+    },
+    {
+     "h": "天気（10/11朝の時点）",
+     "t": "tenki.jp の三浦市10日間予報（10/11 06:00発表）で、10/18(日)は 曇・最高24℃／最低18℃・降水確率40%。前日10/17(土)は 曇・25℃／19℃・30%。パレードは雨天決行。1週間先の予報なので変わりうる。市の案内ページは10/1更新のままで、時間・コースの変更や中止の告知は無い",
+     "confidence": "🟡",
+     "sources": [
+      {
+       "url": "https://tenki.jp/forecast/3/17/4610/14210/10days.html",
+       "title": "tenki.jp 三浦市10日間天気（10/11 06:00発表）",
+       "opened": "2026-10-11"
+      },
+      {
+       "url": "https://www.city.miura.kanagawa.jp/soshiki/kankoshokoka/kankoshokoka_kanko/chiikikankougyouji/11735.html",
+       "title": "三浦市 観光商工課 10/1更新",
+       "opened": "2026-10-11"
+      }
+     ]
     }
    ],
    "open_questions": [
@@ -2249,6 +2266,28 @@
      "url": "https://www.city.miura.kanagawa.jp/soshiki/seisakuka/seisakuka_hisho/shichonoheya/pressrelease/202610/2026100901.html",
      "title": "三浦市 報道発表 2026-10-09",
      "opened": "2026-10-10"
+    }
+   ]
+  },
+  {
+   "id": 67,
+   "date": "2026-10-10",
+   "area": "三浦市",
+   "category": "店",
+   "headline": "初声のベイシア隣にマクドナルド新築予定",
+   "fact": "号外NET（10/10）によると、三浦市初声のスーパー「ベイシア」駐車場の隣（市民交流拠点駐車場が移転した跡地）に「日本マクドナルド 店舗建設予定地」の看板。工事名は「マクドナルド三浦初声店新築工事」、木造（飲食店）で工事完了は2027年3月の表示。開店日は記事に記載なし。市内のマクドナルドは現在、三浦海岸店のみ。隣では三浦市役所の新庁舎も建設中",
+   "talk": "初声のベイシアの隣にマクドナルドができるそうです。工事は来年3月までの表示で、開店日はまだ出ていません",
+   "confidence": "🟡",
+   "image": "mcdonald_hasse",
+   "tags": [
+    "食",
+    "新店"
+   ],
+   "sources": [
+    {
+     "url": "https://yokosuka.goguynet.jp/2026/10/10/mcdonald-miurahasseten/",
+     "title": "号外NET 横須賀・三浦 2026-10-10",
+     "opened": "2026-10-11"
     }
    ]
   }
