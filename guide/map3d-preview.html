@@ -51,13 +51,30 @@ h1 span{display:inline-block}
 .tool.end{margin-left:auto}
 .mapfoot{border-top:1px solid var(--line);padding:10px 16px;font-size:12.5px;color:var(--ink-2);line-height:1.55}
 .mapcard.big{position:fixed;inset:0;z-index:1000;margin:0;border:0;border-radius:0}
-.mapcard.big #map{flex:1;height:auto;min-height:0}
+.mapcard.big .mapwrap{flex:1;min-height:0}
+.mapcard.big #map{height:100%}
 .mapcard.big .mapfoot{display:none}
 .mapcard.big .tools{padding-bottom:calc(10px + env(safe-area-inset-bottom,0px))}
 .nogl{display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;color:var(--ink-2);font-size:14.5px}
 
-.pin{width:30px;height:30px;padding:0;border-radius:50%;font:700 14px/1 var(--font);display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.35);cursor:pointer}
-.pin.cl{width:38px;height:38px;background:#fff;color:var(--accent);font-size:15px;border-color:var(--accent)}
+/* 向き・かたむきのボタン（地図の左下）。右クリックなしで回せるようにする */
+.mapwrap{position:relative}
+.pad{position:absolute;left:10px;bottom:10px;z-index:5;display:grid;grid-template-columns:repeat(3,38px);grid-template-rows:repeat(3,38px);gap:2px}
+.pad button{display:flex;align-items:center;justify-content:center;color:var(--ink);border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.94);font-size:17px;line-height:1;padding:0;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.18);touch-action:manipulation;-webkit-user-select:none;user-select:none}
+.pad button:active{background:var(--soft-2)}
+.pad .u{grid-area:1/2}.pad .l{grid-area:2/1}.pad .r{grid-area:2/3}.pad .d{grid-area:3/2}
+#map.rot .maplibregl-canvas-container{cursor:grab}
+#map.rot .maplibregl-canvas-container:active{cursor:grabbing}
+
+/* ピン：地面に立つしずく形（先が場所を指す）。足もとに影 */
+.pin{position:relative;width:30px;height:37px;padding:0;border:0;background:none;cursor:pointer;font:700 14px/1 var(--font)}
+.pin::before{content:"";position:absolute;left:50%;bottom:-3px;width:16px;height:6px;margin-left:-8px;border-radius:50%;background:rgba(0,0,0,.3);filter:blur(1.5px)}
+.pin i{position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2px solid #fff;box-shadow:-1px 2px 4px rgba(0,0,0,.4)}
+.pin span{position:absolute;left:0;top:0;width:30px;height:30px;display:flex;align-items:center;justify-content:center}
+.pin.cl{width:38px;height:46px;font-size:15px}
+.pin.cl i,.pin.cl span{width:38px;height:38px}
+.pin.cl i{background:#fff;border-color:var(--accent)}
+.pin.cl span{color:var(--accent)}
 .maplibregl-popup{max-width:min(260px,68vw)!important}
 .maplibregl-popup-content{border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.18);padding:12px 30px 12px 14px;font:500 14px/1.6 var(--font);color:var(--ink)}
 .maplibregl-popup-close-button{width:32px;height:32px;font-size:20px;color:var(--ink-2)}
@@ -100,16 +117,24 @@ h2 small{font-size:13px;font-weight:500;color:var(--ink-2)}
 </div>
 
 <section class="mapcard" id="card" aria-label="おすすめのお店の地図">
-  <div id="map" role="application" aria-label="地図"></div>
+  <div class="mapwrap">
+    <div id="map" role="application" aria-label="地図"></div>
+    <div class="pad" id="pad" role="group" aria-label="地図の向きとかたむき">
+      <button type="button" class="u" data-p="10" aria-label="かたむける" title="かたむける">▲</button>
+      <button type="button" class="l" data-b="-20" aria-label="左に回す" title="左に回す"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.6-5.9"/><path d="M4 4v5h5"/></svg></button>
+      <button type="button" class="r" data-b="20" aria-label="右に回す" title="右に回す"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transform:scaleX(-1)"><path d="M4 12a8 8 0 1 0 2.6-5.9"/><path d="M4 4v5h5"/></svg></button>
+      <button type="button" class="d" data-p="-10" aria-label="起こす（真上から見る）" title="起こす（真上から見る）">▼</button>
+    </div>
+  </div>
   <div class="tools" id="tools" role="group" aria-label="地図の操作">
     <button type="button" class="tool" id="t3d" aria-pressed="true">3D</button>
     <button type="button" class="tool" id="tph" aria-pressed="false">写真</button>
-    <button type="button" class="tool ic" id="trl" aria-label="左に回す">⟲</button>
-    <button type="button" class="tool ic" id="trr" aria-label="右に回す">⟳</button>
+    <button type="button" class="tool" id="tdr" aria-pressed="false" title="オンにすると、ふつうのドラッグで向きとかたむきが変わります">ドラッグで回す</button>
+    <button type="button" class="tool" id="thm">最初に戻る</button>
     <button type="button" class="tool" id="twd">城ヶ島まで</button>
     <button type="button" class="tool end" id="tbg" aria-pressed="false">大きく見る</button>
   </div>
-  <div class="mapfoot">番号はリストと同じです。白い丸の数字は、重なっているお店の数です（押すと広がります）。土地と建物の高さは実寸です。建物の高さは、地図データに記録のあるもの以外は一律5mの目安です。城ヶ島大橋は海面から23.5m、城ヶ島灯台は11.5m、安房埼灯台は16mで描いています。防波堤と桟橋の高さは目安です。</div>
+  <div class="mapfoot">向きとかたむきは、地図の左下の矢印ボタンで変えられます（押しつづけると動きつづけます）。「ドラッグで回す」をオンにすると、ふつうのドラッグでも回せます。番号はリストと同じです。白い丸の数字は、重なっているお店の数です（押すと広がります）。土地と建物の高さは実寸です。建物の高さは、地図データに記録のあるもの以外は一律5mの目安です。城ヶ島大橋は海面から23.5m、城ヶ島灯台は11.5m、安房埼灯台は16mで描いています。防波堤と桟橋の高さは目安です。</div>
 </section>
 
 <h2 id="lh">お店リスト <small id="lc"></small></h2>
@@ -130,7 +155,7 @@ function hs(n,m){m=m||5;var o="";for(var i=1;i<=m;i++)o+=i<=n?"❤️":"♡";ret
 if(/[?&]embed=1/.test(location.search))document.body.classList.add("embed");
 var calm=window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches;
 
-var map=null,pins=[],pp=null,sig="";
+var map=null,pins=[],pp=null,sig="",flat=false;
 var GSI="cyberjapandata.gsi.go.jp/xyz/";
 
 /* 標高：地理院の標高タイル（dem_png）を、MapLibre が読める Terrarium 形式に直して渡す。
@@ -203,7 +228,8 @@ function go(o){if(!map)return;if(calm)map.jumpTo(o);else map.easeTo(Object.assig
 function visible(){return D.filter(function(d){return (st.cat==="all"||d.cat===st.cat)&&(!st.sc||(d.w||[]).indexOf(st.sc)>=0)})}
 function popHtml(d,n){return '<b>'+n+'. '+esc(d.name)+'</b>'+(d.r?'<br>'+hs(d.r,d.rm):'')+(d.c?'<br><span style="color:var(--accent);font-weight:700">'+esc(d.c)+'</span>':'')+(d.note?'<br>'+esc(d.note):'')}
 function shut(){if(pp){pp.remove();pp=null}}
-function show(o,html){shut();pp=new maplibregl.Popup({offset:20,focusAfterOpen:false}).setLngLat(o).setHTML(html).addTo(map)}
+function off(h){var u=[0,-h-4],d=[0,8];return {bottom:u,"bottom-left":u,"bottom-right":u,top:d,"top-left":d,"top-right":d,left:[18,-h/2],right:[-18,-h/2]}}
+function show(o,html){shut();pp=new maplibregl.Popup({offset:off(37),focusAfterOpen:false}).setLngLat(o).setHTML(html).addTo(map)}
 function focus(d,n){go({center:[d.lon,d.lat],zoom:Math.max(map.getZoom(),17)});show([d.lon,d.lat],popHtml(d,n))}
 
 /* ピン：画面上で近いもの（34px以内）は白い丸にまとめる。押すと広がる。広がりきらないときは店名の一覧を出す */
@@ -220,27 +246,27 @@ function place(force){
   gs.forEach(function(g){
     var el=document.createElement("button");el.type="button";
     if(g.m.length===1){var d=g.m[0].d,n=g.m[0].n;
-      el.className="pin";el.style.background=d.color;el.style.color=d.fg;el.textContent=n;el.setAttribute("aria-label",n+" "+d.name);
+      el.className="pin";el.innerHTML="<i></i><span></span>";el.firstChild.style.background=d.color;el.lastChild.style.color=d.fg;el.lastChild.textContent=n;el.setAttribute("aria-label",n+" "+d.name);
       el.onclick=function(e){e.stopPropagation();go({center:[d.lon,d.lat]});show([d.lon,d.lat],popHtml(d,n))};
-      pins.push(new maplibregl.Marker({element:el}).setLngLat([d.lon,d.lat]).addTo(map));
+      pins.push(new maplibregl.Marker({element:el,anchor:"bottom",opacityWhenCovered:"1"}).setLngLat([d.lon,d.lat]).addTo(map));
     }else{
       var b=new maplibregl.LngLatBounds();g.m.forEach(function(m){b.extend([m.d.lon,m.d.lat])});
-      el.className="pin cl";el.textContent=g.m.length;el.setAttribute("aria-label",g.m.length+"軒のお店。押すと広がります");
+      el.className="pin cl";el.innerHTML="<i></i><span></span>";el.lastChild.textContent=g.m.length;el.setAttribute("aria-label",g.m.length+"軒のお店。押すと広がります");
       el.onclick=function(e){e.stopPropagation();
         if(map.getZoom()<18.5){shut();map.fitBounds(b,{padding:70,maxZoom:19,bearing:map.getBearing(),pitch:map.getPitch(),duration:calm?0:700});return}
         var w=document.createElement("div");w.innerHTML="<b>"+g.m.length+"軒が同じ場所にあります</b>";
         var l=document.createElement("div");l.className="pl";
         g.m.forEach(function(m){var x=document.createElement("button");x.type="button";x.textContent=m.n+". "+m.d.name;x.onclick=function(){go({center:[m.d.lon,m.d.lat]});show([m.d.lon,m.d.lat],popHtml(m.d,m.n))};l.appendChild(x)});
-        w.appendChild(l);shut();pp=new maplibregl.Popup({offset:24,focusAfterOpen:false}).setLngLat(b.getCenter()).setDOMContent(w).addTo(map)};
-      pins.push(new maplibregl.Marker({element:el}).setLngLat(b.getCenter()).addTo(map));
+        w.appendChild(l);shut();pp=new maplibregl.Popup({offset:off(46),focusAfterOpen:false}).setLngLat(b.getCenter()).setDOMContent(w).addTo(map)};
+      pins.push(new maplibregl.Marker({element:el,anchor:"bottom",opacityWhenCovered:"1"}).setLngLat(b.getCenter()).addTo(map));
     }});
 }
-function fit(first){
+function fit(first,anim){
   if(!map)return;
   var pts=visible().filter(function(d){return d.lat&&d.lon});
   if(!pts.length)return;
   var b=new maplibregl.LngLatBounds();pts.forEach(function(d){b.extend([d.lon,d.lat])});
-  map.fitBounds(b,{padding:{top:70,bottom:50,left:50,right:50},maxZoom:16.5,bearing:first?0:map.getBearing(),pitch:first?55:map.getPitch(),duration:(first||calm)?0:700});
+  map.fitBounds(b,{padding:{top:70,bottom:50,left:50,right:50},maxZoom:16.5,bearing:first?0:map.getBearing(),pitch:first?(flat?0:55):map.getPitch(),duration:((first&&!anim)||calm)?0:700});
 }
 
 function render(first){
@@ -274,17 +300,39 @@ function chips(){
 
 /* 操作ボタン。スマホでは指1本はページのスクロールに使うので、かたむき・回転はボタンでもできるようにする */
 if(map){
-  $("#t3d").onclick=function(){if(!map.isStyleLoaded())return;var on=this.getAttribute("aria-pressed")!=="true";this.setAttribute("aria-pressed",on);
+  $("#t3d").onclick=function(){if(!map.isStyleLoaded())return;var on=this.getAttribute("aria-pressed")!=="true";this.setAttribute("aria-pressed",on);flat=!on;
     map.setTerrain(on?{source:"dem",exaggeration:EXAG}:null);["bld","st"].forEach(function(l){map.setLayoutProperty(l,"visibility",on?"visible":"none")});go({pitch:on?55:0,bearing:on?map.getBearing():0})};
   $("#tph").onclick=function(){if(!map.isStyleLoaded())return;var on=this.getAttribute("aria-pressed")!=="true";this.setAttribute("aria-pressed",on);
     map.setLayoutProperty("photo","visibility",on?"visible":"none");map.setLayoutProperty("osm","visibility",on?"none":"visible");map.setLayoutProperty("shade","visibility",on?"none":"visible")};
-  $("#trl").onclick=function(){go({bearing:map.getBearing()-45})};
-  $("#trr").onclick=function(){go({bearing:map.getBearing()+45})};
+  /* 左下の ⟲ ⟳ ▲ ▼：1回押すと1段、押しつづけると動きつづける */
+  function nudge(b){var o={duration:250,easing:function(t){return t}};
+    if(b.dataset.b)o.bearing=map.getBearing()+(+b.dataset.b);
+    if(b.dataset.p)o.pitch=Math.max(0,Math.min(75,map.getPitch()+(+b.dataset.p)));
+    if(calm)map.jumpTo(o);else map.easeTo(o)}
+  [].forEach.call(document.querySelectorAll("#pad button"),function(b){var t=null;
+    function stop(){if(t){clearInterval(t);t=null}}
+    b.addEventListener("pointerdown",function(e){e.preventDefault();stop();nudge(b);t=setInterval(function(){nudge(b)},260)});
+    ["pointerup","pointerleave","pointercancel"].forEach(function(k){b.addEventListener(k,stop)});
+    b.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();nudge(b)}});
+    b.addEventListener("contextmenu",function(e){e.preventDefault()})});
+  /* 「ドラッグで回す」：オンの間は、左ボタンのドラッグ（全画面では指1本）で向きとかたむきを変える */
+  var rot=false,dr=null,cc=map.getCanvasContainer();
+  function isBig(){return $("#card").classList.contains("big")}
+  function syncRot(){$("#map").classList.toggle("rot",rot);if(rot)map.dragPan.disable();else map.dragPan.enable();cc.style.touchAction=(rot&&isBig())?"none":""}
+  $("#tdr").onclick=function(){rot=this.getAttribute("aria-pressed")!=="true";this.setAttribute("aria-pressed",rot);syncRot()};
+  cc.addEventListener("pointerdown",function(e){
+    if(!rot||e.button!==0||e.ctrlKey||(e.pointerType==="touch"&&!isBig())||!e.isPrimary)return;
+    if(e.target.closest&&e.target.closest(".pin,.maplibregl-popup"))return;
+    dr={x:e.clientX,y:e.clientY,b:map.getBearing(),p:map.getPitch(),id:e.pointerId};map.stop();try{cc.setPointerCapture(e.pointerId)}catch(_){}});
+  cc.addEventListener("pointermove",function(e){if(!dr||e.pointerId!==dr.id)return;
+    map.jumpTo({bearing:dr.b+(e.clientX-dr.x)*.5,pitch:Math.max(0,Math.min(75,dr.p-(e.clientY-dr.y)*.4))})});
+  ["pointerup","pointercancel"].forEach(function(k){cc.addEventListener(k,function(e){if(dr&&e.pointerId===dr.id)dr=null})});
+  $("#thm").onclick=function(){shut();fit(true,true)};
   $("#twd").onclick=function(){shut();go({center:[139.6175,35.1375],zoom:13.6,duration:1200})};
   $("#tbg").onclick=function(){var on=this.getAttribute("aria-pressed")!=="true";this.setAttribute("aria-pressed",on);this.textContent=on?"とじる":"大きく見る";
     $("#card").classList.toggle("big",on);document.body.classList.toggle("big",on);
     if(on)map.cooperativeGestures.disable();else map.cooperativeGestures.enable();
-    map.resize()};
+    syncRot();map.resize()};
   document.addEventListener("keydown",function(e){if(e.key==="Escape"&&$("#card").classList.contains("big"))$("#tbg").click()});
 }
 chips();render(true);
