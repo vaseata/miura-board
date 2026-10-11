@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+%%ROBOTS%%
+<meta name="color-scheme" content="light">
+<title>三浦A邸 おすすめマップ（3D）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.min.css">
+<style>/* 閲覧専用の公開版の 3D（地形）版。配色・書体は平面版（hana_public.tpl.html）と同じ :root の変数で決める。
+   地図は MapLibre GL JS。標高は国土地理院の標高タイル。A邸の位置は出さない。 */
+:root{
+  --ink:#1f2933; --ink-2:#5b6770; --accent:#0A5A8C; --soft:#F3F6F8; --soft-2:#E6EEF3;
+  --line:#DCE3E8; --bg:#FFFFFF; --card:#FFFFFF;
+  --font:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",sans-serif;
+  --r:14px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:500 16px/1.75 var(--font);-webkit-text-size-adjust:100%}
+body.big{overflow:hidden}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 40px}
+body.embed .hero{display:none}
+body.embed .wrap{padding-top:8px}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid #7FB3D5;outline-offset:2px}
+button{font:inherit;color:inherit}
+
+.hero{padding:0 0 4px}
+.eyebrow{margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--accent)}
+h1{margin:0;font-size:clamp(24px,6vw,30px);line-height:1.3;font-weight:700;letter-spacing:.02em}
+h1 span{display:inline-block}
+.lede{margin:10px 0 0;font-size:15px;line-height:1.8;color:var(--ink-2);max-width:34em}
+.draft{margin:16px 0 0;padding:10px 14px;background:#FFF8E1;border:1px solid #EBD38A;border-radius:10px;font-size:13.5px;line-height:1.6}
+
+.filters{margin-top:20px;display:grid;gap:10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:42px;padding:0 16px;border:1px solid var(--line);border-radius:99px;background:#fff;font-weight:700;font-size:14.5px;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:#fff}
+.chip small{font-weight:500;opacity:.75;margin-left:4px}
+.chips.sc .chip{min-height:36px;font-size:13.5px;padding:0 13px}
+
+/* 地図カード：地図 → 操作ボタン → 注記。「大きく見る」で画面いっぱいにする */
+.mapcard{margin-top:16px;border:1px solid var(--line);border-radius:var(--r);background:#fff;overflow:hidden;display:flex;flex-direction:column}
+#map{height:clamp(340px,60vh,560px);background:#cfe3ee}
+.tools{display:flex;flex-wrap:wrap;gap:8px;padding:10px 12px;border-top:1px solid var(--line)}
+.tool{min-height:42px;min-width:42px;padding:0 14px;border:1px solid var(--line);border-radius:99px;background:#fff;font-weight:700;font-size:14px;cursor:pointer}
+.tool[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:#fff}
+.tool.ic{padding:0;font-size:22px;line-height:1}
+.tool.end{margin-left:auto}
+.mapfoot{border-top:1px solid var(--line);padding:10px 16px;font-size:12.5px;color:var(--ink-2);line-height:1.55}
+.mapcard.big{position:fixed;inset:0;z-index:1000;margin:0;border:0;border-radius:0}
+.mapcard.big #map{flex:1;height:auto;min-height:0}
+.mapcard.big .mapfoot{display:none}
+.mapcard.big .tools{padding-bottom:calc(10px + env(safe-area-inset-bottom,0px))}
+.nogl{display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;color:var(--ink-2);font-size:14.5px}
+
+.pin{width:30px;height:30px;padding:0;border-radius:50%;font:700 14px/1 var(--font);display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.35);cursor:pointer}
+.pin.cl{width:38px;height:38px;background:#fff;color:var(--accent);font-size:15px;border-color:var(--accent)}
+.maplibregl-popup{max-width:min(260px,68vw)!important}
+.maplibregl-popup-content{border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.18);padding:12px 30px 12px 14px;font:500 14px/1.6 var(--font);color:var(--ink)}
+.maplibregl-popup-close-button{width:32px;height:32px;font-size:20px;color:var(--ink-2)}
+.pl{display:grid;gap:6px;margin-top:6px}
+.pl button{min-height:36px;padding:4px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;text-align:left;font-size:13.5px;font-weight:700;cursor:pointer}
+.maplibregl-ctrl-attrib{font-size:10px}
+.maplibregl-cooperative-gesture-screen{font-family:var(--font);font-size:15px;padding:16px}
+
+h2{display:flex;align-items:baseline;gap:10px;margin:32px 0 14px;font-size:19px;line-height:1.35;font-weight:700}
+h2 small{font-size:13px;font-weight:500;color:var(--ink-2)}
+.item{display:grid;grid-template-columns:34px minmax(0,1fr);gap:0 12px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 14px;margin:0 0 12px;cursor:pointer}
+.item .n{width:34px;height:34px;border-radius:50%;font-weight:700;font-size:14.5px;display:flex;align-items:center;justify-content:center}
+.item h3{margin:0;font-size:17.5px;line-height:1.4;font-weight:700}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.tag{font-size:12px;font-weight:700;color:var(--ink-2);background:var(--soft);border-radius:99px;padding:0 10px;line-height:22px}
+.tag.chk{color:#7a5a00;background:#FFF3C4}
+.hearts{margin:8px 0 0;font-size:17px;letter-spacing:1px;line-height:1.2}
+.quote{margin:10px 0 0;padding:9px 12px;background:var(--soft);border-left:3px solid var(--accent);border-radius:4px 10px 10px 4px;font-size:14.5px;line-height:1.7}
+.quote b{display:block;font-size:11.5px;letter-spacing:.08em;color:var(--accent);margin-bottom:2px}
+.note{margin:10px 0 0;font-size:14.5px;line-height:1.75}
+.meta{margin:6px 0 0;font-size:13px;line-height:1.6;color:var(--ink-2)}
+.meta a{margin-left:6px}
+.empty{padding:28px 16px;text-align:center;color:var(--ink-2);background:var(--soft);border-radius:var(--r)}
+.foot{margin-top:24px;font-size:12.5px;color:var(--ink-2);line-height:1.7}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media (min-width:720px){.wrap{padding-top:40px}.item{padding:18px 18px}}
+</style></head><body>
+<div class="wrap">
+
+<header class="hero">
+  <p class="eyebrow">三浦A邸</p>
+  <h1><span>%%KEEPER%%の</span> <span>おすすめマップ（3D）</span></h1>
+  <p class="lede">三崎・城ヶ島の、ごはんと買い物のお店を、土地の高さがわかる地図にのせました。気になるお店を押すと、場所と、ひとことが見られます。</p>
+  %%DRAFT%%
+</header>
+
+<div class="filters">
+  <div class="chips" id="cats" role="group" aria-label="ジャンルで絞り込む"></div>
+  <div class="chips sc" id="scs" role="group" aria-label="シーンで絞り込む"></div>
+</div>
+
+<section class="mapcard" id="card" aria-label="おすすめのお店の地図">
+  <div id="map" role="application" aria-label="地図"></div>
+  <div class="tools" id="tools" role="group" aria-label="地図の操作">
+    <button type="button" class="tool" id="t3d" aria-pressed="true">3D</button>
+    <button type="button" class="tool" id="tph" aria-pressed="false">写真</button>
+    <button type="button" class="tool ic" id="trl" aria-label="左に回す">⟲</button>
+    <button type="button" class="tool ic" id="trr" aria-label="右に回す">⟳</button>
+    <button type="button" class="tool" id="twd">城ヶ島まで</button>
+    <button type="button" class="tool end" id="tbg" aria-pressed="false">大きく見る</button>
+  </div>
+  <div class="mapfoot">番号はリストと同じです。白い丸の数字は、重なっているお店の数です（押すと広がります）。土地の高さは、わかりやすいように%%EXAG%%倍に強調しています。</div>
+</section>
+
+<h2 id="lh">お店リスト <small id="lc"></small></h2>
+<div id="list" aria-live="polite"></div>
+
+<p class="foot">営業時間・定休日は変わることがあります。お出かけの前に、お店の情報もご確認ください。<a href="%%FLAT%%">平面の地図で見る</a><br>地図は © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors。写真と標高は <a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">国土地理院（地理院タイル）</a>。</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.min.js"></script>
+<script>
+(function(){
+var D=%%DATA%%, KEEPER="%%KEEPER%%", EXAG=%%EXAG%%;
+var CATS=[["all","すべて"],["食べる","食べる"],["買う","買う"],["困ったとき","暮らし"]];
+var st={cat:"all",sc:""};
+function $(s){return document.querySelector(s)}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function hs(n,m){m=m||5;var o="";for(var i=1;i<=m;i++)o+=i<=n?"❤️":"♡";return o}
+if(/[?&]embed=1/.test(location.search))document.body.classList.add("embed");
+var calm=window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches;
+
+var map=null,pins=[],pp=null,sig="";
+var GSI="cyberjapandata.gsi.go.jp/xyz/";
+
+/* 標高：地理院の標高タイル（dem_png）を、MapLibre が読める Terrarium 形式に直して渡す。
+   海（データなし）・タイルなし・0m未満は 0m にする */
+function demTile(p,ac){
+  return fetch(p.url.replace("gsidem://","https://"),{signal:ac.signal})
+    .then(function(r){return r.ok?r.blob():null})
+    .then(function(b){return b?createImageBitmap(b):null})
+    .then(function(bm){
+      var c=document.createElement("canvas");c.width=c.height=256;
+      var x=c.getContext("2d"),im;
+      if(bm){x.drawImage(bm,0,0);im=x.getImageData(0,0,256,256)}else im=x.createImageData(256,256);
+      var d=im.data;
+      for(var i=0;i<d.length;i+=4){
+        var v=d[i]*65536+d[i+1]*256+d[i+2],h=(!bm||v===8388608)?0:(v<8388608?v:v-16777216)*0.01;
+        if(h<0)h=0;
+        var t=h+32768,f=Math.floor(t);
+        d[i]=f>>8;d[i+1]=f&255;d[i+2]=Math.floor((t-f)*256);d[i+3]=255}
+      x.putImageData(im,0,0);
+      return new Promise(function(ok){c.toBlob(ok,"image/png")})})
+    .then(function(b){return b.arrayBuffer()})
+    .then(function(buf){return {data:buf}})}
+
+/* 写真：海だけのタイルは地理院に無い（404）。そのままだと粗い広域写真が島の上にかぶるので、海の色の1枚を返す */
+var seaBuf=null;
+function seaTile(){
+  if(!seaBuf)seaBuf=new Promise(function(ok){var c=document.createElement("canvas");c.width=c.height=256;var x=c.getContext("2d");x.fillStyle="#263f52";x.fillRect(0,0,256,256);c.toBlob(ok,"image/png")}).then(function(b){return b.arrayBuffer()});
+  return seaBuf.then(function(b){return b.slice(0)})}
+function photoTile(p,ac){
+  return fetch(p.url.replace("gsiphoto://","https://"),{signal:ac.signal})
+    .then(function(r){return r.ok?r.arrayBuffer():seaTile()})
+    .then(function(buf){return {data:buf}})}
+
+function dem(){return {type:"raster-dem",tiles:["gsidem://"+GSI+"dem_png/{z}/{x}/{y}.png"],tileSize:256,maxzoom:14,encoding:"terrarium"}}
+var STYLE={version:8,
+  sources:{
+    osm:{type:"raster",tiles:["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],tileSize:256,maxzoom:19,attribution:"© OpenStreetMap"},
+    photo:{type:"raster",tiles:["gsiphoto://"+GSI+"seamlessphoto/{z}/{x}/{y}.jpg"],tileSize:256,minzoom:2,maxzoom:18,attribution:"写真・標高：国土地理院"},
+    dem:dem(),shade:dem()},
+  layers:[
+    {id:"sea",type:"background",paint:{"background-color":"#cfe3ee"}},
+    {id:"osm",type:"raster",source:"osm",paint:{"raster-saturation":-.35,"raster-contrast":-.05}},
+    {id:"photo",type:"raster",source:"photo",layout:{visibility:"none"}},
+    {id:"shade",type:"hillshade",source:"shade",paint:{"hillshade-exaggeration":.35,"hillshade-shadow-color":"#3b4a55","hillshade-highlight-color":"#ffffff","hillshade-accent-color":"#5b6770"}}],
+  terrain:{source:"dem",exaggeration:EXAG},
+  sky:{"sky-color":"#b9d7ea","horizon-color":"#eef4f7","fog-color":"#eef4f7","sky-horizon-blend":.6,"horizon-fog-blend":.6,"fog-ground-blend":.2}};
+
+try{
+  maplibregl.addProtocol("gsidem",demTile);
+  maplibregl.addProtocol("gsiphoto",photoTile);
+  map=new maplibregl.Map({container:"map",style:STYLE,center:[139.6195,35.1415],zoom:14.5,pitch:55,bearing:0,maxPitch:75,maxZoom:19.5,minZoom:9,
+    cooperativeGestures:true,attributionControl:{compact:true},
+    locale:{"CooperativeGesturesHandler.WindowsHelpText":"Ctrl を押しながらスクロールで拡大できます","CooperativeGesturesHandler.MacHelpText":"⌘ を押しながらスクロールで拡大できます","CooperativeGesturesHandler.MobileHelpText":"指2本で地図を動かせます",
+      "NavigationControl.ZoomIn":"拡大","NavigationControl.ZoomOut":"縮小","NavigationControl.ResetBearing":"北を上に戻す"}});
+  map.addControl(new maplibregl.NavigationControl({visualizePitch:true}),"top-right");
+  map.on("moveend",function(){place(false)});
+}catch(e){
+  map=null;
+  $("#map").className="nogl";$("#map").innerHTML='<p>この端末では 3D の地図を表示できませんでした。<br><a href="%%FLAT%%">平面の地図で見る</a></p>';
+  $("#tools").hidden=true;
+}
+function go(o){if(!map)return;if(calm)map.jumpTo(o);else map.easeTo(Object.assign({duration:700},o))}
+
+function visible(){return D.filter(function(d){return (st.cat==="all"||d.cat===st.cat)&&(!st.sc||(d.w||[]).indexOf(st.sc)>=0)})}
+function popHtml(d,n){return '<b>'+n+'. '+esc(d.name)+'</b>'+(d.r?'<br>'+hs(d.r,d.rm):'')+(d.c?'<br><span style="color:var(--accent);font-weight:700">'+esc(d.c)+'</span>':'')+(d.note?'<br>'+esc(d.note):'')}
+function shut(){if(pp){pp.remove();pp=null}}
+function show(o,html){shut();pp=new maplibregl.Popup({offset:20,focusAfterOpen:false}).setLngLat(o).setHTML(html).addTo(map)}
+function focus(d,n){go({center:[d.lon,d.lat],zoom:Math.max(map.getZoom(),17)});show([d.lon,d.lat],popHtml(d,n))}
+
+/* ピン：画面上で近いもの（34px以内）は白い丸にまとめる。押すと広がる。広がりきらないときは店名の一覧を出す */
+function place(force){
+  if(!map)return;
+  var rows=visible(),gs=[];
+  rows.forEach(function(d,i){if(!(d.lat&&d.lon))return;
+    var p=map.project([d.lon,d.lat]),g=null;
+    for(var k=0;k<gs.length;k++){var dx=gs[k].x-p.x,dy=gs[k].y-p.y;if(dx*dx+dy*dy<34*34){g=gs[k];break}}
+    if(g)g.m.push({d:d,n:i+1});else gs.push({x:p.x,y:p.y,m:[{d:d,n:i+1}]})});
+  var s=gs.map(function(g){return g.m.map(function(m){return m.d.id}).join("+")}).join("|");
+  if(!force&&s===sig)return;
+  sig=s;pins.forEach(function(m){m.remove()});pins=[];
+  gs.forEach(function(g){
+    var el=document.createElement("button");el.type="button";
+    if(g.m.length===1){var d=g.m[0].d,n=g.m[0].n;
+      el.className="pin";el.style.background=d.color;el.style.color=d.fg;el.textContent=n;el.setAttribute("aria-label",n+" "+d.name);
+      el.onclick=function(e){e.stopPropagation();go({center:[d.lon,d.lat]});show([d.lon,d.lat],popHtml(d,n))};
+      pins.push(new maplibregl.Marker({element:el}).setLngLat([d.lon,d.lat]).addTo(map));
+    }else{
+      var b=new maplibregl.LngLatBounds();g.m.forEach(function(m){b.extend([m.d.lon,m.d.lat])});
+      el.className="pin cl";el.textContent=g.m.length;el.setAttribute("aria-label",g.m.length+"軒のお店。押すと広がります");
+      el.onclick=function(e){e.stopPropagation();
+        if(map.getZoom()<18.5){shut();map.fitBounds(b,{padding:70,maxZoom:19,bearing:map.getBearing(),pitch:map.getPitch(),duration:calm?0:700});return}
+        var w=document.createElement("div");w.innerHTML="<b>"+g.m.length+"軒が同じ場所にあります</b>";
+        var l=document.createElement("div");l.className="pl";
+        g.m.forEach(function(m){var x=document.createElement("button");x.type="button";x.textContent=m.n+". "+m.d.name;x.onclick=function(){go({center:[m.d.lon,m.d.lat]});show([m.d.lon,m.d.lat],popHtml(m.d,m.n))};l.appendChild(x)});
+        w.appendChild(l);shut();pp=new maplibregl.Popup({offset:24,focusAfterOpen:false}).setLngLat(b.getCenter()).setDOMContent(w).addTo(map)};
+      pins.push(new maplibregl.Marker({element:el}).setLngLat(b.getCenter()).addTo(map));
+    }});
+}
+function fit(first){
+  if(!map)return;
+  var pts=visible().filter(function(d){return d.lat&&d.lon});
+  if(!pts.length)return;
+  var b=new maplibregl.LngLatBounds();pts.forEach(function(d){b.extend([d.lon,d.lat])});
+  map.fitBounds(b,{padding:{top:70,bottom:50,left:50,right:50},maxZoom:16.5,bearing:first?0:map.getBearing(),pitch:first?55:map.getPitch(),duration:(first||calm)?0:700});
+}
+
+function render(first){
+  var rows=visible(),html="";
+  rows.forEach(function(d,i){var n=i+1;
+    html+='<article class="item" data-id="'+d.id+'"><div class="n" style="background:'+d.color+';color:'+d.fg+'">'+n+'</div><div>'
+     +'<h3>'+esc(d.name)+'</h3>'
+     +'<div class="tags">'+(d.area?'<span class="tag">'+esc(d.area)+'</span>':'')+(d.w||[]).map(function(w){return '<span class="tag">'+esc(w)+'</span>'}).join('')+(d.draft?'<span class="tag chk">確認中</span>':'')+'</div>'
+     +(d.r?'<div class="hearts" aria-label="'+KEEPER+'の評価 '+d.r+'/'+d.rm+'">'+hs(d.r,d.rm)+'</div>':'')
+     +(d.c?'<p class="quote"><b>'+esc(KEEPER)+'のひとこと</b>'+esc(d.c)+'</p>':'')
+     +'<p class="note">'+esc(d.note)+'</p>'
+     +'<p class="meta">'+esc([d.hours,d.closed].filter(Boolean).join(" ／ "))+(d.url?'<a href="'+esc(d.url)+'" target="_blank" rel="noopener">お店の情報</a>':'')+'</p>'
+     +'</div></article>'});
+  $("#list").innerHTML=rows.length?html:'<div class="empty">このジャンルのお店は、まだありません。</div>';
+  $("#lc").textContent=rows.length+"軒";
+  if(map){shut();fit(first);place(true)}
+  document.querySelectorAll(".item").forEach(function(el){el.onclick=function(e){if(e.target.closest("a")||!map)return;
+    var i=-1;rows.forEach(function(d,k){if(d.id===el.dataset.id)i=k});var d=rows[i];
+    if(d&&d.lat&&d.lon){window.scrollTo({top:$("#card").getBoundingClientRect().top+window.scrollY-12});focus(d,i+1)}}});
+}
+function chips(){
+  var c=$("#cats");c.innerHTML="";
+  CATS.forEach(function(x){var n=x[0]==="all"?D.length:D.filter(function(d){return d.cat===x[0]}).length;if(x[0]!=="all"&&!n)return;
+    var b=document.createElement("button");b.type="button";b.className="chip";b.setAttribute("aria-pressed",st.cat===x[0]);b.innerHTML=esc(x[1])+'<small>'+n+'</small>';
+    b.onclick=function(){st.cat=x[0];chips();render()};c.appendChild(b)});
+  var sc=[];D.forEach(function(d){(d.w||[]).forEach(function(w){if(sc.indexOf(w)<0)sc.push(w)})});
+  var s=$("#scs");s.innerHTML="";s.hidden=!sc.length;
+  sc.forEach(function(w){var b=document.createElement("button");b.type="button";b.className="chip";b.setAttribute("aria-pressed",st.sc===w);b.textContent=w;
+    b.onclick=function(){st.sc=(st.sc===w?"":w);chips();render()};s.appendChild(b)});
+}
+
+/* 操作ボタン。スマホでは指1本はページのスクロールに使うので、かたむき・回転はボタンでもできるようにする */
+if(map){
+  $("#t3d").onclick=function(){if(!map.isStyleLoaded())return;var on=this.getAttribute("aria-pressed")!=="true";this.setAttribute("aria-pressed",on);
+    map.setTerrain(on?{source:"dem",exaggeration:EXAG}:null);go({pitch:on?55:0,bearing:on?map.getBearing():0})};
+  $("#tph").onclick=function(){if(!map.isStyleLoaded())return;var on=this.getAttribute("aria-pressed")!=="true";this.setAttribute("aria-pressed",on);
+    map.setLayoutProperty("photo","visibility",on?"visible":"none");map.setLayoutProperty("osm","visibility",on?"none":"visible");map.setLayoutProperty("shade","visibility",on?"none":"visible")};
+  $("#trl").onclick=function(){go({bearing:map.getBearing()-45})};
+  $("#trr").onclick=function(){go({bearing:map.getBearing()+45})};
+  $("#twd").onclick=function(){shut();go({center:[139.6175,35.1375],zoom:13.6,duration:1200})};
+  $("#tbg").onclick=function(){var on=this.getAttribute("aria-pressed")!=="true";this.setAttribute("aria-pressed",on);this.textContent=on?"とじる":"大きく見る";
+    $("#card").classList.toggle("big",on);document.body.classList.toggle("big",on);
+    if(on)map.cooperativeGestures.disable();else map.cooperativeGestures.enable();
+    map.resize()};
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&$("#card").classList.contains("big"))$("#tbg").click()});
+}
+chips();render(true);
+})();
+</script></body></html>
