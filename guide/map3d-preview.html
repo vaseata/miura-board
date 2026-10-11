@@ -68,7 +68,8 @@ h1 span{display:inline-block}
 #map.rot .maplibregl-canvas-container:active{cursor:grabbing}
 
 /* ピン：地面に立つしずく形（先が場所を指す）。足もとに影 */
-.pin{position:relative;width:30px;height:37px;padding:0;border:0;background:none;cursor:pointer;font:700 14px/1 var(--font)}
+/* position は必ず absolute（地図部品がピンを左上基準で動かす。relative にすると並び順ぶんずれる） */
+.pin{position:absolute;left:0;top:0;width:30px;height:37px;padding:0;border:0;background:none;cursor:pointer;font:700 14px/1 var(--font)}
 .pin::before{content:"";position:absolute;left:50%;bottom:-3px;width:16px;height:6px;margin-left:-8px;border-radius:50%;background:rgba(0,0,0,.3);filter:blur(1.5px)}
 .pin i{position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2px solid #fff;box-shadow:-1px 2px 4px rgba(0,0,0,.4)}
 .pin span{position:absolute;left:0;top:0;width:30px;height:30px;display:flex;align-items:center;justify-content:center}
