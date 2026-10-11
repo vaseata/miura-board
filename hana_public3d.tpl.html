@@ -90,7 +90,7 @@ h2 small{font-size:13px;font-weight:500;color:var(--ink-2)}
 <header class="hero">
   <p class="eyebrow">三浦A邸</p>
   <h1><span>%%KEEPER%%の</span> <span>おすすめマップ（3D）</span></h1>
-  <p class="lede">三崎・城ヶ島の、ごはんと買い物のお店を、土地の高さがわかる地図にのせました。気になるお店を押すと、場所と、ひとことが見られます。</p>
+  <p class="lede">三崎・城ヶ島の、ごはんと買い物のお店を、土地の高さと建物が立ち上がる地図にのせました。気になるお店を押すと、場所と、ひとことが見られます。</p>
   %%DRAFT%%
 </header>
 
@@ -109,19 +109,19 @@ h2 small{font-size:13px;font-weight:500;color:var(--ink-2)}
     <button type="button" class="tool" id="twd">城ヶ島まで</button>
     <button type="button" class="tool end" id="tbg" aria-pressed="false">大きく見る</button>
   </div>
-  <div class="mapfoot">番号はリストと同じです。白い丸の数字は、重なっているお店の数です（押すと広がります）。土地の高さは、わかりやすいように%%EXAG%%倍に強調しています。</div>
+  <div class="mapfoot">番号はリストと同じです。白い丸の数字は、重なっているお店の数です（押すと広がります）。土地と建物の高さは、わかりやすいように%%EXAG%%倍に強調しています。建物の高さは、地図データに記録のあるもの以外は一律5mの目安です。城ヶ島大橋は海面から23.5m、城ヶ島灯台は11.5m、安房埼灯台は16mで描いています。防波堤と桟橋の高さは目安です。</div>
 </section>
 
 <h2 id="lh">お店リスト <small id="lc"></small></h2>
 <div id="list" aria-live="polite"></div>
 
-<p class="foot">営業時間・定休日は変わることがあります。お出かけの前に、お店の情報もご確認ください。<a href="%%FLAT%%">平面の地図で見る</a><br>地図は © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors。写真と標高は <a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">国土地理院（地理院タイル）</a>。</p>
+<p class="foot">営業時間・定休日は変わることがあります。お出かけの前に、お店の情報もご確認ください。<a href="%%FLAT%%">平面の地図で見る</a><br>地図は © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors。建物と構造物の形も OpenStreetMap（建物のタイルは <a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a> © OpenMapTiles）。写真と標高は <a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">国土地理院（地理院タイル）</a>。</p>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.min.js"></script>
 <script>
 (function(){
-var D=%%DATA%%, KEEPER="%%KEEPER%%", EXAG=%%EXAG%%;
+var D=%%DATA%%, ST=%%STRUCT%%, KEEPER="%%KEEPER%%", EXAG=%%EXAG%%;
 var CATS=[["all","すべて"],["食べる","食べる"],["買う","買う"],["困ったとき","暮らし"]];
 var st={cat:"all",sc:""};
 function $(s){return document.querySelector(s)}
@@ -169,12 +169,18 @@ var STYLE={version:8,
   sources:{
     osm:{type:"raster",tiles:["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],tileSize:256,maxzoom:19,attribution:"© OpenStreetMap"},
     photo:{type:"raster",tiles:["gsiphoto://"+GSI+"seamlessphoto/{z}/{x}/{y}.jpg"],tileSize:256,minzoom:2,maxzoom:18,attribution:"写真・標高：国土地理院"},
+    ofm:{type:"vector",url:"https://tiles.openfreemap.org/planet",attribution:"建物：OpenFreeMap © OpenMapTiles"},
+    st:{type:"geojson",data:ST},
     dem:dem(),shade:dem()},
   layers:[
     {id:"sea",type:"background",paint:{"background-color":"#cfe3ee"}},
     {id:"osm",type:"raster",source:"osm",paint:{"raster-saturation":-.35,"raster-contrast":-.05}},
     {id:"photo",type:"raster",source:"photo",layout:{visibility:"none"}},
-    {id:"shade",type:"hillshade",source:"shade",paint:{"hillshade-exaggeration":.35,"hillshade-shadow-color":"#3b4a55","hillshade-highlight-color":"#ffffff","hillshade-accent-color":"#5b6770"}}],
+    {id:"shade",type:"hillshade",source:"shade",paint:{"hillshade-exaggeration":.35,"hillshade-shadow-color":"#3b4a55","hillshade-highlight-color":"#ffffff","hillshade-accent-color":"#5b6770"}},
+    {id:"bld",type:"fill-extrusion",source:"ofm","source-layer":"building",minzoom:13,filter:["!=",["get","hide_3d"],true],
+      paint:{"fill-extrusion-color":"#ece7df","fill-extrusion-height":["*",EXAG,["coalesce",["get","render_height"],5]],"fill-extrusion-base":["*",EXAG,["coalesce",["get","render_min_height"],0]],"fill-extrusion-opacity":.92}},
+    {id:"st",type:"fill-extrusion",source:"st",
+      paint:{"fill-extrusion-color":["get","c"],"fill-extrusion-height":["*",EXAG,["get","h"]],"fill-extrusion-base":["*",EXAG,["get","b"]],"fill-extrusion-opacity":.95}}],
   terrain:{source:"dem",exaggeration:EXAG},
   sky:{"sky-color":"#b9d7ea","horizon-color":"#eef4f7","fog-color":"#eef4f7","sky-horizon-blend":.6,"horizon-fog-blend":.6,"fog-ground-blend":.2}};
 
@@ -269,7 +275,7 @@ function chips(){
 /* 操作ボタン。スマホでは指1本はページのスクロールに使うので、かたむき・回転はボタンでもできるようにする */
 if(map){
   $("#t3d").onclick=function(){if(!map.isStyleLoaded())return;var on=this.getAttribute("aria-pressed")!=="true";this.setAttribute("aria-pressed",on);
-    map.setTerrain(on?{source:"dem",exaggeration:EXAG}:null);go({pitch:on?55:0,bearing:on?map.getBearing():0})};
+    map.setTerrain(on?{source:"dem",exaggeration:EXAG}:null);["bld","st"].forEach(function(l){map.setLayoutProperty(l,"visibility",on?"visible":"none")});go({pitch:on?55:0,bearing:on?map.getBearing():0})};
   $("#tph").onclick=function(){if(!map.isStyleLoaded())return;var on=this.getAttribute("aria-pressed")!=="true";this.setAttribute("aria-pressed",on);
     map.setLayoutProperty("photo","visibility",on?"visible":"none");map.setLayoutProperty("osm","visibility",on?"none":"visible");map.setLayoutProperty("shade","visibility",on?"none":"visible")};
   $("#trl").onclick=function(){go({bearing:map.getBearing()-45})};
