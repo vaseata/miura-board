@@ -88,6 +88,7 @@ h1 span{display:inline-block}
 .pin.cl i,.pin.cl span{width:38px;height:38px}
 .pin.cl i{background:#fff;border-color:var(--accent)}
 .pin.cl span{color:var(--accent)}
+.pin.cl small{font-size:10.5px;margin-left:1px;margin-top:2px}  /* 「2軒」：お店の番号とまぎれないように「軒」を付ける */
 /* 三浦A邸：赤い家のピン（この3D版は宿泊者向けなので位置を出す） */
 .pin.home{width:36px;height:44px;z-index:3}
 .pin.home i,.pin.home span{width:36px;height:36px}
@@ -154,7 +155,7 @@ h2 small{font-size:13px;font-weight:500;color:var(--ink-2)}
     <button type="button" class="tool" id="twd">城ヶ島まで</button>
     <button type="button" class="tool end" id="tbg" aria-pressed="false">大きく見る</button>
   </div>
-  <div class="mapfoot">向きとかたむきは、地図の左下の矢印ボタンで変えられます（押しつづけると動きつづけます）。「ドラッグで回す」をオンにすると、ふつうのドラッグでも回せます。「ひとめぐり」は、港から城ヶ島の灯台までを順に飛んで見せます（地図にさわると止まります）。お店の名前は、拡大するとピンの横に出ます。%%HOMENOTE%%番号はリストと同じです。白い丸の数字は、重なっているお店の数です（押すと広がります）。%%EXAGNOTE%%建物の高さは、地図データに記録のあるもの以外は一律5mの目安です。城ヶ島大橋は海面から23.5m、城ヶ島灯台は11.5m、安房埼灯台は16mで描いています。防波堤と桟橋の高さは目安です。</div>
+  <div class="mapfoot">向きとかたむきは、地図の左下の矢印ボタンで変えられます（押しつづけると動きつづけます）。「ドラッグで回す」をオンにすると、ふつうのドラッグでも回せます。「ひとめぐり」は、港から城ヶ島の灯台までを順に飛んで見せます（地図にさわると止まります）。お店の名前は、拡大するとピンの横に出ます。%%HOMENOTE%%番号はリストと同じです。白いピンの「2軒」「3軒」は、近くのお店をまとめたものです（押すと広がります）。%%EXAGNOTE%%建物の高さは、地図データに記録のあるもの以外は一律5mの目安です。城ヶ島大橋は海面から23.5m、城ヶ島灯台は11.5m、安房埼灯台は16mで描いています。防波堤と桟橋の高さは目安です。</div>
 </section>
 
 <h2 id="lh">お店リスト <small id="lc"></small></h2>
@@ -325,7 +326,7 @@ function place(force){
       pins.push(new maplibregl.Marker({element:el,anchor:"bottom",opacityWhenCovered:"1"}).setLngLat([d.lon,d.lat]).addTo(map));
     }else{
       var b=new maplibregl.LngLatBounds();g.m.forEach(function(m){b.extend([m.d.lon,m.d.lat])});
-      el.className="pin cl";el.innerHTML="<i></i><span></span>";el.lastChild.textContent=g.m.length;el.setAttribute("aria-label",g.m.length+"軒のお店。押すと広がります");
+      el.className="pin cl";el.innerHTML="<i></i><span></span>";el.lastChild.innerHTML=g.m.length+"<small>軒</small>";el.setAttribute("aria-label",g.m.length+"軒のお店。押すと広がります");
       var bc=b.getCenter();marks.push({el:el,ll:[bc.lng,bc.lat],h:46,b:null});
       el.onclick=function(e){e.stopPropagation();
         if(map.getZoom()<18.5){shut();map.fitBounds(b,{padding:70,maxZoom:19,bearing:map.getBearing(),pitch:map.getPitch(),duration:calm?0:700});return}
