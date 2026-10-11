@@ -13,7 +13,8 @@ KEEPER = "家守"  # 名前を出すなら "家守・華さん" に変える
 WD = "月火水木金土日"
 COLOR = {"食べる": "#0A5A8C", "買う": "#8A5A00", "困ったとき": "#3E7C59"}
 FG = {"食べる": "#fff", "買う": "#fff", "困ったとき": "#fff"}
-EXAG = 2  # 3D版の高さの強調（倍）。ページの注記にも同じ数字が出る
+EXAG = 1  # 3D版の高さの強調（倍）。1＝実寸（2026-10-11 ヤヌキ指示）。ページの注記も連動する
+EXAGNOTE = "土地と建物の高さは実寸です。" if EXAG == 1 else f"土地と建物の高さは、わかりやすいように{EXAG}倍に強調しています。"
 _st = HERE / "structures.json"  # 橋・灯台・防波堤（hana_structures_fetch.py が作る。無ければ構造物なしで作る）
 STRUCT = _st.read_text(encoding="utf-8") if _st.exists() else '{"type":"FeatureCollection","features":[]}'
 HIDE_FLAG = ("今はおすすめしない", "閉店・移転した")
@@ -45,7 +46,7 @@ def render(tpl, data, draft, flat=""):
     robots = '<meta name="robots" content="noindex,nofollow">' if draft else ""
     return (tpl.replace("%%DATA%%", json.dumps(data, ensure_ascii=False)).replace("%%KEEPER%%", KEEPER)
                .replace("%%DRAFT%%", banner).replace("%%ROBOTS%%", robots)
-               .replace("%%FLAT%%", flat).replace("%%EXAG%%", str(EXAG)).replace("%%STRUCT%%", STRUCT))
+               .replace("%%FLAT%%", flat).replace("%%EXAGNOTE%%", EXAGNOTE).replace("%%EXAG%%", str(EXAG)).replace("%%STRUCT%%", STRUCT))
 
 def main():
     doc = json.load(open(HERE / "spots.json"))
