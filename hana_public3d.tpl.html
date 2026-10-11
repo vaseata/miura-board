@@ -63,6 +63,10 @@ h1 span{display:inline-block}
 .pad{position:absolute;left:10px;bottom:10px;z-index:5;display:grid;grid-template-columns:repeat(3,38px);grid-template-rows:repeat(3,38px);gap:2px}
 .pad button{display:flex;align-items:center;justify-content:center;color:var(--ink);border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.94);font-size:17px;line-height:1;padding:0;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.18);touch-action:manipulation;-webkit-user-select:none;user-select:none}
 .pad button:active{background:var(--soft-2)}
+.cap{position:absolute;left:10px;top:10px;z-index:5;max-width:calc(100% - 70px);padding:8px 14px;border-radius:12px;background:rgba(255,255,255,.95);box-shadow:0 2px 8px rgba(0,0,0,.2);pointer-events:none;line-height:1.5}
+.cap[hidden]{display:none}
+.cap b{display:block;font-size:15px}
+.cap span{display:block;font-size:12.5px;color:var(--ink-2)}
 .pad .u{grid-area:1/2}.pad .l{grid-area:2/1}.pad .r{grid-area:2/3}.pad .d{grid-area:3/2}
 #map.rot .maplibregl-canvas-container{cursor:grab}
 #map.rot .maplibregl-canvas-container:active{cursor:grabbing}
@@ -73,6 +77,13 @@ h1 span{display:inline-block}
 .pin::before{content:"";position:absolute;left:50%;bottom:-3px;width:16px;height:6px;margin-left:-8px;border-radius:50%;background:rgba(0,0,0,.3);filter:blur(1.5px)}
 .pin i{position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2px solid #fff;box-shadow:-1px 2px 4px rgba(0,0,0,.4)}
 .pin span{position:absolute;left:0;top:0;width:30px;height:30px;display:flex;align-items:center;justify-content:center}
+/* 店名の札：拡大したときだけ、ピンの右に出す。重なる札は出さない（labels() が決める） */
+.pin b{display:none;position:absolute;left:100%;top:4px;margin-left:3px;max-width:10em;padding:0 8px;border-radius:99px;background:rgba(255,255,255,.96);color:var(--ink);font:700 11.5px/22px var(--font);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:0 1px 3px rgba(0,0,0,.28)}
+.pin.lab b{display:block}
+.pin.home b{top:7px;color:#B8243A}
+/* 開いたときの舞い降り（INTRO）の間は、お店のピンを隠しておき、着いたらふわっと出す。A邸のピンだけ見せる */
+.pin{transition:opacity .6s}
+#map.intro .pin:not(.home){opacity:0!important;pointer-events:none}
 .pin.cl{width:38px;height:46px;font-size:15px}
 .pin.cl i,.pin.cl span{width:38px;height:38px}
 .pin.cl i{background:#fff;border-color:var(--accent)}
@@ -126,6 +137,7 @@ h2 small{font-size:13px;font-weight:500;color:var(--ink-2)}
 <section class="mapcard" id="card" aria-label="おすすめのお店の地図">
   <div class="mapwrap">
     <div id="map" role="application" aria-label="地図"></div>
+    <div class="cap" id="cap" role="status" aria-live="polite" hidden><b id="capn"></b><span id="capt"></span></div>
     <div class="pad" id="pad" role="group" aria-label="地図の向きとかたむき">
       <button type="button" class="u" data-p="10" aria-label="かたむける" title="かたむける">▲</button>
       <button type="button" class="l" data-b="-20" aria-label="左に回す" title="左に回す"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.6-5.9"/><path d="M4 4v5h5"/></svg></button>
@@ -138,10 +150,11 @@ h2 small{font-size:13px;font-weight:500;color:var(--ink-2)}
     <button type="button" class="tool" id="tph" aria-pressed="false">写真</button>
     <button type="button" class="tool" id="tdr" aria-pressed="false" title="オンにすると、ふつうのドラッグで向きとかたむきが変わります">ドラッグで回す</button>
     <button type="button" class="tool" id="thm">最初に戻る</button>
+    <button type="button" class="tool" id="ttr" aria-pressed="false">ひとめぐり</button>
     <button type="button" class="tool" id="twd">城ヶ島まで</button>
     <button type="button" class="tool end" id="tbg" aria-pressed="false">大きく見る</button>
   </div>
-  <div class="mapfoot">向きとかたむきは、地図の左下の矢印ボタンで変えられます（押しつづけると動きつづけます）。「ドラッグで回す」をオンにすると、ふつうのドラッグでも回せます。%%HOMENOTE%%番号はリストと同じです。白い丸の数字は、重なっているお店の数です（押すと広がります）。%%EXAGNOTE%%建物の高さは、地図データに記録のあるもの以外は一律5mの目安です。城ヶ島大橋は海面から23.5m、城ヶ島灯台は11.5m、安房埼灯台は16mで描いています。防波堤と桟橋の高さは目安です。</div>
+  <div class="mapfoot">向きとかたむきは、地図の左下の矢印ボタンで変えられます（押しつづけると動きつづけます）。「ドラッグで回す」をオンにすると、ふつうのドラッグでも回せます。「ひとめぐり」は、港から城ヶ島の灯台までを順に飛んで見せます（地図にさわると止まります）。お店の名前は、拡大するとピンの横に出ます。%%HOMENOTE%%番号はリストと同じです。白い丸の数字は、重なっているお店の数です（押すと広がります）。%%EXAGNOTE%%建物の高さは、地図データに記録のあるもの以外は一律5mの目安です。城ヶ島大橋は海面から23.5m、城ヶ島灯台は11.5m、安房埼灯台は16mで描いています。防波堤と桟橋の高さは目安です。</div>
 </section>
 
 <h2 id="lh">お店リスト <small id="lc"></small></h2>
@@ -162,7 +175,9 @@ function hs(n,m){m=m||5;var o="";for(var i=1;i<=m;i++)o+=i<=n?"❤️":"♡";ret
 if(/[?&]embed=1/.test(location.search))document.body.classList.add("embed");
 var calm=window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches;
 
-var map=null,pins=[],pp=null,sig="",flat=false,ready=false;
+var map=null,pins=[],marks=[],hm=null,pp=null,sig="",flat=false,ready=false;
+/* 開いたとき：三浦半島の上空から、A邸の上へドローンのように舞い降りる（動きを減らす設定の端末と、A邸の位置が無いときはしない） */
+var INTRO=!!HOME&&!calm,landing=false;
 var GSI="cyberjapandata.gsi.go.jp/xyz/";
 
 /* 標高：地理院の標高タイル（dem_png）を、MapLibre が読める Terrarium 形式に直して渡す。
@@ -253,15 +268,26 @@ var STYLE={version:8,glyphs:"https://tiles.openfreemap.org/fonts/{fontstack}/{ra
 try{
   maplibregl.addProtocol("gsidem",demTile);
   maplibregl.addProtocol("gsiphoto",photoTile);
-  map=new maplibregl.Map({container:"map",style:STYLE,center:[139.6195,35.1415],zoom:14.5,pitch:55,bearing:0,maxPitch:75,maxZoom:19.5,minZoom:9,
+  map=new maplibregl.Map({container:"map",style:STYLE,center:INTRO?[HOME.lon,HOME.lat]:[139.6195,35.1415],zoom:INTRO?11.3:14.5,pitch:INTRO?0:55,bearing:INTRO?-40:0,maxPitch:75,maxZoom:19.5,minZoom:9,
     cooperativeGestures:true,attributionControl:{compact:true},
     locale:{"CooperativeGesturesHandler.WindowsHelpText":"Ctrl を押しながらスクロールで拡大できます","CooperativeGesturesHandler.MacHelpText":"⌘ を押しながらスクロールで拡大できます","CooperativeGesturesHandler.MobileHelpText":"指2本で地図を動かせます",
       "NavigationControl.ZoomIn":"拡大","NavigationControl.ZoomOut":"縮小","NavigationControl.ResetBearing":"北を上に戻す"}});
   map.addControl(new maplibregl.NavigationControl({visualizePitch:true}),"top-right");
   map.on("moveend",function(){place(false)});
   map.once("style.load",function(){ready=true});
+  if(INTRO){
+    $("#map").classList.add("intro");
+    var landed=function(){landing=false;$("#map").classList.remove("intro")};
+    map.once("load",function(){setTimeout(function(){
+      if(!$("#map").classList.contains("intro"))return;
+      landing=true;
+      map.easeTo({center:[HOME.lon,HOME.lat],zoom:16.1,pitch:60,bearing:0,duration:6500,essential:true,easing:function(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}});
+      map.once("moveend",landed)},400)});
+    setTimeout(function(){if($("#map").classList.contains("intro")&&!landing){landed();fit(true)}},12000);  /* 読み込みが終わらないときは、ふつうの表示にする */
+  }
   if(HOME){var he=document.createElement("button");he.type="button";he.className="pin home";he.setAttribute("aria-label",HOME.name);
-    he.innerHTML='<i></i><span><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 3.2 2.5 11.4h2.7V20h5.1v-5.4h3.4V20h5.1v-8.6h2.7z"/></svg></span>';
+    he.innerHTML='<i></i><span><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 3.2 2.5 11.4h2.7V20h5.1v-5.4h3.4V20h5.1v-8.6h2.7z"/></svg></span><b></b>';he.lastChild.textContent=HOME.name;
+    hm={el:he,ll:[HOME.lon,HOME.lat],h:44,b:he.lastChild};
     he.onclick=function(e){e.stopPropagation();homePop()};
     new maplibregl.Marker({element:he,anchor:"bottom",opacityWhenCovered:"1"}).setLngLat([HOME.lon,HOME.lat]).addTo(map)}
 }catch(e){
@@ -282,23 +308,25 @@ function focus(d,n){go({center:[d.lon,d.lat],zoom:Math.max(map.getZoom(),17)});s
 /* ピン：画面上で近いもの（34px以内）は白い丸にまとめる。押すと広がる。広がりきらないときは店名の一覧を出す */
 function place(force){
   if(!map)return;
-  var rows=visible(),gs=[];
+  var rows=visible(),gs=[],R=map.getZoom()>=16?24:34;  /* 拡大したら、まとめる距離を縮めて1軒ずつ見せる */
   rows.forEach(function(d,i){if(!(d.lat&&d.lon))return;
     var p=map.project([d.lon,d.lat]),g=null;
-    for(var k=0;k<gs.length;k++){var dx=gs[k].x-p.x,dy=gs[k].y-p.y;if(dx*dx+dy*dy<34*34){g=gs[k];break}}
+    for(var k=0;k<gs.length;k++){var dx=gs[k].x-p.x,dy=gs[k].y-p.y;if(dx*dx+dy*dy<R*R){g=gs[k];break}}
     if(g)g.m.push({d:d,n:i+1});else gs.push({x:p.x,y:p.y,m:[{d:d,n:i+1}]})});
   var s=gs.map(function(g){return g.m.map(function(m){return m.d.id}).join("+")}).join("|");
-  if(!force&&s===sig)return;
-  sig=s;pins.forEach(function(m){m.remove()});pins=[];
+  if(!force&&s===sig){labels();return}
+  sig=s;pins.forEach(function(m){m.remove()});pins=[];marks=[];
   gs.forEach(function(g){
     var el=document.createElement("button");el.type="button";
     if(g.m.length===1){var d=g.m[0].d,n=g.m[0].n;
-      el.className="pin";el.innerHTML="<i></i><span></span>";el.firstChild.style.background=d.color;el.lastChild.style.color=d.fg;el.lastChild.textContent=n;el.setAttribute("aria-label",n+" "+d.name);
+      el.className="pin";el.innerHTML="<i></i><span></span><b></b>";el.firstChild.style.background=d.color;el.children[1].style.color=d.fg;el.children[1].textContent=n;el.lastChild.textContent=d.name;el.setAttribute("aria-label",n+" "+d.name);
+      marks.push({el:el,ll:[d.lon,d.lat],h:37,b:el.lastChild});
       el.onclick=function(e){e.stopPropagation();go({center:[d.lon,d.lat]});show([d.lon,d.lat],popHtml(d,n))};
       pins.push(new maplibregl.Marker({element:el,anchor:"bottom",opacityWhenCovered:"1"}).setLngLat([d.lon,d.lat]).addTo(map));
     }else{
       var b=new maplibregl.LngLatBounds();g.m.forEach(function(m){b.extend([m.d.lon,m.d.lat])});
       el.className="pin cl";el.innerHTML="<i></i><span></span>";el.lastChild.textContent=g.m.length;el.setAttribute("aria-label",g.m.length+"軒のお店。押すと広がります");
+      var bc=b.getCenter();marks.push({el:el,ll:[bc.lng,bc.lat],h:46,b:null});
       el.onclick=function(e){e.stopPropagation();
         if(map.getZoom()<18.5){shut();map.fitBounds(b,{padding:70,maxZoom:19,bearing:map.getBearing(),pitch:map.getPitch(),duration:calm?0:700});return}
         var w=document.createElement("div");w.innerHTML="<b>"+g.m.length+"軒が同じ場所にあります</b>";
@@ -307,6 +335,19 @@ function place(force){
         w.appendChild(l);shut();pp=new maplibregl.Popup({offset:off(46),focusAfterOpen:false}).setLngLat(b.getCenter()).setDOMContent(w).addTo(map)};
       pins.push(new maplibregl.Marker({element:el,anchor:"bottom",opacityWhenCovered:"1"}).setLngLat(b.getCenter()).addTo(map));
     }});
+  labels();
+}
+/* 店名の札を出すかどうか。A邸の札はいつも出す。お店の札は拡大したときだけで、ほかのピンや札と重なるものは出さない */
+function labels(){
+  if(!map)return;
+  var on=map.getZoom()>=15.6,all=(hm?[hm]:[]).concat(marks),used=[];
+  all.forEach(function(k){var p=map.project(k.ll);k.x=p.x;k.y=p.y;used.push([p.x-17,p.y-k.h,p.x+17,p.y])});
+  all.forEach(function(k){if(!k.b)return;
+    if(!on&&k!==hm){k.el.classList.remove("lab");return}
+    k.el.classList.add("lab");
+    var r=[k.x+17,k.y-k.h+2,k.x+22+k.b.offsetWidth,k.y-k.h+28],hit=false;
+    for(var i=0;i<used.length;i++){var u=used[i];if(r[0]<u[2]&&r[2]>u[0]&&r[1]<u[3]&&r[3]>u[1]){hit=true;break}}
+    if(hit)k.el.classList.remove("lab");else used.push(r)});
 }
 function fit(first,anim){
   if(!map)return;
@@ -330,7 +371,7 @@ function render(first){
      +'</div></article>'});
   $("#list").innerHTML=rows.length?html:'<div class="empty">このジャンルのお店は、まだありません。</div>';
   $("#lc").textContent=rows.length+"軒";
-  if(map){shut();fit(first);place(true)}
+  if(map){shut();if(!(first&&INTRO))fit(first);place(true)}
   document.querySelectorAll(".item").forEach(function(el){el.onclick=function(e){if(e.target.closest("a")||!map)return;
     var i=-1;rows.forEach(function(d,k){if(d.id===el.dataset.id)i=k});var d=rows[i];
     if(d&&d.lat&&d.lon){window.scrollTo({top:$("#card").getBoundingClientRect().top+window.scrollY-12});focus(d,i+1)}}});
@@ -387,6 +428,29 @@ if(map){
     $("#card").classList.toggle("big",on);document.body.classList.toggle("big",on);
     if(on)map.cooperativeGestures.disable();else map.cooperativeGestures.enable();
     syncRot();map.resize()};
+  /* 「ひとめぐり」：A邸 → 海南神社 → 三崎港 → 城ヶ島大橋 → 灯台2つ を順に飛ぶ。地図やボタンにさわると止まる。
+     場所は OpenStreetMap（うらり way/194184688、海南神社 way/322223898）と structures.json。数字は Wikipedia（城ヶ島大橋・城ヶ島灯台・城ヶ島）で確認 */
+  var TOUR=[
+    {n:"海南神社",t:"三浦の総鎮守",c:[139.61885,35.14277],z:17.2,b:-30,p:62},
+    {n:"三崎港・うらり",t:"うらりマルシェ（さかな館・やさい館）",c:[139.61637,35.14091],z:16.6,b:10,p:62},
+    {n:"城ヶ島大橋",t:"長さ575m。海面から16〜23.5mの高さ",c:[139.62293,35.13842],z:15.7,b:100,p:68},
+    {n:"城ヶ島灯台",t:"島の西の端。塔の高さ11.5m",c:[139.61113,35.13508],z:16.8,b:50,p:66},
+    {n:"安房埼灯台",t:"島の東の端、城ヶ島公園の中。高さ16m",c:[139.62757,35.1302],z:16.8,b:-70,p:66}];
+  if(HOME)TOUR.unshift({n:HOME.name,t:"ここから出発します",c:[HOME.lon,HOME.lat],z:17.2,b:-20,p:60});
+  var tq=[],ti=-1;
+  function tstop(){if(ti<0)return;ti=-1;tq.forEach(clearTimeout);tq=[];map.stop();$("#cap").hidden=true;$("#ttr").setAttribute("aria-pressed",false);$("#ttr").textContent="ひとめぐり"}
+  function tstep(i){
+    if(i>=TOUR.length){tstop();fit(true,true);return}
+    ti=i;var s=TOUR[i],o={center:s.c,zoom:s.z,bearing:s.b,pitch:flat?0:s.p};
+    $("#capn").textContent=(i+1)+" / "+TOUR.length+"　"+s.n;$("#capt").textContent=s.t;shut();
+    if(calm){map.jumpTo(o);tq.push(setTimeout(function(){tstep(i+1)},4500));return}
+    map.flyTo(Object.assign({duration:3800,essential:true},o));
+    tq.push(setTimeout(function(){map.easeTo({bearing:s.b+35,duration:4000,easing:function(t){return t}})},3900));
+    tq.push(setTimeout(function(){tstep(i+1)},8000))}
+  $("#ttr").onclick=function(){if(ti>=0){tstop();return}this.setAttribute("aria-pressed",true);this.textContent="止める";$("#cap").hidden=false;tstep(0)};
+  $("#card").addEventListener("pointerdown",function(){if(landing)map.stop()},true);  /* 舞い降りの途中でさわったら、そこで止める */
+  $("#card").addEventListener("pointerdown",function(e){if(ti>=0&&!(e.target.closest&&e.target.closest("#ttr")))tstop()},true);
+  cc.addEventListener("wheel",function(){tstop()},{passive:true});
   document.addEventListener("keydown",function(e){if(e.key==="Escape"&&$("#card").classList.contains("big"))$("#tbg").click()});
 }
 chips();render(true);
