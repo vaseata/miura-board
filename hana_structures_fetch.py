@@ -14,6 +14,7 @@ BBOX = "35.120,139.595,35.160,139.645"  # 三崎・城ヶ島
 QUERY = f'[out:json][timeout:60];(way["man_made"~"^(bridge|breakwater|pier|groyne)$"]({BBOX});node["man_made"="lighthouse"]["name"]({BBOX}););out tags geom;'
 DECK = 2.5  # 橋の板の厚み（目安）
 NAMED = {"城ヶ島大橋": 23.5, "城ヶ島灯台": 11.5, "安房崎灯台": 16, "安房埼灯台": 16}
+RENAME = {"安房崎灯台": "安房埼灯台"}  # OSM の表記 → 正式名
 NOMINAL = {"breakwater": 3, "pier": 2, "groyne": 2}   # m・目安
 WIDTH = {"breakwater": 5, "pier": 4, "groyne": 3}     # 線で描かれているものの幅 m・目安
 COLOR = {"bridge": "#c5cbd1", "lighthouse": "#ffffff", "breakwater": "#b4b9be", "pier": "#c9c3b7", "groyne": "#b4b9be"}
@@ -44,7 +45,7 @@ def main():
     for e in json.loads(raw)["elements"]:
         t = e["tags"]; kind = t["man_made"]; name = t.get("name") or ""
         def add(ring, h, b=0):
-            feats.append({"type": "Feature", "properties": {"kind": kind, "name": name, "h": h, "b": b, "c": COLOR[kind], "osm": f'{e["type"]}/{e["id"]}'},
+            feats.append({"type": "Feature", "properties": {"kind": kind, "name": RENAME.get(name, name), "h": h, "b": b, "c": COLOR[kind], "osm": f'{e["type"]}/{e["id"]}'},
                           "geometry": {"type": "Polygon", "coordinates": [[[round(x, 6), round(y, 6)] for x, y in ring]]}})
         if kind == "lighthouse":
             if name in NAMED: add(disc(e["lon"], e["lat"], 2.5), NAMED[name])
