@@ -113,3 +113,9 @@
 - **毎朝タスクに追加の1行**：月初と、`last_checked` が90日より古い◎項目は公式ページを開いて `hours／closed／price／closed_until` を確認し `last_checked` を更新。変化（閉店・休業・時間変更）があれば `items.json` にも出来事として追記。変化なしなら触らない
 - **ダイヤモンド富士はガイドに常設しない**（2026-10-05 ヤヌキ指示）。次回が30日以内に入ったときだけ「今の季節」にカードで出る（自動）。4月末・8月上旬が近づいたら items.json にも記事として追記する
 - 出典ルールは items と同じ（開いたものだけ）。絞り込み状態は URL ハッシュ（`#cat=食べる&tag=マグロ&open=1&near=1`）で共有できる
+
+## おすすめマップ 3D版（guide/map3d-preview.html・2026-10-11 新設）
+
+- `python3 hana_public_build.py` が平面版（`hana_public.tpl.html`）と3D版（`hana_public3d.tpl.html`）の両方を書く。◎が付けば `guide/map3d.html` も作られる
+- 地形は国土地理院の標高タイル、建物は OpenFreeMap、橋・灯台・防波堤は `structures.json`（`hana_structures_fetch.py` で取り直す。毎朝は回さない）。高さの倍率は `EXAG`（1＝実寸）
+- **3D版だけは A邸の位置を出す**（2026-10-11 ヤヌキ指示：宿泊者専用の地図だから）。座標は `home.local.json` から build が入れる。**平面版・ガイドブック・近況ボードは今までどおり出さない**

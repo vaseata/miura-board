@@ -9,7 +9,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700&display=swap">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.min.css">
 <style>/* 閲覧専用の公開版の 3D（地形）版。配色・書体は平面版（hana_public.tpl.html）と同じ :root の変数で決める。
-   地図は MapLibre GL JS。標高は国土地理院の標高タイル。A邸の位置は出さない。 */
+   地図は MapLibre GL JS。標高は国土地理院の標高タイル。
+   この3D版は宿泊者向けなので、A邸の位置を赤い家のピンで出す（2026-10-11 ヤヌキ指示。平面版・ガイドは今までどおり出さない）。 */
 :root{
   --ink:#1f2933; --ink-2:#5b6770; --accent:#0A5A8C; --soft:#F3F6F8; --soft-2:#E6EEF3;
   --line:#DCE3E8; --bg:#FFFFFF; --card:#FFFFFF;
@@ -75,6 +76,11 @@ h1 span{display:inline-block}
 .pin.cl i,.pin.cl span{width:38px;height:38px}
 .pin.cl i{background:#fff;border-color:var(--accent)}
 .pin.cl span{color:var(--accent)}
+/* 三浦A邸：赤い家のピン（この3D版は宿泊者向けなので位置を出す） */
+.pin.home{width:36px;height:44px;z-index:3}
+.pin.home i,.pin.home span{width:36px;height:36px}
+.pin.home i{background:#B8243A}
+.pin.home span{color:#fff}
 .maplibregl-popup{max-width:min(260px,68vw)!important}
 .maplibregl-popup-content{border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.18);padding:12px 30px 12px 14px;font:500 14px/1.6 var(--font);color:var(--ink)}
 .maplibregl-popup-close-button{width:32px;height:32px;font-size:20px;color:var(--ink-2)}
@@ -134,7 +140,7 @@ h2 small{font-size:13px;font-weight:500;color:var(--ink-2)}
     <button type="button" class="tool" id="twd">城ヶ島まで</button>
     <button type="button" class="tool end" id="tbg" aria-pressed="false">大きく見る</button>
   </div>
-  <div class="mapfoot">向きとかたむきは、地図の左下の矢印ボタンで変えられます（押しつづけると動きつづけます）。「ドラッグで回す」をオンにすると、ふつうのドラッグでも回せます。番号はリストと同じです。白い丸の数字は、重なっているお店の数です（押すと広がります）。%%EXAGNOTE%%建物の高さは、地図データに記録のあるもの以外は一律5mの目安です。城ヶ島大橋は海面から23.5m、城ヶ島灯台は11.5m、安房埼灯台は16mで描いています。防波堤と桟橋の高さは目安です。</div>
+  <div class="mapfoot">向きとかたむきは、地図の左下の矢印ボタンで変えられます（押しつづけると動きつづけます）。「ドラッグで回す」をオンにすると、ふつうのドラッグでも回せます。%%HOMENOTE%%番号はリストと同じです。白い丸の数字は、重なっているお店の数です（押すと広がります）。%%EXAGNOTE%%建物の高さは、地図データに記録のあるもの以外は一律5mの目安です。城ヶ島大橋は海面から23.5m、城ヶ島灯台は11.5m、安房埼灯台は16mで描いています。防波堤と桟橋の高さは目安です。</div>
 </section>
 
 <h2 id="lh">お店リスト <small id="lc"></small></h2>
@@ -146,7 +152,7 @@ h2 small{font-size:13px;font-weight:500;color:var(--ink-2)}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.min.js"></script>
 <script>
 (function(){
-var D=%%DATA%%, ST=%%STRUCT%%, KEEPER="%%KEEPER%%", EXAG=%%EXAG%%;
+var D=%%DATA%%, ST=%%STRUCT%%, HOME=%%HOME%%, KEEPER="%%KEEPER%%", EXAG=%%EXAG%%;
 var CATS=[["all","すべて"],["食べる","食べる"],["買う","買う"],["困ったとき","暮らし"]];
 var st={cat:"all",sc:""};
 function $(s){return document.querySelector(s)}
@@ -218,6 +224,10 @@ try{
       "NavigationControl.ZoomIn":"拡大","NavigationControl.ZoomOut":"縮小","NavigationControl.ResetBearing":"北を上に戻す"}});
   map.addControl(new maplibregl.NavigationControl({visualizePitch:true}),"top-right");
   map.on("moveend",function(){place(false)});
+  if(HOME){var he=document.createElement("button");he.type="button";he.className="pin home";he.setAttribute("aria-label",HOME.name);
+    he.innerHTML='<i></i><span><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 3.2 2.5 11.4h2.7V20h5.1v-5.4h3.4V20h5.1v-8.6h2.7z"/></svg></span>';
+    he.onclick=function(e){e.stopPropagation();homePop()};
+    new maplibregl.Marker({element:he,anchor:"bottom",opacityWhenCovered:"1"}).setLngLat([HOME.lon,HOME.lat]).addTo(map)}
 }catch(e){
   map=null;
   $("#map").className="nogl";$("#map").innerHTML='<p>この端末では 3D の地図を表示できませんでした。<br><a href="%%FLAT%%">平面の地図で見る</a></p>';
@@ -230,6 +240,7 @@ function popHtml(d,n){return '<b>'+n+'. '+esc(d.name)+'</b>'+(d.r?'<br>'+hs(d.r,
 function shut(){if(pp){pp.remove();pp=null}}
 function off(h){var u=[0,-h-4],d=[0,8];return {bottom:u,"bottom-left":u,"bottom-right":u,top:d,"top-left":d,"top-right":d,left:[18,-h/2],right:[-18,-h/2]}}
 function show(o,html){shut();pp=new maplibregl.Popup({offset:off(37),focusAfterOpen:false}).setLngLat(o).setHTML(html).addTo(map)}
+function homePop(){shut();pp=new maplibregl.Popup({offset:off(44),focusAfterOpen:false}).setLngLat([HOME.lon,HOME.lat]).setHTML("<b>"+esc(HOME.name)+"</b><br>ここが宿です").addTo(map)}
 function focus(d,n){go({center:[d.lon,d.lat],zoom:Math.max(map.getZoom(),17)});show([d.lon,d.lat],popHtml(d,n))}
 
 /* ピン：画面上で近いもの（34px以内）は白い丸にまとめる。押すと広がる。広がりきらないときは店名の一覧を出す */
@@ -266,6 +277,7 @@ function fit(first,anim){
   var pts=visible().filter(function(d){return d.lat&&d.lon});
   if(!pts.length)return;
   var b=new maplibregl.LngLatBounds();pts.forEach(function(d){b.extend([d.lon,d.lat])});
+  if(HOME)b.extend([HOME.lon,HOME.lat]);
   map.fitBounds(b,{padding:{top:70,bottom:50,left:50,right:50},maxZoom:16.5,bearing:first?0:map.getBearing(),pitch:first?(flat?0:55):map.getPitch(),duration:((first&&!anim)||calm)?0:700});
 }
 
@@ -327,7 +339,9 @@ if(map){
   cc.addEventListener("pointermove",function(e){if(!dr||e.pointerId!==dr.id)return;
     map.jumpTo({bearing:dr.b+(e.clientX-dr.x)*.5,pitch:Math.max(0,Math.min(75,dr.p-(e.clientY-dr.y)*.4))})});
   ["pointerup","pointercancel"].forEach(function(k){cc.addEventListener(k,function(e){if(dr&&e.pointerId===dr.id)dr=null})});
-  $("#thm").onclick=function(){shut();fit(true,true)};
+  if(HOME){$("#thm").textContent=HOME.name+"へ戻る";
+    $("#thm").onclick=function(){go({center:[HOME.lon,HOME.lat],zoom:16.5,bearing:0,pitch:flat?0:55,duration:900});homePop()}}
+  else $("#thm").onclick=function(){shut();fit(true,true)};
   $("#twd").onclick=function(){shut();go({center:[139.6175,35.1375],zoom:13.6,duration:1200})};
   $("#tbg").onclick=function(){var on=this.getAttribute("aria-pressed")!=="true";this.setAttribute("aria-pressed",on);this.textContent=on?"とじる":"大きく見る";
     $("#card").classList.toggle("big",on);document.body.classList.toggle("big",on);

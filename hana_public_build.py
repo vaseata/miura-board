@@ -17,6 +17,11 @@ EXAG = 1  # 3D版の高さの強調（倍）。1＝実寸（2026-10-11 ヤヌキ
 EXAGNOTE = "土地と建物の高さは実寸です。" if EXAG == 1 else f"土地と建物の高さは、わかりやすいように{EXAG}倍に強調しています。"
 _st = HERE / "structures.json"  # 橋・灯台・防波堤（hana_structures_fetch.py が作る。無ければ構造物なしで作る）
 STRUCT = _st.read_text(encoding="utf-8") if _st.exists() else '{"type":"FeatureCollection","features":[]}'
+# 3D版だけは宿泊者向けなので A邸の位置を出す（2026-10-11 ヤヌキ指示）。座標は home.local.json から。無ければ出さない。平面版には入れない
+_hm = HERE / "home.local.json"
+_h = json.load(open(_hm)) if _hm.exists() else None
+HOME = json.dumps({"name": "三浦A邸", "lat": round(_h["lat"], 5), "lon": round(_h["lon"], 5)}, ensure_ascii=False) if _h else "null"
+HOMENOTE = "赤い家のピンが三浦A邸です。" if _h else ""
 HIDE_FLAG = ("今はおすすめしない", "閉店・移転した")
 
 def rows(doc, include_draft):
@@ -46,7 +51,8 @@ def render(tpl, data, draft, flat=""):
     robots = '<meta name="robots" content="noindex,nofollow">' if draft else ""
     return (tpl.replace("%%DATA%%", json.dumps(data, ensure_ascii=False)).replace("%%KEEPER%%", KEEPER)
                .replace("%%DRAFT%%", banner).replace("%%ROBOTS%%", robots)
-               .replace("%%FLAT%%", flat).replace("%%EXAGNOTE%%", EXAGNOTE).replace("%%EXAG%%", str(EXAG)).replace("%%STRUCT%%", STRUCT))
+               .replace("%%FLAT%%", flat).replace("%%EXAGNOTE%%", EXAGNOTE).replace("%%EXAG%%", str(EXAG)).replace("%%STRUCT%%", STRUCT)
+               .replace("%%HOME%%", HOME).replace("%%HOMENOTE%%", HOMENOTE))
 
 def main():
     doc = json.load(open(HERE / "spots.json"))
