@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="description" content="三浦の歴史のゆかりの地を、時代ごとに3Dの地図でたどります。弥生のムラ、頼朝の御所、三浦一族の最期、灯台、城ヶ島の雨、マグロの港まで。">
+<title>三浦 歴史さんぽ（3Dマップ）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;700&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.min.css">
+<style>/* 三浦 歴史さんぽ：歴史のゆかりの地を、時代ごとの色のピンで 3D の地図にのせる。
+   地図の仕組みは おすすめマップ 3D版（hana_public3d.tpl.html）と同じ（MapLibre GL JS＋地理院の標高タイル）。
+   だれでも見られるページなので、A邸の位置は出さない。 */
+:root{
+  --ink:#1f2933; --ink-2:#5b6770; --accent:#0A5A8C; --tuna:#B8243A; --soft:#F3F6F8; --soft-2:#E6EEF3;
+  --line:#DCE3E8; --bg:#FFFFFF; --card:#FFFFFF;
+  --font:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",sans-serif;
+  --serif:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
+  --r:14px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:500 16px/1.75 var(--font);-webkit-text-size-adjust:100%}
+body.big{overflow:hidden}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 40px}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid #7FB3D5;outline-offset:2px}
+button{font:inherit;color:inherit}
+
+.hero{padding:0 0 4px}
+.eyebrow{margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--accent)}
+h1{margin:0;font:700 clamp(27px,7vw,36px)/1.3 var(--serif);letter-spacing:.04em}
+h1 span{display:inline-block}
+.lede{margin:10px 0 0;font-size:15px;line-height:1.85;color:var(--ink-2);max-width:36em}
+
+/* 時代の帯：押すとその時代だけにする。丸は地図のピンと同じ色 */
+.filters{margin-top:20px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:flex;align-items:center;gap:7px;min-height:42px;padding:0 14px;border:1px solid var(--line);border-radius:99px;background:#fff;font-weight:700;font-size:14.5px;cursor:pointer}
+.chip i{width:12px;height:12px;border-radius:50%;flex:none}
+.chip[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
+.chip[aria-pressed=true] i{box-shadow:0 0 0 2px #fff}
+.chip small{font-weight:500;opacity:.75}
+
+.mapcard{margin-top:16px;border:1px solid var(--line);border-radius:var(--r);background:#fff;overflow:hidden;display:flex;flex-direction:column}
+#map{height:clamp(360px,62vh,580px);background:#F6F3EC}
+.tools{display:flex;flex-wrap:wrap;gap:8px;padding:10px 12px;border-top:1px solid var(--line)}
+.tool{min-height:42px;min-width:42px;padding:0 14px;border:1px solid var(--line);border-radius:99px;background:#fff;font-weight:700;font-size:14px;cursor:pointer}
+.tool[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:#fff}
+.tool.go{border-color:var(--tuna);color:var(--tuna)}
+.tool.go[aria-pressed=true]{background:var(--tuna);color:#fff}
+.tool.end{margin-left:auto}
+.mapfoot{border-top:1px solid var(--line);padding:10px 16px;font-size:12.5px;color:var(--ink-2);line-height:1.6}
+.mapcard.big{position:fixed;inset:0;z-index:1000;margin:0;border:0;border-radius:0}
+.mapcard.big .mapwrap{flex:1;min-height:0}
+.mapcard.big #map{height:100%}
+.mapcard.big .mapfoot{display:none}
+.mapcard.big .tools{padding-bottom:calc(10px + env(safe-area-inset-bottom,0px))}
+.nogl{display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;color:var(--ink-2);font-size:14.5px}
+
+.mapwrap{position:relative}
+.pad{position:absolute;left:10px;bottom:10px;z-index:5;display:grid;grid-template-columns:repeat(3,38px);grid-template-rows:repeat(3,38px);gap:2px}
+.pad button{display:flex;align-items:center;justify-content:center;color:var(--ink);border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.94);font-size:17px;line-height:1;padding:0;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.18);touch-action:manipulation;-webkit-user-select:none;user-select:none}
+.pad button:active{background:var(--soft-2)}
+.pad .u{grid-area:1/2}.pad .l{grid-area:2/1}.pad .r{grid-area:2/3}.pad .d{grid-area:3/2}
+/* 「時代をたどる」の字幕：年・名前・ひとこと */
+.cap{position:absolute;left:10px;top:10px;z-index:5;max-width:calc(100% - 70px);padding:9px 14px 10px;border-radius:12px;background:rgba(255,255,255,.96);box-shadow:0 2px 8px rgba(0,0,0,.2);pointer-events:none;line-height:1.5;border-left:5px solid var(--accent)}
+.cap[hidden]{display:none}
+.cap em{display:block;font-style:normal;font-size:12px;font-weight:700;letter-spacing:.06em}
+.cap b{display:block;font:700 17px/1.4 var(--serif)}
+.cap span{display:block;font-size:12.5px;color:var(--ink-2)}
+#map.rot .maplibregl-canvas-container{cursor:grab}
+#map.rot .maplibregl-canvas-container:active{cursor:grabbing}
+
+/* ピン：position は必ず absolute（地図部品がピンを左上基準で動かす） */
+.pin{position:absolute;left:0;top:0;width:30px;height:37px;padding:0;border:0;background:none;cursor:pointer;font:700 13.5px/1 var(--font);transition:opacity .6s}
+.pin::before{content:"";position:absolute;left:50%;bottom:-3px;width:16px;height:6px;margin-left:-8px;border-radius:50%;background:rgba(0,0,0,.3);filter:blur(1.5px)}
+.pin i{position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2px solid #fff;box-shadow:-1px 2px 4px rgba(0,0,0,.4)}
+.pin span{position:absolute;left:0;top:0;width:30px;height:30px;display:flex;align-items:center;justify-content:center;color:#fff}
+.pin b{display:none;position:absolute;left:100%;top:4px;margin-left:3px;max-width:11em;padding:0 8px;border-radius:99px;background:rgba(255,255,255,.96);color:var(--ink);font:700 11.5px/22px var(--font);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:0 1px 3px rgba(0,0,0,.28)}
+.pin.lab b{display:block}
+.pin.on{z-index:4}
+.pin.on i{box-shadow:0 0 0 3px rgba(255,255,255,.95),0 0 0 6px rgba(31,41,51,.55)}
+#map.intro .pin{opacity:0!important;pointer-events:none}
+.pin.cl{width:38px;height:46px;font-size:15px}
+.pin.cl i,.pin.cl span{width:38px;height:38px}
+.pin.cl i{background:#fff;border-color:var(--ink)}
+.pin.cl span{color:var(--ink)}
+.pin.cl small{font-size:9px;margin-left:1px;margin-top:3px}
+.maplibregl-popup{max-width:min(280px,72vw)!important}
+.maplibregl-popup-content{border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.18);padding:12px 30px 12px 14px;font:500 14px/1.6 var(--font);color:var(--ink)}
+.maplibregl-popup-close-button{width:32px;height:32px;font-size:20px;color:var(--ink-2)}
+.pw{display:block;font-size:11.5px;font-weight:700;letter-spacing:.04em}
+.pn{display:block;font:700 16px/1.4 var(--serif)}
+.ph{display:block;margin-top:4px;font-size:13.5px;line-height:1.6}
+.pm{margin-top:8px;min-height:36px;padding:4px 14px;border:1px solid var(--line);border-radius:99px;background:#fff;font-size:13px;font-weight:700;cursor:pointer}
+.pl{display:grid;gap:6px;margin-top:6px}
+.pl button{min-height:36px;padding:4px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;text-align:left;font-size:13.5px;font-weight:700;cursor:pointer}
+.maplibregl-ctrl-attrib{font-size:10px}
+.maplibregl-cooperative-gesture-screen{font-family:var(--font);font-size:15px;padding:16px}
+
+/* 読みもの：時代の見出し → 場所のカード */
+.era{margin:40px 0 14px;padding-top:18px;border-top:3px solid var(--ec,var(--ink))}
+.era p.r{margin:0;font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--ec)}
+.era h2{margin:2px 0 0;font:700 25px/1.35 var(--serif);letter-spacing:.04em}
+.era p.l{margin:8px 0 0;font-size:15px;line-height:1.85;color:var(--ink-2)}
+h2.all{display:flex;align-items:baseline;gap:10px;margin:36px 0 0;font-size:15px;font-weight:700;color:var(--ink-2)}
+.item{display:grid;grid-template-columns:34px minmax(0,1fr);gap:0 12px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 14px;margin:0 0 12px;cursor:pointer;scroll-margin-top:12px;transition:box-shadow .3s,border-color .3s}
+.item.hit{border-color:var(--ec);box-shadow:0 0 0 3px color-mix(in srgb,var(--ec) 25%,transparent)}
+.item .n{width:34px;height:34px;border-radius:50%;font-weight:700;font-size:14.5px;display:flex;align-items:center;justify-content:center;color:#fff;background:var(--ec)}
+.item .w{margin:0;font-size:12.5px;font-weight:700;letter-spacing:.04em;color:var(--ec)}
+.item h3{margin:0;font:700 19px/1.4 var(--serif);letter-spacing:.02em}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.tag{font-size:12px;font-weight:700;color:var(--ink-2);background:var(--soft);border-radius:99px;padding:0 10px;line-height:22px}
+.tag.lg{color:#7a5a00;background:#FFF3C4}
+.hl{margin:10px 0 0;padding:9px 12px;background:var(--soft);border-left:3px solid var(--ec);border-radius:4px 10px 10px 4px;font:700 15.5px/1.65 var(--serif)}
+.note{margin:10px 0 0;font-size:15px;line-height:1.85}
+.see{margin:10px 0 0;font-size:13.5px;line-height:1.65}
+.see b{display:inline-block;margin-right:8px;padding:0 8px;border-radius:6px;background:var(--soft-2);font-size:11.5px;line-height:20px;letter-spacing:.06em;vertical-align:1px}
+.meta{margin:8px 0 0;font-size:12px;line-height:1.7;color:var(--ink-2)}
+.meta a{color:var(--ink-2)}
+.empty{padding:28px 16px;text-align:center;color:var(--ink-2);background:var(--soft);border-radius:var(--r)}
+.foot{margin-top:28px;font-size:12.5px;color:var(--ink-2);line-height:1.75}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media (min-width:720px){.wrap{padding-top:40px}.item{padding:18px 18px}}
+</style></head><body>
+<div class="wrap">
+
+<header class="hero">
+  <p class="eyebrow">三浦A邸</p>
+  <h1><span>三浦 歴史さんぽ</span></h1>
+  <p class="lede">弥生のムラ、頼朝の3つの別荘、三浦一族の最期、のろし台と灯台、「城ヶ島の雨」、マグロの港。三浦の歴史のゆかりの地 29か所を、古い順に番号をふって、土地の高さが立ち上がる地図にのせました。ピンの色は時代です。</p>
+</header>
+
+<div class="filters">
+  <div class="chips" id="eras" role="group" aria-label="時代で絞り込む"></div>
+</div>
+
+<section class="mapcard" id="card" aria-label="歴史のゆかりの地の地図">
+  <div class="mapwrap">
+    <div id="map" role="application" aria-label="地図"></div>
+    <div class="cap" id="cap" role="status" aria-live="polite" hidden><em id="capw"></em><b id="capn"></b><span id="capt"></span></div>
+    <div class="pad" id="pad" role="group" aria-label="地図の向きとかたむき">
+      <button type="button" class="u" data-p="10" aria-label="かたむける" title="かたむける">▲</button>
+      <button type="button" class="l" data-b="-20" aria-label="左に回す" title="左に回す"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.6-5.9"/><path d="M4 4v5h5"/></svg></button>
+      <button type="button" class="r" data-b="20" aria-label="右に回す" title="右に回す"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transform:scaleX(-1)"><path d="M4 12a8 8 0 1 0 2.6-5.9"/><path d="M4 4v5h5"/></svg></button>
+      <button type="button" class="d" data-p="-10" aria-label="起こす（真上から見る）" title="起こす（真上から見る）">▼</button>
+    </div>
+  </div>
+  <div class="tools" id="tools" role="group" aria-label="地図の操作">
+    <button type="button" class="tool go" id="ttr" aria-pressed="false">時代をたどる</button>
+    <button type="button" class="tool" id="t3d" aria-pressed="true">3D</button>
+    <button type="button" class="tool" id="tph" aria-pressed="false">写真</button>
+    <button type="button" class="tool" id="tdr" aria-pressed="false" title="オンにすると、ふつうのドラッグで向きとかたむきが変わります">ドラッグで回す</button>
+    <button type="button" class="tool" id="thm">全体に戻る</button>
+    <button type="button" class="tool end" id="tbg" aria-pressed="false">大きく見る</button>
+  </div>
+  <div class="mapfoot">「時代をたどる」を押すと、弥生から昭和まで、古い順に空から見てまわります（地図にさわると止まります）。番号は下の読みものと同じで、古い順です。白いピンの「2か所」「3か所」は、近くの場所をまとめたものです（押すと広がります）。向きとかたむきは、左下の矢印ボタンで変えられます。土地と建物の高さは実寸です。建物の高さは、地図データに記録のあるもの以外は一律5mの目安です。</div>
+</section>
+
+<div id="list" aria-live="polite"></div>
+
+<p class="foot">書いてあることは、出典を開いて確かめたものだけです。各項目の下に出典があります。🟢 は三浦市・三浦市観光協会のページで確かめたもの、🟡 は Wikipedia など一次でない出典によるもの。「伝承」の札は、言い伝えをふくむ話です。ピンの位置は OpenStreetMap と Wikipedia の座標によるもので、数十mずれていることがあります。社寺や研究施設は、公開の時間や立ち入れる範囲がそれぞれ決まっています。<br>地図・建物・構造物の形は © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors（タイルは <a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a> © OpenMapTiles）。写真と標高は <a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">国土地理院（地理院タイル）</a>。<br><a href="../">最近の三浦（近況ボード）</a> ・ <a href="../guide/">ガイドブック</a></p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.min.js"></script>
+<script>
+(function(){
+var D=[{"id": "moroiso", "name": "諸磯の隆起海岸", "era": "taiko", "when": "数千年前〜", "area": "諸磯", "lat": 35.15144, "lon": 139.62297, "headline": "崖にならぶ貝の穴が、大地震の記録です", "story": "波打ちぎわの岩に穴をあけてすむ貝（穿孔貝）の穴が、崖に何段にもならんでいます。土地が地震で持ち上がるたびに、新しい段ができたと考えられ、1928年に国の天然記念物になりました。地震学者の今村明恒は、上の段を関東大震災（1923年）や元禄の地震（1703年）に当てましたが、その後の調査では、下の段は6000〜5000年前にできた可能性が強いとされています。", "see": "崖にならぶ貝の穴の列", "confidence": "🟡", "sources": [{"url": "https://ja.wikipedia.org/wiki/諸磯の隆起海岸", "title": "Wikipedia「諸磯の隆起海岸」"}, {"url": "https://www.city.miura.kanagawa.jp/kanko_bunka_sports/rekishi_bunkazai/2/6285.html", "title": "三浦市「三浦の歴史」"}], "no": 1}, {"id": "akasaka", "name": "赤坂遺跡", "era": "taiko", "when": "弥生時代 中期〜後期", "area": "初声", "lat": 35.17444, "lon": 139.63411, "headline": "三崎口駅のすぐ南に、弥生の大きなムラがありました", "story": "三崎口駅から南へ約350m、高さ約50mの台地の上に広がる集落の跡です。見つかった竪穴の建物は130軒以上。15.0m×12.2mという巨大な建物の跡もあります。青銅の腕輪、鉄の釣り針、ガラス玉、炭になった米、サザエやアワビの殻が出ていて、漁と海の交易の拠点だったと考えられています。中心部は2011年に国の史跡になりました。", "see": "出土品は初声市民センターの赤坂弥生学習室に展示", "confidence": "🟡", "tour": true, "cam": {"z": 15.6, "b": 20, "p": 60}, "sources": [{"url": "https://ja.wikipedia.org/wiki/赤坂遺跡", "title": "Wikipedia「赤坂遺跡」"}, {"url": "https://www.city.miura.kanagawa.jp/kanko_bunka_sports/rekishi_bunkazai/2/6285.html", "title": "三浦市「三浦の歴史」"}], "no": 2}, {"id": "bishamon", "name": "毘沙門洞穴", "era": "taiko", "when": "弥生時代〜", "area": "毘沙門", "lat": 35.13994, "lon": 139.65491, "headline": "波がけずった洞穴で、漁と占いをしていました", "story": "波にけずられてできた洞穴（海蝕洞穴）は、三浦半島に40か所ほど確かめられていて、そのうち約30か所が三浦市にあります。毘沙門洞穴（県指定史跡）や大浦山洞穴からは、骨や角の道具、貝の道具、占いに使った骨（卜骨）がたくさん出ました。人の骨も多く、最後はお墓として使われていたことがわかっています。", "see": "毘沙門の海ぎわの崖", "confidence": "🟢", "sources": [{"url": "https://www.city.miura.kanagawa.jp/kanko_bunka_sports/rekishi_bunkazai/2/6285.html", "title": "三浦市「三浦の歴史」"}], "no": 3}, {"id": "kainan", "name": "海南神社", "era": "kamakura", "when": "982年（天元5年）", "area": "三崎", "lat": 35.14277, "lon": 139.61885, "headline": "嵐で流れついた都の貴族が、三浦の神さまになりました", "story": "864年、九州へ向かう途中の藤原資盈（すけみつ）が嵐で三浦に流れつき、土地の長に迎えられたと伝わります。亡くなったあと人々が祠を建ててまつり、982年に今の場所に社殿ができました。境内の大イチョウ（樹齢約800年）は、源頼朝のお手植えと伝わります。毎年1月15日には、少女たちの踊り「チャッキラコ」が奉納されます。2009年にユネスコ無形文化遺産に登録され、今は「風流踊」のひとつです。", "see": "頼朝お手植えと伝わる大イチョウ、御手洗池の神橋（1640年に向井忠勝が奉納した擬宝珠）", "legend": true, "confidence": "🟢", "tour": true, "cam": {"z": 17.2, "b": -30, "p": 62}, "sources": [{"url": "https://miura-info.ne.jp/sightseeing/history-3/", "title": "三浦市観光協会「海南神社」"}, {"url": "https://miura-info.ne.jp/%e9%8e%8c%e5%80%89%e6%ae%bf%e3%81%a813%e4%ba%ba%e3%81%ae%e9%87%8d%e8%87%a3%e3%81%9f%e3%81%a1-%e3%82%86%e3%81%8b%e3%82%8a%e3%81%ae%e5%9c%b0/", "title": "三浦市観光協会「鎌倉殿と13人の重臣たち ゆかりの地」"}, {"url": "https://ja.wikipedia.org/wiki/海南神社", "title": "Wikipedia「海南神社」"}, {"url": "https://ja.wikipedia.org/wiki/チャッキラコ", "title": "Wikipedia「チャッキラコ」"}], "no": 4}, {"id": "kentoji", "name": "見桃寺（桃の御所）", "era": "kamakura", "when": "1190年代", "area": "白石町", "lat": 35.14442, "lon": 139.61531, "headline": "頼朝は三崎に、桃・桜・椿の3つの別荘を持っていました", "story": "源頼朝は、景色のよい三崎に「桃の御所」「桜の御所」「椿の御所」という3つの別荘を設けたと伝わります。ここは桃の御所の跡です。寺は江戸のはじめ、三崎の船手奉行・向井政綱が開いたとされ（年は資料により1613年と1628年）、墓地には向井一族の墓石がならびます。本堂の薬師如来は、奈良時代に行基が城ヶ島に建てたと伝わる神宮寺の本尊です。北原白秋の歌碑は1941年に建ち、白秋本人が除幕式に出たただひとつの碑といわれます。", "see": "白秋の歌碑、向井将監一族の石塔", "legend": true, "confidence": "🟢", "tour": true, "cam": {"z": 16.6, "b": 40, "p": 62}, "sources": [{"url": "https://miura-info.ne.jp/sightseeing/history-4/", "title": "三浦市観光協会「見桃寺」"}, {"url": "https://miura-info.ne.jp/%e9%8e%8c%e5%80%89%e6%ae%bf%e3%81%a813%e4%ba%ba%e3%81%ae%e9%87%8d%e8%87%a3%e3%81%9f%e3%81%a1-%e3%82%86%e3%81%8b%e3%82%8a%e3%81%ae%e5%9c%b0/", "title": "三浦市観光協会「鎌倉殿と13人の重臣たち ゆかりの地」"}, {"url": "https://www.city.miura.kanagawa.jp/kanko_bunka_sports/rekishi_bunkazai/2/6285.html", "title": "三浦市「三浦の歴史」"}, {"url": "https://ja.wikipedia.org/wiki/城ヶ島", "title": "Wikipedia「城ヶ島」"}], "no": 5}, {"id": "honzuiji", "name": "本瑞寺（桜の御所）", "era": "kamakura", "when": "1190年代", "area": "三崎", "lat": 35.14243, "lon": 139.62065, "headline": "海の向こうの城ヶ島の桜まで、お花見にしました", "story": "頼朝の「桜の御所」の跡と伝わります。たくさんの桜を植え、対岸の城ヶ島の桜もあわせて眺める宴をたびたび開き、2代頼家、3代実朝も訪れたといいます。寺は1719年にここへ移りました。1344年の銘がある鐘（県指定文化財）と、1821年に建った山門が残っています。", "see": "山門、小高い丘の上の境内", "legend": true, "confidence": "🟢", "sources": [{"url": "https://miura-info.ne.jp/%e9%8e%8c%e5%80%89%e6%ae%bf%e3%81%a813%e4%ba%ba%e3%81%ae%e9%87%8d%e8%87%a3%e3%81%9f%e3%81%a1-%e3%82%86%e3%81%8b%e3%82%8a%e3%81%ae%e5%9c%b0/", "title": "三浦市観光協会「鎌倉殿と13人の重臣たち ゆかりの地」"}], "no": 6}, {"id": "daichinji", "name": "大椿寺（椿の御所）", "era": "kamakura", "when": "1190年代", "area": "向ヶ崎", "lat": 35.14048, "lon": 139.62305, "headline": "頼朝の没後、尼になった女性が30年あまり暮らしました", "story": "頼朝の「椿の御所」の跡と伝わります。庭は椿の花でうまるほどだったといい、ここに住んでいた側室は、頼朝が亡くなると尼になって「妙悟尼」と名のり、30年あまりをここで過ごしたと伝えられています。大正のはじめ、近くの異人館に住んでいた北原白秋も、よく散歩に来ました。", "see": "城ヶ島大橋のたもとに近い、静かな寺", "legend": true, "confidence": "🟢", "sources": [{"url": "https://miura-info.ne.jp/%e9%8e%8c%e5%80%89%e6%ae%bf%e3%81%a813%e4%ba%ba%e3%81%ae%e9%87%8d%e8%87%a3%e3%81%9f%e3%81%a1-%e3%82%86%e3%81%8b%e3%82%8a%e3%81%ae%e5%9c%b0/", "title": "三浦市観光協会「鎌倉殿と13人の重臣たち ゆかりの地」"}], "no": 7}, {"id": "konenji", "name": "光念寺", "era": "kamakura", "when": "1190年", "area": "三崎", "lat": 35.14221, "lon": 139.6198, "headline": "和田義盛が、海で命を救ってくれた龍神をまつりました", "story": "1190年、和田義盛が開いたとされる寺です。1180年、頼朝の挙兵に加わって敗れた義盛は、衣笠城から海へ逃げました。そのとき助けてくれたのは龍神だと信じ、8本の腕に武具を持つ弁財天をまつったと伝わります。本堂の天井には、8体の龍の絵があります。", "see": "本堂の天井の龍", "legend": true, "confidence": "🟢", "sources": [{"url": "https://miura-info.ne.jp/%e9%8e%8c%e5%80%89%e6%ae%bf%e3%81%a813%e4%ba%ba%e3%81%ae%e9%87%8d%e8%87%a3%e3%81%9f%e3%81%a1-%e3%82%86%e3%81%8b%e3%82%8a%e3%81%ae%e5%9c%b0/", "title": "三浦市観光協会「鎌倉殿と13人の重臣たち ゆかりの地」"}], "no": 8}, {"id": "fukujuji", "name": "福寿寺と三浦義村の墓", "era": "kamakura", "when": "1200年（正治2年）", "area": "金田", "lat": 35.15686, "lon": 139.66428, "headline": "三浦一族がいちばん栄えた時代の当主が眠ります", "story": "三浦義村が1200年に建てたとされる寺です。義村は北条義時と手を組み、1213年の和田合戦では、いとこの和田義盛の側から北条の側へ移りました。寺には、義村が使ったと伝わる鞍・鎧・脇差が残ります。墓は1923年の関東大震災で崖下の海まで落ちましたが、地元の人たちの手で建て直されました。", "see": "岩浦のバス停前に義村の墓。寺は南へ歩いて3分", "confidence": "🟢", "sources": [{"url": "https://miura-info.ne.jp/%e9%8e%8c%e5%80%89%e6%ae%bf%e3%81%a813%e4%ba%ba%e3%81%ae%e9%87%8d%e8%87%a3%e3%81%9f%e3%81%a1-%e3%82%86%e3%81%8b%e3%82%8a%e3%81%ae%e5%9c%b0/", "title": "三浦市観光協会「鎌倉殿と13人の重臣たち ゆかりの地」"}, {"url": "https://ja.wikipedia.org/wiki/福寿寺_(三浦市)", "title": "Wikipedia「福寿寺 (三浦市)」"}, {"url": "https://www.city.miura.kanagawa.jp/kanko_bunka_sports/rekishi_bunkazai/2/6285.html", "title": "三浦市「三浦の歴史」"}], "no": 9}, {"id": "shirahata", "name": "神明白旗神社（和田義盛の里）", "era": "kamakura", "when": "1213年（和田合戦）", "area": "初声・和田", "lat": 35.19444, "lon": 139.62943, "headline": "「初声」という地名は、義盛の勝ちいくさの舞から", "story": "鎌倉幕府で武士をまとめる役（侍所別当）の最初の人、和田義盛の本拠地が、この和田の里です。義盛は1213年、北条氏を倒そうと兵を挙げ、鎌倉で一族とともに滅びました。50年後の1263年、里の人たちが義盛をしのんで建てたのがこの神社と伝わります。戦に勝って帰った義盛が、村人をまじえた酒の席で舞った「初声」が、初声町の名のはじまりともいわれます。", "see": "近くに和田城址、和田義盛旧里碑（1921年＝大正10年に建立）", "legend": true, "confidence": "🟡", "sources": [{"url": "https://miura-info.ne.jp/%e9%8e%8c%e5%80%89%e6%ae%bf%e3%81%a813%e4%ba%ba%e3%81%ae%e9%87%8d%e8%87%a3%e3%81%9f%e3%81%a1-%e3%82%86%e3%81%8b%e3%82%8a%e3%81%ae%e5%9c%b0/", "title": "三浦市観光協会「鎌倉殿と13人の重臣たち ゆかりの地」"}, {"url": "https://www.city.miura.kanagawa.jp/kanko_bunka_sports/rekishi_bunkazai/2/6285.html", "title": "三浦市「三浦の歴史」"}], "no": 10}, {"id": "raifukuji", "name": "来福寺", "era": "kamakura", "when": "1217年に和田へ", "area": "上宮田", "lat": 35.1934, "lon": 139.6457, "headline": "一族が滅びたあと、寺は鎌倉から義盛のふるさとへ", "story": "和田義盛が鎌倉の名越に開いた寺で、和田合戦で一族が滅びたあとの1217年、和田氏のふるさとである和田に移りました。今の場所に来たのは1670年です。衣冠束帯すがたの和田義盛の像が伝わります。幕末に近くの陣屋で海の守りについた、長州藩や彦根藩の藩士の墓もあります。", "see": "三浦海岸駅から歩いて15分ほど", "confidence": "🟡", "sources": [{"url": "https://ja.wikipedia.org/wiki/来福寺_(三浦市)", "title": "Wikipedia「来福寺 (三浦市)」"}], "no": 11}, {"id": "hikibashi", "name": "引橋", "era": "sengoku", "when": "1513年ごろ", "area": "引橋", "lat": 35.16745, "lon": 139.64034, "headline": "バス停の名前は、敵の前で引き上げた橋のこと", "story": "新井城は三方が海の崖で、陸からの入口は、北へ約3kmはなれたこの橋ひとつでした。橋を引いて落としてしまえば、どこからも攻めこめません。北条早雲の軍はここで橋を引かれて渡れず、三浦勢に時間をかせがれたといいます。橋の名が、そのまま地名として残りました。", "see": "「引橋」バス停。小網代の森の入口まで歩いて5分", "legend": true, "confidence": "🟢", "sources": [{"url": "https://miura-info.ne.jp/%e9%8e%8c%e5%80%89%e6%ae%bf%e3%81%a813%e4%ba%ba%e3%81%ae%e9%87%8d%e8%87%a3%e3%81%9f%e3%81%a1-%e3%82%86%e3%81%8b%e3%82%8a%e3%81%ae%e5%9c%b0/", "title": "三浦市観光協会「鎌倉殿と13人の重臣たち ゆかりの地」"}], "no": 12}, {"id": "arai", "name": "新井城址", "era": "sengoku", "when": "1516年（永正13年）", "area": "油壺", "lat": 35.16005, "lon": 139.61356, "headline": "3年の籠城の末、三浦一族はここで滅びました", "story": "小網代湾と油壺湾にはさまれた、高さ26mの岬の城です。三浦義同（道寸）と子の義意は、北条早雲の大軍に囲まれながら3年もちこたえましたが、1516年7月11日に落城し、約450年つづいた三浦氏は滅びました。本丸のあたりは今、東京大学の臨海実験所の敷地です。1992年の発掘では、深さ5.9mの穴の底から大量の人骨が見つかり、戦いの死者を葬ったものではないかと報告されています。", "see": "実験所のまわりに残る空堀と土塁、新井城碑", "confidence": "🟢", "tour": true, "cam": {"z": 15.8, "b": -40, "p": 64}, "sources": [{"url": "https://ja.wikipedia.org/wiki/新井城", "title": "Wikipedia「新井城」"}, {"url": "https://www.city.miura.kanagawa.jp/kanko_bunka_sports/rekishi_bunkazai/2/6285.html", "title": "三浦市「三浦の歴史」"}, {"url": "https://ja.wikipedia.org/wiki/三浦義同", "title": "Wikipedia「三浦義同」"}], "no": 13}, {"id": "aburatsubo", "name": "油壺湾", "era": "sengoku", "when": "1516年", "area": "油壺", "lat": 35.16021, "lon": 139.6172, "headline": "「油壺」の名は、落城の日の海の色からといわれます", "story": "新井城が落ちた日、討ち死にした人、湾に身を投げた人の血で海が染まり、油を流したように見えたことから「油壺」と呼ばれるようになった、という説があります。入り江の水面が、油を流したように静かだからという説もあります。今はヨットがならぶ、波のない入り江です。", "see": "入り江を見おろす遊歩道", "legend": true, "confidence": "🟢", "sources": [{"url": "https://miura-info.ne.jp/%e9%8e%8c%e5%80%89%e6%ae%bf%e3%81%a813%e4%ba%ba%e3%81%ae%e9%87%8d%e8%87%a3%e3%81%9f%e3%81%a1-%e3%82%86%e3%81%8b%e3%82%8a%e3%81%ae%e5%9c%b0/", "title": "三浦市観光協会「鎌倉殿と13人の重臣たち ゆかりの地」"}, {"url": "https://ja.wikipedia.org/wiki/油壺", "title": "Wikipedia「油壺」"}], "no": 14}, {"id": "dosun", "name": "三浦道寸の墓", "era": "sengoku", "when": "1516年", "area": "油壺", "lat": 35.16284, "lon": 139.61321, "headline": "「討つ者も討たれる者も、くだけたあとは同じ土」", "story": "三浦氏最後の当主の父、三浦義同（道寸）の墓です。軍記物『北条五代記』によると、道寸は「うつものも 討たるる者も かはらけよ くだけて後は もとのつちくれ」という歌を残して腹を切ったといいます。同じ本には、のちに城あとを見に来た侍たちが、堀の前で馬をおり「道寸父子は名誉の武士」と一礼した、とも書かれています。毎年5月の最後の日曜日には、一族をしのぶ道寸祭り（供養祭と笠懸）が開かれます。", "see": "油壺のハイキングコースぞい", "legend": true, "confidence": "🟡", "sources": [{"url": "https://ja.wikipedia.org/wiki/三浦義同", "title": "Wikipedia「三浦義同」"}, {"url": "https://ja.wikipedia.org/wiki/油壺", "title": "Wikipedia「油壺」"}], "no": 15}, {"id": "misakijo", "name": "三崎城址", "era": "sengoku", "when": "戦国時代", "area": "城山町", "lat": 35.144, "lon": 139.62136, "headline": "市役所のあたりは、北条水軍の城でした", "story": "三崎港を見おろす高台、今の三浦市役所や旧三崎中学校のあたりが城の跡です。三浦氏を滅ぼした北条早雲が大きく造りかえ、海の向こうの安房・里見氏へのそなえとしました。里見氏に攻め落とされた時期もあります。城ヶ島に近い景色のよい場所なので、北条の当主が休みに来ることもあったようで、1565年には北条氏康が訪れています。豊臣秀吉の小田原攻めのあとに廃城になりました。", "see": "市の体育館の駐車場近くに土塁と説明板", "confidence": "🟡", "sources": [{"url": "https://ja.wikipedia.org/wiki/三崎城", "title": "Wikipedia「三崎城」"}], "no": 16}, {"id": "shirahige", "name": "白髭神社", "era": "sengoku", "when": "天文年間（1532〜55年）", "area": "小網代", "lat": 35.1623, "lon": 139.62762, "headline": "たたくとカンカン鳴る石は、船のいかりのおもりです", "story": "小網代の入り江は、昔から船が風を待つ港、三崎の避難港として知られていました。天文年間に、漁師の夜の網にかかった光るご神体をまつったのが始まりと伝わり、航海の安全と大漁の神さまです。社殿の左にある「カンカン石」は、打つと金属のような音がします。いかりのおもりにしていた石で、昔、摂津（大阪のあたり）の船頭が、明神さまがその石をほしいと言うのでおさめた、と伝えられています。", "see": "カンカン石（鳴石）", "legend": true, "confidence": "🟢", "sources": [{"url": "https://miura-info.ne.jp/sightseeing/history-5/", "title": "三浦市観光協会「白髭神社」"}], "no": 17}, {"id": "misakiko", "name": "三崎港（江戸の海の関所）", "era": "edo", "when": "1624年（寛永元年）", "area": "三崎", "lat": 35.14091, "lon": 139.61637, "headline": "江戸へ向かう船は、三崎で改めを受けました", "story": "関東に入った徳川家康は、水軍の拠点を三崎におき、向井政綱たち船手奉行を配しました。天下が治まると、三崎は江戸と上方をむすぶ船を改める場所になり、1624年に政綱の子・向井忠勝が三崎奉行になります。港は、船が風を待つ港として、また相模湾の魚を集めて江戸へ送る港としてにぎわいました。", "see": "うらりの前の岸壁から、城ヶ島にまもられた港の形がよくわかります", "confidence": "🟢", "tour": true, "cam": {"z": 15.6, "b": 150, "p": 62}, "sources": [{"url": "https://www.city.miura.kanagawa.jp/kanko_bunka_sports/rekishi_bunkazai/2/6285.html", "title": "三浦市「三浦の歴史」"}, {"url": "https://ja.wikipedia.org/wiki/三崎漁港", "title": "Wikipedia「三崎漁港」"}], "no": 18}, {"id": "awasaki", "name": "安房崎（のろし台と大砲）", "era": "edo", "when": "1648年（慶安元年）", "area": "城ヶ島", "lat": 35.1302, "lon": 139.62757, "headline": "城ヶ島の灯台のはじまりは、島の東の端ののろし台です", "story": "1648年、三崎奉行がこの岬にのろし台をおいたのが、城ヶ島の灯台のはじまりとされます。30年後の1678年、火は島の西の端へ移されました。幕末に外国の船が増えると、城ヶ島は江戸湾の入口の守りになります。1808年に浦賀奉行が島に砲台をきずき、1810年から海の守りを命じられた会津藩は、遠見番所をおいて、この岬で大砲の演習をしました。今の安房埼灯台は、1962年にできたのが始まりです。", "see": "城ヶ島公園の先の岩場に立つ灯台。房総半島が正面に見えます", "confidence": "🟡", "sources": [{"url": "https://ja.wikipedia.org/wiki/城ヶ島灯台", "title": "Wikipedia「城ヶ島灯台」"}, {"url": "https://ja.wikipedia.org/wiki/城ヶ島", "title": "Wikipedia「城ヶ島」"}], "no": 19}, {"id": "jinya", "name": "海防陣屋跡", "era": "edo", "when": "1847年（弘化4年）", "area": "上宮田", "lat": 35.18694, "lon": 139.65342, "headline": "若いころの木戸孝允や伊藤博文も、ここに勤めたといわれます", "story": "異国の船がたびたび来るようになり、1847年、江戸湾の入口を守る本拠地として上宮田に陣屋がおかれました。はじめは彦根藩、つづいて長州藩、熊本藩、佐倉藩が受けもちました。長州藩は産業をおこすなど評判がよく、熊本藩に代わるときには、残ってほしいという願い書が出たほどでした。この陣屋には、のちの木戸孝允や伊藤博文も勤めていたといわれています。", "see": "三浦海岸駅の近くに説明板", "confidence": "🟢", "sources": [{"url": "https://www.city.miura.kanagawa.jp/kanko_bunka_sports/rekishi_bunkazai/2/6285.html", "title": "三浦市「三浦の歴史」"}], "no": 20}, {"id": "jogashima_todai", "name": "城ヶ島灯台", "era": "meiji", "when": "1870年（明治3年）", "area": "城ヶ島", "lat": 35.13508, "lon": 139.61113, "headline": "日本で5番目にともった、西洋式の灯台です", "story": "江戸時代ののろし台のあとに、幕府が外国の求めで計画した西洋式の灯台です。横須賀製鉄所のフランス人技師ヴェルニーが手がけ、1870年9月8日に初めて灯がともりました。観音埼・野島埼・品川・樫野埼につづく、日本で5番目です。はじめのレンガの塔は1923年の関東大震災で倒れ、今の白い塔は、そのあと建て直された2代目です。", "see": "島の西の端、崖の上の白い塔", "confidence": "🟡", "tour": true, "cam": {"z": 16.6, "b": 50, "p": 66}, "sources": [{"url": "https://ja.wikipedia.org/wiki/城ヶ島灯台", "title": "Wikipedia「城ヶ島灯台」"}], "no": 21}, {"id": "tsurugisaki", "name": "剱埼灯台", "era": "meiji", "when": "1871年（明治4年）", "area": "松輪", "lat": 35.14028, "lon": 139.67722, "headline": "幕府が外国に約束した、8つの灯台のひとつです", "story": "1866年、幕府はアメリカ・イギリス・フランス・オランダとの条約で、8か所に灯台を建てる約束をしました。剱埼はそのひとつです。「灯台の父」と呼ばれるイギリス人ブラントンが設計し、1871年3月1日に、日本で7番目の西洋式灯台として灯がともりました。はじめの石の塔は関東大震災で倒れ、今の八角形の塔は1925年に建て直されたものです。ここと房総の洲崎をむすぶ線が、東京湾と太平洋の境目です。", "see": "岬の先の白い八角形の塔。正面に房総半島", "confidence": "🟡", "tour": true, "cam": {"z": 15.8, "b": -60, "p": 64}, "sources": [{"url": "https://ja.wikipedia.org/wiki/剱埼灯台", "title": "Wikipedia「剱埼灯台」"}], "no": 22}, {"id": "rinkai", "name": "東京大学 三崎臨海実験所", "era": "meiji", "when": "1886年（明治19年）", "area": "油壺", "lat": 35.15946, "lon": 139.61317, "headline": "日本で最初の臨海実験所は、三崎で生まれました", "story": "1886年、動物学者の箕作佳吉が、三崎の入船にあった幕府の船番所のあとに木造の研究棟を建てたのが始まりです。1897年に油壺へ移り、今も研究がつづいています。このあたりの海でとれる動物は500種をこえるといいます。敷地は、三浦一族が滅びた新井城の本丸にあたります。", "see": "標本をならべた海洋教育展示室は、一般公開の日だけ見られます", "confidence": "🟡", "sources": [{"url": "https://ja.wikipedia.org/wiki/東京大学大学院理学系研究科附属臨海実験所", "title": "Wikipedia「東京大学大学院理学系研究科附属臨海実験所」"}, {"url": "https://ja.wikipedia.org/wiki/新井城", "title": "Wikipedia「新井城」"}], "no": 23}, {"id": "hakushu", "name": "白秋碑（城ヶ島の雨）", "era": "meiji", "when": "1913年（大正2年）", "area": "城ヶ島", "lat": 35.13667, "lon": 139.62179, "headline": "一曲の歌が、城ヶ島を全国に知られる島にしました", "story": "詩人の北原白秋は1913年、城ヶ島の向かいの三崎・向ヶ崎に住んでいました。その年に頼まれて書いたのが「城ヶ島の雨」です。10月30日に東京の有楽座で発表され、レコードが売れると、城ヶ島は若い人たちのあこがれの島になりました。歌碑は白秋が生きているうちから望まれていましたが、島が要塞地帯だったため、建ったのは戦後の1949年です。帆の形の石に、白秋自筆の文字がきざまれています。", "see": "城ヶ島大橋の下の白秋碑苑、白秋記念館", "confidence": "🟡", "tour": true, "cam": {"z": 16.6, "b": -20, "p": 64}, "sources": [{"url": "https://ja.wikipedia.org/wiki/城ヶ島", "title": "Wikipedia「城ヶ島」"}], "no": 24}, {"id": "umanose", "name": "馬の背洞門", "era": "meiji", "when": "1923年（大正12年）", "area": "城ヶ島", "lat": 35.13123, "lon": 139.61833, "headline": "関東大震災の前は、この穴を小舟でくぐれました", "story": "波がけずってできた、メガネのような岩の門です。1923年より前は、門の下を小舟で通ることができました。関東大震災で土地が持ち上がり、今は歩いて近づけます。城ヶ島の海水浴場も、同じ隆起で砂の中の岩が顔を出し、にぎわいを失いました。", "see": "島の南側、赤羽根崎の先。岩の上は立入禁止", "confidence": "🟡", "sources": [{"url": "https://ja.wikipedia.org/wiki/城ヶ島", "title": "Wikipedia「城ヶ島」"}], "no": 25}, {"id": "hodai", "name": "城ヶ島砲台跡（城ヶ島公園）", "era": "showa", "when": "1927年（昭和2年）〜1945年", "area": "城ヶ島", "lat": 35.13083, "lon": 139.62611, "headline": "絵葉書から、城ヶ島が消された時代がありました", "story": "関東大震災のあと、東京湾を守る要塞のひとつとして、島の東の台地に砲台がつくられました（1924年に起工、1927年に完成）。大砲は、軍縮で廃艦になった戦艦「安芸」の副砲です。三崎の人は、城ヶ島を眺めているだけで注意されたといい、1928年に出た三崎漁港の記念絵葉書には、城ヶ島が描かれていません。戦後に武装がとかれ、あと地は1958年に県立城ヶ島公園になりました。今の展望台は、砲台の観測所があった場所です。", "see": "公園の展望台。房総・伊豆大島・富士山", "confidence": "🟡", "tour": true, "cam": {"z": 16.2, "b": -70, "p": 64}, "sources": [{"url": "https://ja.wikipedia.org/wiki/城ヶ島", "title": "Wikipedia「城ヶ島」"}, {"url": "https://www.city.miura.kanagawa.jp/kanko_bunka_sports/rekishi_bunkazai/2/6285.html", "title": "三浦市「三浦の歴史」"}], "no": 26}, {"id": "ichiba", "name": "三崎の魚市場（マグロの港）", "era": "showa", "when": "1946〜54年ごろ", "area": "三崎", "lat": 35.14141, "lon": 139.61419, "headline": "戦後しばらく、三崎は日本でいちばんのマグロの港でした", "story": "三崎に町営の魚市場ができたのは1922年です。戦前からマグロ漁の大きな基地になり、1946年から1954年ごろまでは、日本最大のマグロ漁港でした。その後は船が大きくなり、遠い海の外国の港に水あげするようになって、焼津や清水に抜かれます。1960年には、全国に13しかない「特定第3種漁港」に指定されました。今の市場は1994年に移ってきたものです。", "see": "うらりの西どなりの大きな建物", "confidence": "🟡", "sources": [{"url": "https://ja.wikipedia.org/wiki/三崎漁港", "title": "Wikipedia「三崎漁港」"}], "no": 27}, {"id": "ohashi", "name": "城ヶ島大橋", "era": "showa", "when": "1960年（昭和35年）", "area": "城ヶ島", "lat": 35.13842, "lon": 139.62293, "headline": "橋がかかって、島に来る人は1年で5倍になりました", "story": "それまで城ヶ島へは、三崎からの渡し舟だけでした。1957年に工事が始まり、1960年4月に開通。長さ575m、海面からの高さは16〜23.5mで、下を大きなマグロ船が通れます。鉄の箱の形のけた（鋼床板箱桁）を日本で初めて使った橋です。島を訪れる人は、1956年の約27万人から、開通した1960年には約147万人に増えました。2020年4月から通行は無料です。2023年には土木学会の選奨土木遺産になりました。", "see": "橋の歩道から、港・富士山・房総", "confidence": "🟡", "tour": true, "cam": {"z": 15.6, "b": 100, "p": 68}, "sources": [{"url": "https://ja.wikipedia.org/wiki/城ヶ島大橋", "title": "Wikipedia「城ヶ島大橋」"}, {"url": "https://ja.wikipedia.org/wiki/城ヶ島", "title": "Wikipedia「城ヶ島」"}], "no": 28}, {"id": "marine", "name": "油壺マリンパーク跡", "era": "showa", "when": "1968〜2021年", "area": "油壺", "lat": 35.16147, "lon": 139.61256, "headline": "53年つづいた水族館の七福神は、海南神社に引っこしました", "story": "1968年4月に開いた、京急の水族館です。魚に芸をさせる「サーカス水族館」として人気を集めました。建物が古くなり、2021年9月30日に閉館。約400種類・4000匹の生き物は、ほかの施設へゆずられました。館内にあった「どうぶつ七福神」は、三崎の海南神社が引きとっています。", "see": "建物は閉じています。すぐ近くに新井城址と道寸の墓", "confidence": "🟡", "sources": [{"url": "https://ja.wikipedia.org/wiki/京急油壺マリンパーク", "title": "Wikipedia「京急油壺マリンパーク」"}, {"url": "https://ja.wikipedia.org/wiki/海南神社", "title": "Wikipedia「海南神社」"}], "no": 29}], ERAS=[{"key": "taiko", "name": "大地と弥生", "range": "〜古墳時代", "color": "#8A5A00", "lede": "三浦の崖には、大地震のたびに持ち上がってきた土地の記録が残っています。台地の上には弥生の大きなムラがあり、海ぎわの洞穴では漁と占いが行われていました。"}, {"key": "kamakura", "name": "古代・鎌倉", "range": "平安〜鎌倉時代", "color": "#B8243A", "lede": "鎌倉から船ですぐの三崎は、源頼朝のお気に入りの保養地でした。幕府を支えた三浦一族と和田義盛の本拠地も、この半島です。"}, {"key": "sengoku", "name": "戦国", "range": "室町〜戦国時代", "color": "#5B3A8C", "lede": "約450年つづいた三浦氏は、1516年、北条早雲に3年囲まれた末に新井城で滅びます。「油壺」という地名は、このときの言い伝えから来ています。"}, {"key": "edo", "name": "江戸", "range": "江戸時代", "color": "#0A5A8C", "lede": "江戸湾の入口にあたる三崎は、幕府の海の関所になりました。船を改める奉行所、夜の海を照らすのろし台、異国船にそなえる陣屋が置かれます。"}, {"key": "meiji", "name": "明治・大正", "range": "明治〜大正時代", "color": "#2E7D6B", "lede": "開国とともに、西洋式の灯台と日本で最初の臨海実験所ができました。北原白秋が「城ヶ島の雨」を書き、関東大震災が海岸の形を変えます。"}, {"key": "showa", "name": "昭和から今", "range": "昭和〜令和", "color": "#4A5560", "lede": "城ヶ島は砲台の島になり、地図や絵葉書から消されました。戦後は日本一のマグロの港へ。1960年に橋がかかり、島は観光地になります。"}], ST={"type":"FeatureCollection","source":"© OpenStreetMap contributors (ODbL)・Overpass API","features":[{"type":"Feature","properties":{"kind":"lighthouse","name":"城ヶ島灯台","h":11.5,"b":0,"c":"#ffffff","osm":"node/1211621029"},"geometry":{"type":"Polygon","coordinates":[[[139.611155,35.135079],[139.611151,35.13509],[139.611141,35.135099],[139.611128,35.135102],[139.611114,35.135099],[139.611104,35.13509],[139.6111,35.135079],[139.611104,35.135068],[139.611114,35.13506],[139.611128,35.135057],[139.611141,35.13506],[139.611151,35.135068],[139.611155,35.135079]]]}},{"type":"Feature","properties":{"kind":"lighthouse","name":"安房埼灯台","h":16,"b":0,"c":"#ffffff","osm":"node/12364319660"},"geometry":{"type":"Polygon","coordinates":[[[139.627595,35.130201],[139.627591,35.130212],[139.627581,35.13022],[139.627567,35.130223],[139.627553,35.13022],[139.627543,35.130212],[139.62754,35.130201],[139.627543,35.13019],[139.627553,35.130181],[139.627567,35.130178],[139.627581,35.130181],[139.627591,35.13019],[139.627595,35.130201]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/130990872"},"geometry":{"type":"Polygon","coordinates":[[[139.607444,35.138652],[139.607245,35.139463],[139.607016,35.13942],[139.607042,35.139302],[139.606877,35.139214],[139.607049,35.138424],[139.609131,35.137607],[139.609242,35.137784],[139.609344,35.13775],[139.609428,35.137913],[139.607481,35.138575],[139.607444,35.138652]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/160351380"},"geometry":{"type":"Polygon","coordinates":[[[139.606658,35.146373],[139.605935,35.146861],[139.605914,35.146841],[139.605848,35.14684],[139.606493,35.147494],[139.606499,35.147487],[139.607717,35.148708],[139.607633,35.14877],[139.605759,35.14689],[139.606602,35.146312],[139.606658,35.146373]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/160351382"},"geometry":{"type":"Polygon","coordinates":[[[139.612831,35.147954],[139.612713,35.147915],[139.612355,35.14727],[139.612056,35.146764],[139.611992,35.146741],[139.611911,35.146597],[139.611928,35.146431],[139.612116,35.146433],[139.612155,35.146631],[139.612487,35.147185],[139.612882,35.147853],[139.612887,35.147924],[139.612831,35.147954]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/160351383"},"geometry":{"type":"Polygon","coordinates":[[[139.611172,35.159247],[139.611168,35.159188],[139.611201,35.159187],[139.611204,35.159245],[139.611172,35.159247]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/160351384"},"geometry":{"type":"Polygon","coordinates":[[[139.610725,35.159348],[139.610724,35.159337],[139.610985,35.159307],[139.611208,35.159251],[139.611211,35.159261],[139.610984,35.15932],[139.610725,35.159348]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/160351385"},"geometry":{"type":"Polygon","coordinates":[[[139.609949,35.156107],[139.60995,35.156044],[139.609987,35.156014],[139.6101,35.156056],[139.610211,35.156107],[139.610294,35.156161],[139.610312,35.156208],[139.610279,35.156216],[139.610118,35.156167],[139.609949,35.156107]]]}},{"type":"Feature","properties":{"kind":"pier","name":"","h":2,"b":0,"c":"#c9c3b7","osm":"way/172137869"},"geometry":{"type":"Polygon","coordinates":[[[139.638128,35.140192],[139.638219,35.140217],[139.638223,35.140262],[139.63806,35.140423],[139.63801,35.140475],[139.638025,35.140681],[139.638044,35.140869],[139.638007,35.140895],[139.637958,35.140878],[139.637921,35.14084],[139.637898,35.140589],[139.637901,35.140427],[139.637978,35.140357],[139.638051,35.140251],[139.638128,35.140192]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/172137873"},"geometry":{"type":"Polygon","coordinates":[[[139.638163,35.13894],[139.638363,35.138987],[139.638499,35.139119],[139.638317,35.139323],[139.638216,35.139248],[139.637669,35.139813],[139.637762,35.139881],[139.637569,35.140128],[139.637486,35.140024],[139.637354,35.139964],[139.637329,35.139842],[139.637647,35.139556],[139.637883,35.139277],[139.637955,35.139141],[139.638062,35.139087],[139.638163,35.13894]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/172137879"},"geometry":{"type":"Polygon","coordinates":[[[139.612347,35.137627],[139.612434,35.137616],[139.612445,35.137664],[139.612432,35.137665],[139.61258,35.138205],[139.612305,35.139024],[139.612242,35.139006],[139.612516,35.138198],[139.612416,35.137842],[139.612362,35.137855],[139.612284,35.137822],[139.612301,35.137768],[139.612385,35.137727],[139.612375,35.137675],[139.612358,35.137678],[139.612347,35.137627]]]}},{"type":"Feature","properties":{"kind":"pier","name":"","h":2,"b":0,"c":"#c9c3b7","osm":"way/172137890"},"geometry":{"type":"Polygon","coordinates":[[[139.639159,35.140976],[139.63954,35.141038],[139.639537,35.14105],[139.639574,35.141055],[139.639576,35.141045],[139.639772,35.141089],[139.640236,35.140663],[139.640123,35.140577],[139.640133,35.140567],[139.640077,35.140521],[139.64007,35.140528],[139.639978,35.140458],[139.640148,35.140301],[139.640038,35.140216],[139.640044,35.140208],[139.639987,35.140165],[139.639981,35.140171],[139.639784,35.140018],[139.639792,35.14001],[139.639734,35.139967],[139.639729,35.139974],[139.639629,35.139901],[139.639667,35.139872],[139.639652,35.139857],[139.639267,35.140204],[139.639283,35.140216],[139.639616,35.139916],[139.63986,35.140104],[139.639393,35.140526],[139.63941,35.140539],[139.639874,35.14012],[139.640112,35.140302],[139.639651,35.140729],[139.639671,35.140744],[139.639963,35.140469],[139.640204,35.14066],[139.639768,35.141063],[139.63958,35.141031],[139.639582,35.141022],[139.639546,35.141016],[139.639545,35.141023],[139.639161,35.140954],[139.639159,35.140976]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/172137893"},"geometry":{"type":"Polygon","coordinates":[[[139.639776,35.139724],[139.639597,35.139589],[139.63957,35.139615],[139.639747,35.139751],[139.639757,35.139742],[139.639588,35.139614],[139.639597,35.139606],[139.639766,35.139733],[139.639776,35.139724]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/172137894"},"geometry":{"type":"Polygon","coordinates":[[[139.638831,35.140188],[139.639572,35.139504],[139.639622,35.139541],[139.63948,35.139674],[139.639503,35.139693],[139.639041,35.140117],[139.639021,35.140101],[139.638881,35.140229],[139.638831,35.140188]]]}},{"type":"Feature","properties":{"kind":"pier","name":"","h":2,"b":0,"c":"#c9c3b7","osm":"way/420038646"},"geometry":{"type":"Polygon","coordinates":[[[139.613004,35.137531],[139.612951,35.137392],[139.612909,35.137403],[139.612962,35.137542],[139.613004,35.137531]]]}},{"type":"Feature","properties":{"kind":"pier","name":"","h":2,"b":0,"c":"#c9c3b7","osm":"way/420038646"},"geometry":{"type":"Polygon","coordinates":[[[139.612951,35.137392],[139.612912,35.13729],[139.61287,35.137301],[139.612909,35.137403],[139.612951,35.137392]]]}},{"type":"Feature","properties":{"kind":"pier","name":"","h":2,"b":0,"c":"#c9c3b7","osm":"way/638500458"},"geometry":{"type":"Polygon","coordinates":[[[139.622386,35.142784],[139.622756,35.142992],[139.622958,35.143051],[139.623262,35.143071],[139.623563,35.143082],[139.623635,35.143061],[139.623857,35.142841],[139.623912,35.142844],[139.623901,35.142865],[139.623833,35.142933],[139.623821,35.142926],[139.62374,35.143005],[139.623752,35.143012],[139.623685,35.143076],[139.623641,35.143102],[139.623593,35.143116],[139.623546,35.143119],[139.623311,35.143104],[139.623311,35.143091],[139.623215,35.143087],[139.623214,35.143099],[139.622942,35.143084],[139.622888,35.143068],[139.622893,35.143058],[139.622794,35.143029],[139.622788,35.14304],[139.622742,35.143026],[139.622348,35.142805],[139.622365,35.142794],[139.622386,35.142784]]]}},{"type":"Feature","properties":{"kind":"bridge","name":"城ヶ島大橋","h":23.5,"b":21.0,"c":"#c5cbd1","osm":"way/766104762"},"geometry":{"type":"Polygon","coordinates":[[[139.623699,35.140392],[139.621603,35.135501],[139.62172,35.135467],[139.623815,35.140358],[139.623797,35.140364],[139.623699,35.140392]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/1157813172"},"geometry":{"type":"Polygon","coordinates":[[[139.616977,35.136609],[139.617035,35.136823],[139.617086,35.136811],[139.616985,35.13646],[139.616936,35.136469],[139.616977,35.136609]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/1157813173"},"geometry":{"type":"Polygon","coordinates":[[[139.617786,35.136693],[139.617964,35.136585],[139.618108,35.136427],[139.61825,35.136272],[139.618211,35.13625],[139.618076,35.136406],[139.617929,35.136564],[139.61776,35.136664],[139.617786,35.136693]]]}},{"type":"Feature","properties":{"kind":"pier","name":"","h":2,"b":0,"c":"#c9c3b7","osm":"way/1157813174"},"geometry":{"type":"Polygon","coordinates":[[[139.620897,35.13681],[139.621109,35.136423],[139.621068,35.136408],[139.620856,35.136796],[139.620897,35.13681]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/1157813175"},"geometry":{"type":"Polygon","coordinates":[[[139.627158,35.133961],[139.627968,35.134578],[139.628005,35.134545],[139.627195,35.133928],[139.627158,35.133961]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/1157813176"},"geometry":{"type":"Polygon","coordinates":[[[139.62404,35.136351],[139.623807,35.135667],[139.623754,35.135679],[139.623987,35.136363],[139.62404,35.136351]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/1157813177"},"geometry":{"type":"Polygon","coordinates":[[[139.626222,35.132057],[139.626154,35.131962],[139.626107,35.131985],[139.626174,35.13208],[139.626222,35.132057]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/1157813178"},"geometry":{"type":"Polygon","coordinates":[[[139.626097,35.131885],[139.625985,35.131725],[139.625937,35.131748],[139.626049,35.131907],[139.626097,35.131885]]]}},{"type":"Feature","properties":{"kind":"groyne","name":"","h":2,"b":0,"c":"#b4b9be","osm":"way/1157813187"},"geometry":{"type":"Polygon","coordinates":[[[139.62104,35.136829],[139.621174,35.136449],[139.621142,35.136441],[139.621008,35.136822],[139.62104,35.136829]]]}}]}, EXAG=1;
+var EC={};ERAS.forEach(function(e){EC[e.key]=e});
+var st={era:"all"};
+function $(s){return document.querySelector(s)}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+var calm=window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches;
+
+var map=null,pins=[],marks=[],pp=null,sig="",flat=false,ready=false,cur="";
+/* 開いたとき：三浦半島の上空から、三浦市の全体へ舞い降りる（動きを減らす設定の端末ではしない） */
+var INTRO=!calm,landing=false;
+var GSI="cyberjapandata.gsi.go.jp/xyz/";
+
+/* 標高：地理院の標高タイル（dem_png）を、MapLibre が読める Terrarium 形式に直して渡す。海・タイルなし・0m未満は 0m */
+function demTile(p,ac){
+  return fetch(p.url.replace("gsidem://","https://"),{signal:ac.signal})
+    .then(function(r){return r.ok?r.blob():null})
+    .then(function(b){return b?createImageBitmap(b):null})
+    .then(function(bm){
+      var c=document.createElement("canvas");c.width=c.height=256;
+      var x=c.getContext("2d"),im;
+      if(bm){x.drawImage(bm,0,0);im=x.getImageData(0,0,256,256)}else im=x.createImageData(256,256);
+      var d=im.data;
+      for(var i=0;i<d.length;i+=4){
+        var v=d[i]*65536+d[i+1]*256+d[i+2],h=(!bm||v===8388608)?0:(v<8388608?v:v-16777216)*0.01;
+        if(h<0)h=0;
+        var t=h+32768,f=Math.floor(t);
+        d[i]=f>>8;d[i+1]=f&255;d[i+2]=Math.floor((t-f)*256);d[i+3]=255}
+      x.putImageData(im,0,0);
+      return new Promise(function(ok){c.toBlob(ok,"image/png")})})
+    .then(function(b){return b.arrayBuffer()})
+    .then(function(buf){return {data:buf}})}
+/* 写真：海だけのタイルは地理院に無い（404）ので、海の色の1枚を返す */
+var seaBuf=null;
+function seaTile(){
+  if(!seaBuf)seaBuf=new Promise(function(ok){var c=document.createElement("canvas");c.width=c.height=256;var x=c.getContext("2d");x.fillStyle="#263f52";x.fillRect(0,0,256,256);c.toBlob(ok,"image/png")}).then(function(b){return b.arrayBuffer()});
+  return seaBuf.then(function(b){return b.slice(0)})}
+function photoTile(p,ac){
+  return fetch(p.url.replace("gsiphoto://","https://"),{signal:ac.signal})
+    .then(function(r){return r.ok?r.arrayBuffer():seaTile()})
+    .then(function(buf){return {data:buf}})}
+
+function dem(){return {type:"raster-dem",tiles:["gsidem://"+GSI+"dem_png/{z}/{x}/{y}.png"],tileSize:256,maxzoom:14,encoding:"terrarium"}}
+var C={land:"#F6F3EC",farm:"#EFEDDC",grass:"#E0EAD2",wood:"#CDDDBF",sand:"#F1E6C8",rock:"#E4DFD4",water:"#86B6D4",
+  road:"#FFFFFF",roadCase:"#E3DDD0",path:"#D8D0C1",bld:"#FFFFFF",text:"#46525E",seaText:"#1F5F8B"};
+var NAME=["coalesce",["get","name:ja"],["get","name"]],FONT=["Noto Sans Regular"];
+function w(a,b,c){return ["interpolate",["exponential",1.5],["zoom"],12,a,16,b,20,c]}
+function road(id,cls,color,width,extra){return Object.assign({id:id,type:"line",source:"ofm","source-layer":"transportation",
+  filter:["all",["==",["geometry-type"],"LineString"],["in",["get","class"],["literal",cls]],["!=",["get","brunnel"],"bridge"]],
+  layout:{"line-cap":"round","line-join":"round"},paint:{"line-color":color,"line-width":width}},extra||{})}
+var MAIN=["motorway","trunk","primary","secondary","tertiary"],MINOR=["minor","service","track"];
+var BASE=["lc","park","water","pier","rd_bridge","rd_path","rd_minor_c","rd_main_c","rd_minor","rd_main","shade"];
+var STYLE={version:8,glyphs:"https://tiles.openfreemap.org/fonts/{fontstack}/{range}.pbf",
+  sources:{
+    photo:{type:"raster",tiles:["gsiphoto://"+GSI+"seamlessphoto/{z}/{x}/{y}.jpg"],tileSize:256,minzoom:2,maxzoom:18,attribution:"写真・標高：国土地理院"},
+    ofm:{type:"vector",url:"https://tiles.openfreemap.org/planet",attribution:"地図：OpenFreeMap © OpenMapTiles © OpenStreetMap"},
+    st:{type:"geojson",data:ST},
+    dem:dem(),shade:dem()},
+  layers:[
+    {id:"land",type:"background",paint:{"background-color":C.land}},
+    {id:"lc",type:"fill",source:"ofm","source-layer":"landcover",
+      paint:{"fill-color":["match",["get","class"],"farmland",C.farm,"grass",C.grass,"wood",C.wood,"sand",C.sand,"rock",C.rock,"wetland",C.grass,C.land],"fill-opacity":.9}},
+    {id:"park",type:"fill",source:"ofm","source-layer":"park",paint:{"fill-color":C.grass,"fill-opacity":.7}},
+    {id:"water",type:"fill",source:"ofm","source-layer":"water",paint:{"fill-color":C.water}},
+    {id:"pier",type:"fill",source:"ofm","source-layer":"transportation",filter:["all",["==",["geometry-type"],"Polygon"],["==",["get","class"],"pier"]],paint:{"fill-color":C.land}},
+    {id:"rd_bridge",type:"line",source:"ofm","source-layer":"transportation",filter:["all",["==",["geometry-type"],"LineString"],["==",["get","brunnel"],"bridge"],["in",["get","class"],["literal",MAIN.concat(MINOR)]]],
+      layout:{"line-cap":"butt"},paint:{"line-color":"rgba(40,60,80,.18)","line-width":w(1,5,22)}},
+    road("rd_path",["path"],C.path,w(.4,1,3),{minzoom:14,paint:{"line-color":C.path,"line-width":w(.4,1,3),"line-dasharray":[2,2]}}),
+    road("rd_minor_c",MINOR,C.roadCase,w(.8,4,20),{minzoom:13}),
+    road("rd_main_c",MAIN,C.roadCase,w(2,7.5,30)),
+    road("rd_minor",MINOR,C.road,w(.3,2.6,16),{minzoom:13}),
+    road("rd_main",MAIN,C.road,w(1.2,5.5,26)),
+    {id:"photo",type:"raster",source:"photo",layout:{visibility:"none"}},
+    {id:"shade",type:"hillshade",source:"shade",paint:{"hillshade-exaggeration":.32,"hillshade-shadow-color":"#4f6257","hillshade-highlight-color":"#ffffff","hillshade-accent-color":"#6d7b70"}},
+    {id:"bld2d",type:"fill",source:"ofm","source-layer":"building",minzoom:13,layout:{visibility:"none"},paint:{"fill-color":"#E9E4DA","fill-outline-color":"#D6CFC2"}},
+    {id:"bld",type:"fill-extrusion",source:"ofm","source-layer":"building",minzoom:13,filter:["!=",["get","hide_3d"],true],
+      paint:{"fill-extrusion-color":C.bld,"fill-extrusion-height":["*",EXAG,["coalesce",["get","render_height"],5]],"fill-extrusion-base":["*",EXAG,["coalesce",["get","render_min_height"],0]],"fill-extrusion-opacity":.94}},
+    {id:"st",type:"fill-extrusion",source:"st",
+      paint:{"fill-extrusion-color":["get","c"],"fill-extrusion-height":["*",EXAG,["get","h"]],"fill-extrusion-base":["*",EXAG,["get","b"]],"fill-extrusion-opacity":.95}},
+    {id:"lb_sea",type:"symbol",source:"ofm","source-layer":"water_name",filter:["==",["geometry-type"],"Point"],
+      layout:{"text-field":NAME,"text-font":["Noto Sans Italic"],"text-size":13,"text-letter-spacing":.12},
+      paint:{"text-color":C.seaText,"text-halo-color":"rgba(255,255,255,.75)","text-halo-width":1.2}},
+    {id:"lb_sea_l",type:"symbol",source:"ofm","source-layer":"water_name",filter:["==",["geometry-type"],"LineString"],
+      layout:{"text-field":NAME,"text-font":["Noto Sans Italic"],"text-size":13,"text-letter-spacing":.12,"symbol-placement":"line"},
+      paint:{"text-color":C.seaText,"text-halo-color":"rgba(255,255,255,.75)","text-halo-width":1.2}},
+    {id:"lb_place",type:"symbol",source:"ofm","source-layer":"place",filter:["in",["get","class"],["literal",["city","town","village","hamlet","suburb","quarter","neighbourhood","island"]]],
+      layout:{"text-field":NAME,"text-font":FONT,"text-size":["match",["get","class"],["city","town","island"],13,11],"text-letter-spacing":.06,"text-padding":14},
+      paint:{"text-color":C.text,"text-halo-color":"rgba(255,255,255,.9)","text-halo-width":1.4,"text-opacity":["match",["get","class"],["city","town","island"],.9,.7]}}],
+  terrain:{source:"dem",exaggeration:EXAG},
+  sky:{"sky-color":"#9CC6E2","horizon-color":"#EAF2F6","fog-color":"#EAF2F6","sky-horizon-blend":.6,"horizon-fog-blend":.6,"fog-ground-blend":.2}};
+
+function visible(){return D.filter(function(d){return st.era==="all"||d.era===st.era})}
+function bounds(rows){var b=new maplibregl.LngLatBounds();rows.forEach(function(d){b.extend([d.lon,d.lat])});return b}
+var PADS={top:56,bottom:40,left:40,right:40};
+
+try{
+  maplibregl.addProtocol("gsidem",demTile);
+  maplibregl.addProtocol("gsiphoto",photoTile);
+  map=new maplibregl.Map({container:"map",style:STYLE,center:[139.64,35.2],zoom:INTRO?9.6:12,pitch:INTRO?0:55,bearing:INTRO?-35:0,maxPitch:75,maxZoom:19.5,minZoom:9,
+    cooperativeGestures:true,attributionControl:{compact:true},
+    locale:{"CooperativeGesturesHandler.WindowsHelpText":"Ctrl を押しながらスクロールで拡大できます","CooperativeGesturesHandler.MacHelpText":"⌘ を押しながらスクロールで拡大できます","CooperativeGesturesHandler.MobileHelpText":"指2本で地図を動かせます",
+      "NavigationControl.ZoomIn":"拡大","NavigationControl.ZoomOut":"縮小","NavigationControl.ResetBearing":"北を上に戻す"}});
+  map.addControl(new maplibregl.NavigationControl({visualizePitch:true}),"top-right");
+  map.on("moveend",function(){place(false)});
+  map.once("style.load",function(){ready=true});
+  if(INTRO){
+    $("#map").classList.add("intro");
+    var landed=function(){landing=false;$("#map").classList.remove("intro");place(true)};
+    map.once("load",function(){setTimeout(function(){
+      if(!$("#map").classList.contains("intro"))return;
+      landing=true;
+      map.fitBounds(bounds(D),{padding:PADS,pitch:55,bearing:0,linear:true,duration:5200,essential:true,easing:function(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}});
+      map.once("moveend",landed)},400)});
+    setTimeout(function(){if($("#map").classList.contains("intro")&&!landing){landed();fit(true)}},12000);  /* 読み込みが終わらないときは、ふつうの表示にする */
+  }
+}catch(e){
+  map=null;
+  $("#map").className="nogl";$("#map").innerHTML='<p>この端末では 3D の地図を表示できませんでした。<br>下の読みものは、そのまま読めます。</p>';
+  $("#tools").hidden=true;$("#pad").hidden=true;
+}
+function go(o){if(!map)return;if(calm)map.jumpTo(o);else map.easeTo(Object.assign({duration:700},o))}
+
+function shut(){if(pp){pp.remove();pp=null}}
+function off(h){var u=[0,-h-4],d=[0,8];return {bottom:u,"bottom-left":u,"bottom-right":u,top:d,"top-left":d,"top-right":d,left:[18,-h/2],right:[-18,-h/2]}}
+function mark(id){cur=id||"";marks.forEach(function(k){k.el.classList.toggle("on",!!k.id&&k.id===cur)})}
+function show(d,n){
+  shut();
+  var e=EC[d.era],w=document.createElement("div");
+  w.innerHTML='<span class="pw" style="color:'+e.color+'">'+esc(e.name)+'　'+esc(d.when)+'</span><span class="pn">'+n+'. '+esc(d.name)+'</span><span class="ph">'+esc(d.headline)+'</span>';
+  var b=document.createElement("button");b.type="button";b.className="pm";b.textContent="くわしく読む";
+  b.onclick=function(){read(d.id)};w.appendChild(b);
+  pp=new maplibregl.Popup({offset:off(37),focusAfterOpen:false}).setLngLat([d.lon,d.lat]).setDOMContent(w).addTo(map);
+  pp.on("close",function(){mark("")});mark(d.id)}
+/* 「くわしく読む」：全画面なら閉じて、読みもののカードまで送る */
+function read(id){
+  if($("#card").classList.contains("big"))$("#tbg").click();
+  var el=document.querySelector('.item[data-id="'+id+'"]');if(!el)return;
+  el.scrollIntoView({block:"start"});el.classList.add("hit");setTimeout(function(){el.classList.remove("hit")},2200)}
+function focus(d,n){go({center:[d.lon,d.lat],zoom:Math.max(map.getZoom(),15.5)});show(d,n)}
+
+/* ピン：画面上で近いものは白いピンにまとめる。押すと広がる。広がりきらないときは名前の一覧を出す */
+function place(force){
+  if(!map)return;
+  var rows=visible(),gs=[],R=map.getZoom()>=15?24:32;
+  rows.forEach(function(d,i){
+    var p=map.project([d.lon,d.lat]),g=null;
+    for(var k=0;k<gs.length;k++){var dx=gs[k].x-p.x,dy=gs[k].y-p.y;if(dx*dx+dy*dy<R*R){g=gs[k];break}}
+    if(g)g.m.push({d:d,n:d.no});else gs.push({x:p.x,y:p.y,m:[{d:d,n:d.no}]})});
+  var s=gs.map(function(g){return g.m.map(function(m){return m.d.id}).join("+")}).join("|");
+  if(!force&&s===sig){labels();return}
+  sig=s;pins.forEach(function(m){m.remove()});pins=[];marks=[];
+  gs.forEach(function(g){
+    var el=document.createElement("button");el.type="button";
+    if(g.m.length===1){var d=g.m[0].d,n=g.m[0].n;
+      el.className="pin";el.innerHTML="<i></i><span></span><b></b>";el.firstChild.style.background=EC[d.era].color;el.children[1].textContent=n;el.lastChild.textContent=d.name;el.setAttribute("aria-label",n+" "+d.name+"（"+d.when+"）");
+      marks.push({el:el,ll:[d.lon,d.lat],h:37,b:el.lastChild,id:d.id});
+      el.onclick=function(e){e.stopPropagation();go({center:[d.lon,d.lat]});show(d,n)};
+      pins.push(new maplibregl.Marker({element:el,anchor:"bottom",opacityWhenCovered:"1"}).setLngLat([d.lon,d.lat]).addTo(map));
+    }else{
+      var b=bounds(g.m.map(function(m){return m.d}));
+      el.className="pin cl";el.innerHTML="<i></i><span></span>";el.lastChild.innerHTML=g.m.length+"<small>か所</small>";el.setAttribute("aria-label",g.m.length+"か所。押すと広がります");
+      var bc=b.getCenter();marks.push({el:el,ll:[bc.lng,bc.lat],h:46,b:null});
+      el.onclick=function(e){e.stopPropagation();
+        if(map.getZoom()<17.5){shut();map.fitBounds(b,{padding:80,maxZoom:18,bearing:map.getBearing(),pitch:map.getPitch(),duration:calm?0:700});return}
+        var w=document.createElement("div");w.innerHTML="<b>"+g.m.length+"か所がすぐ近くにあります</b>";
+        var l=document.createElement("div");l.className="pl";
+        g.m.forEach(function(m){var x=document.createElement("button");x.type="button";x.textContent=m.n+". "+m.d.name;x.onclick=function(){show(m.d,m.n)};l.appendChild(x)});
+        w.appendChild(l);shut();pp=new maplibregl.Popup({offset:off(46),focusAfterOpen:false}).setLngLat(b.getCenter()).setDOMContent(w).addTo(map)};
+      pins.push(new maplibregl.Marker({element:el,anchor:"bottom",opacityWhenCovered:"1"}).setLngLat(b.getCenter()).addTo(map));
+    }});
+  mark(cur);labels();
+}
+/* 名前の札：拡大したときだけ出す。ほかのピンや札と重なるものは出さない */
+function labels(){
+  if(!map)return;
+  var on=map.getZoom()>=14.2,used=[];
+  marks.forEach(function(k){var p=map.project(k.ll);k.x=p.x;k.y=p.y;used.push([p.x-17,p.y-k.h,p.x+17,p.y])});
+  marks.forEach(function(k){if(!k.b)return;
+    if(!on){k.el.classList.remove("lab");return}
+    k.el.classList.add("lab");
+    var r=[k.x+17,k.y-k.h+2,k.x+22+k.b.offsetWidth,k.y-k.h+28],hit=false;
+    for(var i=0;i<used.length;i++){var u=used[i];if(r[0]<u[2]&&r[2]>u[0]&&r[1]<u[3]&&r[3]>u[1]){hit=true;break}}
+    if(hit)k.el.classList.remove("lab");else used.push(r)});
+}
+function fit(first,anim){
+  if(!map)return;
+  var pts=visible();if(!pts.length)return;
+  map.fitBounds(bounds(pts),{padding:PADS,maxZoom:15.5,bearing:first?0:map.getBearing(),pitch:first?(flat?0:55):map.getPitch(),duration:((first&&!anim)||calm)?0:700});
+}
+
+function card(d){
+  var e=EC[d.era];
+  return '<article class="item" data-id="'+d.id+'" style="--ec:'+e.color+'"><div class="n">'+d.no+'</div><div>'
+    +'<p class="w">'+esc(d.when)+'</p><h3>'+esc(d.name)+'</h3>'
+    +'<div class="tags"><span class="tag">'+esc(d.area)+'</span>'+(d.legend?'<span class="tag lg">伝承</span>':'')+'</div>'
+    +'<p class="hl">'+esc(d.headline)+'</p>'
+    +'<p class="note">'+esc(d.story)+'</p>'
+    +(d.see?'<p class="see"><b>現地で</b>'+esc(d.see)+'</p>':'')
+    +'<p class="meta">'+d.confidence+' 出典：'+d.sources.map(function(s){return '<a href="'+esc(s.url)+'" target="_blank" rel="noopener">'+esc(s.title)+'</a>'}).join("、")+'</p>'
+    +'</div></article>'}
+function render(first){
+  var rows=visible(),html="",last="";
+  rows.forEach(function(d){
+    if(d.era!==last){last=d.era;var e=EC[d.era];
+      html+='<section class="era" style="--ec:'+e.color+'"><p class="r">'+esc(e.range)+'</p><h2>'+esc(e.name)+'</h2><p class="l">'+esc(e.lede)+'</p></section>'}
+    html+=card(d)});
+  $("#list").innerHTML=rows.length?html:'<div class="empty">この時代の場所は、まだありません。</div>';
+  if(map){shut();if(!(first&&INTRO))fit(first,!first);place(true)}
+  document.querySelectorAll(".item").forEach(function(el){el.onclick=function(e){if(e.target.closest("a")||!map)return;
+    var d=null;rows.forEach(function(x){if(x.id===el.dataset.id)d=x});
+    if(d){window.scrollTo({top:$("#card").getBoundingClientRect().top+window.scrollY-12});focus(d,d.no)}}});
+}
+function chips(){
+  var c=$("#eras");c.innerHTML="";
+  [{key:"all",name:"すべて"}].concat(ERAS).forEach(function(x){
+    var n=x.key==="all"?D.length:D.filter(function(d){return d.era===x.key}).length;if(!n)return;
+    var b=document.createElement("button");b.type="button";b.className="chip";b.setAttribute("aria-pressed",st.era===x.key);
+    b.innerHTML=(x.color?'<i style="background:'+x.color+'"></i>':'')+esc(x.name)+'<small>'+n+'</small>';
+    b.onclick=function(){if(typeof tstop==="function")tstop();st.era=x.key;chips();render()};c.appendChild(b)});
+}
+
+var tstop=null;
+if(map){
+  var photo=false;
+  function vis(l,on){map.setLayoutProperty(l,"visibility",on?"visible":"none")}
+  function mode(){vis("photo",photo);BASE.forEach(function(l){vis(l,!photo)});vis("bld2d",!photo&&flat);vis("bld",!flat);vis("st",!flat)}
+  $("#t3d").onclick=function(){if(!ready)return;var on=this.getAttribute("aria-pressed")!=="true";this.setAttribute("aria-pressed",on);flat=!on;
+    map.setTerrain(on?{source:"dem",exaggeration:EXAG}:null);mode();go({pitch:on?55:0,bearing:on?map.getBearing():0})};
+  $("#tph").onclick=function(){if(!ready)return;var on=this.getAttribute("aria-pressed")!=="true";this.setAttribute("aria-pressed",on);
+    photo=on;mode()};
+  function nudge(b){var o={duration:250,easing:function(t){return t}};
+    if(b.dataset.b)o.bearing=map.getBearing()+(+b.dataset.b);
+    if(b.dataset.p)o.pitch=Math.max(0,Math.min(75,map.getPitch()+(+b.dataset.p)));
+    if(calm)map.jumpTo(o);else map.easeTo(o)}
+  [].forEach.call(document.querySelectorAll("#pad button"),function(b){var t=null;
+    function stop(){if(t){clearInterval(t);t=null}}
+    b.addEventListener("pointerdown",function(e){e.preventDefault();stop();nudge(b);t=setInterval(function(){nudge(b)},260)});
+    ["pointerup","pointerleave","pointercancel"].forEach(function(k){b.addEventListener(k,stop)});
+    b.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();nudge(b)}});
+    b.addEventListener("contextmenu",function(e){e.preventDefault()})});
+  var rot=false,dr=null,cc=map.getCanvasContainer();
+  function isBig(){return $("#card").classList.contains("big")}
+  function syncRot(){$("#map").classList.toggle("rot",rot);if(rot)map.dragPan.disable();else map.dragPan.enable();cc.style.touchAction=(rot&&isBig())?"none":""}
+  $("#tdr").onclick=function(){rot=this.getAttribute("aria-pressed")!=="true";this.setAttribute("aria-pressed",rot);syncRot()};
+  cc.addEventListener("pointerdown",function(e){
+    if(!rot||e.button!==0||e.ctrlKey||(e.pointerType==="touch"&&!isBig())||!e.isPrimary)return;
+    if(e.target.closest&&e.target.closest(".pin,.maplibregl-popup"))return;
+    dr={x:e.clientX,y:e.clientY,b:map.getBearing(),p:map.getPitch(),id:e.pointerId};map.stop();try{cc.setPointerCapture(e.pointerId)}catch(_){}});
+  cc.addEventListener("pointermove",function(e){if(!dr||e.pointerId!==dr.id)return;
+    map.jumpTo({bearing:dr.b+(e.clientX-dr.x)*.5,pitch:Math.max(0,Math.min(75,dr.p-(e.clientY-dr.y)*.4))})});
+  ["pointerup","pointercancel"].forEach(function(k){cc.addEventListener(k,function(e){if(dr&&e.pointerId===dr.id)dr=null})});
+  $("#thm").onclick=function(){shut();fit(true,true)};
+  $("#tbg").onclick=function(){var on=this.getAttribute("aria-pressed")!=="true";this.setAttribute("aria-pressed",on);this.textContent=on?"とじる":"大きく見る";
+    $("#card").classList.toggle("big",on);document.body.classList.toggle("big",on);
+    if(on)map.cooperativeGestures.disable();else map.cooperativeGestures.enable();
+    syncRot();map.resize()};
+  /* 「時代をたどる」：tour の印がある場所を、古い順に飛ぶ。時代で絞っているときは、その時代の場所ぜんぶ。地図やボタンにさわると止まる */
+  var tq=[],ti=-1,TOUR=[];
+  tstop=function(){if(ti<0)return;ti=-1;tq.forEach(clearTimeout);tq=[];map.stop();$("#cap").hidden=true;mark("");$("#ttr").setAttribute("aria-pressed",false);$("#ttr").textContent="時代をたどる"};
+  function tstep(i){
+    if(i>=TOUR.length){tstop();fit(true,true);return}
+    ti=i;var d=TOUR[i],e=EC[d.era],c=d.cam||{},b=c.b==null?0:c.b,o={center:[d.lon,d.lat],zoom:c.z||16,bearing:b,pitch:flat?0:(c.p||62)};
+    $("#cap").style.borderLeftColor=e.color;$("#capw").style.color=e.color;
+    $("#capw").textContent=e.name+"　"+d.when;$("#capn").textContent=d.no+". "+d.name;$("#capt").textContent=d.headline;shut();mark(d.id);
+    if(calm){map.jumpTo(o);tq.push(setTimeout(function(){tstep(i+1)},5000));return}
+    map.flyTo(Object.assign({duration:3800,essential:true},o));
+    tq.push(setTimeout(function(){map.easeTo({bearing:b+35,duration:4200,easing:function(t){return t}})},3900));
+    tq.push(setTimeout(function(){tstep(i+1)},8200))}
+  $("#ttr").onclick=function(){if(ti>=0){tstop();return}
+    TOUR=st.era==="all"?D.filter(function(d){return d.tour}):visible();
+    this.setAttribute("aria-pressed",true);this.textContent="止める";$("#cap").hidden=false;tstep(0)};
+  $("#card").addEventListener("pointerdown",function(){if(landing)map.stop()},true);
+  $("#card").addEventListener("pointerdown",function(e){if(ti>=0&&!(e.target.closest&&e.target.closest("#ttr")))tstop()},true);
+  cc.addEventListener("wheel",function(){tstop()},{passive:true});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&$("#card").classList.contains("big"))$("#tbg").click()});
+}
+chips();render(true);
+})();
+</script></body></html>
