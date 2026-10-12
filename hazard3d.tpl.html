@@ -112,6 +112,8 @@ h1{font-size:1.9rem!important;margin:2px 0 0!important}
 .watbox p{flex:1 1 100%;margin:0}
 .maplibregl-popup-content{font:500 14px/1.6 inherit;color:#111827;padding:10px 28px 10px 12px;border-radius:10px}
 .maplibregl-ctrl-attrib{font-size:10px}
+.howto summary{cursor:pointer}
+.howto ul{margin:6px 0;padding-left:1.2em}
 </style>
 </head>
 <body>
@@ -141,7 +143,14 @@ h1{font-size:1.9rem!important;margin:2px 0 0!important}
 </div>
 <div id="map" role="application" aria-label="三浦A邸周辺のハザードマップ"></div>
 <div class="legend" id="legend"></div>
-<p class="small" style="margin:0 0 12px">2本指で回す・傾ける。高さは1.6倍に強調しています。建物の高さは、記録がないものは一律5mの目安です。</p>
+<details class="small howto" open style="margin:0 0 12px"><summary><b>地図の操作</b></summary>
+<ul>
+<li><b>スマホ・タブレット：</b>指2本で回す・傾ける・拡大する。1本で動かす。</li>
+<li><b>Mac・パソコン：</b>右クリックしたままドラッグ（または Control ＋ ドラッグ）で、回す・傾ける。⌘（Windows は Ctrl）を押しながらスクロールで拡大・縮小。ドラッグで動かす。</li>
+<li><b>ボタンで：</b>右上の羅針盤を押すと北が上に戻ります。羅針盤を押したままドラッグしても、回す・傾けるができます。</li>
+<li><b>キーボード：</b>Shift ＋ ←→ で回す、Shift ＋ ↑↓ で傾ける。</li>
+</ul>
+<p style="margin:6px 0 0">高さは1.6倍に強調しています。建物の高さは、記録がないものは一律5mの目安です。</p></details>
 
 <section class="now" id="now" aria-label="いちばん大事なこと">
   <p class="k">ここは津波の浸水想定区域</p>
