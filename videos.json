@@ -2,6 +2,50 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "dZa3fvQAwUw",
+   "title": "城ヶ島雨情",
+   "channel": "Yuki Nagaho - Topic",
+   "published_text": "",
+   "views": "30,412回視聴",
+   "length": "4:40",
+   "published": "2026-10-13",
+   "fetched": "2026-10-13",
+   "q": "城ヶ島"
+  },
+  {
+   "id": "ZLWFGIU4PXk",
+   "title": "三崎はなぜ「マグロをとる港」から「マグロが集まる港」に変わったのか｜人口4万人割れでも続くマグロの街【ずんだもん解説】",
+   "channel": "ずんだもんの神奈川調査隊",
+   "published_text": "12 時間前",
+   "views": "0 回視聴",
+   "length": "9:45",
+   "published": "2026-10-13",
+   "fetched": "2026-10-13",
+   "q": "三崎港"
+  },
+  {
+   "id": "BFO-7bFM9II",
+   "title": "第360番-2【女装　コスプレ　湘南 】三崎港／城ヶ島.2・三崎港散策,城ヶ島大橋へ【漁港　散歩　穴場の店】",
+   "channel": "ノン・ダックレイの 動画制作本舗",
+   "published_text": "19 時間前",
+   "views": "942回視聴",
+   "length": "10:31",
+   "published": "2026-10-13",
+   "fetched": "2026-10-13",
+   "q": "三崎港"
+  },
+  {
+   "id": "HDF05tuGkOU",
+   "title": "【三浦海岸】ライトショアジギング、三浦サーフ",
+   "channel": "はしライフ~ 週末探検の人 ~",
+   "published_text": "15 時間前",
+   "views": "1,212回視聴",
+   "length": "11:08",
+   "published": "2026-10-13",
+   "fetched": "2026-10-13",
+   "q": "三浦海岸"
+  },
+  {
    "id": "6PEcCmdAxeE",
    "title": "Jōgashima Island 城ヶ島",
    "channel": "Radhe",
@@ -33,6 +77,17 @@
    "live": true,
    "published": "2026-10-12",
    "fetched": "2026-10-12",
+   "q": "三浦海岸"
+  },
+  {
+   "id": "jJFPrmjjVIw",
+   "title": "三浦半島10月最新！必見！青物釣果に差がつく必勝パターンとはいかに！？#釣り #ルアー  #fishing ",
+   "channel": "🐸KEROX🎣ch",
+   "published_text": "1 日前",
+   "views": "3,648回視聴",
+   "length": "14:30",
+   "published": "2026-10-12",
+   "fetched": "2026-10-13",
    "q": "三浦海岸"
   },
   {
@@ -166,61 +221,6 @@
    "published": "2026-10-07",
    "fetched": "2026-10-07",
    "q": "三浦海岸"
-  },
-  {
-   "id": "a9zcmZ2f1C4",
-   "title": "ヒット三浦海岸でボート釣り。大波乗り越えたその先には…！！！",
-   "channel": "KEIちゃんねる",
-   "published_text": "1 日前",
-   "views": "254回視聴",
-   "length": "9:59",
-   "published": "2026-10-07",
-   "fetched": "2026-10-08",
-   "q": "三浦海岸"
-  },
-  {
-   "id": "co3g1lOUOhM",
-   "title": "【Vlog】ふふ城ヶ島で過ごす1泊2日🌙✨｜全室オーシャンビュー客室🌊,海鮮ディナー🦞,絶品朝ごはん🍚,葉山ランチ🍽️",
-   "channel": "mango",
-   "published_text": "1 日前",
-   "views": "1,716回視聴",
-   "length": "19:45",
-   "published": "2026-10-06",
-   "fetched": "2026-10-07",
-   "q": "城ヶ島"
-  },
-  {
-   "id": "PHzJhIicpWA",
-   "title": "【三崎港】10歳釣りガール、初めての朝まずめで大漁なるか!?",
-   "channel": "つり姫もも©チャンネル",
-   "published_text": "2 日前",
-   "views": "1,887回視聴",
-   "length": "15:36",
-   "published": "2026-10-06",
-   "fetched": "2026-10-08",
-   "q": "三崎 マグロ"
-  },
-  {
-   "id": "NcM4SIEpBNo",
-   "title": "［三浦半島］青物釣り‼︎三浦サーフでショゴが連発ヒット⁉︎イナダ・ショゴの攻略方法を徹底解説！#釣り#ショアジギング#三浦半島 ",
-   "channel": "おしめし",
-   "published_text": "8 時間前",
-   "views": "1,300回視聴",
-   "length": "13:38",
-   "published": "2026-10-05",
-   "fetched": "2026-10-05",
-   "q": "三浦海岸"
-  },
-  {
-   "id": "n0PCAsXfRLU",
-   "title": "2026年10月4日三浦市金田湾朝市",
-   "channel": "びんちゃん貧乏な",
-   "published_text": "22 時間前",
-   "views": "1,792回視聴",
-   "length": "5:02",
-   "published": "2026-10-05",
-   "fetched": "2026-10-05",
-   "q": "小網代"
   }
  ]
 }
