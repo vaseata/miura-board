@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>三浦A邸ハザードマップ（3D）</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light;--ink:#111827;--mute:#4b5563;--line:#d5d9de;--bg:#fff;--soft:#f6f7f8;--danger:#b01c00;--caution:#f2e700;--safe:#0b7a4b;--link:#0a4f96}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Zen Kaku Gothic New",system-ui,sans-serif;line-height:1.7;font-weight:500}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px 56px}
+.nav{max-width:720px;margin:0 auto;padding:14px 20px 0;font-size:.9rem;color:var(--mute)}
+.nav a{color:var(--mute);margin-right:14px;text-decoration:none}
+header{padding:22px 0 4px}
+.eyebrow{font-size:.88rem;color:var(--mute);margin:0;letter-spacing:.04em}
+h1{font-size:1.5rem;font-weight:700;margin:2px 0 0;letter-spacing:.02em}
+.now{margin:22px 0 8px;padding:20px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.now .k{font-size:.92rem;font-weight:700;color:var(--danger);margin:0}
+.now .lead{font-size:1.7rem;font-weight:700;line-height:1.35;margin:4px 0 6px}
+.trg{list-style:none;margin:10px 0 12px;padding:0}
+.trg li{margin:0;padding:9px 0 9px 14px;border-left:4px solid var(--danger);margin-bottom:8px;background:var(--soft)}
+.trg b{display:block;font-size:1.05rem}
+.trg span{display:block;color:var(--mute);font-size:.9rem}
+.now .sub1{margin:0;color:var(--mute);font-size:1.02rem;font-weight:700}
+.go{display:inline-block;margin-top:14px;background:var(--ink);color:#fff!important;text-decoration:none;border-radius:999px;padding:10px 20px;font-weight:700;font-size:.92rem}
+.st{list-style:none;margin:0;padding:0}
+.st li{display:flex;align-items:baseline;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);margin:0}
+.st .d{flex:none;width:12px;height:12px;border-radius:50%;transform:translateY(1px)}
+.st .d.hi{background:var(--danger)}.st .d.mid{background:var(--caution);box-shadow:inset 0 0 0 1px rgba(0,0,0,.2)}.st .d.lo{background:#fff;box-shadow:inset 0 0 0 2px #9ca3af}
+.st .n{flex:none;width:4.5em;font-weight:700}
+.st .v{font-weight:700;font-size:1.05rem}
+.st .t{display:block;color:var(--mute);font-size:.92rem;font-weight:500;margin-top:2px}
+.time{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:22px 0 4px;align-items:start}
+.time .c b{display:block;font-size:2.1rem;line-height:1.1;font-weight:700;color:var(--danger)}
+.time .c small{color:var(--mute);font-size:.88rem}
+.time-note{margin:8px 0 0;font-size:1rem}
+.ctl{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 10px}
+.chip{border:1px solid #9ca3af;color:var(--ink);background:#fff;border-radius:999px;padding:8px 14px;font:inherit;font-weight:700;font-size:.92rem;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
+.chip.loc{color:var(--mute)}
+#map{height:60vh;min-height:360px;border-radius:8px;border:1px solid var(--line)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.86rem;margin:10px 0;color:var(--mute)}
+.legend span i{display:inline-block;width:12px;height:12px;vertical-align:-1px;margin-right:4px;border:1px solid rgba(0,0,0,.2)}
+.legend .t{width:100%;font-weight:700;color:var(--ink)}
+h2{font-size:1.1rem;font-weight:700;margin:40px 0 8px}
+.sub{font-size:1rem;font-weight:700;margin:26px 0 4px}
+ol,ul{margin:6px 0;padding-left:1.3em}
+li{margin:6px 0}
+.small{font-size:.9rem;color:var(--mute)}
+a{color:var(--link)}
+.pdfs a{display:inline-block;margin:4px 14px 4px 0}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:1rem}
+th,td{border-bottom:1px solid var(--line);padding:10px 8px 10px 0;text-align:left;vertical-align:top}
+th{color:var(--mute);font-size:.86rem;font-weight:700}
+td small{color:var(--mute)}
+tr.best td{background:var(--soft)}
+.warn{border-left:4px solid var(--danger);background:var(--soft);padding:10px 14px;margin:10px 0}
+.warn p{margin:6px 0 0}
+.stp{display:grid;grid-template-columns:1fr;gap:10px;border-top:1px solid var(--line);padding:16px 0;margin:0}
+@media(min-width:640px){.stp{grid-template-columns:230px 1fr}}
+.stp .m{height:190px;border-radius:8px;overflow:hidden}
+.stp h4{margin:0;font-size:1rem}
+.stp h4 .n{display:inline-block;background:var(--ink);color:#fff;border-radius:50%;width:1.5em;height:1.5em;text-align:center;line-height:1.5em;margin-right:8px;font-size:.82rem}
+.stp .dist{color:var(--danger);font-weight:700;margin-left:4px}
+.stp p{margin:4px 0;font-size:1rem}
+.stp img.ph{width:100%;border-radius:8px;margin-top:8px}
+.sv{display:inline-block;border:1.5px solid var(--ink);color:var(--ink)!important;text-decoration:none;border-radius:999px;padding:7px 14px;font-size:.92rem;font-weight:700;margin-top:6px}
+.leaflet-container{font-family:inherit}
+.home{background:var(--danger);border-radius:50%;width:18px;height:18px;border:3px solid #fff;box-shadow:0 0 0 2px var(--danger)}
+
+/* 文字の大きさ：通常指定（本文18px、注記15px。老眼の方も読めるよう少し大きめ） */
+body{font-size:18px;line-height:1.7}
+p,li,table,td,.stp p,.st .n,.now .sub1,.time-note,.sub{font-size:1rem}
+.small,.legend,th,td small,.st .t,.trg span,.time .c small,.eyebrow,.nav,.now .k,.chip,.sv,.go{font-size:.86rem}
+.small,.st .t,.trg span,.time .c small,td small,.legend,th,.eyebrow,.nav{color:var(--mute);font-weight:500}
+h1{font-size:2.5rem;line-height:1.15;letter-spacing:.01em;margin:8px 0 0}
+.now .lead{font-size:1.7rem;line-height:1.4}
+.now .sub1{font-weight:700;color:var(--ink)}
+.trg b{font-size:1.2rem}
+.trg li{padding:10px 0 10px 14px}
+.st .v{font-size:1.25rem}
+.st .n{width:5em;font-weight:700}
+.time .c b{font-size:2.4rem}
+h2{font-size:1.35rem;margin:40px 0 10px;padding-top:12px;border-top:3px solid var(--ink)}
+.chip{padding:9px 16px;font-weight:700}
+.stp h4{font-size:1.05rem}
+th{font-weight:700}
+@media(min-width:600px){h1{font-size:3.4rem}}
+td:nth-child(n+2),th:nth-child(n+2){white-space:nowrap}
+td,th{padding-right:6px}
+.brief{margin:8px 0 10px;padding:10px 14px;border-left:4px solid var(--danger);background:var(--soft);font-size:.95rem;line-height:1.5}
+.brief a{margin-left:6px;white-space:nowrap}
+.ctl{flex-wrap:nowrap;overflow-x:auto;margin:6px -20px 8px;padding:0 20px 4px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.ctl::-webkit-scrollbar{display:none}
+.chip{flex:none;white-space:nowrap}
+#map{height:58svh;min-height:320px}
+header{padding:12px 0 0}
+h1{font-size:1.9rem!important;margin:2px 0 0!important}
+.eyebrow{display:none}
+.now{margin-top:28px}
+@media(min-width:600px){h1{font-size:2.6rem!important}#map{height:62vh}}
+.fp{position:relative;display:flex;align-items:center;gap:6px;background:none;border:0;padding:0;font:inherit;cursor:pointer;pointer-events:auto}
+.fp i{flex:none;width:16px;height:16px;border-radius:50%;background:var(--c,#0a8f5a);border:2.5px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4)}
+.fp.safe i{width:20px;height:20px}
+.fp span{font-size:12px;font-weight:700;line-height:1.2;color:#111827;background:rgba(255,255,255,.88);border-radius:4px;padding:1px 5px;white-space:nowrap}
+.fp.home i{width:22px;height:22px;background:#b01c00;border-radius:50%}
+.fp.home span{background:#b01c00;color:#fff}
+.me{width:16px;height:16px;border-radius:50%;background:#1a73e8;border:3px solid #fff;box-shadow:0 0 0 2px rgba(26,115,232,.4)}
+.watbox{margin:6px 0 10px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.watbox[hidden]{display:none}
+.watbox input{flex:1 1 100%;accent-color:#0070e6}
+.watbox p{flex:1 1 100%;margin:0}
+.maplibregl-popup-content{font:500 14px/1.6 inherit;color:#111827;padding:10px 28px 10px 12px;border-radius:10px}
+.maplibregl-ctrl-attrib{font-size:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <p class="eyebrow">神奈川県三浦市三崎</p>
+  <h1>三浦A邸<br>ハザードマップ</h1>
+</header>
+
+<p class="brief"><b>ここは津波の浸水想定区域。</b>地震や警報で、三崎小学校へ。<a href="#now">くわしく ↓</a></p>
+<div class="ctl" role="group" aria-label="表示する情報">
+  <button class="chip" id="b-hin" aria-pressed="true">避難先・高台</button>
+  <button class="chip" id="b-tsu" aria-pressed="true">津波</button>
+  <button class="chip" id="b-wat" aria-pressed="false">海抜で見る</button>
+  <button class="chip" id="b-tak" aria-pressed="false">高潮</button>
+  <button class="chip" id="b-dos" aria-pressed="false">土砂災害</button>
+  <button class="chip" id="b-hig" aria-pressed="false">標高の色</button>
+  <button class="chip" id="b-pho" aria-pressed="false">航空写真</button>
+  <button class="chip" id="b-d3" aria-pressed="true">3D</button>
+  <button class="chip loc" id="b-loc">現在地</button>
+</div>
+<div id="watbox" class="watbox" hidden>
+  <b>海抜 <output id="wlo"></output></b>
+  <button type="button" class="chip" data-lv="5">5m</button><button type="button" class="chip" data-lv="10">10m</button><button type="button" class="chip" data-lv="15">15m</button><button type="button" class="chip" data-lv="25">25m</button>
+  <input id="lv" type="range" min="1" max="30" step="1" value="5" aria-label="海抜（m）">
+  <p class="small">海抜がその高さ以下の陸地を青く塗ります。津波の想定（5〜10m）が、坂の下から何mの所まで来るかの目安です。実際の浸水域とは違います（川や海から離れた窪地も塗られます）。</p>
+</div>
+<div id="map" role="application" aria-label="三浦A邸周辺のハザードマップ"></div>
+<div class="legend" id="legend"></div>
+<p class="small" style="margin:0 0 12px">2本指で回す・傾ける。高さは1.6倍に強調しています。建物の高さは、記録がないものは一律5mの目安です。</p>
+
+<section class="now" id="now" aria-label="いちばん大事なこと">
+  <p class="k">ここは津波の浸水想定区域</p>
+  <p class="lead">次のどれかで、<br>三崎小学校へ。</p>
+  <ul class="trg">
+    <li><b>震度4程度以上</b><span>眠っている人がほとんど目を覚ますくらいの揺れ</span></li>
+    <li><b>長く続く揺れ</b><span>弱くても、ゆっくり長いなら動く。強さで判断しない</span></li>
+    <li><b>スマホの警報音</b><span>緊急地震速報・津波警報・避難指示</span></li>
+  </ul>
+  <p class="sub1">歩いて約2〜5分 ・ 標高25m ・ 津波の区域外</p>
+  <a class="go" href="#route">避難先を見る</a>
+</section>
+
+<ul class="st">
+  <li><span class="d hi"></span><span class="n">津波</span><span class="v">浸水 5〜10m<span class="t">2階建てが水没する深さ。A邸の標高は約6.6m</span></span></li>
+  <li><span class="d lo"></span><span class="n">高潮</span><span class="v">区域外<span class="t">台風時は高潮警報・避難情報に従う</span></span></li>
+  <li><span class="d mid"></span><span class="n">土砂災害</span><span class="v">区域のそば<span class="t">急傾斜地の警戒区域が約1m以内。大雨時は崖側を避ける</span></span></li>
+</ul>
+
+<div class="time">
+  <div class="c"><b>最短1分</b><small>30cmの津波が届く</small></div>
+  <div class="c"><b>11分</b><small>最大の津波が届く</small></div>
+</div>
+<p class="time-note"><b>見てから、警報を聞いてからでは間に合いません。</b>揺れが収まったら、すぐ動く。</p>
+<p class="small">神奈川県の想定（最大クラス）で、三浦市の代表箇所の数値。最大津波高 T.P.＋15.4m（相模トラフ中央の地震）。A邸の地点そのものの値ではなく、地震の種類でも変わります。出典：<a href="https://www.mlit.go.jp/river/shinngikai_blog/shaseishin/kasenbunkakai/bunkakai/dai52kai/siryou2-5.pdf" target="_blank" rel="noopener">神奈川県「神奈川県沿岸における津波浸水想定」説明資料（平成27年5月）p.10</a></p>
+
+
+
+<h2 id="route">避難先と道順</h2>
+<p>A邸（標高約6.6m）から、津波の区域外にある高台の避難先までの目安です。地図の「避難先・高台」で、位置を見られます。</p>
+<div class="tbl"><table>
+<thead><tr><th>避難先</th><th>標高</th><th>道のり</th><th>徒歩</th></tr></thead>
+<tbody>
+<tr class="best"><td><b>三崎小学校</b><br><small>避難所（入口は要確認）</small></td><td data-l="標高">約25m</td><td data-l="道のり">120〜406m</td><td data-l="徒歩"><b>約2〜5分</b></td></tr>
+<tr><td><b>三浦市役所第2分館</b><br><small>避難所</small></td><td data-l="標高">約31m</td><td data-l="道のり">348m</td><td data-l="歩いて"><b>約5分</b></td></tr>
+<tr><td>香山第3ビル<br><small>津波避難ビル（建物・地盤の標高）</small></td><td data-l="標高">約22m</td><td data-l="道のり">525m</td><td data-l="歩いて">約7分</td></tr>
+<tr><td>津波避難階段（晴海町）<br><small>入江の対岸</small></td><td data-l="標高">約29m</td><td data-l="道のり">約1.0km</td><td data-l="歩いて">約13分</td></tr>
+</tbody></table></div>
+<p class="small">歩く速さは分速80m（時速4.8km）の目安。高齢の方・荷物がある・夜間は倍かかると考えてください。道のりは OpenStreetMap の歩行者経路で、実際の道とずれることがあります。<b>入居したら一度、昼と夜に歩いて確かめてください。</b></p>
+<p><b>まず「三崎小学校」。</b>A邸から最も近い高台で、津波の区域外です。海沿いの低い所にある津波避難ビル（橙の点）は浸水想定5〜10mの区域内にあり、建物の高さが足りない可能性があるため、高台へ行けるときは高台を優先します。</p>
+
+
+
+
+<h2>命を守る行動</h2>
+<ol>
+  <li><b>きっかけは3つ。</b>震度4程度以上の揺れ／弱くても長くゆっくり続く揺れ／スマホの警報音。どれか1つで動く。警報や避難指示を待たない。</li>
+  <li><b>高台へ、歩いて。</b>市の津波ハザードマップで、まず三崎小学校（標高約25m・歩いて約5分）。次の候補は三浦市役所第2分館（約31m・約5分）。入口の位置は未確認です。一度、昼と夜に歩いて確かめておく。</li>
+  <li><b>戻らない。</b>津波は繰り返し来ます。警報が解除されるまで浸水想定区域に入らない。</li>
+  <li><b>大雨のとき</b>は崖側の部屋・出入口を避け、早めに明るいうちに移動。</li>
+  <li><b>来訪者・新しい住人へ。</b>入居・宿泊の初日に、この画面を見せて上の1〜3を伝える。</li>
+</ol>
+
+<h2>三浦市の公式ハザードマップ（PDF）</h2>
+<div class="pdfs">
+  <a href="https://www.city.miura.kanagawa.jp/material/files/group/14/tunami.pdf" target="_blank" rel="noopener">津波ハザードマップ</a>
+  <a href="https://www.city.miura.kanagawa.jp/material/files/group/14/takashio.pdf" target="_blank" rel="noopener">高潮ハザードマップ</a>
+  <a href="https://www.city.miura.kanagawa.jp/material/files/group/14/doshamap.pdf" target="_blank" rel="noopener">土砂災害ハザードマップ</a>
+  <a href="https://www.city.miura.kanagawa.jp/kurashi/anzen_anshin/6/1/1/hazardmap/7650.html" target="_blank" rel="noopener">市の案内ページ</a>
+</div>
+
+<h2>この地図について</h2>
+<ul class="small">
+  <li>色の地図は国土地理院「重ねるハザードマップ」のタイルです（津波：神奈川県の津波浸水想定、最大クラスの想定／高潮：高潮浸水想定区域／土砂：土砂災害警戒区域・急傾斜地崩壊危険区域）。</li>
+  <li>A邸の位置は国土地理院の住所検索をもとにした概算で、数十m程度ずれることがあります。</li>
+  <li>避難先の位置は、市の津波ハザードマップの記号の位置から換算した概算です（標高は国土地理院の標高データで確かめ、市の地図の表記と一致することを確認しました）。記号の種別（避難所／津波避難ビル）は市のPDFでも確認してください。</li>
+  <li>標高は国土地理院の標高データ（1mメッシュ）。避難ビルの建物の高さ・収容人数は未確認です。</li>
+  <li>土石流・地すべりの区域は、この周辺では国のデータにありません。</li>
+  <li>想定は「最大クラスを想定した目安」です。想定外もありえます。最新の避難情報（市・気象庁）を優先してください。</li>
+</ul>
+<p class="small">出典：<a href="https://disaportal.gsi.go.jp/" target="_blank" rel="noopener">国土地理院 ハザードマップポータルサイト</a>、<a href="https://www.city.miura.kanagawa.jp/kurashi/anzen_anshin/6/1/1/hazardmap/7650.html" target="_blank" rel="noopener">三浦市</a>。地図：地理院タイル。</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.min.js"></script>
+<script>
+(function(){
+var HOME=%%HOME%%, EXAG=1.6, $=function(s){return document.querySelector(s)};
+var GSI="cyberjapandata.gsi.go.jp/xyz/", HZ="disaportaldata.gsi.go.jp/raster/";
+var calm=window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches;
+
+/* 標高：地理院の標高タイル（dem_png）を Terrarium 形式に直す。海・データなし・0m未満は 0m */
+function px(bm){var c=document.createElement("canvas");c.width=c.height=256;var x=c.getContext("2d");
+  if(bm)x.drawImage(bm,0,0);return {c:c,x:x,im:bm?x.getImageData(0,0,256,256):x.createImageData(256,256),has:!!bm}}
+function elev(d,i,has){var v=d[i]*65536+d[i+1]*256+d[i+2];return (!has||v===8388608)?null:(v<8388608?v:v-16777216)*0.01}
+function getBM(url,ac){return fetch(url,{signal:ac.signal}).then(function(r){return r.ok?r.blob():null}).then(function(b){return b?createImageBitmap(b):null})}
+function demTile(p,ac){
+  return getBM(p.url.replace("gsidem://","https://"),ac).then(function(bm){
+    var o=px(bm),d=o.im.data;
+    for(var i=0;i<d.length;i+=4){var h=elev(d,i,o.has);if(h===null||h<0)h=0;
+      var t=h+32768,f=Math.floor(t);d[i]=f>>8;d[i+1]=f&255;d[i+2]=Math.floor((t-f)*256);d[i+3]=255}
+    o.x.putImageData(o.im,0,0);
+    return new Promise(function(ok){o.c.toBlob(ok,"image/png")})}).then(function(b){return b.arrayBuffer()}).then(function(buf){return {data:buf}})}
+/* 「海抜 N m 以下」を青く塗るタイル。URL の最初の数字が N（m）。陸（0m超）だけを塗り、海は塗らない */
+function waterTile(p,ac){
+  var m=/^gsiwater:\/\/(\d+(?:\.\d+)?)\/(.*)$/.exec(p.url),lv=parseFloat(m[1]);
+  return getBM("https://"+m[2],ac).then(function(bm){
+    var o=px(bm),d=o.im.data;
+    for(var i=0;i<d.length;i+=4){var h=elev(d,i,o.has);
+      if(h!==null&&h>0&&h<=lv){d[i]=0;d[i+1]=112;d[i+2]=230;d[i+3]=255}else{d[i]=d[i+1]=d[i+2]=d[i+3]=0}}
+    o.x.putImageData(o.im,0,0);
+    return new Promise(function(ok){o.c.toBlob(ok,"image/png")})}).then(function(b){return b.arrayBuffer()}).then(function(buf){return {data:buf}})}
+var seaBuf=null;
+function seaTile(){if(!seaBuf)seaBuf=new Promise(function(ok){var c=document.createElement("canvas");c.width=c.height=256;var x=c.getContext("2d");x.fillStyle="#263f52";x.fillRect(0,0,256,256);c.toBlob(ok,"image/png")}).then(function(b){return b.arrayBuffer()});return seaBuf.then(function(b){return b.slice(0)})}
+function photoTile(p,ac){return fetch(p.url.replace("gsiphoto://","https://"),{signal:ac.signal}).then(function(r){return r.ok?r.arrayBuffer():seaTile()}).then(function(buf){return {data:buf}})}
+
+var FAC=[["三浦市役所第2分館", "避難所", 35.14469, 139.62073, 30.6, 0], ["三崎小学校", "避難所", 35.143156, 139.619656, 24.5, 0], ["白石区歌舞島会館", "避難所", 35.143492, 139.612873, 5.9, 1], ["通り矢区民会館", "避難所", 35.138411, 139.627278, 16.1, 0], ["香山第3ビル", "津波避難ビル", 35.14217, 139.617053, 21.9, 0], ["三崎水産物地方卸売市場", "津波避難ビル", 35.141014, 139.613981, 1.7, 1], ["三崎水産会館", "津波避難ビル", 35.139238, 139.618061, 2.2, 1], ["ツクイ・サンシャイン三浦", "津波避難ビル", 35.139238, 139.618766, 2.2, 1], ["はなことば三浦", "津波避難ビル", 35.143244, 139.624306, 2.9, 1], ["津波避難階段（晴海町）", "津波避難階段", 35.139238, 139.625414, 29.3, 0], ["椿の御所幼稚園", "福祉避難所", 35.140229, 139.623399, 3.8, 1]];
+var ICON={"避難所":["#0a8f5a","避難所"],"津波避難ビル":["#d9822b","津波避難ビル"],"津波避難階段":["#0a8f5a","津波避難階段"],"福祉避難所":["#8a3fa8","福祉避難所"]};
+function sw(c,t){return '<span><i style="background:'+c+'"></i>'+t+'</span>'}
+var LEG={
+  hin:'<span class="t">避難先（⛰は津波の区域外の高台）</span>'+sw("#0a8f5a","避難所・避難階段")+sw("#d9822b","津波避難ビル（区域内の建物）")+sw("#8a3fa8","福祉避難所"),
+  hig:'<span class="t">色別標高図（緑・黄＝低い、茶・白＝高い）</span>',
+  tsu:'<span class="t">津波の浸水深</span>'+[["#ffffb3","0.3m未満"],["#f7f5a9","0.3〜0.5m"],["#f8e1a6","0.5〜1m"],["#ffd8c0","1〜3m"],["#ffb7b7","3〜5m"],["#ff9191","5〜10m（A邸）"],["#f285c9","10〜20m"],["#dc7abc","20m以上"]].map(function(a){return sw(a[0],a[1])}).join(""),
+  tak:'<span class="t">高潮の浸水深（色が付いた所が浸水想定）</span>',
+  dos:'<span class="t">土砂災害</span>'+sw("#f7e600","警戒区域（急傾斜地）")+sw("#e8341c","特別警戒区域（急傾斜地）")+sw("#e0e0fe","急傾斜地崩壊危険区域"),
+  wat:'<span class="t">海抜で塗った目安（実際の浸水域ではありません）</span>'+sw("#0070e6","海抜 <b id=\"wl\">5</b>m 以下の陸地")
+};
+var C={land:"#F6F3EC",farm:"#EFEDDC",grass:"#E0EAD2",wood:"#CDDDBF",sand:"#F1E6C8",rock:"#E4DFD4",water:"#B9D6EA",road:"#FFFFFF",roadCase:"#DDD6C8",path:"#CFC6B6",bld:"#FFFFFF",text:"#3F4A55"};
+var NAME=["coalesce",["get","name:ja"],["get","name"]],FONT=["Noto Sans Regular"];
+function w(a,b,c){return ["interpolate",["exponential",1.5],["zoom"],12,a,16,b,20,c]}
+function road(id,cls,color,width,extra){return Object.assign({id:id,type:"line",source:"ofm","source-layer":"transportation",
+  filter:["all",["==",["geometry-type"],"LineString"],["in",["get","class"],["literal",cls]],["!=",["get","brunnel"],"bridge"]],
+  layout:{"line-cap":"round","line-join":"round"},paint:{"line-color":color,"line-width":width}},extra||{})}
+var MAIN=["motorway","trunk","primary","secondary","tertiary"],MINOR=["minor","service","track"];
+function demSrc(){return {type:"raster-dem",tiles:["gsidem://"+GSI+"dem_png/{z}/{x}/{y}.png"],tileSize:256,maxzoom:14,encoding:"terrarium"}}
+function rast(path,maxz,extra){return Object.assign({type:"raster",tiles:["https://"+HZ+path+"/{z}/{x}/{y}.png"],tileSize:256,minzoom:5,maxzoom:maxz||17},extra||{})}
+var STYLE={version:8,glyphs:"https://tiles.openfreemap.org/fonts/{fontstack}/{range}.pbf",
+  sources:{
+    photo:{type:"raster",tiles:["gsiphoto://"+GSI+"seamlessphoto/{z}/{x}/{y}.jpg"],tileSize:256,minzoom:2,maxzoom:18,attribution:"写真・標高・ハザード情報：国土地理院"},
+    relief:{type:"raster",tiles:["https://"+GSI+"relief/{z}/{x}/{y}.png"],tileSize:256,minzoom:5,maxzoom:15},
+    ofm:{type:"vector",url:"https://tiles.openfreemap.org/planet",attribution:"地図：OpenFreeMap © OpenMapTiles © OpenStreetMap"},
+    tsu:rast("04_tsunami_newlegend"),tak:rast("03_hightide_l2_shinsuishin_data"),
+    dos1:rast("05_kyukeishakeikaikuiki"),dos2:rast("05_kyukeisyachihoukai"),
+    dem:demSrc(),shade:demSrc()},
+  layers:[
+    {id:"land",type:"background",paint:{"background-color":C.land}},
+    {id:"lc",type:"fill",source:"ofm","source-layer":"landcover",paint:{"fill-color":["match",["get","class"],"farmland",C.farm,"grass",C.grass,"wood",C.wood,"sand",C.sand,"rock",C.rock,"wetland",C.grass,C.land],"fill-opacity":.9}},
+    {id:"park",type:"fill",source:"ofm","source-layer":"park",paint:{"fill-color":C.grass,"fill-opacity":.7}},
+    {id:"water",type:"fill",source:"ofm","source-layer":"water",paint:{"fill-color":C.water}},
+    road("rd_path",["path"],C.path,w(.4,1,3),{minzoom:14}),
+    road("rd_minor_c",MINOR,C.roadCase,w(.8,4,20),{minzoom:13}),
+    road("rd_main_c",MAIN,C.roadCase,w(2,7.5,30)),
+    road("rd_minor",MINOR,C.road,w(.3,2.6,16),{minzoom:13}),
+    road("rd_main",MAIN,C.road,w(1.2,5.5,26)),
+    {id:"photo",type:"raster",source:"photo",layout:{visibility:"none"}},
+    {id:"relief",type:"raster",source:"relief",layout:{visibility:"none"},paint:{"raster-opacity":.7}},
+    {id:"shade",type:"hillshade",source:"shade",paint:{"hillshade-exaggeration":.45,"hillshade-shadow-color":"#3f5247","hillshade-highlight-color":"#ffffff","hillshade-accent-color":"#5d6d62"}},
+    {id:"tsu",type:"raster",source:"tsu",paint:{"raster-opacity":.72}},
+    {id:"tak",type:"raster",source:"tak",layout:{visibility:"none"},paint:{"raster-opacity":.72}},
+    {id:"dos1",type:"raster",source:"dos1",layout:{visibility:"none"},paint:{"raster-opacity":.8}},
+    {id:"dos2",type:"raster",source:"dos2",layout:{visibility:"none"},paint:{"raster-opacity":.8}},
+    {id:"bld",type:"fill-extrusion",source:"ofm","source-layer":"building",minzoom:13,filter:["!=",["get","hide_3d"],true],
+      paint:{"fill-extrusion-color":C.bld,"fill-extrusion-height":["*",EXAG,["coalesce",["get","render_height"],5]],"fill-extrusion-base":["*",EXAG,["coalesce",["get","render_min_height"],0]],"fill-extrusion-opacity":.9}},
+    {id:"lb_place",type:"symbol",source:"ofm","source-layer":"place",filter:["in",["get","class"],["literal",["city","town","village","hamlet","suburb","quarter","neighbourhood","island"]]],
+      layout:{"text-field":NAME,"text-font":FONT,"text-size":12,"text-padding":14},
+      paint:{"text-color":C.text,"text-halo-color":"rgba(255,255,255,.9)","text-halo-width":1.4}}],
+  terrain:{source:"dem",exaggeration:EXAG},
+  sky:{"sky-color":"#9CC6E2","horizon-color":"#EAF2F6","fog-color":"#EAF2F6","sky-horizon-blend":.6,"horizon-fog-blend":.6,"fog-ground-blend":.2}};
+
+var map=null,markers=[],on={tsu:true,tak:false,dos:false,pho:false,hig:false,hin:true,wat:false,d3:true},level=5;
+try{
+  maplibregl.addProtocol("gsidem",demTile);maplibregl.addProtocol("gsiphoto",photoTile);maplibregl.addProtocol("gsiwater",waterTile);
+  map=new maplibregl.Map({container:"map",style:STYLE,center:[HOME.lon,HOME.lat],zoom:15.4,pitch:58,bearing:-25,maxPitch:75,maxZoom:19.5,minZoom:10,
+    cooperativeGestures:true,attributionControl:{compact:true},
+    locale:{"CooperativeGesturesHandler.WindowsHelpText":"Ctrl を押しながらスクロールで拡大できます","CooperativeGesturesHandler.MacHelpText":"⌘ を押しながらスクロールで拡大できます","CooperativeGesturesHandler.MobileHelpText":"指2本で地図を動かせます",
+      "NavigationControl.ZoomIn":"拡大","NavigationControl.ZoomOut":"縮小","NavigationControl.ResetBearing":"北を上に戻す"}});
+  map.addControl(new maplibregl.NavigationControl({visualizePitch:true}),"top-right");
+}catch(e){
+  map=null;$("#map").innerHTML='<p style="padding:24px">この端末では 3D の地図を表示できませんでした。ブラウザを最新にするか、別の端末でお試しください。</p>';
+}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function addMarkers(){
+  FAC.forEach(function(f){
+    var n=f[0],t=f[1],la=f[2],lo=f[3],el=f[4],zone=f[5],safe=!zone&&t!=="津波避難ビル";
+    var b=document.createElement("button");b.type="button";b.className="fp"+(safe?" safe":"");b.style.setProperty("--c",ICON[t][0]);
+    b.innerHTML='<i></i><span></span>';b.lastChild.textContent=(safe?"⛰ ":"")+n+(el!=null?" "+Math.round(el)+"m":"");
+    b.setAttribute("aria-label",n);
+    var pop=new maplibregl.Popup({offset:18,focusAfterOpen:false}).setHTML('<b>'+esc(n)+'</b><br>'+ICON[t][1]+(el!=null?'<br>標高 約'+Math.round(el)+'m':'')+'<br>'+(zone?'津波浸水想定の区域内':'津波浸水想定の区域外'));
+    var mk=new maplibregl.Marker({element:b,anchor:"center",opacityWhenCovered:"1"}).setLngLat([lo,la]).setPopup(pop).addTo(map);
+    markers.push(mk);
+  });
+  var h=document.createElement("div");h.className="fp home";h.innerHTML='<i></i><span>三浦A邸 約6.6m</span>';
+  markers.push(new maplibregl.Marker({element:h,anchor:"center",opacityWhenCovered:"1"}).setLngLat([HOME.lon,HOME.lat]).addTo(map));
+}
+function setVis(id,v){if(map.getLayer(id))map.setLayoutProperty(id,"visibility",v?"visible":"none")}
+function water(){
+  if(map.getLayer("wat"))map.removeLayer("wat");if(map.getSource("wat"))map.removeSource("wat");
+  if(!on.wat)return;
+  map.addSource("wat",{type:"raster",tiles:["gsiwater://"+level+"/"+GSI+"dem_png/{z}/{x}/{y}.png"],tileSize:256,maxzoom:14});
+  map.addLayer({id:"wat",type:"raster",source:"wat",paint:{"raster-opacity":.6,"raster-resampling":"linear"}},"bld");
+}
+function render(){
+  if(!map)return;
+  setVis("tsu",on.tsu);setVis("tak",on.tak);setVis("dos1",on.dos);setVis("dos2",on.dos);setVis("photo",on.pho);setVis("relief",on.hig);
+  markers.forEach(function(m){m.getElement().style.display=on.hin?"":"none"});
+  $("#legend").innerHTML=["hin","tsu","tak","dos","hig","wat"].filter(function(k){return on[k]}).map(function(k){return LEG[k]}).join('<div style="width:100%"></div>');
+  var wl=$("#wl");if(wl)wl.textContent=level;var wo=$("#wlo");if(wo)wo.textContent=level+"m 以下";
+  for(var k in on){var b=$("#b-"+k);if(b)b.setAttribute("aria-pressed",on[k])}
+  $("#watbox").hidden=!on.wat;
+}
+function go(o){if(calm)map.jumpTo(o);else map.easeTo(Object.assign({duration:800},o))}
+if(map){
+  map.once("style.load",function(){addMarkers();render()});
+  ["tsu","tak","dos","pho","hig","hin"].forEach(function(k){$("#b-"+k).onclick=function(){on[k]=!on[k];render()}});
+  $("#b-wat").onclick=function(){on.wat=!on.wat;water();render()};
+  document.querySelectorAll("[data-lv]").forEach(function(b){b.onclick=function(){level=+b.dataset.lv;$("#lv").value=level;if(on.wat){water();render()}}});
+  var tm=null;$("#lv").oninput=function(){level=+this.value;var wl=$("#wl");if(wl)wl.textContent=level;var wo=$("#wlo");if(wo)wo.textContent=level+"m 以下";clearTimeout(tm);tm=setTimeout(function(){if(on.wat){water();render()}},250)};
+  $("#b-d3").onclick=function(){on.d3=!on.d3;map.setTerrain(on.d3?{source:"dem",exaggeration:EXAG}:null);go({pitch:on.d3?58:0,bearing:on.d3?map.getBearing():0});render()};
+  var me=null;
+  $("#b-loc").onclick=function(){
+    if(!navigator.geolocation){alert("この端末では現在地を使えません");return}
+    navigator.geolocation.getCurrentPosition(function(p){var ll=[p.coords.longitude,p.coords.latitude];
+      if(me)me.remove();var d=document.createElement("div");d.className="me";me=new maplibregl.Marker({element:d}).setLngLat(ll).addTo(map);go({center:ll,zoom:16});
+    },function(){alert("現在地を取得できませんでした")});
+  };
+}
+})();
+</script>
+
+</body>
+</html>
