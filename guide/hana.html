@@ -19,6 +19,7 @@
   --sp-1:8px; --sp-2:16px; --sp-3:24px; --sp-4:32px; --r:22px; --sticker:0 4px 0 var(--ink);
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font:500 16px/1.7 var(--font);-webkit-text-size-adjust:100%}
 .wrap{max-width:720px;margin:0 auto;padding:var(--sp-2) var(--sp-2) 112px}
@@ -118,6 +119,7 @@ textarea:focus,input[type=text]:focus{border-color:var(--pink);outline:none;box-
 .preview summary{cursor:pointer;font-weight:700;padding:10px 0}
 pre{white-space:pre-wrap;word-break:break-word;margin:0 0 10px;font:13px/1.65 ui-monospace,Menlo,monospace;max-height:280px;overflow:auto}
 .sendparts{margin-top:14px;background:var(--pink-xl);border:1.5px solid var(--line);border-radius:14px;padding:12px 14px}.sp-t{margin:0 0 8px;font-size:14px;line-height:1.7}.sp{list-style:none;margin:0;padding:0;display:grid;gap:8px}.sp li{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:8px 10px}.sp-l{font-weight:700;font-size:14.5px;min-width:0}.sp-l small{display:block;font-weight:500;color:var(--ink-2);font-size:12.5px;overflow-wrap:anywhere}.sp-b{flex:none}
+.sendstate{display:grid;gap:2px;padding:12px 14px;border-radius:14px;background:var(--soft);border:1.5px solid var(--line);font-size:14px;line-height:1.6;margin-top:6px}.sendstate b{font-size:15px}.sendstate.busy{background:#EAF4FB;border-color:#9CC7E6}.sendstate.ok{background:#E8F6EC;border-color:#8CCB9E}.sendstate.ng{background:#FDECEC;border-color:#E3A0A0}
 .sendmsg{margin-top:14px;padding:12px 14px;background:#FFF3C4;border:1.5px solid #E5C964;border-radius:14px;font-size:14px;line-height:1.7}.sendmsg p{margin:0 0 10px}
 #out{font:13px/1.65 ui-monospace,Menlo,monospace;margin-bottom:10px}
 .small{margin:12px 0 0;font-size:13px;color:var(--ink-2)}
@@ -176,6 +178,7 @@ pre{white-space:pre-wrap;word-break:break-word;margin:0 0 10px;font:13px/1.65 ui
   <div class="sendcard">
     <label class="ph" for="who" style="display:block;font-size:13px;color:var(--ink-2);margin-bottom:4px">お名前（任意）</label>
     <input type="text" id="who" placeholder="例：華" autocomplete="off">
+    <div class="sendstate" id="sendstate" role="status" aria-live="polite"><b id="ss-t">まだ送っていません</b><span id="ss-d">書いたら、下のボタンで送ってください。</span></div>
     <button class="btn primary block" id="recv" type="button" hidden>このまま送信する（おすすめ）</button>
     <button class="btn primary block" id="line" type="button">LINEで矢貫に送る</button>
     <button class="btn block" id="copy" type="button">文章をコピーする</button>
@@ -290,7 +293,7 @@ function summary(){var r=text();$("#out").value=r.empty?"まだ何も書かれ�
    ・受け取り口（RECEIVER）があれば、それが「確実に届く」本線。どの端末・ブラウザでも、LINEが無くても届く
    ・LINEの送信URL（line.me）は、日本語で約240文字までしか運べない（実測）。短いときだけ使う
    ・スマホは共有メニュー（LINEを選べる）。パソコンや失敗時は、コピーして貼り付け */
-var RECEIVER="";
+var RECEIVER=null;
 var isMobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
 function escCount(s){return (encodeURIComponent(s).match(/%/g)||[]).length}
 function lineUrl(t){return "https://line.me/R/msg/text/?"+encodeURIComponent(t)}
@@ -305,7 +308,7 @@ function copyFlow(t){
  copyText(t,function(ok){
   if(ok)showMsg("<b>コピーしました（"+t.length+"文字）。</b><br>① 下の「LINEを開く」を押す<br>② 矢貫さんのトークを開く<br>③ 入力欄を長押しして「貼り付け」→ 送信",false);
   else showMsg("<b>自動でコピーできませんでした。</b><br>下の「送る内容」を長押しして「すべてを選択」→「コピー」。そのあと、LINEの矢貫さんのトークに貼り付けて送信してください。",true)})}
-$("#copy").onclick=function(){var r=text();if(r.empty){toast("まだ何も書かれていません");return}copyFlow(r.text)};
+$("#copy").onclick=function(){var r=text();if(r.empty){toast("まだ何も書かれていません");return}copyFlow(r.text);try{setState("","コピーしました","LINEのトークに貼り付けて送信すると、完了です。")}catch(e){}};
 $("#line").onclick=function(){
  var r=text();if(r.empty){toast("まだ何も書かれていません");return}
  var t=r.text;$("#sendmsg").hidden=true;
@@ -316,20 +319,38 @@ $("#line").onclick=function(){
   return}
  if(escCount(t)<=650){location.href=lineUrl(t);return}
  copyFlow(t)};
-/* 受け取り口へ送る（設定されているときだけ表示） */
+/* 受け取り口へ送る（設定されているときだけ表示）。押したあとの状態を、画面にはっきり出す */
+function setState(kind,title,detail){var s=$("#sendstate");s.className="sendstate "+(kind||"");$("#ss-t").textContent=title;$("#ss-d").textContent=detail||""}
+function two(n){return (n<10?"0":"")+n}
+function stamp(ms){var d=new Date(ms);return (d.getMonth()+1)+"月"+d.getDate()+"日 "+d.getHours()+":"+two(d.getMinutes())}
+try{var last=JSON.parse(localStorage.getItem(KEY+"-sent")||"null");if(last&&last.at)setState("ok","前回の送信："+stamp(last.at),last.shops+"店分・"+last.len+"文字（受け取り口に送りました）。内容を変えたら、もう一度送れます。")}catch(e){}
 if(RECEIVER){
  var rb=$("#recv");rb.hidden=false;
  rb.onclick=function(){
-  var r=text();if(r.empty){toast("まだ何も書かれていません");return}
+  var r=text();if(r.empty){setState("ng","まだ何も書かれていません","評価やひとことを書いてから、送ってください。");toast("まだ何も書かれていません");return}
+  var who=(st.who||"").trim(),shops=(r.text.match(/■/g)||[]).length,len=r.text.length,t0=Date.now();
   rb.disabled=true;var old=rb.textContent;rb.textContent="送信中…";
-  var body=JSON.stringify({who:(st.who||"").trim(),text:r.text,at:new Date().toISOString(),ua:navigator.userAgent.slice(0,120)});
-  fetch(RECEIVER,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:body}).then(function(){
-   rb.disabled=false;rb.textContent=old;
-   showMsg("<b>送信しました ✓</b><br>矢貫さんに届きました。ありがとうございます！<br><span style=\"font-size:13px\">（念のため、LINEで「送りました」と一言もらえると安心です）</span>",false);
-   try{localStorage.setItem(KEY+"-sent",String(Date.now()))}catch(e){}
-  },function(){
-   rb.disabled=false;rb.textContent=old;
-   showMsg("<b>送信できませんでした。</b>インターネットの接続をご確認ください。<br>下の「LINEで矢貫に送る」か「文章をコピーする」でも送れます。",false)})}}
+  setState("busy","送信中です…","画面を閉じずに、そのままお待ちください。");
+  var init;
+  if(RECEIVER.type==="form"){
+   var fd=new URLSearchParams();fd.append(RECEIVER.entries.who,who||"（名前なし）");fd.append(RECEIVER.entries.text,r.text);
+   init={method:"POST",mode:"no-cors",body:fd}
+  }else{
+   init={method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({who:who,text:r.text,at:new Date().toISOString(),ua:navigator.userAgent.slice(0,120)})}}
+  var url=RECEIVER.type==="form"?RECEIVER.action:RECEIVER.url;
+  var timer=setTimeout(function(){setState("busy","送信中です…（時間がかかっています）","電波の良い場所で、そのままお待ちください。")},6000);
+  fetch(url,init).then(function(){
+   clearTimeout(timer);rb.disabled=false;rb.textContent=old;
+   var at=Date.now();
+   try{localStorage.setItem(KEY+"-sent",JSON.stringify({at:at,shops:shops,len:len}))}catch(e){}
+   setState("ok","✓ 送信しました（"+stamp(at)+"）",shops+"店分・"+len+"文字を、受け取り口に送りました。ありがとうございます！");
+   toast("送信しました ✓");$("#sendstate").scrollIntoView({block:"center",behavior:"smooth"})
+  },function(err){
+   clearTimeout(timer);rb.disabled=false;rb.textContent=old;
+   setState("ng","✕ 送れませんでした","インターネットの接続をご確認のうえ、もう一度押してください。それでも送れないときは、下の「文章をコピーする」をお使いください。");
+   toast("送れませんでした");$("#sendstate").scrollIntoView({block:"center",behavior:"smooth"})})}}
+else{
+ setState("","まだ送っていません","書いたら、下の「LINEで矢貫に送る」か「文章をコピーする」で送ってください。")}
 summary();
 
 /* 「送る」欄が見えている間は、下のバーを隠す */
