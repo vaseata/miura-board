@@ -296,10 +296,12 @@ $("#copy").onclick=function(){var r=text();if(r.empty){toast("まだ何も書か
 $("#line").onclick=function(){
  var r=text();if(r.empty){toast("まだ何も書かれていません");return}
  var t=r.text,url="https://line.me/R/msg/text/?"+encodeURIComponent(t);
- if(url.length<=6500){location.href=url;return}
+ /* LINEの送信画面（line.me）は、URLが約2,000文字を超えると HTTP 400 になる。日本語で約330文字まで。
+    長い文章は、端末の共有メニュー（スマホ）→ コピー の順に切り替える */
  if(navigator.share){navigator.share({text:t}).catch(function(e){if(e&&e.name==="AbortError")return;manual(t)});return}
+ if(url.length<=2000){location.href=url;return}
  manual(t);
- function manual(t){copyText(t,function(ok){showManual(ok?"文章が長いので、コピーしました。LINEを開いて、矢貫さんのトークに貼り付けて送信してください。":"文章が長いので、下の文章を長押しして「すべてを選択」→「コピー」で、LINEの矢貫さんのトークに貼り付けて送信してください。")})}
+ function manual(t){copyText(t,function(ok){showManual(ok?"文章をコピーしました。LINEを開いて、矢貫さんのトークに貼り付けて送信してください。":"下の文章を長押しして「すべてを選択」→「コピー」で、LINEの矢貫さんのトークに貼り付けて送信してください。")})}
 };
 summary();
 
