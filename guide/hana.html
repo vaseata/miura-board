@@ -179,7 +179,7 @@ pre{white-space:pre-wrap;word-break:break-word;margin:0 0 10px;font:13px/1.65 ui
     <button class="btn block" id="copy" type="button">文章をコピーする</button>
     <div class="sendmsg" id="sendmsg" hidden role="status"><p></p><a class="btn sm" href="line://nv/chat">LINEを開く</a></div>
     <details class="preview"><summary>送る内容を見る</summary><textarea id="out" rows="10" readonly aria-label="送る内容">まだ何も書かれていません。</textarea></details>
-    <p class="small">「LINEで送る」を押すと、LINEの送り先の選択が開きます。矢貫さんを選んで送信してください。開かないときは「文章をコピーする」で、LINEに貼ってください。</p>
+    <p class="small">スマホでは「LINEで矢貫に送る」を押すと、共有メニューが開きます。そこで「LINE」→ 矢貫さんを選んで送信してください。LINEが出ないときや、パソコンのときは、文章を自動でコピーするので、LINEのトークに貼り付けて送信してください。</p>
   </div>
 </section>
 
@@ -283,26 +283,31 @@ function text(){
 function touched(){var o={};["m","r","f","k","s"].forEach(function(k){Object.keys(st[k]).forEach(function(id){o[id]=1})});return Object.keys(o).length+st.x.filter(function(x){return (x.n||"").trim()}).length+((st.fix||"").trim()?1:0)}
 function summary(){var r=text();$("#out").value=r.empty?"まだ何も書かれていません。":r.text;$("#cnt").textContent=touched()}
 
-/* 送る：短ければLINEの送信画面へ。長いときは、端末の共有メニュー → だめならコピー */
+/* 送る：スマホは端末の共有メニュー（LINEを選べる）。それ以外・失敗したときは、コピー → LINEに貼り付け。
+   ※ line.me の送信URLは約2,000文字で HTTP 400 になるため、使わない */
+var isMobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
 function copyText(t,done){
  function legacy(){var a=document.createElement("textarea");a.value=t;a.setAttribute("readonly","");a.style.position="fixed";a.style.opacity="0";document.body.appendChild(a);a.select();a.setSelectionRange(0,t.length);var ok=false;try{ok=document.execCommand("copy")}catch(e){}a.remove();done(ok)}
  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){done(true)},legacy)}else legacy()}
-function showManual(msg){
- var m=$("#sendmsg");m.hidden=false;m.querySelector("p").textContent=msg;
- var d=$(".preview");d.open=true;var o=$("#out");o.focus();o.select();try{o.setSelectionRange(0,o.value.length)}catch(e){}
- m.scrollIntoView({block:"center"})}
-$("#copy").onclick=function(){var r=text();if(r.empty){toast("まだ何も書かれていません");return}
- copyText(r.text,function(ok){if(ok)toast("コピーしました。LINEのトークに貼り付けてください");else showManual("コピーできませんでした。下の文章を長押しして「すべてを選択」→「コピー」で、LINEに貼り付けてください。")})};
+function showMsg(html,select){
+ var m=$("#sendmsg");m.hidden=false;$("p",m).innerHTML=html;
+ if(select){var d=$(".preview");d.open=true;var o=$("#out");o.focus();o.select();try{o.setSelectionRange(0,o.value.length)}catch(e){}}
+ m.scrollIntoView({block:"center",behavior:"smooth"})}
+function copyFlow(t){
+ copyText(t,function(ok){
+  var n=t.length+"文字";
+  if(ok)showMsg("<b>コピーしました（"+n+"）。</b><br>① 下の「LINEを開く」を押す<br>② 矢貫さんのトークを開く<br>③ 入力欄を長押しして「貼り付け」→ 送信",false);
+  else showMsg("<b>自動でコピーできませんでした。</b><br>下の「送る内容」を長押しして「すべてを選択」→「コピー」。そのあと、LINEの矢貫さんのトークに貼り付けて送信してください。",true)})}
+$("#copy").onclick=function(){var r=text();if(r.empty){toast("まだ何も書かれていません");return}copyFlow(r.text)};
 $("#line").onclick=function(){
  var r=text();if(r.empty){toast("まだ何も書かれていません");return}
- var t=r.text,url="https://line.me/R/msg/text/?"+encodeURIComponent(t);
- /* LINEの送信画面（line.me）は、URLが約2,000文字を超えると HTTP 400 になる。日本語で約330文字まで。
-    長い文章は、端末の共有メニュー（スマホ）→ コピー の順に切り替える */
- if(navigator.share){navigator.share({text:t}).catch(function(e){if(e&&e.name==="AbortError")return;manual(t)});return}
- if(url.length<=2000){location.href=url;return}
- manual(t);
- function manual(t){copyText(t,function(ok){showManual(ok?"文章をコピーしました。LINEを開いて、矢貫さんのトークに貼り付けて送信してください。":"下の文章を長押しして「すべてを選択」→「コピー」で、LINEの矢貫さんのトークに貼り付けて送信してください。")})}
-};
+ var t=r.text;
+ if(isMobile&&navigator.share){
+  navigator.share({text:t}).then(function(){toast("共有メニューで送れたか、LINEのトークをご確認ください")},function(e){
+   if(e&&e.name==="AbortError"){toast("送るのをやめました");return}
+   copyFlow(t)});
+  return}
+ copyFlow(t)};
 summary();
 
 /* 「送る」欄が見えている間は、下のバーを隠す */
