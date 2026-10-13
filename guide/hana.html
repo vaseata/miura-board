@@ -293,7 +293,7 @@ function summary(){var r=text();$("#out").value=r.empty?"まだ何も書かれ�
    ・受け取り口（RECEIVER）があれば、それが「確実に届く」本線。どの端末・ブラウザでも、LINEが無くても届く
    ・LINEの送信URL（line.me）は、日本語で約240文字までしか運べない（実測）。短いときだけ使う
    ・スマホは共有メニュー（LINEを選べる）。パソコンや失敗時は、コピーして貼り付け */
-var RECEIVER=null;
+var RECEIVER={"type": "form", "action": "https://docs.google.com/forms/d/e/1FAIpQLSfOJDILNaHg9pP1CpQLUGF0wOlo4CFm33SVjcxnGfYyOx_-LA/formResponse", "entries": {"who": "entry.1551095836", "text": "entry.1384508685"}};
 var isMobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
 function escCount(s){return (encodeURIComponent(s).match(/%/g)||[]).length}
 function lineUrl(t){return "https://line.me/R/msg/text/?"+encodeURIComponent(t)}
