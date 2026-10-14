@@ -18,7 +18,7 @@
      アクセント＝黄色 */
   --ink:#231D1C; --ink-2:#5a4747;
   --pink:#E399B8; --berry:#D96888; --berry-d:#BF748E; --tan:#E1BA84; --cream:#F2E7D5;
-  --yellow:#FBDF4D; --yellow-l:#FDF2A0;
+  --yellow:#FDF2A0; --yellow-l:#FDF2A0; --yellow-s:#FBDF4D;
   --pink-d:#231D1C; --pink-l:#FDF2A0; --pink-xl:#F2E7D5; --polka:#F2E7D5; --pink-m:#F2E7D5;
   --line:#E399B8; --bg:#E399B8; --card:#fff; --soft:#F2E7D5;
   --font:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Hiragino Sans","Noto Sans JP",sans-serif;
@@ -42,14 +42,13 @@ button{font:inherit;color:inherit}
 
 /* ヒーロー */
 .hero{position:relative;border:2.5px solid var(--ink);border-radius:var(--r);box-shadow:var(--sticker);padding:22px 20px 18px;
-  background:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22150%22 height=%22150%22 viewBox=%220 0 150 150%22%3E%3Cg transform=%22translate%288 8%29 rotate%28-12%29 scale%281.05%29%22%3E%3Cpath d=%22M12 2l2.9 6.6 7.1.7-5.3 4.8 1.6 7L12 17.3 5.7 21l1.6-7L2 9.3l7.1-.7z%22 fill=%22%23fff%22 stroke=%22%23231D1C%22 stroke-width=%221.6%22 stroke-linejoin=%22round%22/%3E%3C/g%3E%3Cg transform=%22translate%2878 6%29 rotate%2810%29 scale%280.8%29%22%3E%3Cpath d=%22M12 2l2.9 6.6 7.1.7-5.3 4.8 1.6 7L12 17.3 5.7 21l1.6-7L2 9.3l7.1-.7z%22 fill=%22%23FBDF4D%22 stroke=%22%23231D1C%22 stroke-width=%221.6%22 stroke-linejoin=%22round%22/%3E%3C/g%3E%3Cg transform=%22translate%28118 56%29 rotate%2814%29 scale%280.95%29%22%3E%3Cpath d=%22M12 2l2.9 6.6 7.1.7-5.3 4.8 1.6 7L12 17.3 5.7 21l1.6-7L2 9.3l7.1-.7z%22 fill=%22%23fff%22 stroke=%22%23231D1C%22 stroke-width=%221.6%22 stroke-linejoin=%22round%22/%3E%3C/g%3E%3Cg transform=%22translate%2816 76%29 rotate%28-16%29 scale%280.8%29%22%3E%3Cpath d=%22M12 2l2.9 6.6 7.1.7-5.3 4.8 1.6 7L12 17.3 5.7 21l1.6-7L2 9.3l7.1-.7z%22 fill=%22%23FBDF4D%22 stroke=%22%23231D1C%22 stroke-width=%221.6%22 stroke-linejoin=%22round%22/%3E%3C/g%3E%3Cg transform=%22translate%2870 92%29 rotate%288%29 scale%281.1%29%22%3E%3Cpath d=%22M12 2l2.9 6.6 7.1.7-5.3 4.8 1.6 7L12 17.3 5.7 21l1.6-7L2 9.3l7.1-.7z%22 fill=%22%23fff%22 stroke=%22%23231D1C%22 stroke-width=%221.6%22 stroke-linejoin=%22round%22/%3E%3C/g%3E%3Cg transform=%22translate%28124 6%29 rotate%28-20%29 scale%280.5%29%22%3E%3Cpath d=%22M12 2l2.9 6.6 7.1.7-5.3 4.8 1.6 7L12 17.3 5.7 21l1.6-7L2 9.3l7.1-.7z%22 fill=%22%23fff%22 stroke=%22%23231D1C%22 stroke-width=%221.6%22 stroke-linejoin=%22round%22/%3E%3C/g%3E%3Cg transform=%22translate%2846 46%29 rotate%2818%29 scale%280.55%29%22%3E%3Cpath d=%22M12 2l2.9 6.6 7.1.7-5.3 4.8 1.6 7L12 17.3 5.7 21l1.6-7L2 9.3l7.1-.7z%22 fill=%22%23fff%22 stroke=%22%23231D1C%22 stroke-width=%221.6%22 stroke-linejoin=%22round%22/%3E%3C/g%3E%3Cg transform=%22translate%28112 116%29 rotate%28-8%29 scale%280.6%29%22%3E%3Cpath d=%22M12 2l2.9 6.6 7.1.7-5.3 4.8 1.6 7L12 17.3 5.7 21l1.6-7L2 9.3l7.1-.7z%22 fill=%22%23fff%22 stroke=%22%23231D1C%22 stroke-width=%221.6%22 stroke-linejoin=%22round%22/%3E%3C/g%3E%3C/svg%3E") 0 0/150px 150px,var(--cream)}
-.eyebrow{margin:0 0 4px;font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--ink-2)}
+  background:var(--berry)}
+.eyebrow{margin:0 0 4px;font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--ink)}
 h1{margin:0;font-size:clamp(26px,7vw,36px);line-height:1.2;font-weight:700;letter-spacing:.05em;text-wrap:balance;padding-right:76px;color:#fff;-webkit-text-stroke:7px var(--ink);paint-order:stroke fill;text-shadow:0 0 0 var(--ink),2px 3px 0 var(--ink);transform:rotate(-2deg);transform-origin:left center}
 h1 span{display:inline-block}
 @supports not (paint-order:stroke fill){h1{-webkit-text-stroke:0;text-shadow:-2px -2px 0 var(--ink),2px -2px 0 var(--ink),-2px 2px 0 var(--ink),2px 2px 0 var(--ink),0 3px 0 var(--ink),3px 0 0 var(--ink),-3px 0 0 var(--ink),0 -3px 0 var(--ink)}}
 .lede{background:rgba(242,231,213,.9);border-radius:12px;padding:6px 10px;margin:10px 0 0;font-size:14.5px;line-height:1.75;max-width:30em;padding-right:4px}
 .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
-.star{position:absolute;width:28px;height:28px;fill:#fff;stroke:var(--ink);stroke-width:1.6;stroke-linejoin:round;pointer-events:none}.star.s1{right:92px;top:-10px;transform:rotate(-14deg)}.star.s2{right:14px;bottom:-12px;width:34px;height:34px;transform:rotate(12deg)}
 .badge{position:absolute;top:-16px;right:14px;width:68px;height:68px;border:2.5px solid var(--ink);border-radius:50%;background:var(--yellow);box-shadow:var(--sticker);transform:rotate(8deg);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
 .badge b{font-size:26px;color:var(--ink);font-weight:700}
 .badge span{font-size:11px;font-weight:700;margin-top:2px}
@@ -81,7 +80,7 @@ h1 span{display:inline-block}
 /* セクション */
 section{margin-top:var(--sp-4)}
 h2{display:flex;align-items:baseline;gap:10px;margin:0 0 var(--sp-2);font-size:20px;line-height:1.35;font-weight:700;letter-spacing:.02em}
-h2::before{content:"";flex:none;width:14px;height:14px;border:2.5px solid var(--ink);border-radius:50% 50% 50% 0;background:var(--yellow);transform:rotate(-45deg) translateY(1px)}
+h2::before{content:"";flex:none;width:14px;height:14px;border:2.5px solid var(--ink);border-radius:50% 50% 50% 0;background:var(--yellow-s);transform:rotate(-45deg) translateY(1px)}
 h2 small{font-size:13px;font-weight:500;color:var(--ink-2)}
 .sub{margin:-6px 0 var(--sp-2);font-size:14px;color:var(--ink-2)}
 
@@ -91,11 +90,11 @@ h2 small{font-size:13px;font-weight:500;color:var(--ink-2)}
 .item h3{margin:0;font-size:18px;line-height:1.4;font-weight:700}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
 .tag{font-size:12px;font-weight:700;color:var(--ink);background:var(--cream);border:1.5px solid var(--pink);border-radius:99px;padding:0 9px;line-height:22px}
-.quote{margin:10px 0 0;padding:8px 12px;background:var(--yellow-l);border-radius:14px 14px 14px 4px;font-weight:700;font-size:14.5px;line-height:1.6}
+.quote{margin:10px 0 0;padding:8px 12px;background:var(--cream);border-radius:14px 14px 14px 4px;font-weight:700;font-size:14.5px;line-height:1.6}
 .note{margin:10px 0 0;font-size:14.5px;line-height:1.7}
 .meta{margin:6px 0 0;font-size:13px;line-height:1.6;color:var(--ink-2)}
 .meta a{margin-left:6px}
-.un{margin:10px 0 0;padding:10px 12px;background:var(--yellow-l);border:1.5px solid var(--ink);border-radius:14px;font-size:13.5px;line-height:1.6}
+.un{margin:10px 0 0;padding:10px 12px;background:var(--cream);border:1.5px solid var(--ink);border-radius:14px;font-size:13.5px;line-height:1.6}
 .cf{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .cf button,.chip{min-height:40px;padding:0 14px;border:2px solid var(--ink);border-radius:99px;background:#fff;color:var(--ink);font-weight:700;font-size:14px;cursor:pointer}
 .cf button.on,.chip.on{background:var(--yellow);color:var(--ink)}
@@ -128,7 +127,7 @@ textarea:focus,input[type=text]:focus{border-color:var(--pink);outline:none;box-
 pre{white-space:pre-wrap;word-break:break-word;margin:0 0 10px;font:13px/1.65 ui-monospace,Menlo,monospace;max-height:280px;overflow:auto}
 .sendparts{margin-top:14px;background:var(--pink-xl);border:1.5px solid var(--line);border-radius:14px;padding:12px 14px}.sp-t{margin:0 0 8px;font-size:14px;line-height:1.7}.sp{list-style:none;margin:0;padding:0;display:grid;gap:8px}.sp li{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:8px 10px}.sp-l{font-weight:700;font-size:14.5px;min-width:0}.sp-l small{display:block;font-weight:500;color:var(--ink-2);font-size:12.5px;overflow-wrap:anywhere}.sp-b{flex:none}
 .sendstate{display:grid;gap:2px;padding:12px 14px;border-radius:14px;background:var(--soft);border:1.5px solid var(--line);font-size:14px;line-height:1.6;margin-top:6px}.sendstate b{font-size:15px}.sendstate.busy{background:#fff;border:1.5px dashed var(--ink)}.sendstate.ok{background:var(--yellow);border:2.5px solid var(--ink)}.sendstate.ng{background:#fff;border:3px solid var(--ink)}
-.sendmsg{margin-top:14px;padding:12px 14px;background:var(--yellow-l);border:1.5px solid var(--ink);border-radius:14px;font-size:14px;line-height:1.7}.sendmsg p{margin:0 0 10px}
+.sendmsg{margin-top:14px;padding:12px 14px;background:var(--cream);border:1.5px solid var(--ink);border-radius:14px;font-size:14px;line-height:1.7}.sendmsg p{margin:0 0 10px}
 #out{font:13px/1.65 ui-monospace,Menlo,monospace;margin-bottom:10px}
 .small{margin:12px 0 0;font-size:13px;color:var(--ink-2)}
 
@@ -144,7 +143,6 @@ pre{white-space:pre-wrap;word-break:break-word;margin:0 0 10px;font:13px/1.65 ui
 <div class="wrap">
 
 <header class="hero">
-  <svg class="star s1" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.3 4.8 1.6 7L12 17.3 5.7 21l1.6-7L2 9.3l7.1-.7z"/></svg><svg class="star s2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.3 4.8 1.6 7L12 17.3 5.7 21l1.6-7L2 9.3l7.1-.7z"/></svg>
   <div class="badge" aria-label="22軒"><b>22</b><span>軒</span></div>
   <p class="eyebrow">三浦A邸</p>
   <h1><span>華さんの</span> <span>おすすめマップ</span></h1>
