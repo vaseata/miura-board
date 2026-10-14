@@ -1,0 +1,25 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//miura-board//JA
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:miura-board-73@vaseata.github.io
+DTSTAMP:20261014T220256Z
+DTSTART;VALUE=DATE:20261107
+DTEND;VALUE=DATE:20261109
+SUMMARY:城ヶ島フォトジェニック体験Day
+LOCATION:神奈川県立城ヶ島公園（三浦市三崎町城ヶ島）
+DESCRIPTION:京急電鉄とEMEUが11/7(土)「FRIENDS DAY」・11/8(日)「
+ COUPLE DAY」に県立城ヶ島公園で「城ヶ島フォトジェニッ
+ ク体験Day」。プロカメラマンが海・岩場・灯台などで
+ 撮影し約30枚を後日無料送付。対象は newcal の「デジタ
+ ルみさきまぐろきっぷ」等の購入者で撮影無料・申込
+ 制（10/9〜10/27、多数なら抽選）。8日は同時に「城ヶ島
+ 公園マルシェ」（きっぷなしでも参加可）\n※7日 FRIENDS
+  DAY／8日 COUPLE DAY・城ヶ島公園マルシェ。撮影は申込制
+ （10/27まで・抽選）\n出典: https://www.hokkaido-np.co.jp/article/
+ 1387085/\n最近の三浦: https://vaseata.github.io/miura-board/
+URL:https://vaseata.github.io/miura-board/
+END:VEVENT
+END:VCALENDAR
