@@ -2,6 +2,51 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "w5RxHvCnFvY",
+   "title": "まさに釣り人の楽園！神奈川県［城ヶ島］で釣りをすると足元で爆釣する異次元の魚影だった…",
+   "channel": "ぬこまた釣査団",
+   "published_text": "11 時間前",
+   "views": "62,624回視聴",
+   "length": "26:28",
+   "published": "2026-10-17",
+   "fetched": "2026-10-17",
+   "q": "城ヶ島"
+  },
+  {
+   "id": "SZAHqOX-cy8",
+   "title": "【三崎港・花暮岸壁】　これから美味い魚がうつりました　釣りの参考に　底物の帝王も",
+   "channel": "釣り場",
+   "published_text": "11 時間前",
+   "views": "256回視聴",
+   "length": "9:45",
+   "published": "2026-10-17",
+   "fetched": "2026-10-17",
+   "q": "三崎港"
+  },
+  {
+   "id": "zgB5IfiK2D8",
+   "title": "【🔴ライブカメラ配信】津久井浜海岸 三浦海岸 風情報 Yokosuka-Miura Beach Live 2026/10/17 JWA FOIL SLALOM 第2戦 津久井浜カップ【波音BGM】",
+   "channel": "丸チャンネル MARU-Channel ウィングフォイル ウィンドサーフィン&フォイル スノーボード",
+   "published_text": "",
+   "views": "",
+   "length": "",
+   "live": true,
+   "published": "2026-10-17",
+   "fetched": "2026-10-17",
+   "q": "三浦海岸"
+  },
+  {
+   "id": "RbNBvXUxQU4",
+   "title": "実物の運転台が登場！三浦市のホテルに「京急電鉄トレインルーム」がオープン",
+   "channel": "tvk News Link【公式】",
+   "published_text": "17 時間前",
+   "views": "9,488回視聴",
+   "length": "1:08",
+   "published": "2026-10-17",
+   "fetched": "2026-10-17",
+   "q": "三浦市"
+  },
+  {
    "id": "r7zyqLbGb4I",
    "title": "【三崎港】釣れたデカ○○を泳がせる‼️カワハギ釣り▶︎ジギング",
    "channel": "あさみーちゃんねる Asa×Mii Channel",
@@ -101,18 +146,6 @@
    "q": "三崎 マグロ"
   },
   {
-   "id": "TECuJhpQuSo",
-   "title": "【🔴ライブカメラ配信】津久井浜海岸 三浦海岸 風情報 Yokosuka-Miura Beach Live 2026/10/12 台風29号は小笠原近海【波音BGM】",
-   "channel": "丸チャンネル MARU-Channel ウィングフォイル ウィンドサーフィン&フォイル スノーボード",
-   "published_text": "",
-   "views": "",
-   "length": "",
-   "live": true,
-   "published": "2026-10-12",
-   "fetched": "2026-10-12",
-   "q": "三浦海岸"
-  },
-  {
    "id": "jJFPrmjjVIw",
    "title": "三浦半島10月最新！必見！青物釣果に差がつく必勝パターンとはいかに！？#釣り #ルアー  #fishing ",
    "channel": "🐸KEROX🎣ch",
@@ -188,39 +221,6 @@
    "published": "2026-10-09",
    "fetched": "2026-10-09",
    "q": "城ヶ島"
-  },
-  {
-   "id": "iS22UMr7SAI",
-   "title": "【三崎港・北条湾】2026年9月27日午前6時半頃の北条湾岸壁周辺の様子",
-   "channel": "猫とウサギと釣りの動画チャンネル",
-   "published_text": "11 時間前",
-   "views": "6回視聴",
-   "length": "1:24",
-   "published": "2026-10-09",
-   "fetched": "2026-10-09",
-   "q": "三崎港"
-  },
-  {
-   "id": "V2mSG5akSRg",
-   "title": "Fujiko band Jpopメドレー　油壺ヨットクラブ秋祭り",
-   "channel": "juhwanjp55",
-   "published_text": "6 時間前",
-   "views": "11回視聴",
-   "length": "9:50",
-   "published": "2026-10-09",
-   "fetched": "2026-10-09",
-   "q": "油壺"
-  },
-  {
-   "id": "t5UxDnaZEJo",
-   "title": "横須賀・三浦半島　台風25号からの復旧状況を確認する",
-   "channel": "ウナ蔵 / Unazo's Totsuka Life Japan",
-   "published_text": "13 時間前",
-   "views": "1,538回視聴",
-   "length": "28:00",
-   "published": "2026-10-08",
-   "fetched": "2026-10-08",
-   "q": "三崎 マグロ"
   }
  ]
 }
