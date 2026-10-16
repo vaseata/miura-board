@@ -122,6 +122,12 @@
    "license": "出典記事の画像",
    "source": "https://www.hokkaido-np.co.jp/article/1387085/",
    "caption": "城ヶ島フォトジェニック体験Day（京急電鉄・EMEU）"
+  },
+  "mahoroba_trainroom": {
+   "file": "img/mahoroba_trainroom.jpg",
+   "credit": "号外NET横須賀・三浦（og:image）",
+   "license": "出典記事の画像",
+   "source": "https://yokosuka.goguynet.jp/2026/10/16/keikyudentetsu-concept-room-mahalova/"
   }
  }
 }

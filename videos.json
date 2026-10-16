@@ -2,6 +2,39 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "r7zyqLbGb4I",
+   "title": "【三崎港】釣れたデカ○○を泳がせる‼️カワハギ釣り▶︎ジギング",
+   "channel": "あさみーちゃんねる Asa×Mii Channel",
+   "published_text": "17 時間前",
+   "views": "1,784回視聴",
+   "length": "14:36",
+   "published": "2026-10-16",
+   "fetched": "2026-10-16",
+   "q": "三崎港"
+  },
+  {
+   "id": "4OroqFEH9MQ",
+   "title": "【小網代の森】「水に聞いて川を造る」土砂崩れから始まる、長靴土木の川づくり",
+   "channel": "鶴見川源流自然通信",
+   "published_text": "15 時間前",
+   "views": "195回視聴",
+   "length": "8:14",
+   "published": "2026-10-16",
+   "fetched": "2026-10-16",
+   "q": "小網代"
+  },
+  {
+   "id": "s8iIQt3oGQk",
+   "title": "【三崎港・超低温冷蔵庫前】　前回の動画数メートルの違い　意外な魚も　釣りの参考に",
+   "channel": "釣り場",
+   "published_text": "2 日前",
+   "views": "6,480回視聴",
+   "length": "11:45",
+   "published": "2026-10-14",
+   "fetched": "2026-10-16",
+   "q": "三浦半島 三崎"
+  },
+  {
    "id": "dZa3fvQAwUw",
    "title": "城ヶ島雨情",
    "channel": "Yuki Nagaho - Topic",
@@ -188,39 +221,6 @@
    "published": "2026-10-08",
    "fetched": "2026-10-08",
    "q": "三崎 マグロ"
-  },
-  {
-   "id": "oiyJWoMVSts",
-   "title": "夜の三浦半島 南端ドライブ｜城ヶ島入り口から三浦海岸まで【e VITARA 車載4K】",
-   "channel": "ひとり、道すがら。",
-   "published_text": "5 時間前",
-   "views": "1 回視聴",
-   "length": "16:46",
-   "published": "2026-10-08",
-   "fetched": "2026-10-08",
-   "q": "三浦海岸"
-  },
-  {
-   "id": "o_NyOpgro2U",
-   "title": "秋の城ヶ島のご紹介",
-   "channel": "Tony",
-   "published_text": "22 分前",
-   "views": "0 回視聴",
-   "length": "8:55",
-   "published": "2026-10-07",
-   "fetched": "2026-10-07",
-   "q": "城ヶ島"
-  },
-  {
-   "id": "-SDLWvmGTDQ",
-   "title": "【10月最新!】ショゴ実釣解説！周りが渋くても釣る！神奈川サーフで秋の釣り調査! #東京湾 #三浦半島 #三浦海岸 #青物 #ショゴ #イナダ #ブリ #マゴチ  #ヒラメ #fishing #海釣り",
-   "channel": "なっしぃの釣り研究",
-   "published_text": "14 時間前",
-   "views": "5,259回視聴",
-   "length": "31:36",
-   "published": "2026-10-07",
-   "fetched": "2026-10-07",
-   "q": "三浦海岸"
   }
  ]
 }
