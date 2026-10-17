@@ -2,6 +2,62 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "x3IuE08NwQs",
+   "title": "【神奈川・城ヶ島】夕日に染まる富士山🗻馬の背洞門の荒波も！愛犬と灯台めぐりさんぽ🐾",
+   "channel": "わんちゃんとお出かけアーカイブ",
+   "published_text": "23 時間前",
+   "views": "105回視聴",
+   "length": "8:51",
+   "published": "2026-10-18",
+   "fetched": "2026-10-18",
+   "q": "城ヶ島"
+  },
+  {
+   "id": "7A-jckmkJzM",
+   "title": "【ふふ城ヶ島】蒼海プレミアムスイートに宿泊🌙｜全室オーシャンビュー天然温泉付き🌊",
+   "channel": "よしおか家の日常",
+   "published_text": "13 時間前",
+   "views": "123回視聴",
+   "length": "25:38",
+   "published": "2026-10-18",
+   "fetched": "2026-10-18",
+   "q": "城ヶ島"
+  },
+  {
+   "id": "MBy1el-hWvg",
+   "title": "マグロは想像以上に「牛」だった!?　SV-7GXで三崎ツーリング",
+   "channel": "Traveling Traveler",
+   "published_text": "8 時間前",
+   "views": "78回視聴",
+   "length": "1:49",
+   "published": "2026-10-18",
+   "fetched": "2026-10-18",
+   "q": "三崎 マグロ"
+  },
+  {
+   "id": "lmzvy8omM4E",
+   "title": "【🔴ライブカメラ配信】津久井浜海岸 三浦海岸 風情報 Yokosuka-Miura Beach Live 2026/10/18 【波音BGM】",
+   "channel": "丸チャンネル MARU-Channel ウィングフォイル ウィンドサーフィン&フォイル スノーボード",
+   "published_text": "",
+   "views": "",
+   "length": "",
+   "live": true,
+   "published": "2026-10-18",
+   "fetched": "2026-10-18",
+   "q": "三浦海岸"
+  },
+  {
+   "id": "Dh3ji279mf4",
+   "title": "Air3 三浦半島・油壺湾 : ヨットが並ぶ絶景を空撮 (Air3 Aburatsubo Bay, Miura : Aerial Views of Yachts)",
+   "channel": "エアロ・テック",
+   "published_text": "7 時間前",
+   "views": "21回視聴",
+   "length": "12:15",
+   "published": "2026-10-18",
+   "fetched": "2026-10-18",
+   "q": "油壺"
+  },
+  {
    "id": "w5RxHvCnFvY",
    "title": "まさに釣り人の楽園！神奈川県［城ヶ島］で釣りをすると足元で爆釣する異次元の魚影だった…",
    "channel": "ぬこまた釣査団",
@@ -24,18 +80,6 @@
    "q": "三崎港"
   },
   {
-   "id": "zgB5IfiK2D8",
-   "title": "【🔴ライブカメラ配信】津久井浜海岸 三浦海岸 風情報 Yokosuka-Miura Beach Live 2026/10/17 JWA FOIL SLALOM 第2戦 津久井浜カップ【波音BGM】",
-   "channel": "丸チャンネル MARU-Channel ウィングフォイル ウィンドサーフィン&フォイル スノーボード",
-   "published_text": "",
-   "views": "",
-   "length": "",
-   "live": true,
-   "published": "2026-10-17",
-   "fetched": "2026-10-17",
-   "q": "三浦海岸"
-  },
-  {
    "id": "RbNBvXUxQU4",
    "title": "実物の運転台が登場！三浦市のホテルに「京急電鉄トレインルーム」がオープン",
    "channel": "tvk News Link【公式】",
@@ -45,6 +89,17 @@
    "published": "2026-10-17",
    "fetched": "2026-10-17",
    "q": "三浦市"
+  },
+  {
+   "id": "eSubu3sMEHE",
+   "title": "三崎港は、なぜ日本一のマグロの港になったのか",
+   "channel": "ナガイピクチャーズ ─ 行って、撮って、AIで戻す",
+   "published_text": "1 日前",
+   "views": "200回視聴",
+   "length": "5:32",
+   "published": "2026-10-17",
+   "fetched": "2026-10-18",
+   "q": "三崎港"
   },
   {
    "id": "r7zyqLbGb4I",
@@ -166,61 +221,6 @@
    "published": "2026-10-11",
    "fetched": "2026-10-11",
    "q": "三崎港"
-  },
-  {
-   "id": "Efex61b3PFE",
-   "title": "【三崎港】でイカ釣り！エギングでコウイカ1杯…一晩泳がせ釣りをした結果は？",
-   "channel": "げんちゃんねる",
-   "published_text": "22 時間前",
-   "views": "84回視聴",
-   "length": "2:33",
-   "published": "2026-10-11",
-   "fetched": "2026-10-11",
-   "q": "三崎港"
-  },
-  {
-   "id": "xZYZ8_sFiPA",
-   "title": "【再up】畑の間を抜け岩堂山へ三浦半島南端ぶら散歩！",
-   "channel": "とびねこVlog",
-   "published_text": "13 時間前",
-   "views": "1,354回視聴",
-   "length": "13:37",
-   "published": "2026-10-10",
-   "fetched": "2026-10-10",
-   "q": "三浦海岸"
-  },
-  {
-   "id": "b2A6iSwD4Lo",
-   "title": "「台風の前は魚がよく釣れる」は本当か｜雨の三浦半島釣り13時間",
-   "channel": "バックラッシュがほどけない",
-   "published_text": "13 時間前",
-   "views": "667回視聴",
-   "length": "17:40",
-   "published": "2026-10-10",
-   "fetched": "2026-10-10",
-   "q": "三浦海岸"
-  },
-  {
-   "id": "dxB5eM6jWVs",
-   "title": "【三浦半島】三浦市の最高峰で神奈川県で最も低い山へ！",
-   "channel": "とびねこVlog",
-   "published_text": "12 時間前",
-   "views": "4,957回視聴",
-   "length": "15:19",
-   "published": "2026-10-09",
-   "fetched": "2026-10-09",
-   "q": "三浦海岸"
-  },
-  {
-   "id": "bp3m1t8K4n4",
-   "title": "【夜釣り比較】Insta360 Ace Pro 2「通常 vs PureVideo」城ヶ島ライトゲーム",
-   "channel": "SWおぢさん",
-   "published_text": "8 分前",
-   "views": "0 回視聴",
-   "length": "5:48",
-   "published": "2026-10-09",
-   "fetched": "2026-10-09",
-   "q": "城ヶ島"
   }
  ]
 }
