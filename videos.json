@@ -2,6 +2,61 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "wT7WoB5c-LM",
+   "title": "2026年10月18日三浦市三崎朝市",
+   "channel": "びんちゃん貧乏な",
+   "published_text": "22 時間前",
+   "views": "2,862回視聴",
+   "length": "17:05",
+   "published": "2026-10-19",
+   "fetched": "2026-10-19",
+   "q": "三崎港"
+  },
+  {
+   "id": "it_uP0L7nAI",
+   "title": "朝マヅメの三浦海岸で青物狙い",
+   "channel": "隙あらば釣り🎣チャンネル",
+   "published_text": "7 時間前",
+   "views": "24回視聴",
+   "length": "4:07",
+   "published": "2026-10-19",
+   "fetched": "2026-10-19",
+   "q": "三浦海岸"
+  },
+  {
+   "id": "hIImAd958Gs",
+   "title": "【のんびり空中散歩】三浦半島の絶景！油壺・小網代の海上を散策｜諸磯崎灯台・荒井浜海岸・天然の避難港油壺湾を巡る空の旅",
+   "channel": "今日もどこかの海と空",
+   "published_text": "9 時間前",
+   "views": "23回視聴",
+   "length": "12:53",
+   "published": "2026-10-19",
+   "fetched": "2026-10-19",
+   "q": "油壺"
+  },
+  {
+   "id": "V1gy2SrvXTQ",
+   "title": "【初輪行】海を眺めて、食べて、走って。鎌倉から三浦半島への自転車旅",
+   "channel": "Earthlime",
+   "published_text": "8 時間前",
+   "views": "59回視聴",
+   "length": "29:11",
+   "published": "2026-10-19",
+   "fetched": "2026-10-19",
+   "q": "三浦海岸"
+  },
+  {
+   "id": "2sGHmWW3VMM",
+   "title": "【三浦海岸・津久井浜沖】強風と沈黙の先に…83cmサワラが出た!! #kayakfishing #カヤックフィッシング #boatfishing #supfishing #2馬力ボート #ジギング",
+   "channel": "三浦で釣りタイ",
+   "published_text": "13 時間前",
+   "views": "1,826回視聴",
+   "length": "24:46",
+   "published": "2026-10-19",
+   "fetched": "2026-10-19",
+   "q": "三浦海岸"
+  },
+  {
    "id": "x3IuE08NwQs",
    "title": "【神奈川・城ヶ島】夕日に染まる富士山🗻馬の背洞門の荒波も！愛犬と灯台めぐりさんぽ🐾",
    "channel": "わんちゃんとお出かけアーカイブ",
@@ -165,61 +220,6 @@
    "length": "10:31",
    "published": "2026-10-13",
    "fetched": "2026-10-13",
-   "q": "三崎港"
-  },
-  {
-   "id": "HDF05tuGkOU",
-   "title": "【三浦海岸】ライトショアジギング、三浦サーフ",
-   "channel": "はしライフ~ 週末探検の人 ~",
-   "published_text": "15 時間前",
-   "views": "1,212回視聴",
-   "length": "11:08",
-   "published": "2026-10-13",
-   "fetched": "2026-10-13",
-   "q": "三浦海岸"
-  },
-  {
-   "id": "6PEcCmdAxeE",
-   "title": "Jōgashima Island 城ヶ島",
-   "channel": "Radhe",
-   "published_text": "11 時間前",
-   "views": "1 回視聴",
-   "length": "8:51",
-   "published": "2026-10-12",
-   "fetched": "2026-10-12",
-   "q": "城ヶ島"
-  },
-  {
-   "id": "a2K4nck4ya8",
-   "title": "【充実度120%】みさきまぐろきっぷで巡る！三崎・城ヶ島の大満足日帰りツアー【絶品グルメ＆絶景】",
-   "channel": "50代、まだ食いたい。【食べログ1,858件のソロ飯】",
-   "published_text": "9 時間前",
-   "views": "20回視聴",
-   "length": "17:15",
-   "published": "2026-10-12",
-   "fetched": "2026-10-12",
-   "q": "三崎 マグロ"
-  },
-  {
-   "id": "jJFPrmjjVIw",
-   "title": "三浦半島10月最新！必見！青物釣果に差がつく必勝パターンとはいかに！？#釣り #ルアー  #fishing ",
-   "channel": "🐸KEROX🎣ch",
-   "published_text": "1 日前",
-   "views": "3,648回視聴",
-   "length": "14:30",
-   "published": "2026-10-12",
-   "fetched": "2026-10-13",
-   "q": "三浦海岸"
-  },
-  {
-   "id": "OV0AhtG7rkc",
-   "title": "【超1級ポイントに水中カメラ入れました】　三崎港　超低温冷蔵庫前　釣りの参考に",
-   "channel": "釣り場",
-   "published_text": "12 時間前",
-   "views": "306回視聴",
-   "length": "36:17",
-   "published": "2026-10-11",
-   "fetched": "2026-10-11",
    "q": "三崎港"
   }
  ]
