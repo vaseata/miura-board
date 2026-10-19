@@ -2,6 +2,17 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "xfRgpgBHOHo",
+   "title": "釣り歴4ヶ月が三浦海岸サーフで爆釣！午前だけで30匹、夕マズメ前に終了",
+   "channel": "格連坊の3分フィッシング",
+   "published_text": "11 時間前",
+   "views": "1,963回視聴",
+   "length": "21:10",
+   "published": "2026-10-20",
+   "fetched": "2026-10-20",
+   "q": "三浦海岸"
+  },
+  {
    "id": "wT7WoB5c-LM",
    "title": "2026年10月18日三浦市三崎朝市",
    "channel": "びんちゃん貧乏な",
@@ -207,17 +218,6 @@
    "published_text": "12 時間前",
    "views": "0 回視聴",
    "length": "9:45",
-   "published": "2026-10-13",
-   "fetched": "2026-10-13",
-   "q": "三崎港"
-  },
-  {
-   "id": "BFO-7bFM9II",
-   "title": "第360番-2【女装　コスプレ　湘南 】三崎港／城ヶ島.2・三崎港散策,城ヶ島大橋へ【漁港　散歩　穴場の店】",
-   "channel": "ノン・ダックレイの 動画制作本舗",
-   "published_text": "19 時間前",
-   "views": "942回視聴",
-   "length": "10:31",
    "published": "2026-10-13",
    "fetched": "2026-10-13",
    "q": "三崎港"
