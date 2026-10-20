@@ -2,6 +2,17 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "maSBAb9PhI8",
+   "title": "【三浦半島三崎港】メジナが爆釣する隣で姑息にサビキ釣り 久しぶりに花暮岸壁！",
+   "channel": "釣りらんた",
+   "published_text": "13 時間前",
+   "views": "7,963回視聴",
+   "length": "10:57",
+   "published": "2026-10-21",
+   "fetched": "2026-10-21",
+   "q": "城ヶ島"
+  },
+  {
    "id": "xfRgpgBHOHo",
    "title": "釣り歴4ヶ月が三浦海岸サーフで爆釣！午前だけで30匹、夕マズメ前に終了",
    "channel": "格連坊の3分フィッシング",
@@ -210,17 +221,6 @@
    "published": "2026-10-13",
    "fetched": "2026-10-13",
    "q": "城ヶ島"
-  },
-  {
-   "id": "ZLWFGIU4PXk",
-   "title": "三崎はなぜ「マグロをとる港」から「マグロが集まる港」に変わったのか｜人口4万人割れでも続くマグロの街【ずんだもん解説】",
-   "channel": "ずんだもんの神奈川調査隊",
-   "published_text": "12 時間前",
-   "views": "0 回視聴",
-   "length": "9:45",
-   "published": "2026-10-13",
-   "fetched": "2026-10-13",
-   "q": "三崎港"
   }
  ]
 }
