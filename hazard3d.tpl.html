@@ -147,7 +147,7 @@ h1{font-size:1.9rem!important;margin:2px 0 0!important}
 <ul>
 <li><b>スマホ・タブレット：</b>指2本で回す・傾ける・拡大する。1本で動かす。</li>
 <li><b>Mac・パソコン：</b>右クリックしたままドラッグ（または Control ＋ ドラッグ）で、回す・傾ける。⌘（Windows は Ctrl）を押しながらスクロールで拡大・縮小。ドラッグで動かす。</li>
-<li><b>ボタンで：</b>右上の羅針盤を押すと北が上に戻ります。羅針盤を押したままドラッグしても、回す・傾けるができます。</li>
+<li><b>ボタンで：</b>右上の羅針盤を押すたびに、真上からと斜めからが切り替わります（真上にすると北が上になります）。羅針盤を押したままドラッグしても、回す・傾けるができます。</li>
 <li><b>キーボード：</b>Shift ＋ ←→ で回す、Shift ＋ ↑↓ で傾ける。</li>
 </ul>
 <p style="margin:6px 0 0">高さは1.6倍に強調しています。建物の高さは、記録がないものは一律5mの目安です。</p></details>
@@ -315,7 +315,7 @@ try{
   map=new maplibregl.Map({container:"map",style:STYLE,center:[HOME.lon,HOME.lat],zoom:15.4,pitch:58,bearing:-25,maxPitch:75,maxZoom:19.5,minZoom:10,
     cooperativeGestures:true,attributionControl:{compact:true},
     locale:{"CooperativeGesturesHandler.WindowsHelpText":"Ctrl を押しながらスクロールで拡大できます","CooperativeGesturesHandler.MacHelpText":"⌘ を押しながらスクロールで拡大できます","CooperativeGesturesHandler.MobileHelpText":"指2本で地図を動かせます",
-      "NavigationControl.ZoomIn":"拡大","NavigationControl.ZoomOut":"縮小","NavigationControl.ResetBearing":"北を上に戻す"}});
+      "NavigationControl.ZoomIn":"拡大","NavigationControl.ZoomOut":"縮小","NavigationControl.ResetBearing":"真上から／斜めから を切り替え"}});
   map.addControl(new maplibregl.NavigationControl({visualizePitch:true}),"top-right");
 }catch(e){
   map=null;$("#map").innerHTML='<p style="padding:24px">この端末では 3D の地図を表示できませんでした。ブラウザを最新にするか、別の端末でお試しください。</p>';
@@ -366,6 +366,15 @@ if(map){
   document.querySelectorAll("[data-lv]").forEach(function(b){b.onclick=function(){level=+b.dataset.lv;$("#lv").value=level;if(on.wat){water();render()}}});
   var tm=null;$("#lv").oninput=function(){level=+this.value;var wl=$("#wl");if(wl)wl.textContent=level;var wo=$("#wlo");if(wo)wo.textContent=level+"m 以下";clearTimeout(tm);tm=setTimeout(function(){if(on.wat){water();render()}},250)};
   $("#b-d3").onclick=function(){on.d3=!on.d3;map.setTerrain(on.d3?{source:"dem",exaggeration:EXAG}:null);go({pitch:on.d3?58:0,bearing:on.d3?map.getBearing():0});render()};
+  /* 右上の羅針盤：押すたびに「真上から」と「斜めから」を切り替える（標準では真上に戻るだけで、斜めに戻せない） */
+  var tiltSaved=58;
+  $(".maplibregl-ctrl-group").addEventListener("click",function(ev){
+    if(!ev.target.closest(".maplibregl-ctrl-compass"))return;
+    ev.stopPropagation();ev.preventDefault();
+    if(map.getPitch()>5){tiltSaved=map.getPitch();go({pitch:0,bearing:0})}
+    else{if(!on.d3){on.d3=true;map.setTerrain({source:"dem",exaggeration:EXAG});render()}go({pitch:tiltSaved>5?tiltSaved:58})}
+  },true);
+  var cb=$(".maplibregl-ctrl-compass");if(cb){cb.title="真上から／斜めから を切り替え";cb.setAttribute("aria-label","真上から／斜めから を切り替え")}
   var me=null;
   $("#b-loc").onclick=function(){
     if(!navigator.geolocation){alert("この端末では現在地を使えません");return}
