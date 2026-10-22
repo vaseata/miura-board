@@ -2,15 +2,48 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
-   "id": "MOkZUavnHM4",
-   "title": "三浦海岸ライブカメラ 24時間 🌊 波の音・海・睡眠・作業用 | Miura Beach Live Cam Japan",
-   "channel": "湾岸Go (TOKYO BAY LIVE CAMERA)",
+   "id": "7ropacgLUxk",
+   "title": "【灯台Vlog】城ヶ島 半日旅 【安房埼灯台・城ヶ島灯台】",
+   "channel": "きょうも灯台",
+   "published_text": "8 時間前",
+   "views": "22回視聴",
+   "length": "16:27",
+   "published": "2026-10-23",
+   "fetched": "2026-10-23",
+   "q": "城ヶ島"
+  },
+  {
+   "id": "DcBvIxUlImA",
+   "title": "#032 三崎港で五目釣り 【神奈川県】",
+   "channel": "さかなたび / Fish Species Hunter【全魚種制覇を目指して】",
+   "published_text": "22 時間前",
+   "views": "5,227回視聴",
+   "length": "15:46",
+   "published": "2026-10-23",
+   "fetched": "2026-10-23",
+   "q": "三崎港"
+  },
+  {
+   "id": "49NubJ78KWU",
+   "title": "【LIVE】三浦海岸ライブカメラ(Live Camera in Miura Beach)",
+   "channel": "WITH SEA",
    "published_text": "",
    "views": "",
    "length": "",
    "live": true,
-   "published": "2026-10-22",
-   "fetched": "2026-10-22",
+   "published": "2026-10-23",
+   "fetched": "2026-10-23",
+   "q": "三浦海岸"
+  },
+  {
+   "id": "zw4qAkpa75Y",
+   "title": "三浦半島 | 豪華海鮮づくしの宿【でぐち荘】で食事と海に癒される",
+   "channel": "らぱちゃね旅CHANNEL",
+   "published_text": "8 時間前",
+   "views": "2,078回視聴",
+   "length": "30:47",
+   "published": "2026-10-23",
+   "fetched": "2026-10-23",
    "q": "三浦海岸"
   },
   {
@@ -188,39 +221,6 @@
    "published": "2026-10-16",
    "fetched": "2026-10-16",
    "q": "三崎港"
-  },
-  {
-   "id": "4OroqFEH9MQ",
-   "title": "【小網代の森】「水に聞いて川を造る」土砂崩れから始まる、長靴土木の川づくり",
-   "channel": "鶴見川源流自然通信",
-   "published_text": "15 時間前",
-   "views": "195回視聴",
-   "length": "8:14",
-   "published": "2026-10-16",
-   "fetched": "2026-10-16",
-   "q": "小網代"
-  },
-  {
-   "id": "s8iIQt3oGQk",
-   "title": "【三崎港・超低温冷蔵庫前】　前回の動画数メートルの違い　意外な魚も　釣りの参考に",
-   "channel": "釣り場",
-   "published_text": "2 日前",
-   "views": "6,480回視聴",
-   "length": "11:45",
-   "published": "2026-10-14",
-   "fetched": "2026-10-16",
-   "q": "三浦半島 三崎"
-  },
-  {
-   "id": "dZa3fvQAwUw",
-   "title": "城ヶ島雨情",
-   "channel": "Yuki Nagaho - Topic",
-   "published_text": "",
-   "views": "30,412回視聴",
-   "length": "4:40",
-   "published": "2026-10-13",
-   "fetched": "2026-10-13",
-   "q": "城ヶ島"
   }
  ]
 }
