@@ -2,6 +2,29 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "sc29IPRgwDk",
+   "title": "湘南三浦半島ツーリング｜神奈川右下の半島と城ヶ島、ヤビツ峠",
+   "channel": "TOMORI Touring",
+   "published_text": "13 時間前",
+   "views": "96回視聴",
+   "length": "24:50",
+   "published": "2026-10-24",
+   "fetched": "2026-10-24",
+   "q": "城ヶ島"
+  },
+  {
+   "id": "MOkZUavnHM4",
+   "title": "三浦海岸ライブカメラ 24時間 🌊 波の音・海・睡眠・作業用 | Miura Beach Live Cam Japan",
+   "channel": "湾岸Go (TOKYO BAY LIVE CAMERA)",
+   "published_text": "",
+   "views": "",
+   "length": "",
+   "live": true,
+   "published": "2026-10-24",
+   "fetched": "2026-10-24",
+   "q": "三浦海岸"
+  },
+  {
    "id": "7ropacgLUxk",
    "title": "【灯台Vlog】城ヶ島 半日旅 【安房埼灯台・城ヶ島灯台】",
    "channel": "きょうも灯台",
@@ -22,18 +45,6 @@
    "published": "2026-10-23",
    "fetched": "2026-10-23",
    "q": "三崎港"
-  },
-  {
-   "id": "49NubJ78KWU",
-   "title": "【LIVE】三浦海岸ライブカメラ(Live Camera in Miura Beach)",
-   "channel": "WITH SEA",
-   "published_text": "",
-   "views": "",
-   "length": "",
-   "live": true,
-   "published": "2026-10-23",
-   "fetched": "2026-10-23",
-   "q": "三浦海岸"
   },
   {
    "id": "zw4qAkpa75Y",
@@ -209,17 +220,6 @@
    "length": "5:32",
    "published": "2026-10-17",
    "fetched": "2026-10-18",
-   "q": "三崎港"
-  },
-  {
-   "id": "r7zyqLbGb4I",
-   "title": "【三崎港】釣れたデカ○○を泳がせる‼️カワハギ釣り▶︎ジギング",
-   "channel": "あさみーちゃんねる Asa×Mii Channel",
-   "published_text": "17 時間前",
-   "views": "1,784回視聴",
-   "length": "14:36",
-   "published": "2026-10-16",
-   "fetched": "2026-10-16",
    "q": "三崎港"
   }
  ]
