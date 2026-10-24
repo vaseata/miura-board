@@ -2,6 +2,29 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "49NubJ78KWU",
+   "title": "【LIVE】三浦海岸ライブカメラ(Live Camera in Miura Beach)",
+   "channel": "WITH SEA",
+   "published_text": "",
+   "views": "",
+   "length": "",
+   "live": true,
+   "published": "2026-10-25",
+   "fetched": "2026-10-25",
+   "q": "三浦海岸"
+  },
+  {
+   "id": "3LgyuIdD8xs",
+   "title": "三浦海岸・沖ノ島 -カイト・ウインド編-",
+   "channel": "Studio 空Q",
+   "published_text": "7 時間前",
+   "views": "1 回視聴",
+   "length": "3:11",
+   "published": "2026-10-25",
+   "fetched": "2026-10-25",
+   "q": "三浦海岸"
+  },
+  {
    "id": "sc29IPRgwDk",
    "title": "湘南三浦半島ツーリング｜神奈川右下の半島と城ヶ島、ヤビツ峠",
    "channel": "TOMORI Touring",
@@ -11,18 +34,6 @@
    "published": "2026-10-24",
    "fetched": "2026-10-24",
    "q": "城ヶ島"
-  },
-  {
-   "id": "MOkZUavnHM4",
-   "title": "三浦海岸ライブカメラ 24時間 🌊 波の音・海・睡眠・作業用 | Miura Beach Live Cam Japan",
-   "channel": "湾岸Go (TOKYO BAY LIVE CAMERA)",
-   "published_text": "",
-   "views": "",
-   "length": "",
-   "live": true,
-   "published": "2026-10-24",
-   "fetched": "2026-10-24",
-   "q": "三浦海岸"
   },
   {
    "id": "7ropacgLUxk",
@@ -78,6 +89,17 @@
    "published": "2026-10-20",
    "fetched": "2026-10-20",
    "q": "三浦海岸"
+  },
+  {
+   "id": "R30QsOcbxas",
+   "title": "【みさきまぐろきっぷ】三崎港周辺をFoodieパトロール｜食べて飲んでの日帰り旅",
+   "channel": "Nerd Videos",
+   "published_text": "5 日前",
+   "views": "110回視聴",
+   "length": "18:27",
+   "published": "2026-10-20",
+   "fetched": "2026-10-25",
+   "q": "三崎港"
   },
   {
    "id": "wT7WoB5c-LM",
@@ -190,37 +212,15 @@
    "q": "城ヶ島"
   },
   {
-   "id": "SZAHqOX-cy8",
-   "title": "【三崎港・花暮岸壁】　これから美味い魚がうつりました　釣りの参考に　底物の帝王も",
-   "channel": "釣り場",
-   "published_text": "11 時間前",
-   "views": "256回視聴",
-   "length": "9:45",
-   "published": "2026-10-17",
-   "fetched": "2026-10-17",
-   "q": "三崎港"
-  },
-  {
-   "id": "RbNBvXUxQU4",
-   "title": "実物の運転台が登場！三浦市のホテルに「京急電鉄トレインルーム」がオープン",
-   "channel": "tvk News Link【公式】",
-   "published_text": "17 時間前",
-   "views": "9,488回視聴",
-   "length": "1:08",
-   "published": "2026-10-17",
-   "fetched": "2026-10-17",
-   "q": "三浦市"
-  },
-  {
-   "id": "eSubu3sMEHE",
-   "title": "三崎港は、なぜ日本一のマグロの港になったのか",
-   "channel": "ナガイピクチャーズ ─ 行って、撮って、AIで戻す",
-   "published_text": "1 日前",
-   "views": "200回視聴",
-   "length": "5:32",
-   "published": "2026-10-17",
-   "fetched": "2026-10-18",
-   "q": "三崎港"
+   "id": "HDF05tuGkOU",
+   "title": "【三浦海岸】一匹が遠い…ライトショアジギング、三浦サーフ",
+   "channel": "はしライフ~ 週末探検の人 ~",
+   "published_text": "12 日前",
+   "views": "2,722回視聴",
+   "length": "11:08",
+   "published": "2026-10-13",
+   "fetched": "2026-10-25",
+   "q": "三浦海岸"
   }
  ]
 }

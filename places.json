@@ -134,6 +134,13 @@
    "credit": "カナロコ（神奈川新聞）（og:image）",
    "license": "出典記事の画像",
    "source": "https://www.kanaloco.jp/news/life/article-1312855.html"
+  },
+  "koajiro_forest": {
+   "file": "img/koajiro_forest.jpg",
+   "credit": "<a href=\"//commons.wikimedia.org/wiki/User:Quercus_acuta\">Quercus acuta</a>",
+   "license": "CC BY-SA 4.0",
+   "caption": "小網代の森",
+   "source": "https://commons.wikimedia.org/wiki/File:Koajiro_no_mori_-_01.jpg"
   }
  }
 }
