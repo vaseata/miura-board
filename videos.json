@@ -2,16 +2,60 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
-   "id": "49NubJ78KWU",
-   "title": "【LIVE】三浦海岸ライブカメラ(Live Camera in Miura Beach)",
-   "channel": "WITH SEA",
+   "id": "wIiBuSjVY-k",
+   "title": "【灯台巡り】城ヶ島灯台に行ってみた",
+   "channel": "ばこりょうちん",
+   "published_text": "33 分前",
+   "views": "1 回視聴",
+   "length": "5:31",
+   "published": "2026-10-26",
+   "fetched": "2026-10-26",
+   "q": "城ヶ島"
+  },
+  {
+   "id": "PXNMIOFgZvw",
+   "title": "20261025三浦市三崎朝市",
+   "channel": "びんちゃん貧乏な",
+   "published_text": "16 時間前",
+   "views": "1,566回視聴",
+   "length": "16:54",
+   "published": "2026-10-26",
+   "fetched": "2026-10-26",
+   "q": "三崎港"
+  },
+  {
+   "id": "MOkZUavnHM4",
+   "title": "三浦海岸ライブカメラ 24時間 🌊 波の音・海・睡眠・作業用 | Miura Beach Live Cam Japan",
+   "channel": "湾岸Go (TOKYO BAY LIVE CAMERA)",
    "published_text": "",
    "views": "",
    "length": "",
    "live": true,
-   "published": "2026-10-25",
-   "fetched": "2026-10-25",
+   "published": "2026-10-26",
+   "fetched": "2026-10-26",
+   "q": "三崎港"
+  },
+  {
+   "id": "aFLMnoa8FKQ",
+   "title": "三浦海岸の朝マズメ！（10月下旬、三浦海岸）",
+   "channel": "J.A. Metal Fishing!",
+   "published_text": "16 時間前",
+   "views": "131回視聴",
+   "length": "3:02",
+   "published": "2026-10-26",
+   "fetched": "2026-10-26",
    "q": "三浦海岸"
+  },
+  {
+   "id": "hYQFissJr5A",
+   "title": "【保存版】三浦・三崎 地元民目線釣り場おすすめ5選！トイレ・駐車場・アクセスも紹介｜釣り場ガイド観光紹介も",
+   "channel": "つり姫もも©チャンネル",
+   "published_text": "19 時間前",
+   "views": "2,286回視聴",
+   "length": "10:11",
+   "published": "2026-10-26",
+   "fetched": "2026-10-26",
+   "q": "三浦半島 三崎"
   },
   {
    "id": "3LgyuIdD8xs",
@@ -67,6 +111,17 @@
    "published": "2026-10-23",
    "fetched": "2026-10-23",
    "q": "三浦海岸"
+  },
+  {
+   "id": "vP9X_UlWxlo",
+   "title": "【独自】台風25号の土砂災害から1か月　2人死亡の神奈川・三浦市 「土砂崩れの危険」で約300世帯に避難呼びかけ　住民からは“戸惑いの声”｜TBS NEWS DIG",
+   "channel": "TBS NEWS DIG Powered by JNN",
+   "published_text": "4 日前",
+   "views": "47,682回視聴",
+   "length": "4:37",
+   "published": "2026-10-22",
+   "fetched": "2026-10-26",
+   "q": "三浦市"
   },
   {
    "id": "maSBAb9PhI8",
@@ -166,61 +221,6 @@
    "published": "2026-10-18",
    "fetched": "2026-10-18",
    "q": "城ヶ島"
-  },
-  {
-   "id": "7A-jckmkJzM",
-   "title": "【ふふ城ヶ島】蒼海プレミアムスイートに宿泊🌙｜全室オーシャンビュー天然温泉付き🌊",
-   "channel": "よしおか家の日常",
-   "published_text": "13 時間前",
-   "views": "123回視聴",
-   "length": "25:38",
-   "published": "2026-10-18",
-   "fetched": "2026-10-18",
-   "q": "城ヶ島"
-  },
-  {
-   "id": "MBy1el-hWvg",
-   "title": "マグロは想像以上に「牛」だった!?　SV-7GXで三崎ツーリング",
-   "channel": "Traveling Traveler",
-   "published_text": "8 時間前",
-   "views": "78回視聴",
-   "length": "1:49",
-   "published": "2026-10-18",
-   "fetched": "2026-10-18",
-   "q": "三崎 マグロ"
-  },
-  {
-   "id": "Dh3ji279mf4",
-   "title": "Air3 三浦半島・油壺湾 : ヨットが並ぶ絶景を空撮 (Air3 Aburatsubo Bay, Miura : Aerial Views of Yachts)",
-   "channel": "エアロ・テック",
-   "published_text": "7 時間前",
-   "views": "21回視聴",
-   "length": "12:15",
-   "published": "2026-10-18",
-   "fetched": "2026-10-18",
-   "q": "油壺"
-  },
-  {
-   "id": "w5RxHvCnFvY",
-   "title": "まさに釣り人の楽園！神奈川県［城ヶ島］で釣りをすると足元で爆釣する異次元の魚影だった…",
-   "channel": "ぬこまた釣査団",
-   "published_text": "11 時間前",
-   "views": "62,624回視聴",
-   "length": "26:28",
-   "published": "2026-10-17",
-   "fetched": "2026-10-17",
-   "q": "城ヶ島"
-  },
-  {
-   "id": "HDF05tuGkOU",
-   "title": "【三浦海岸】一匹が遠い…ライトショアジギング、三浦サーフ",
-   "channel": "はしライフ~ 週末探検の人 ~",
-   "published_text": "12 日前",
-   "views": "2,722回視聴",
-   "length": "11:08",
-   "published": "2026-10-13",
-   "fetched": "2026-10-25",
-   "q": "三浦海岸"
   }
  ]
 }

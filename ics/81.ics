@@ -1,0 +1,22 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//miura-board//JA
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:miura-board-81@vaseata.github.io
+DTSTAMP:20261025T220351Z
+DTSTART:20261106T090000Z
+DTEND:20261106T120000Z
+RRULE:FREQ=DAILY;COUNT=2
+SUMMARY:海南神社の面神楽
+LOCATION:海南神社 神楽殿（三浦市三崎）
+DESCRIPTION:海南神社の面神楽 11/6(金)・7(土) 18:00〜21:00、海
+ 南神社 神楽殿。三浦市指定重要無形民俗文化財で、海
+ 南神社面神楽保存神楽師会が奉納上演（市の11月行事予
+ 定・10/22公表）\n出典: https://www.city.miura.kanagawa.jp/soshiki/s
+ eisakuka/seisakuka_hisho/shichonoheya/pressrelease/202610/13218.html\n最
+ 近の三浦: https://vaseata.github.io/miura-board/
+URL:https://vaseata.github.io/miura-board/
+END:VEVENT
+END:VCALENDAR

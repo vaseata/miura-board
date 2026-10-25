@@ -2615,6 +2615,42 @@
      "opened": "2026-10-25"
     }
    ]
+  },
+  {
+   "id": 81,
+   "date": "2026-11-06",
+   "end": "2026-11-07",
+   "area": "三崎",
+   "category": "イベント",
+   "headline": "11/6・7 夜、海南神社の面神楽",
+   "fact": "海南神社の面神楽 11/6(金)・7(土) 18:00〜21:00、海南神社 神楽殿。三浦市指定重要無形民俗文化財で、海南神社面神楽保存神楽師会が奉納上演（市の11月行事予定・10/22公表）",
+   "talk": "11/6・7の夜、三崎の海南神社で面神楽があります。仮面の神楽で、夕方6時から神楽殿で見られますよ",
+   "confidence": "🟢",
+   "image": "misaki_shitamachi",
+   "tags": [
+    "伝統",
+    "神事",
+    "夜",
+    "祭り"
+   ],
+   "cal": {
+    "title": "海南神社の面神楽",
+    "place": "海南神社 神楽殿（三浦市三崎）",
+    "start": "18:00",
+    "end": "21:00"
+   },
+   "sources": [
+    {
+     "url": "https://www.city.miura.kanagawa.jp/soshiki/seisakuka/seisakuka_hisho/shichonoheya/pressrelease/202610/13218.html",
+     "title": "三浦市 主な月間行事予定（11月）10/22公表",
+     "opened": "2026-10-26"
+    },
+    {
+     "url": "https://www.city.miura.kanagawa.jp/material/files/group/5/2026102201.pdf",
+     "title": "三浦市 月間行事予定11月（PDF）",
+     "opened": "2026-10-26"
+    }
+   ]
   }
  ]
 }
