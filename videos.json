@@ -2,6 +2,29 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "Hmhadz3YLgM",
+   "title": "360°空撮　神奈川の絶景〜城ヶ島 ・Jogashima.Kanagawa.Japan",
+   "channel": "JAPAN WONDER VIEW ジャパン・ワンダー・ビュー",
+   "published_text": "23 分前",
+   "views": "0 回視聴",
+   "length": "1:21",
+   "published": "2026-10-27",
+   "fetched": "2026-10-27",
+   "q": "城ヶ島"
+  },
+  {
+   "id": "49NubJ78KWU",
+   "title": "【LIVE】三浦海岸ライブカメラ(Live Camera in Miura Beach)",
+   "channel": "WITH SEA",
+   "published_text": "",
+   "views": "",
+   "length": "",
+   "live": true,
+   "published": "2026-10-27",
+   "fetched": "2026-10-27",
+   "q": "三浦海岸"
+  },
+  {
    "id": "wIiBuSjVY-k",
    "title": "【灯台巡り】城ヶ島灯台に行ってみた",
    "channel": "ばこりょうちん",
@@ -19,18 +42,6 @@
    "published_text": "16 時間前",
    "views": "1,566回視聴",
    "length": "16:54",
-   "published": "2026-10-26",
-   "fetched": "2026-10-26",
-   "q": "三崎港"
-  },
-  {
-   "id": "MOkZUavnHM4",
-   "title": "三浦海岸ライブカメラ 24時間 🌊 波の音・海・睡眠・作業用 | Miura Beach Live Cam Japan",
-   "channel": "湾岸Go (TOKYO BAY LIVE CAMERA)",
-   "published_text": "",
-   "views": "",
-   "length": "",
-   "live": true,
    "published": "2026-10-26",
    "fetched": "2026-10-26",
    "q": "三崎港"
@@ -210,17 +221,6 @@
    "published": "2026-10-19",
    "fetched": "2026-10-19",
    "q": "三浦海岸"
-  },
-  {
-   "id": "x3IuE08NwQs",
-   "title": "【神奈川・城ヶ島】夕日に染まる富士山🗻馬の背洞門の荒波も！愛犬と灯台めぐりさんぽ🐾",
-   "channel": "わんちゃんとお出かけアーカイブ",
-   "published_text": "23 時間前",
-   "views": "105回視聴",
-   "length": "8:51",
-   "published": "2026-10-18",
-   "fetched": "2026-10-18",
-   "q": "城ヶ島"
   }
  ]
 }
