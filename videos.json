@@ -2,6 +2,29 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "MOkZUavnHM4",
+   "title": "三浦海岸ライブカメラ 24時間 🌊 波の音・海・睡眠・作業用 | Miura Beach Live Cam Japan",
+   "channel": "湾岸Go (TOKYO BAY LIVE CAMERA)",
+   "published_text": "",
+   "views": "",
+   "length": "",
+   "live": true,
+   "published": "2026-10-28",
+   "fetched": "2026-10-28",
+   "q": "三浦海岸"
+  },
+  {
+   "id": "HpAvaGW0C7k",
+   "title": "ソマリアで銃を持つ護衛と青い海を眺め、物々しさと美しさが同居する不思議な旅をしました【残り136ヶ国】",
+   "channel": "旅する三崎チャンネル",
+   "published_text": "12 時間前",
+   "views": "19,284回視聴",
+   "length": "18:40",
+   "published": "2026-10-28",
+   "fetched": "2026-10-28",
+   "q": "三浦半島 三崎"
+  },
+  {
    "id": "Hmhadz3YLgM",
    "title": "360°空撮　神奈川の絶景〜城ヶ島 ・Jogashima.Kanagawa.Japan",
    "channel": "JAPAN WONDER VIEW ジャパン・ワンダー・ビュー",
@@ -13,16 +36,15 @@
    "q": "城ヶ島"
   },
   {
-   "id": "49NubJ78KWU",
-   "title": "【LIVE】三浦海岸ライブカメラ(Live Camera in Miura Beach)",
-   "channel": "WITH SEA",
-   "published_text": "",
-   "views": "",
-   "length": "",
-   "live": true,
+   "id": "i08Zx8xL-cs",
+   "title": "保存版【三浦・三崎の釣り場5選】地元目線で徹底解説！駐車場・トイレ・アクセスも紹介",
+   "channel": "つり姫ももファミリーの裏側",
+   "published_text": "1 日前",
+   "views": "154回視聴",
+   "length": "2:22",
    "published": "2026-10-27",
-   "fetched": "2026-10-27",
-   "q": "三浦海岸"
+   "fetched": "2026-10-28",
+   "q": "三浦半島 三崎"
   },
   {
    "id": "wIiBuSjVY-k",
@@ -199,28 +221,6 @@
    "published": "2026-10-19",
    "fetched": "2026-10-19",
    "q": "油壺"
-  },
-  {
-   "id": "V1gy2SrvXTQ",
-   "title": "【初輪行】海を眺めて、食べて、走って。鎌倉から三浦半島への自転車旅",
-   "channel": "Earthlime",
-   "published_text": "8 時間前",
-   "views": "59回視聴",
-   "length": "29:11",
-   "published": "2026-10-19",
-   "fetched": "2026-10-19",
-   "q": "三浦海岸"
-  },
-  {
-   "id": "2sGHmWW3VMM",
-   "title": "【三浦海岸・津久井浜沖】強風と沈黙の先に…83cmサワラが出た!! #kayakfishing #カヤックフィッシング #boatfishing #supfishing #2馬力ボート #ジギング",
-   "channel": "三浦で釣りタイ",
-   "published_text": "13 時間前",
-   "views": "1,826回視聴",
-   "length": "24:46",
-   "published": "2026-10-19",
-   "fetched": "2026-10-19",
-   "q": "三浦海岸"
   }
  ]
 }

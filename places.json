@@ -141,6 +141,30 @@
    "license": "CC BY-SA 4.0",
    "caption": "小網代の森",
    "source": "https://commons.wikimedia.org/wiki/File:Koajiro_no_mori_-_01.jpg"
+  },
+  "rockabilly_2026": {
+   "file": "img/rockabilly_2026.jpg",
+   "credit": "タウンニュース（og:image）",
+   "license": "出典記事の画像",
+   "source": "https://www.townnews.co.jp/0501/2026/10/28/859707.html"
+  },
+  "stork_2026": {
+   "file": "img/stork_2026.jpg",
+   "credit": "タウンニュース（og:image）",
+   "license": "出典記事の画像",
+   "source": "https://www.townnews.co.jp/0501/2026/10/16/857383.html"
+  },
+  "heat_koajiro_2026": {
+   "file": "img/heat_koajiro_2026.jpg",
+   "credit": "タウンニュース（og:image）",
+   "license": "出典記事の画像",
+   "source": "https://www.townnews.co.jp/0501/2026/10/16/857386.html"
+  },
+  "fossette_2026": {
+   "file": "img/fossette_2026.jpg",
+   "credit": "カナロコ（神奈川新聞）（og:image）",
+   "license": "出典記事の画像",
+   "source": "https://www.kanaloco.jp/news/culture/bunka/article-1315475.html"
   }
  }
 }

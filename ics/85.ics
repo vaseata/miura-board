@@ -1,0 +1,26 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//miura-board//JA
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:miura-board-85@vaseata.github.io
+DTSTAMP:20261027T220830Z
+DTSTART:20261016T020000Z
+DTEND:20261016T090000Z
+RRULE:FREQ=DAILY;COUNT=24
+SUMMARY:HEAT─絵画─（イハリウムコアジロギャラリー）
+LOCATION:イハリウムコアジロギャラリー（三浦市三崎町小
+ 網代1240-1）
+DESCRIPTION:企画展「HEAT─絵画─」がイハリウムコアジロ
+ ギャラリー（三浦市三崎町小網代1240-1）で11/8(日)まで
+ 。三浦市を拠点にする倉重光則さん・勝又豊子さんと
+ 日米の現代作家5人の計7人による絵画・立体・インスタ
+ レーション。11:00〜18:00、月曜休廊、火・水曜は予約制
+ （080-5002-7759）。開始日は記事に記載なし\n※月曜休廊
+ ・火水曜は予約制（080-5002-7759）\n出典: https://www.townnews.
+ co.jp/0501/2026/10/16/857386.html\n最近の三浦: https://vaseata.github
+ .io/miura-board/
+URL:https://vaseata.github.io/miura-board/
+END:VEVENT
+END:VCALENDAR

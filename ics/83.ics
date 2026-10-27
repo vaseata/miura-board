@@ -1,0 +1,23 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//miura-board//JA
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:miura-board-83@vaseata.github.io
+DTSTAMP:20261027T220830Z
+DTSTART:20261103T020000Z
+DTEND:20261103T080000Z
+SUMMARY:三浦ロカビリーまつり 2026
+LOCATION:うらり 2階展望デッキ（三浦市三崎・三崎港）
+DESCRIPTION:「三浦ロカビリーまつり」11/3(火・祝) 11:00〜17:
+ 00、三崎の産直施設「うらり」2階展望デッキ、入場無
+ 料。5回目で、三浦市在住の山口憲一さん（1990年代のバ
+ ンドMAGICの元メンバー）ら6バンドが出演。リーゼント
+ のヘアセットとダンスレッスンも無料。主催は地元ロ
+ カビリー愛好者の実行委員会（事務局 046-888-2157）\n※
+ 入場無料\n出典: https://www.townnews.co.jp/0501/2026/10/28/859707.ht
+ ml\n最近の三浦: https://vaseata.github.io/miura-board/
+URL:https://vaseata.github.io/miura-board/
+END:VEVENT
+END:VCALENDAR
