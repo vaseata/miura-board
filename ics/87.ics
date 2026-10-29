@@ -1,0 +1,21 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//miura-board//JA
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:miura-board-87@vaseata.github.io
+DTSTAMP:20261029T220246Z
+DTSTART:20261108T010000Z
+DTEND:20261108T060000Z
+SUMMARY:城ヶ島マルシェ【シオカゼテラス】
+LOCATION:県立城ヶ島公園（三浦市三崎町城ヶ島）
+DESCRIPTION:11/8(日)10:00〜15:00、三崎観光が県立城ヶ島公園
+ で「城ヶ島マルシェ【シオカゼテラス】」。ハンドメ
+ イド雑貨・犬用グッズの出店に、コーヒー・クレープ
+ ・丼・タコスなど飲食も並ぶ\n出典: https://www.misakikanko.c
+ o.jp/news/2026/10/37.html\n最近の三浦: https://vaseata.github.io/miur
+ a-board/
+URL:https://vaseata.github.io/miura-board/
+END:VEVENT
+END:VCALENDAR
