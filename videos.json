@@ -2,6 +2,40 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "cPq9QBnkwso",
+   "title": "2026.10.18 三崎海外港・伊三郎丸　LT深海　本日９時出勤でした",
+   "channel": "TM動画",
+   "published_text": "14 時間前",
+   "views": "1,905回視聴",
+   "length": "9:34",
+   "published": "2026-10-31",
+   "fetched": "2026-10-31",
+   "q": "三崎港"
+  },
+  {
+   "id": "49NubJ78KWU",
+   "title": "【LIVE】三浦海岸ライブカメラ(Live Camera in Miura Beach)",
+   "channel": "WITH SEA",
+   "published_text": "",
+   "views": "",
+   "length": "",
+   "live": true,
+   "published": "2026-10-31",
+   "fetched": "2026-10-31",
+   "q": "三浦海岸"
+  },
+  {
+   "id": "KfBjpNhLJAA",
+   "title": "【ふるさと、この一品】三浦市 三崎のねぎとろ / 厚木のジェラート GELATO808【News Linkオンライン】",
+   "channel": "tvk News Link【公式】",
+   "published_text": "12 時間前",
+   "views": "791回視聴",
+   "length": "7:48",
+   "published": "2026-10-31",
+   "fetched": "2026-10-31",
+   "q": "三浦市"
+  },
+  {
    "id": "Q3hnXkdUtq4",
    "title": "夜の城ヶ島でぶっこみ釣りすると...？釣りガール2人の釣行近況🎣",
    "channel": "あさみーちゃんねる Asa×Mii Channel",
@@ -22,18 +56,6 @@
    "published": "2026-10-30",
    "fetched": "2026-10-30",
    "q": "三崎 マグロ"
-  },
-  {
-   "id": "MOkZUavnHM4",
-   "title": "三浦海岸ライブカメラ 24時間 🌊 波の音・海・睡眠・作業用 | Miura Beach Live Cam Japan",
-   "channel": "湾岸Go (TOKYO BAY LIVE CAMERA)",
-   "published_text": "",
-   "views": "",
-   "length": "",
-   "live": true,
-   "published": "2026-10-30",
-   "fetched": "2026-10-30",
-   "q": "三浦海岸"
   },
   {
    "id": "HpAvaGW0C7k",
@@ -199,28 +221,6 @@
    "published": "2026-10-20",
    "fetched": "2026-10-20",
    "q": "三浦海岸"
-  },
-  {
-   "id": "R30QsOcbxas",
-   "title": "【みさきまぐろきっぷ】三崎港周辺をFoodieパトロール｜食べて飲んでの日帰り旅",
-   "channel": "Nerd Videos",
-   "published_text": "5 日前",
-   "views": "110回視聴",
-   "length": "18:27",
-   "published": "2026-10-20",
-   "fetched": "2026-10-25",
-   "q": "三崎港"
-  },
-  {
-   "id": "wT7WoB5c-LM",
-   "title": "2026年10月18日三浦市三崎朝市",
-   "channel": "びんちゃん貧乏な",
-   "published_text": "22 時間前",
-   "views": "2,862回視聴",
-   "length": "17:05",
-   "published": "2026-10-19",
-   "fetched": "2026-10-19",
-   "q": "三崎港"
   }
  ]
 }
