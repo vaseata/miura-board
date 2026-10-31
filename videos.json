@@ -2,6 +2,51 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "yIYtQwLPOXY",
+   "title": "【ふふ 城ヶ島 海風のしらべ】海と空に包まれる絶景リゾート！ルーフトップラウンジと天然温泉に癒やされる贅沢な滞在",
+   "channel": "サメズトリップ〜星野リゾート大好き夫婦の旅行VLOG〜",
+   "published_text": "13 時間前",
+   "views": "3,137回視聴",
+   "length": "30:44",
+   "published": "2026-11-01",
+   "fetched": "2026-11-01",
+   "q": "城ヶ島"
+  },
+  {
+   "id": "C5m2nro7Dkc",
+   "title": "【三崎港・超低温冷蔵庫前】　水中動画　水中の中の現状をお楽しみ下さい　釣りの参考に",
+   "channel": "釣り場",
+   "published_text": "12 時間前",
+   "views": "647回視聴",
+   "length": "31:42",
+   "published": "2026-11-01",
+   "fetched": "2026-11-01",
+   "q": "三崎港"
+  },
+  {
+   "id": "vRzCBF6PJc0",
+   "title": "連敗続きの三浦海岸サーフへ。大混雑の朝マズメにイナダを獲ってボウズ脱出！",
+   "channel": "格連坊の3分フィッシング",
+   "published_text": "14 時間前",
+   "views": "1,313回視聴",
+   "length": "7:53",
+   "published": "2026-11-01",
+   "fetched": "2026-11-01",
+   "q": "三浦海岸"
+  },
+  {
+   "id": "MOkZUavnHM4",
+   "title": "三浦海岸ライブカメラ 24時間 🌊 波の音・海・睡眠・作業用 | Miura Beach Live Cam Japan",
+   "channel": "湾岸Go (TOKYO BAY LIVE CAMERA)",
+   "published_text": "",
+   "views": "",
+   "length": "",
+   "live": true,
+   "published": "2026-11-01",
+   "fetched": "2026-11-01",
+   "q": "三浦海岸"
+  },
+  {
    "id": "cPq9QBnkwso",
    "title": "2026.10.18 三崎海外港・伊三郎丸　LT深海　本日９時出勤でした",
    "channel": "TM動画",
@@ -11,18 +56,6 @@
    "published": "2026-10-31",
    "fetched": "2026-10-31",
    "q": "三崎港"
-  },
-  {
-   "id": "49NubJ78KWU",
-   "title": "【LIVE】三浦海岸ライブカメラ(Live Camera in Miura Beach)",
-   "channel": "WITH SEA",
-   "published_text": "",
-   "views": "",
-   "length": "",
-   "live": true,
-   "published": "2026-10-31",
-   "fetched": "2026-10-31",
-   "q": "三浦海岸"
   },
   {
    "id": "KfBjpNhLJAA",
@@ -187,39 +220,6 @@
    "length": "30:47",
    "published": "2026-10-23",
    "fetched": "2026-10-23",
-   "q": "三浦海岸"
-  },
-  {
-   "id": "vP9X_UlWxlo",
-   "title": "【独自】台風25号の土砂災害から1か月　2人死亡の神奈川・三浦市 「土砂崩れの危険」で約300世帯に避難呼びかけ　住民からは“戸惑いの声”｜TBS NEWS DIG",
-   "channel": "TBS NEWS DIG Powered by JNN",
-   "published_text": "4 日前",
-   "views": "47,682回視聴",
-   "length": "4:37",
-   "published": "2026-10-22",
-   "fetched": "2026-10-26",
-   "q": "三浦市"
-  },
-  {
-   "id": "maSBAb9PhI8",
-   "title": "【三浦半島三崎港】メジナが爆釣する隣で姑息にサビキ釣り 久しぶりに花暮岸壁！",
-   "channel": "釣りらんた",
-   "published_text": "13 時間前",
-   "views": "7,963回視聴",
-   "length": "10:57",
-   "published": "2026-10-21",
-   "fetched": "2026-10-21",
-   "q": "城ヶ島"
-  },
-  {
-   "id": "xfRgpgBHOHo",
-   "title": "釣り歴4ヶ月が三浦海岸サーフで爆釣！午前だけで30匹、夕マズメ前に終了",
-   "channel": "格連坊の3分フィッシング",
-   "published_text": "11 時間前",
-   "views": "1,963回視聴",
-   "length": "21:10",
-   "published": "2026-10-20",
-   "fetched": "2026-10-20",
    "q": "三浦海岸"
   }
  ]
