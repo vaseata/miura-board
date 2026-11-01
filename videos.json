@@ -2,6 +2,40 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "ZdjUwskVWjs",
+   "title": "城ヶ島磯を見に行ってきました#城ヶ島",
+   "channel": "まろべーの日常",
+   "published_text": "17 時間前",
+   "views": "10回視聴",
+   "length": "7:17",
+   "published": "2026-11-02",
+   "fetched": "2026-11-02",
+   "q": "城ヶ島"
+  },
+  {
+   "id": "pjtdIacBHUA",
+   "title": "2026年11月1日三浦市三崎朝市",
+   "channel": "びんちゃん貧乏な",
+   "published_text": "22 時間前",
+   "views": "2,549回視聴",
+   "length": "15:44",
+   "published": "2026-11-02",
+   "fetched": "2026-11-02",
+   "q": "三浦市"
+  },
+  {
+   "id": "49NubJ78KWU",
+   "title": "【LIVE】三浦海岸ライブカメラ(Live Camera in Miura Beach)",
+   "channel": "WITH SEA",
+   "published_text": "",
+   "views": "",
+   "length": "",
+   "live": true,
+   "published": "2026-11-02",
+   "fetched": "2026-11-02",
+   "q": "三浦市"
+  },
+  {
    "id": "yIYtQwLPOXY",
    "title": "【ふふ 城ヶ島 海風のしらべ】海と空に包まれる絶景リゾート！ルーフトップラウンジと天然温泉に癒やされる贅沢な滞在",
    "channel": "サメズトリップ〜星野リゾート大好き夫婦の旅行VLOG〜",
@@ -30,18 +64,6 @@
    "published_text": "14 時間前",
    "views": "1,313回視聴",
    "length": "7:53",
-   "published": "2026-11-01",
-   "fetched": "2026-11-01",
-   "q": "三浦海岸"
-  },
-  {
-   "id": "MOkZUavnHM4",
-   "title": "三浦海岸ライブカメラ 24時間 🌊 波の音・海・睡眠・作業用 | Miura Beach Live Cam Japan",
-   "channel": "湾岸Go (TOKYO BAY LIVE CAMERA)",
-   "published_text": "",
-   "views": "",
-   "length": "",
-   "live": true,
    "published": "2026-11-01",
    "fetched": "2026-11-01",
    "q": "三浦海岸"
@@ -199,28 +221,6 @@
    "published": "2026-10-23",
    "fetched": "2026-10-23",
    "q": "城ヶ島"
-  },
-  {
-   "id": "DcBvIxUlImA",
-   "title": "#032 三崎港で五目釣り 【神奈川県】",
-   "channel": "さかなたび / Fish Species Hunter【全魚種制覇を目指して】",
-   "published_text": "22 時間前",
-   "views": "5,227回視聴",
-   "length": "15:46",
-   "published": "2026-10-23",
-   "fetched": "2026-10-23",
-   "q": "三崎港"
-  },
-  {
-   "id": "zw4qAkpa75Y",
-   "title": "三浦半島 | 豪華海鮮づくしの宿【でぐち荘】で食事と海に癒される",
-   "channel": "らぱちゃね旅CHANNEL",
-   "published_text": "8 時間前",
-   "views": "2,078回視聴",
-   "length": "30:47",
-   "published": "2026-10-23",
-   "fetched": "2026-10-23",
-   "q": "三浦海岸"
   }
  ]
 }
