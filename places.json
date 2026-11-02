@@ -165,6 +165,20 @@
    "credit": "カナロコ（神奈川新聞）（og:image）",
    "license": "出典記事の画像",
    "source": "https://www.kanaloco.jp/news/culture/bunka/article-1315475.html"
+  },
+  "akanemi_katsu_2026": {
+   "file": "img/akanemi_katsu_2026.jpg",
+   "credit": "タウンニュース（og:image）",
+   "license": "出典記事の画像",
+   "source": "https://www.townnews.co.jp/0501/2026/10/30/859554.html",
+   "caption": "茜身カツの給食（タウンニュース）"
+  },
+  "miura_kifu_2026": {
+   "file": "img/miura_kifu_2026.jpg",
+   "credit": "タウンニュース（og:image）",
+   "license": "出典記事の画像",
+   "source": "https://www.townnews.co.jp/0501/2026/11/03/860450.html",
+   "caption": "寄付金を受け取る出口市長（タウンニュース）"
   }
  }
 }

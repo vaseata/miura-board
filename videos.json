@@ -2,6 +2,29 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "A1ci731BAWI",
+   "title": "【三崎港・超低温冷蔵庫前】　前回水中動画の対岸調査　イケス周りよりも・・・釣りの参考に",
+   "channel": "釣り場",
+   "published_text": "11 時間前",
+   "views": "677回視聴",
+   "length": "8:49",
+   "published": "2026-11-03",
+   "fetched": "2026-11-03",
+   "q": "三崎港"
+  },
+  {
+   "id": "MOkZUavnHM4",
+   "title": "三浦海岸ライブカメラ 24時間 🌊 波の音・海・睡眠・作業用 | Miura Beach Live Cam Japan",
+   "channel": "湾岸Go (TOKYO BAY LIVE CAMERA)",
+   "published_text": "",
+   "views": "",
+   "length": "",
+   "live": true,
+   "published": "2026-11-03",
+   "fetched": "2026-11-03",
+   "q": "三浦海岸"
+  },
+  {
    "id": "ZdjUwskVWjs",
    "title": "城ヶ島磯を見に行ってきました#城ヶ島",
    "channel": "まろべーの日常",
@@ -19,18 +42,6 @@
    "published_text": "22 時間前",
    "views": "2,549回視聴",
    "length": "15:44",
-   "published": "2026-11-02",
-   "fetched": "2026-11-02",
-   "q": "三浦市"
-  },
-  {
-   "id": "49NubJ78KWU",
-   "title": "【LIVE】三浦海岸ライブカメラ(Live Camera in Miura Beach)",
-   "channel": "WITH SEA",
-   "published_text": "",
-   "views": "",
-   "length": "",
-   "live": true,
    "published": "2026-11-02",
    "fetched": "2026-11-02",
    "q": "三浦市"
@@ -209,17 +220,6 @@
    "length": "24:50",
    "published": "2026-10-24",
    "fetched": "2026-10-24",
-   "q": "城ヶ島"
-  },
-  {
-   "id": "7ropacgLUxk",
-   "title": "【灯台Vlog】城ヶ島 半日旅 【安房埼灯台・城ヶ島灯台】",
-   "channel": "きょうも灯台",
-   "published_text": "8 時間前",
-   "views": "22回視聴",
-   "length": "16:27",
-   "published": "2026-10-23",
-   "fetched": "2026-10-23",
    "q": "城ヶ島"
   }
  ]

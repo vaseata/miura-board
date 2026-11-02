@@ -1,0 +1,23 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//miura-board//JA
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:miura-board-89@vaseata.github.io
+DTSTAMP:20261102T220334Z
+DTSTART;VALUE=DATE:20261101
+DTEND;VALUE=DATE:20261130
+SUMMARY:白秋特別展（第49回みさき白秋まつり）
+LOCATION:白秋記念館（三浦市城ヶ島）
+DESCRIPTION:第49回みさき白秋まつりの企画として、白秋記
+ 念館（三浦市城ヶ島）で白秋特別展が11/1(日)〜11/29(日)
+ 。北原白秋が自ら描いた歌集『雲母集』『雀の卵』の
+ 挿絵を展示し、挿絵画家としての一面を紹介。10:00〜16:
+ 00、月・金曜と第2・4日曜は休館\n※開館10:00〜16:00。月
+ ・金曜と第2・4日曜は休館\n出典: https://www.townnews.co.jp/05
+ 01/2026/10/30/859947.html\n最近の三浦: https://vaseata.github.io/miur
+ a-board/
+URL:https://vaseata.github.io/miura-board/
+END:VEVENT
+END:VCALENDAR
