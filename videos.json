@@ -2,16 +2,38 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
-   "id": "MOkZUavnHM4",
-   "title": "三浦海岸ライブカメラ 24時間 🌊 波の音・海・睡眠・作業用 | Miura Beach Live Cam Japan",
-   "channel": "湾岸Go (TOKYO BAY LIVE CAMERA)",
+   "id": "49NubJ78KWU",
+   "title": "【LIVE】三浦海岸ライブカメラ(Live Camera in Miura Beach)",
+   "channel": "WITH SEA",
    "published_text": "",
    "views": "",
    "length": "",
    "live": true,
-   "published": "2026-11-07",
-   "fetched": "2026-11-07",
+   "published": "2026-11-09",
+   "fetched": "2026-11-09",
    "q": "三浦海岸"
+  },
+  {
+   "id": "akCqZsRyvn0",
+   "title": "2026年11月8日三浦市三崎朝市",
+   "channel": "びんちゃん貧乏な",
+   "published_text": "23 時間前",
+   "views": "1,517回視聴",
+   "length": "13:25",
+   "published": "2026-11-09",
+   "fetched": "2026-11-09",
+   "q": "三浦市"
+  },
+  {
+   "id": "CiR77YbhzBw",
+   "title": "築70年以上の古民家をフルリノベーション | 神奈川県三浦市白石町 日本リゾートバンク",
+   "channel": "UminoKi SHONAN",
+   "published_text": "18 時間前",
+   "views": "24回視聴",
+   "length": "2:57",
+   "published": "2026-11-09",
+   "fetched": "2026-11-09",
+   "q": "三浦市"
   },
   {
    "id": "CxxRv_Trdp8",
@@ -198,28 +220,6 @@
    "length": "1:21",
    "published": "2026-10-27",
    "fetched": "2026-10-27",
-   "q": "城ヶ島"
-  },
-  {
-   "id": "i08Zx8xL-cs",
-   "title": "保存版【三浦・三崎の釣り場5選】地元目線で徹底解説！駐車場・トイレ・アクセスも紹介",
-   "channel": "つり姫ももファミリーの裏側",
-   "published_text": "1 日前",
-   "views": "154回視聴",
-   "length": "2:22",
-   "published": "2026-10-27",
-   "fetched": "2026-10-28",
-   "q": "三浦半島 三崎"
-  },
-  {
-   "id": "wIiBuSjVY-k",
-   "title": "【灯台巡り】城ヶ島灯台に行ってみた",
-   "channel": "ばこりょうちん",
-   "published_text": "33 分前",
-   "views": "1 回視聴",
-   "length": "5:31",
-   "published": "2026-10-26",
-   "fetched": "2026-10-26",
    "q": "城ヶ島"
   }
  ]
