@@ -2,6 +2,17 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "Qtak551HmOQ",
+   "title": "城ヶ島ツーリング「あのマルカサービスステーションへGo!!」",
+   "channel": "りゅせぴっぴTV",
+   "published_text": "8 分前",
+   "views": "4回視聴",
+   "length": "3:47",
+   "published": "2026-11-11",
+   "fetched": "2026-11-11",
+   "q": "城ヶ島"
+  },
+  {
    "id": "MOkZUavnHM4",
    "title": "三浦海岸ライブカメラ 24時間 🌊 波の音・海・睡眠・作業用 | Miura Beach Live Cam Japan",
    "channel": "湾岸Go (TOKYO BAY LIVE CAMERA)",
@@ -34,6 +45,17 @@
    "published": "2026-11-09",
    "fetched": "2026-11-09",
    "q": "三浦市"
+  },
+  {
+   "id": "35dh5bMi0YM",
+   "title": "早朝ツーリング！三浦半島へ！！【神奈川県道215号 上宮田金田三崎港線】",
+   "channel": "水橋和尊",
+   "published_text": "2 日前",
+   "views": "316回視聴",
+   "length": "11:04",
+   "published": "2026-11-09",
+   "fetched": "2026-11-11",
+   "q": "三浦半島 三崎"
   },
   {
    "id": "CxxRv_Trdp8",
@@ -199,28 +221,6 @@
    "published": "2026-10-30",
    "fetched": "2026-10-30",
    "q": "城ヶ島"
-  },
-  {
-   "id": "Klu4YR3uhjs",
-   "title": "【冷凍マグロの加工現場】巨大なマグロを切り分ける！三崎加工場に密着",
-   "channel": "SUZUKISUISAN",
-   "published_text": "13 時間前",
-   "views": "353回視聴",
-   "length": "5:46",
-   "published": "2026-10-30",
-   "fetched": "2026-10-30",
-   "q": "三崎 マグロ"
-  },
-  {
-   "id": "HpAvaGW0C7k",
-   "title": "ソマリアで銃を持つ護衛と青い海を眺め、物々しさと美しさが同居する不思議な旅をしました【残り136ヶ国】",
-   "channel": "旅する三崎チャンネル",
-   "published_text": "12 時間前",
-   "views": "19,284回視聴",
-   "length": "18:40",
-   "published": "2026-10-28",
-   "fetched": "2026-10-28",
-   "q": "三浦半島 三崎"
   }
  ]
 }

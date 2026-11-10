@@ -1,0 +1,23 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//miura-board//JA
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:miura-board-97@vaseata.github.io
+DTSTAMP:20261110T220357Z
+DTSTART:20261115T020000Z
+DTEND:20261115T060000Z
+SUMMARY:チャリティーライブ「WE LOVE MIURA」
+LOCATION:うらり 2階展望デッキ（三浦市三崎・三崎港）
+DESCRIPTION:11/15（日）11時〜15時、三崎の「うらり」2階展
+ 望デッキでチャリティーライブ「WE LOVE MIURA」。地元の
+ サックス奏者や合唱団などが出演、観覧無料。14時30分
+ から「みんなで歌おう！ワークショップ」。会場の募
+ 金は経費を除き全額を三浦市の災害支援に寄付\n※観覧
+ 無料。14:30から「みんなで歌おう！ワークショップ」\n
+ 出典: https://www.townnews.co.jp/0501/2026/11/11/861745.html\n最近の
+ 三浦: https://vaseata.github.io/miura-board/
+URL:https://vaseata.github.io/miura-board/
+END:VEVENT
+END:VCALENDAR

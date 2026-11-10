@@ -186,6 +186,20 @@
    "license": "出典記事の画像",
    "source": "https://www.townnews.co.jp/0501/2026/11/07/861157.html",
    "caption": "畜産部の生徒と黒毛和牛（タウンニュース）"
+  },
+  "seven_salad_2026": {
+   "file": "img/seven_salad_2026.jpg",
+   "credit": "号外NET（og:image）",
+   "license": "出典記事の画像",
+   "source": "https://yokosuka.goguynet.jp/2026/11/10/seven-irotoridorisalada/",
+   "caption": "色どりサラダ 三浦市産大根使用（号外NET）"
+  },
+  "welovemiura_2026": {
+   "file": "img/welovemiura_2026.jpg",
+   "credit": "タウンニュース（og:image）",
+   "license": "出典記事の画像",
+   "source": "https://www.townnews.co.jp/0501/2026/11/11/861745.html",
+   "caption": "チャリティーライブのポスターを持つ実行委員（タウンニュース）"
   }
  }
 }
