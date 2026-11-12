@@ -2,6 +2,12 @@ img/raw/
 .DS_Store
 __pycache__/
 hazard-share.src.html
+map3d-guest.src.html
 m/.token
 hazard.html
 home.local.json
+share_img/
+stay_proto/
+
+# 予約カレンダーの記入済み記録（予約IDを含むので公開しない）
+yoyaku/*.local.json
