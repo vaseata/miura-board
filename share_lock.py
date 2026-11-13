@@ -12,7 +12,7 @@
 - 合言葉はリポジトリに書かない。環境変数 SHARE_PASS → m/.pass → 実行時の入力 の順に探す
 - 合言葉は一度入れると、その端末では宿泊者向けページ全部に使える（localStorage の 'hz'）
 """
-import base64, getpass, os, secrets, sys
+import base64, getpass, os, re, secrets, sys, unicodedata
 from pathlib import Path
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
@@ -22,6 +22,10 @@ ROOT = Path(__file__).parent
 ITER = 310000
 PASS_FILE = ROOT / 'm' / '.pass'
 BASE = 'https://vaseata.github.io/miura-board/'
+
+def norm(s):
+    """合言葉の打ち方の揺れをそろえる（全角半角・空白・中黒）。ブラウザ側の norm と同じ。"""
+    return re.sub(r'[\s・]', '', unicodedata.normalize('NFKC', s))
 
 def get_pass():
     pw = os.environ.get('SHARE_PASS')
@@ -67,15 +71,16 @@ input:focus-visible,button:focus-visible{outline:2px solid var(--sea);outline-of
 <img class="hd" src="../../img/brand/header-maguro.jpg" alt="" width="1500" height="500">
 <div class="brand"><img src="../../img/brand/logo.png" alt="" width="40" height="40">MIURA A-TEI · 宿泊者向け</div>
 <h1>@TITLE@</h1>
-<p>A邸に泊まる方に、合言葉をお伝えしています。一度入れると、この端末では次から自動で開きます。</p>
-<form id="f"><input id="p" type="password" autocomplete="current-password" placeholder="合言葉" aria-label="合言葉" required>
+<p>A邸に泊まる方に、合言葉をお伝えしています。ひらがなで入れてください。一度入れると、この端末では次から自動で開きます。</p>
+<form id="f"><input id="p" type="text" inputmode="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="合言葉（ひらがな）" aria-label="合言葉" required>
 <button>ひらく</button><p id="e" role="alert"></p></form>
 </main>
 <script>
 const D={salt:"@SALT@",iv:"@IV@",ct:"@CT@",n:@N@};
 const u=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+const norm=s=>s.normalize('NFKC').replace(/[\s・]/g,'');
 async function open_(pw){
-  const k0=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']);
+  const k0=await crypto.subtle.importKey('raw',new TextEncoder().encode(norm(pw)),'PBKDF2',false,['deriveKey']);
   const k=await crypto.subtle.deriveKey({name:'PBKDF2',salt:u(D.salt),iterations:D.n,hash:'SHA-256'},k0,{name:'AES-GCM',length:256},false,['decrypt']);
   const t=await crypto.subtle.decrypt({name:'AES-GCM',iv:u(D.iv)},k,u(D.ct));
   document.open();document.write(new TextDecoder().decode(t));document.close();
@@ -93,7 +98,7 @@ try{const s=localStorage.getItem('hz');if(s)go(s,true)}catch(_){}
 
 def lock(plain: bytes, token_name: str, title: str, pw: str = None) -> str:
     """plain（HTML）を暗号化して m/<token>/index.html に書き、URL を返す。"""
-    pw = pw or get_pass()
+    pw = norm(pw or get_pass())
     token = token_for(token_name)
     salt, iv = os.urandom(16), os.urandom(12)
     key = PBKDF2HMAC(hashes.SHA256(), 32, salt, ITER).derive(pw.encode())
