@@ -11,3 +11,8 @@ stay_proto/
 
 # 予約カレンダーの記入済み記録（予約IDを含むので公開しない）
 yoyaku/*.local.json
+m/.pass
+m/.token-arrival
+m/.arrival.hash
+arrival.src.html
+private_photos/

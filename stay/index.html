@@ -89,6 +89,11 @@ body{padding-bottom:64px}
 .card.im .shoot{aspect-ratio:auto;height:100%;min-height:92px;border:0;border-right:1.5px dashed var(--hair);border-radius:0}
 .card.im .shoot.sm .cam{width:32px}
 .card.im.big .shoot{aspect-ratio:16/9;height:auto;border-right:0;border-bottom:1.5px dashed var(--hair)}
+.eight,.page ol.eight{list-style:none;counter-reset:n;padding:0;margin:10px 0;display:grid;gap:8px}
+.eight li{counter-increment:n;display:grid;grid-template-columns:28px 1fr;column-gap:10px;padding:10px 12px;border:1px solid var(--hair);border-radius:10px;background:var(--tint)}
+.eight li::before{content:counter(n);grid-row:1/4;width:28px;height:28px;border-radius:50%;background:var(--sea);color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
+.eight b{font-size:15px}.eight span{font-size:13px;color:var(--mute)}.eight a{font-size:13px;font-weight:700;color:var(--sea);text-decoration:none;justify-self:start}
+.eight .soon{font-size:12px;color:var(--mute)}
 .draft{margin:16px 0 0;padding:10px 14px;border:1px dashed #E0C050;background:#FFF9E0;color:#5a4400;border-radius:8px;font-size:13px}
 </style></head><body><div class="wrap">
 <header class="top"><img class="motif" src="../img/brand/header-maguro.jpg" alt="跳ねるマグロと波、富士山と朝日の絵" width="1500" height="500">

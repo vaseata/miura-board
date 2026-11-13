@@ -71,7 +71,9 @@ DUMMY = {
 }
 
 TOUR = "https://miura-a-stay-guide.vaseata.chatgpt.site/"  # 部屋の3Dウォークスルー（外部）
-HAZARD = "../m/xjBud6bKpyJnzrbD/"                          # 合言葉つき（宿泊者に合言葉を伝える）
+HAZARD = "../m/xjBud6bKpyJnzrbD/"
+_tok = HERE / "m" / ".token-arrival"
+ARRIVAL = (f"../m/{_tok.read_text().strip()}/" if _tok.exists() and (HERE / "m" / _tok.read_text().strip() / "index.html").exists() else None)   # 到着カード（合言葉つき・arrival_build.py）                          # 合言葉つき（宿泊者に合言葉を伝える）
 
 # (見出し, 一言, [(カード名, 説明, href, 新しいタブか)])
 # トップに常時出す入口（緊急と、初めての人が迷う3つ）。href が None なら「準備中」
@@ -201,6 +203,11 @@ body{padding-bottom:64px}
 .card.im .shoot{aspect-ratio:auto;height:100%;min-height:92px;border:0;border-right:1.5px dashed var(--hair);border-radius:0}
 .card.im .shoot.sm .cam{width:32px}
 .card.im.big .shoot{aspect-ratio:16/9;height:auto;border-right:0;border-bottom:1.5px dashed var(--hair)}
+.eight,.page ol.eight{list-style:none;counter-reset:n;padding:0;margin:10px 0;display:grid;gap:8px}
+.eight li{counter-increment:n;display:grid;grid-template-columns:28px 1fr;column-gap:10px;padding:10px 12px;border:1px solid var(--hair);border-radius:10px;background:var(--tint)}
+.eight li::before{content:counter(n);grid-row:1/4;width:28px;height:28px;border-radius:50%;background:var(--sea);color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
+.eight b{font-size:15px}.eight span{font-size:13px;color:var(--mute)}.eight a{font-size:13px;font-weight:700;color:var(--sea);text-decoration:none;justify-self:start}
+.eight .soon{font-size:12px;color:var(--mute)}
 .draft{margin:16px 0 0;padding:10px 14px;border:1px dashed #E0C050;background:#FFF9E0;color:#5a4400;border-radius:8px;font-size:13px}
 """
 
@@ -277,6 +284,15 @@ def render_block(b):
         head = "<tr>" + "".join(f"<th>{inline(h)}</th>" for h in b[1]) + "</tr>"
         rows = "".join("<tr>" + "".join(f"<td>{inline(c)}</td>" for c in r) + "</tr>" for r in b[2])
         return f"<table>{head}{rows}</table>"
+    if kind == "eight":
+        lis = []
+        for title, ans, href in b[1]:
+            href = ARRIVAL if href == "ARRIVAL" else href
+            ext = href and href.startswith("http")
+            tgt = ' target="_blank" rel="noopener"' if ext else ""
+            go = f'<a href="{esc(href)}"{tgt}>見る →</a>' if href else '<span class="soon">準備中</span>'
+            lis.append(f'<li><b>{esc(title)}</b><span>{inline(ans)}</span>{go}</li>')
+        return '<ol class="eight">' + "".join(lis) + "</ol>"
     if kind == "photo":
         key, alt, cap = b[1], b[2], b[3]
         src = photo_src(key)
