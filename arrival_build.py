@@ -126,8 +126,8 @@ a{{color:var(--sea)}}
 {photo('michi2', '曲がる角')}
 {photo('michi3', '家の前の道')}
 
-<h3 id="higashioka">「三崎東岡」から<small>徒歩7分ほど・坂を登る</small></h3>
-<p>急な坂ではありませんが、家までは坂を登ります。荷物が多いと、少し大変です。</p>
+<h3 id="higashioka">「三崎東岡」から<small>徒歩7分ほど・下り坂</small></h3>
+<p>家までは、ゆるい下り坂です。帰りにこのバス停から乗るときは、坂を登ることになります。荷物が多いと、少し大変です。</p>
 <p><span class="fill">記入待ち：バス停から家までの道順</span></p>
 {photo('higashioka1', 'バス停「三崎東岡」を降りたところ')}
 {photo('higashioka2', '坂の入口')}
