@@ -118,7 +118,7 @@ def build():
         if s.get("price"): rows.append(("料金", s["price"]))
         if s.get("address"): rows.append(("場所", s["address"]))
         if s.get("access"): rows.append(("行き方", s["access"]))
-        if s["_walk"] is not None: rows.append(("A邸から", f'徒歩{s["_walk"]}分（直線 {s["_dist_m"]}m・目安）'))
+        if s["_walk"] is not None: rows.append(("A邸から", f'徒歩{s["_walk"]}分（目安）'))   # 直線の距離は出さない（A邸の位置が分かるため。2026-11-14 ヤヌキ判断）
         if s.get("season") and len(s["season"]) < 12: rows.append(("季節", "・".join(f"{m}月" for m in s["season"])))
         dl = "".join(f'<dt>{esc(k)}</dt><dd>{esc(v)}</dd>' for k, v in rows)
         return f'''<article class="art spot" data-cat="{esc(s["category"])}" data-tags="{esc(",".join(tags))}" data-walk="{s["_walk"] if s["_walk"] is not None else ""}" data-closed="{closed}" data-closed-known="{"1" if isinstance(s.get("closed"), list) else ""}" data-until="{esc(s.get("closed_until") or "")}" data-months="{months}">
