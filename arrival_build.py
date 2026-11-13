@@ -5,7 +5,7 @@
          python3 arrival_build.py --force  … 変わっていなくても書き直す
 - 合言葉は share_lock.py と同じ（ハザードマップと共通。m/.pass か SHARE_PASS）
 - 部屋の空きは、予約タスク（miura-yoyaku-calendar）が毎回書く台帳 宿泊者.json から作る。**名前は出さない**
-- 外観・道の写真は private_photos/<key>.jpg（.gitignore）に置く。暗号文の中に埋め込むので、公開リポジトリに平文では入らない
+- 外観・道の写真は private_photos/<key>.jpg（.gitignore）に置く（gaikan・hyosatsu・michi1〜3・higashioka1〜2・misakiko1〜2）。暗号文の中に埋め込むので、公開リポジトリに平文では入らない
 - 平文の確認用に arrival.src.html（.gitignore）も書く
 """
 import base64, datetime as dt, hashlib, html, json, sys
@@ -95,6 +95,8 @@ h2{{font-family:"Shippori Mincho",serif;font-size:20px;border-left:4px solid var
 .shoot{{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;aspect-ratio:4/3;border:1.5px dashed var(--hair);border-radius:12px;background:var(--sea-tint);color:var(--kon)}}
 .cam{{width:44px;fill:none;stroke:var(--kon);stroke-width:2.5;opacity:.75}}.lbl{{font-size:11px;font-weight:700;letter-spacing:.12em}}.what{{font-size:13px;color:var(--mute)}}
 .alert{{border:2px solid var(--tuna);border-radius:10px;padding:12px 14px;color:var(--tuna);font-weight:700}}
+h3{{font-family:"Shippori Mincho",serif;font-size:18px;margin:22px 0 6px;padding-top:12px;border-top:1px dashed var(--hair)}}h3 small{{display:block;font-family:"Zen Kaku Gothic New",sans-serif;font-size:12px;font-weight:700;color:var(--sea);letter-spacing:.06em}}
+.stops{{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}}.stops a{{padding:6px 14px;border-radius:999px;background:var(--sea-tint);color:var(--sea);font-weight:700;font-size:14px;text-decoration:none}}
 ol{{padding-left:1.3em}}li{{margin:6px 0}}
 .fill{{display:inline-block;font-size:12px;color:var(--tuna);background:#FBEAEC;border:1px dashed var(--tuna);border-radius:4px;padding:0 6px}}
 a{{color:var(--sea)}}
@@ -114,11 +116,27 @@ a{{color:var(--sea)}}
 {photo('gaikan', '三浦A邸の外観')}
 {photo('hyosatsu', '玄関の表札と ADDress のプレート')}
 
-<h2>バス停「日の出」から</h2>
+<h2>バス停から家まで</h2>
+<p>三崎口駅からのバスは、降りるバス停が3つあります。いちばん近くて楽なのは「日の出」です。</p>
+<nav class="stops"><a href="#hinode">日の出</a><a href="#higashioka">三崎東岡</a><a href="#misakiko">三崎港</a></nav>
+
+<h3 id="hinode">「日の出」から<small>おすすめ・道はほぼ平坦</small></h3>
 <p><span class="fill">記入待ち：バス停から家までの道順と、歩く時間</span></p>
 {photo('michi1', 'バス停「日の出」を降りたところ')}
 {photo('michi2', '曲がる角')}
 {photo('michi3', '家の前の道')}
+
+<h3 id="higashioka">「三崎東岡」から<small>徒歩7分ほど・坂を登る</small></h3>
+<p>急な坂ではありませんが、家までは坂を登ります。荷物が多いと、少し大変です。</p>
+<p><span class="fill">記入待ち：バス停から家までの道順</span></p>
+{photo('higashioka1', 'バス停「三崎東岡」を降りたところ')}
+{photo('higashioka2', '坂の入口')}
+
+<h3 id="misakiko">「三崎港」から<small>家からは遠い</small></h3>
+<p>三崎港（終点）まで乗ってしまったときの道です。港の店に寄ってから歩くときにも。</p>
+<p><span class="fill">記入待ち：バス停から家までの道順と、歩く時間</span></p>
+{photo('misakiko1', 'バス停「三崎港」を降りたところ')}
+{photo('misakiko2', '曲がる角')}
 
 <h2>入るとき</h2>
 <ol><li>玄関にキーボックスがあります。暗証番号は、前日のメールの「入室情報」のページに書いてあります。</li>
