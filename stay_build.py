@@ -7,6 +7,7 @@ import html, pathlib, re, shutil, sys, urllib.parse
 from stay_pages import PAGES
 from stay_pages_en import PAGES_EN
 from ui_parts import UI_CSS, sitenav, bottomnav
+import carousel
 
 HERE = pathlib.Path(__file__).parent
 OUT = HERE / "stay"
@@ -339,7 +340,7 @@ body{padding-bottom:calc(72px + env(safe-area-inset-bottom))}
 .topbar .back{margin:0}
 html[lang="en"] .card.soon b::after{content:"Coming soon"}
 html[lang="en"] h1{font-size:30px}
-""" + UI_CSS
+""" + UI_CSS + carousel.CSS
 
 CAM = ('<svg class="cam" viewBox="0 0 48 40" aria-hidden="true"><rect x="3" y="9" width="42" height="28" rx="6"/>'
        '<circle cx="24" cy="23" r="8"/><path d="M16 9l3-5h10l3 5"/></svg>')
@@ -522,8 +523,8 @@ def build_lang(public=False):
         dummy = t("demo_top")
     dummy = dummy if (PROTO or public or DEMO) else '<div class="draft">これは、構造を確認するための<b>ダミーのサイト</b>です。「仮」の札のある文は仮の内容、「記入待ち」は、あとで入れる情報です。正確な情報は、これから追加します。</div>'
     hs = photo_src("hero")
-    hero = (f'<div class="hero"><img src="{hs}" alt="{t("hero_alt")}"></div>' if hs else
-            (f'<div class="hero"><img src="{dummy_img("トップの写真")}" alt="ダミー画像"></div>' if PROTO else ""))
+    hero = carousel.render(OUT, img_prefix=("../img/" if LANG == "en" else "img/"), lang=LANG) or ((f'<div class="hero"><img src="{hs}" alt="{t("hero_alt")}"></div>' if hs else
+            (f'<div class="hero"><img src="{dummy_img("トップの写真")}" alt="ダミー画像"></div>' if PROTO else "")))
     en = LANG == "en"
     steps_t = [(i, *STEPS_EN[k]) for k, (i, _n, _s) in enumerate(STEPS)] if en else STEPS
     steps = f'<nav class="steps" aria-label="{t("steps_label")}">' + "".join(f'<a href="#{i}">{esc(n)}<small>{esc(s)}</small></a>' for i, n, s in steps_t) + "</nav>"
