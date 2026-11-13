@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>出発のチェックリスト｜三浦A邸 滞在ガイド</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;800&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--ink:#14202B;--mute:#4F6070;--hair:#D9E1E8;--tint:#F2F6F9;--sea:#0A5A8C;--sea-tint:#E6F0F6;--tuna:#B8243A;
+--mincho:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;--gothic:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0E1820;--ink:#E8EEF3;--mute:#9DB0C0;--hair:#25384A;--tint:#16252F;--sea:#6BB6E3;--sea-tint:#12303F;--tuna:#F08A9A}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--gothic);line-height:1.7}
+.wrap{max-width:720px;margin:0 auto;padding:0 16px 56px}
+header{padding:40px 0 20px;border-bottom:3px solid var(--sea)}
+.eyebrow{font-size:12px;letter-spacing:.18em;color:var(--sea);font-weight:700}
+h1{font-family:var(--mincho);font-weight:800;font-size:34px;margin:6px 0 4px;line-height:1.25}
+.lede{color:var(--mute);margin:0;font-size:15px}
+h2{font-family:var(--mincho);font-size:22px;margin:36px 0 2px}
+.sub{color:var(--mute);font-size:13px;margin:0 0 12px}
+.grid{display:grid;gap:10px}
+@media(min-width:600px){.grid{grid-template-columns:1fr 1fr}}
+.card{display:block;padding:14px 16px;border:1px solid var(--hair);border-radius:10px;background:var(--tint);color:inherit;text-decoration:none}
+a.card:hover,a.card:focus-visible{border-color:var(--sea);background:var(--sea-tint)}
+.card b{display:block;font-size:16px}
+.card span{display:block;font-size:13px;color:var(--mute)}
+.card.soon{opacity:.6}
+.card.soon b::after{content:"準備中";margin-left:8px;font-size:11px;color:var(--tuna);border:1px solid var(--tuna);border-radius:99px;padding:1px 7px;vertical-align:2px}
+.quick{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0}
+.chip{display:inline-block;padding:8px 14px;border-radius:99px;border:1px solid var(--hair);background:var(--tint);font-size:14px;color:inherit;text-decoration:none}
+.chip.alert{border-color:var(--tuna);color:var(--tuna);font-weight:700}
+.chip.soon{opacity:.55}
+footer{margin-top:40px;font-size:12px;color:var(--mute)}
+.back{display:inline-block;margin:16px 0 0;font-size:13px;color:var(--sea);text-decoration:none}
+.page h2{border-left:4px solid var(--sea);padding-left:10px;font-size:20px;margin:32px 0 8px}
+.page p{margin:8px 0}.page ul,.page ol{margin:8px 0;padding-left:1.4em}.page li{margin:6px 0}
+.alert-box{margin:20px 0 0;padding:14px 16px;border:2px solid var(--tuna);border-radius:10px;color:var(--tuna);font-weight:700}
+.note{font-size:12px;color:var(--mute);margin:6px 0}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
+th,td{border:1px solid var(--hair);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--tint)}
+.links{display:flex;flex-direction:column;gap:6px;margin:8px 0}
+.links a{color:var(--sea)}
+.tmp{display:inline-block;font-size:11px;font-weight:700;color:#7a5b00;background:#FFF2C2;border:1px solid #E0C050;border-radius:4px;padding:0 6px;margin-left:4px}
+.phrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0 14px}
+.phrow figure{margin:0}
+.phrow img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:10px}
+.phrow figcaption{font-size:11px;color:var(--mute);margin-top:4px;line-height:1.4}
+.phrow .wait div{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;border:1px dashed var(--tuna);border-radius:10px;color:var(--tuna);font-size:12px}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
+.toc a{padding:7px 12px;border:1px solid var(--hair);border-radius:99px;background:var(--sea-tint);color:var(--sea);font-weight:700;font-size:13px;text-decoration:none}
+.ph{margin:12px 0 18px}
+.ph img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;background:var(--tint)}
+.ph figcaption{font-size:12px;color:var(--mute);margin-top:6px}
+.ph.wait div{padding:36px 16px;text-align:center;border:1px dashed var(--tuna);border-radius:12px;color:var(--tuna);font-size:13px}
+.card.im{padding:0;overflow:hidden;display:grid;grid-template-columns:104px 1fr;align-items:stretch}
+.card.im img{display:block;width:100%;height:100%;min-height:92px;object-fit:cover}
+.card.im .tx{padding:10px 14px;align-self:center}
+.card.im.big{display:block}
+.card.im.big img{aspect-ratio:16/9;height:auto}
+.card.im.big .tx{padding:12px 16px 14px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:14px 0 0}
+.steps a{display:block;text-align:center;padding:9px 2px;border:1px solid var(--hair);border-radius:10px;background:var(--sea-tint);color:var(--sea);font-weight:700;font-size:13px;text-decoration:none}
+.steps small{display:block;font-weight:400;font-size:10px;color:var(--mute)}
+.slim{margin:12px 0 0;padding:6px 10px;font-size:12px;color:#6b5314;background:#FFF8E1;border:1px dashed #C9A227;border-radius:8px}
+.hero{margin:18px 0 0}
+.hero img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:14px}
+.dummy{display:inline-block;font-size:11px;font-weight:700;color:#fff;background:#8A6D1F;border-radius:4px;padding:0 6px;margin-right:4px}
+.fill{display:inline-block;font-size:12px;color:var(--tuna);background:var(--tuna-tint,#FBEAEC);border:1px dashed var(--tuna);border-radius:4px;padding:0 6px}
+.qa{border:1px solid var(--hair);border-radius:10px;margin:8px 0;background:var(--tint)}
+.qa summary{cursor:pointer;padding:12px 14px;font-weight:700;list-style:none}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::before{content:"Q　";color:var(--sea)}
+.qa[open] summary{border-bottom:1px solid var(--hair)}
+.qa p{margin:0;padding:10px 14px}.qa .more{padding-top:0;font-size:13px}.qa a{color:var(--sea)}
+.bar{position:fixed;left:0;right:0;bottom:0;display:flex;gap:6px;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:var(--bg);border-top:1px solid var(--hair);z-index:10;justify-content:center}
+.bar a{flex:1;max-width:220px;text-align:center;padding:9px 6px;border-radius:99px;border:1px solid var(--hair);background:var(--tint);font-size:13px;color:inherit;text-decoration:none}
+.bar a.alert{border-color:var(--tuna);color:var(--tuna);font-weight:700}
+body{padding-bottom:64px}
+.draft{margin:16px 0 0;padding:10px 14px;border:1px dashed #E0C050;background:#FFF9E0;color:#5a4400;border-radius:8px;font-size:13px}
+</style></head><body><div class="wrap page">
+<a class="back" href="index.html">← 滞在ガイドのトップ</a>
+<header><div class="eyebrow">MIURA · STAY GUIDE</div><h1>出発のチェックリスト</h1>
+<p class="lede">帰るときに、見ておくページです。</p></header>
+<div class="slim"><b>試作版</b>：「記入待ち」と「仮」の札がある所は、家守に確かめてから直します。</div>
+<h2>チェックアウトの時間</h2><p><b>11時まで</b>です。個室は、11時までに空けてください。そのあとも共用部を使いたいときは、家守の許可が必要です（滞在中の人が優先です）。</p><h2>出発前のチェックリスト</h2><ol><li><b>リネン</b>（シーツ・枕カバー）を、リネン回収ボックスに入れる。（脱衣所の、洗濯機の近くにあります）</li><li>使った場所を、元の状態に戻す。<b>ゴミは分けて</b>捨てる。</li><li><b>使った食器</b>を、拭いて、元の場所に戻す。（水切りラックに置きっぱなしにしない）</li><li>部屋に<b>掃除機</b>をかけ、<b>布団をたたむ</b>。<span class="tmp">仮</span></li><li>冷蔵庫の自分の食材を、持ち帰るか、処分する。（冷蔵庫の中の「共有棚」に日付を書いて置いていくのもOK）</li><li>洗濯物を、干場から取り込む。</li><li><b>部屋の戸を開けて</b>おく。（次の準備のため）</li><li>エアコンと電気を、消す。<span class="tmp">仮</span></li><li>窓と玄関の戸締まりを、確かめる。<span class="tmp">仮</span></li><li><b>鍵</b>は、持ち出さずに、キーボックスに戻す。</li></ol><div class="links"><a href="gomi.html">ゴミ出し →</a></div><div class="alert-box"><b>使った食器は、水切りラックに置きっぱなしにしないでください。</b> 拭いて、元の場所に戻してから出発してください。置きっぱなしだと、家守が片付けることになります。うっかり忘れやすいので、ご注意ください。</div><h2>忘れ物をしたとき</h2><ul><li>まず、家守に連絡してください。</li><li>お預かりできる期間は、生鮮食品が1週間、そのほかの食品が2週間、それ以外は1か月です。</li><li>次の予約まで預かることは、できません。送るときは、着払いになります。</li></ul><p class="note">出典：ADDress公式ヘルプ「忘れ物をしたとき」。</p>
+<footer>三浦A邸（ADDress）。住所・鍵の番号・Wi-Fiのパスワードは、予約前日のメールにあります。</footer>
+</div><nav class="bar"><a href="index.html">トップ・ページ一覧</a><a class="alert" href="bosai.html">防災</a><a class="alert" href="konnatoki.html">困ったとき</a></nav></body></html>

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>到着ガイド｜三浦A邸 滞在ガイド</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;800&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--ink:#14202B;--mute:#4F6070;--hair:#D9E1E8;--tint:#F2F6F9;--sea:#0A5A8C;--sea-tint:#E6F0F6;--tuna:#B8243A;
+--mincho:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;--gothic:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0E1820;--ink:#E8EEF3;--mute:#9DB0C0;--hair:#25384A;--tint:#16252F;--sea:#6BB6E3;--sea-tint:#12303F;--tuna:#F08A9A}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--gothic);line-height:1.7}
+.wrap{max-width:720px;margin:0 auto;padding:0 16px 56px}
+header{padding:40px 0 20px;border-bottom:3px solid var(--sea)}
+.eyebrow{font-size:12px;letter-spacing:.18em;color:var(--sea);font-weight:700}
+h1{font-family:var(--mincho);font-weight:800;font-size:34px;margin:6px 0 4px;line-height:1.25}
+.lede{color:var(--mute);margin:0;font-size:15px}
+h2{font-family:var(--mincho);font-size:22px;margin:36px 0 2px}
+.sub{color:var(--mute);font-size:13px;margin:0 0 12px}
+.grid{display:grid;gap:10px}
+@media(min-width:600px){.grid{grid-template-columns:1fr 1fr}}
+.card{display:block;padding:14px 16px;border:1px solid var(--hair);border-radius:10px;background:var(--tint);color:inherit;text-decoration:none}
+a.card:hover,a.card:focus-visible{border-color:var(--sea);background:var(--sea-tint)}
+.card b{display:block;font-size:16px}
+.card span{display:block;font-size:13px;color:var(--mute)}
+.card.soon{opacity:.6}
+.card.soon b::after{content:"準備中";margin-left:8px;font-size:11px;color:var(--tuna);border:1px solid var(--tuna);border-radius:99px;padding:1px 7px;vertical-align:2px}
+.quick{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0}
+.chip{display:inline-block;padding:8px 14px;border-radius:99px;border:1px solid var(--hair);background:var(--tint);font-size:14px;color:inherit;text-decoration:none}
+.chip.alert{border-color:var(--tuna);color:var(--tuna);font-weight:700}
+.chip.soon{opacity:.55}
+footer{margin-top:40px;font-size:12px;color:var(--mute)}
+.back{display:inline-block;margin:16px 0 0;font-size:13px;color:var(--sea);text-decoration:none}
+.page h2{border-left:4px solid var(--sea);padding-left:10px;font-size:20px;margin:32px 0 8px}
+.page p{margin:8px 0}.page ul,.page ol{margin:8px 0;padding-left:1.4em}.page li{margin:6px 0}
+.alert-box{margin:20px 0 0;padding:14px 16px;border:2px solid var(--tuna);border-radius:10px;color:var(--tuna);font-weight:700}
+.note{font-size:12px;color:var(--mute);margin:6px 0}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
+th,td{border:1px solid var(--hair);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--tint)}
+.links{display:flex;flex-direction:column;gap:6px;margin:8px 0}
+.links a{color:var(--sea)}
+.tmp{display:inline-block;font-size:11px;font-weight:700;color:#7a5b00;background:#FFF2C2;border:1px solid #E0C050;border-radius:4px;padding:0 6px;margin-left:4px}
+.phrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0 14px}
+.phrow figure{margin:0}
+.phrow img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:10px}
+.phrow figcaption{font-size:11px;color:var(--mute);margin-top:4px;line-height:1.4}
+.phrow .wait div{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;border:1px dashed var(--tuna);border-radius:10px;color:var(--tuna);font-size:12px}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
+.toc a{padding:7px 12px;border:1px solid var(--hair);border-radius:99px;background:var(--sea-tint);color:var(--sea);font-weight:700;font-size:13px;text-decoration:none}
+.ph{margin:12px 0 18px}
+.ph img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;background:var(--tint)}
+.ph figcaption{font-size:12px;color:var(--mute);margin-top:6px}
+.ph.wait div{padding:36px 16px;text-align:center;border:1px dashed var(--tuna);border-radius:12px;color:var(--tuna);font-size:13px}
+.card.im{padding:0;overflow:hidden;display:grid;grid-template-columns:104px 1fr;align-items:stretch}
+.card.im img{display:block;width:100%;height:100%;min-height:92px;object-fit:cover}
+.card.im .tx{padding:10px 14px;align-self:center}
+.card.im.big{display:block}
+.card.im.big img{aspect-ratio:16/9;height:auto}
+.card.im.big .tx{padding:12px 16px 14px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:14px 0 0}
+.steps a{display:block;text-align:center;padding:9px 2px;border:1px solid var(--hair);border-radius:10px;background:var(--sea-tint);color:var(--sea);font-weight:700;font-size:13px;text-decoration:none}
+.steps small{display:block;font-weight:400;font-size:10px;color:var(--mute)}
+.slim{margin:12px 0 0;padding:6px 10px;font-size:12px;color:#6b5314;background:#FFF8E1;border:1px dashed #C9A227;border-radius:8px}
+.hero{margin:18px 0 0}
+.hero img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:14px}
+.dummy{display:inline-block;font-size:11px;font-weight:700;color:#fff;background:#8A6D1F;border-radius:4px;padding:0 6px;margin-right:4px}
+.fill{display:inline-block;font-size:12px;color:var(--tuna);background:var(--tuna-tint,#FBEAEC);border:1px dashed var(--tuna);border-radius:4px;padding:0 6px}
+.qa{border:1px solid var(--hair);border-radius:10px;margin:8px 0;background:var(--tint)}
+.qa summary{cursor:pointer;padding:12px 14px;font-weight:700;list-style:none}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::before{content:"Q　";color:var(--sea)}
+.qa[open] summary{border-bottom:1px solid var(--hair)}
+.qa p{margin:0;padding:10px 14px}.qa .more{padding-top:0;font-size:13px}.qa a{color:var(--sea)}
+.bar{position:fixed;left:0;right:0;bottom:0;display:flex;gap:6px;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:var(--bg);border-top:1px solid var(--hair);z-index:10;justify-content:center}
+.bar a{flex:1;max-width:220px;text-align:center;padding:9px 6px;border-radius:99px;border:1px solid var(--hair);background:var(--tint);font-size:13px;color:inherit;text-decoration:none}
+.bar a.alert{border-color:var(--tuna);color:var(--tuna);font-weight:700}
+body{padding-bottom:64px}
+.draft{margin:16px 0 0;padding:10px 14px;border:1px dashed #E0C050;background:#FFF9E0;color:#5a4400;border-radius:8px;font-size:13px}
+</style></head><body><div class="wrap page">
+<a class="back" href="index.html">← 滞在ガイドのトップ</a>
+<header><div class="eyebrow">MIURA · STAY GUIDE</div><h1>到着ガイド</h1>
+<p class="lede">着くまでと、着いてからのことです。</p></header>
+<div class="slim"><b>試作版</b>：「記入待ち」と「仮」の札がある所は、家守に確かめてから直します。</div>
+<p>予約の前日に、メールが届きます。住所、入室の情報、家守の連絡先、Googleマップは、そのメールに書いてあります。このページには、番地や暗証番号は載せていません。</p><table><tr><th>着く前に、ひとこと</th><th>ポイント</th></tr><tr><td>時間</td><td><b>14:00〜21:00</b>。時間外は入れません</td></tr><tr><td>バス停</td><td><b>日の出</b>がおすすめ（家から近く、平坦）</td></tr><tr><td>車</td><td><b>駐車場なし</b>。来る前にパーキングを予約</td></tr><tr><td>夕食</td><td>三崎の夜は早い。<b>早めの到着</b>がおすすめ</td></tr><tr><td>連絡</td><td>住所・暗証番号・家守の連絡先は<b>前日のメール</b></td></tr></table><nav class="toc"><a href="#jikan">着く時間</a><a href="#ikikata">行き方</a><a href="#genkan">玄関</a><a href="#mazu">着いたら</a><a href="#yushoku">夕食と買い物</a><a href="#yoru">夜のこと</a></nav><h2 id="jikan">着く時間</h2><p><b>14:00〜21:00</b> のあいだにお越しください。時間外は入れません。変更したいときは、予約の詳細ページから連絡できます。荷物を先に置きたいときは、事前に家守の承諾が必要です。</p><p class="note">三崎の夜は早く、飲食店は夕方に閉まるところが多いです。夕食をとるなら、早めの到着がおすすめです。</p><h2 id="ikikata">行き方（電車とバス）</h2><p>京急線の終点「<b>三崎口駅</b>」から、京急バスに乗ります。乗り場は主に<b>2番のりば</b>です（日や時間帯で変わることがあります）。駅からは14〜20分ほど、運賃は300円ほどです。<span class="tmp">仮</span>　<span class="fill">記入待ち：最新の運賃と時刻（京急バスで確認）</span></p><table><tr><th>降りる場所</th><th>メモ</th></tr><tr><td><b>日の出（おすすめ）</b><br><small>城ヶ島行き［三9］・通り矢行き［三8］</small></td><td>家から近く、道はほぼ平坦です。帰りは、城ヶ島始発の「三崎口駅」行きに、ここから乗れます。</td></tr><tr><td>三崎東岡<br><small>三崎東岡行き［三5］ほか</small></td><td>降りてから徒歩<b>7分ほど</b>です。急な坂ではありませんが、家からは<b>坂を登る</b>ことになります。荷物が多いと、少し大変です。三崎口駅から「三崎東岡」が<b>終点</b>のバスや、三崎東岡が<b>始発</b>のバスもあるので、行き先と乗る場所を、よく確かめてください。</td></tr><tr><td>三崎港（終点）<br><small>三崎港行き［三26］など</small></td><td>家からは<b>遠い</b>ので、おすすめしません。<b>日の出</b>で降りるのが、いちばん近いです。<span class="tmp">仮</span></td></tr></table><p>三崎口駅のバス乗り場は、季節によって行列になることがあります。休日・祝日の帰りは、城ヶ島から観光客が乗ってくるので、日の出で乗っても、バスが混んでいることがあります。</p><div class="alert-box">車で来る方：建物に駐車場はありません。<b>来る前に、近くのパーキングを予約してください。</b></div><div class="links"><a href="chusha.html">駐車場・駐輪場（くわしく） →</a></div><h2 id="genkan">玄関から入るまで</h2><div class="alert-box"><b>隣の家と、住所が同じです。</b> 三浦A邸は、<b>アイボリー色の外観の建物</b>です。<b>玄関の表札に、ADDressのマーク</b>があります。隣の家には、入らないでください。迷ったら、家守かオープンチャットに連絡してください。</div><ol><li>表札の近くに、<b>ADDress のプレート</b>があります。</li><li>玄関に<b>キーボックス</b>があります。暗証番号は、前日のメールの「入室情報」に書いてあります。</li><li>チャイムは鳴らさず、そのままお入りください。玄関は、普通のお宅の玄関です。</li></ol><h2 id="mazu">着いたら、まず</h2><div class="phrow"><figure><img src="img/kitchen.jpg" alt="木のテーブルと台所" loading="lazy"><figcaption>居間とキッチン</figcaption></figure></div><ol><li>靴を脱いで、あがってください。靴の置き場は、決まっていません。空いているところに置いてください。</li><li>荷物は、ご自分のお部屋へ。</li><li><b>シーツ・枕カバーなどのリネン</b>は、<b>和室の共有スペース</b>にあります。1人1セットを使い、帰るときは、リネン回収ボックスへ。見つからないときや、足りないときは、すぐにオープンチャットか家守に連絡してください。</li><li>居間とキッチンは、みんなで使う場所です。使ったあとは、元の状態に戻してください。</li><li>お風呂・洗濯・ゴミのことは、それぞれのページを見てください。</li></ol><div class="links"><a href="ofuro.html">お風呂・トイレ・洗濯 →</a><a href="gomi.html">ゴミ出し →</a><a href="https://miura-a-stay-guide.vaseata.chatgpt.site/" target="_blank" rel="noopener">おうちを探検（3D） ↗</a></div><h2 id="yushoku">夕食と買い物</h2><ul><li>近くのコンビニは、<b>ファミリーマート（徒歩6分）</b>です。</li><li>魚と野菜は、<b>うらりマルシェ（徒歩9分）</b>で買えます。</li><li>外で食べるなら、<b>くろば亭（徒歩1分）</b>。11時〜20時（ラストオーダー19時）で、<b>水曜は定休日</b>です。土日は混むので、平日か、早めの時間が空いています。<span class="tmp">仮</span></li><li>くろば亭には、ADDress会員向けの定食があります。先に頼むのがおすすめです。<span class="tmp">仮</span>　<span class="fill">記入待ち：定食の今の内容・値段・提供条件（お店に確認）</span></li></ul><p>近くのお店は、<b>火曜・水曜が休み</b>のところが多く、特に水曜は少ないです。金目鯛専門店のように、午後3時ごろに閉まるお店もあります。三崎港まで歩くと、開いているお店が見つかります。</p><div class="links"><a href="../guide/map-preview.html">華さんのおすすめマップ →</a></div><h2>家守と会える？</h2><p>家守は近くに住んでいますが、お会いできない日もあります。話したい、地元の店に行きたい、という方は、<b>予約のとき、メッセージでひとこと</b>ください。ほかの滞在者や、近所の方が、教えてくれることもあります。</p><h2 id="yoru">夜のこと</h2><p>夜は静かです。古い日本家屋なので、隣の部屋の音は聞こえます（特に201は、襖1枚の仕切りです）。夜中に、スマホの緊急地震速報が鳴ることがあります。</p><h2>困ったとき</h2><p>まず、このサイトと、各部屋の「マナーの紙」を見てください。それでも分からないときは、館内で住人に会えたら、声をかけてもOKです。会えないときは、家守への電話か、オープンチャットです。</p><div class="links"><a href="konnatoki.html#renraku">連絡の順番（くわしく） →</a><a href="bosai.html">地震・津波・体調が悪いとき →</a></div>
+<footer>三浦A邸（ADDress）。住所・鍵の番号・Wi-Fiのパスワードは、予約前日のメールにあります。</footer>
+</div><nav class="bar"><a href="index.html">トップ・ページ一覧</a><a class="alert" href="bosai.html">防災</a><a class="alert" href="konnatoki.html">困ったとき</a></nav></body></html>

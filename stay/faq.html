@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>よくある質問｜三浦A邸 滞在ガイド</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;800&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--ink:#14202B;--mute:#4F6070;--hair:#D9E1E8;--tint:#F2F6F9;--sea:#0A5A8C;--sea-tint:#E6F0F6;--tuna:#B8243A;
+--mincho:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;--gothic:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0E1820;--ink:#E8EEF3;--mute:#9DB0C0;--hair:#25384A;--tint:#16252F;--sea:#6BB6E3;--sea-tint:#12303F;--tuna:#F08A9A}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--gothic);line-height:1.7}
+.wrap{max-width:720px;margin:0 auto;padding:0 16px 56px}
+header{padding:40px 0 20px;border-bottom:3px solid var(--sea)}
+.eyebrow{font-size:12px;letter-spacing:.18em;color:var(--sea);font-weight:700}
+h1{font-family:var(--mincho);font-weight:800;font-size:34px;margin:6px 0 4px;line-height:1.25}
+.lede{color:var(--mute);margin:0;font-size:15px}
+h2{font-family:var(--mincho);font-size:22px;margin:36px 0 2px}
+.sub{color:var(--mute);font-size:13px;margin:0 0 12px}
+.grid{display:grid;gap:10px}
+@media(min-width:600px){.grid{grid-template-columns:1fr 1fr}}
+.card{display:block;padding:14px 16px;border:1px solid var(--hair);border-radius:10px;background:var(--tint);color:inherit;text-decoration:none}
+a.card:hover,a.card:focus-visible{border-color:var(--sea);background:var(--sea-tint)}
+.card b{display:block;font-size:16px}
+.card span{display:block;font-size:13px;color:var(--mute)}
+.card.soon{opacity:.6}
+.card.soon b::after{content:"準備中";margin-left:8px;font-size:11px;color:var(--tuna);border:1px solid var(--tuna);border-radius:99px;padding:1px 7px;vertical-align:2px}
+.quick{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0}
+.chip{display:inline-block;padding:8px 14px;border-radius:99px;border:1px solid var(--hair);background:var(--tint);font-size:14px;color:inherit;text-decoration:none}
+.chip.alert{border-color:var(--tuna);color:var(--tuna);font-weight:700}
+.chip.soon{opacity:.55}
+footer{margin-top:40px;font-size:12px;color:var(--mute)}
+.back{display:inline-block;margin:16px 0 0;font-size:13px;color:var(--sea);text-decoration:none}
+.page h2{border-left:4px solid var(--sea);padding-left:10px;font-size:20px;margin:32px 0 8px}
+.page p{margin:8px 0}.page ul,.page ol{margin:8px 0;padding-left:1.4em}.page li{margin:6px 0}
+.alert-box{margin:20px 0 0;padding:14px 16px;border:2px solid var(--tuna);border-radius:10px;color:var(--tuna);font-weight:700}
+.note{font-size:12px;color:var(--mute);margin:6px 0}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
+th,td{border:1px solid var(--hair);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--tint)}
+.links{display:flex;flex-direction:column;gap:6px;margin:8px 0}
+.links a{color:var(--sea)}
+.tmp{display:inline-block;font-size:11px;font-weight:700;color:#7a5b00;background:#FFF2C2;border:1px solid #E0C050;border-radius:4px;padding:0 6px;margin-left:4px}
+.phrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0 14px}
+.phrow figure{margin:0}
+.phrow img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:10px}
+.phrow figcaption{font-size:11px;color:var(--mute);margin-top:4px;line-height:1.4}
+.phrow .wait div{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;border:1px dashed var(--tuna);border-radius:10px;color:var(--tuna);font-size:12px}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
+.toc a{padding:7px 12px;border:1px solid var(--hair);border-radius:99px;background:var(--sea-tint);color:var(--sea);font-weight:700;font-size:13px;text-decoration:none}
+.ph{margin:12px 0 18px}
+.ph img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;background:var(--tint)}
+.ph figcaption{font-size:12px;color:var(--mute);margin-top:6px}
+.ph.wait div{padding:36px 16px;text-align:center;border:1px dashed var(--tuna);border-radius:12px;color:var(--tuna);font-size:13px}
+.card.im{padding:0;overflow:hidden;display:grid;grid-template-columns:104px 1fr;align-items:stretch}
+.card.im img{display:block;width:100%;height:100%;min-height:92px;object-fit:cover}
+.card.im .tx{padding:10px 14px;align-self:center}
+.card.im.big{display:block}
+.card.im.big img{aspect-ratio:16/9;height:auto}
+.card.im.big .tx{padding:12px 16px 14px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:14px 0 0}
+.steps a{display:block;text-align:center;padding:9px 2px;border:1px solid var(--hair);border-radius:10px;background:var(--sea-tint);color:var(--sea);font-weight:700;font-size:13px;text-decoration:none}
+.steps small{display:block;font-weight:400;font-size:10px;color:var(--mute)}
+.slim{margin:12px 0 0;padding:6px 10px;font-size:12px;color:#6b5314;background:#FFF8E1;border:1px dashed #C9A227;border-radius:8px}
+.hero{margin:18px 0 0}
+.hero img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:14px}
+.dummy{display:inline-block;font-size:11px;font-weight:700;color:#fff;background:#8A6D1F;border-radius:4px;padding:0 6px;margin-right:4px}
+.fill{display:inline-block;font-size:12px;color:var(--tuna);background:var(--tuna-tint,#FBEAEC);border:1px dashed var(--tuna);border-radius:4px;padding:0 6px}
+.qa{border:1px solid var(--hair);border-radius:10px;margin:8px 0;background:var(--tint)}
+.qa summary{cursor:pointer;padding:12px 14px;font-weight:700;list-style:none}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::before{content:"Q　";color:var(--sea)}
+.qa[open] summary{border-bottom:1px solid var(--hair)}
+.qa p{margin:0;padding:10px 14px}.qa .more{padding-top:0;font-size:13px}.qa a{color:var(--sea)}
+.bar{position:fixed;left:0;right:0;bottom:0;display:flex;gap:6px;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:var(--bg);border-top:1px solid var(--hair);z-index:10;justify-content:center}
+.bar a{flex:1;max-width:220px;text-align:center;padding:9px 6px;border-radius:99px;border:1px solid var(--hair);background:var(--tint);font-size:13px;color:inherit;text-decoration:none}
+.bar a.alert{border-color:var(--tuna);color:var(--tuna);font-weight:700}
+body{padding-bottom:64px}
+.draft{margin:16px 0 0;padding:10px 14px;border:1px dashed #E0C050;background:#FFF9E0;color:#5a4400;border-radius:8px;font-size:13px}
+</style></head><body><div class="wrap page">
+<a class="back" href="index.html">← 滞在ガイドのトップ</a>
+<header><div class="eyebrow">MIURA · STAY GUIDE</div><h1>よくある質問</h1>
+<p class="lede">気になることを、押すと答えが開きます。くわしくは、それぞれのページへ。</p></header>
+<div class="slim"><b>試作版</b>：「記入待ち」と「仮」の札がある所は、家守に確かめてから直します。</div>
+<nav class="toc"><a href="#s1">到着・鍵</a><a href="#s2">Wi-Fi</a><a href="#s3">キッチン・食事</a><a href="#s4">お風呂・洗濯</a><a href="#s5">ゴミ</a><a href="#s6">部屋・寝具</a><a href="#s7">共用部・ルール</a><a href="#s8">困ったとき</a><a href="#s9">出発</a></nav><h2 id="s1">到着・鍵</h2><details class="qa"><summary>チェックインの時間は？ 早く着いたら？</summary><p>14:00〜21:00です。時間外は入れません。荷物を先に置きたいときは、事前に家守の承諾が必要です。</p><p class="more"><a href="tochaku.html">くわしく見る →</a></p></details><details class="qa"><summary>鍵の場所と開け方は？</summary><p>玄関にキーボックスがあります。暗証番号は、前日のメールの「入室情報」に書いてあります。</p><p class="more"><a href="tochaku.html#genkan">くわしく見る →</a></p></details><details class="qa"><summary>最寄り駅・バス停からの行き方は？</summary><p>三崎口駅から京急バスに乗り、「日の出」で降りるのがおすすめです。</p><p class="more"><a href="tochaku.html#ikikata">くわしく見る →</a></p></details><details class="qa"><summary>車で行ける？</summary><p>建物に駐車場はありません。近くのパーキングを、ご自身で予約してください（実費）。<span class="tmp">仮</span></p><p class="more"><a href="chusha.html">くわしく見る →</a></p></details><h2 id="s2">Wi-Fi</h2><details class="qa"><summary>Wi-Fiの名前とパスワードは？</summary><p>前日のメールに書いてあります。</p><p class="more"><a href="setsubi.html">くわしく見る →</a></p></details><details class="qa"><summary>つながらないときは？</summary><p>オープンチャットで聞いてください。</p><p class="more"><a href="konnatoki.html">くわしく見る →</a></p></details><details class="qa"><summary>オンライン会議ができる場所は？</summary><p>1階の和室をご利用ください。201号室では、長い通話はご遠慮ください。</p><p class="more"><a href="setsubi.html">くわしく見る →</a></p></details><h2 id="s3">キッチン・食事</h2><details class="qa"><summary>キッチンは自由に使える？</summary><p>使えます。使ったあとは、元の状態に戻してください。使える時間の決まりは、特にありません。<span class="tmp">仮</span></p><p class="more"><a href="setsubi.html">くわしく見る →</a></p></details><details class="qa"><summary>調味料や食器は？</summary><p>調味料は、使ったらドネーションボックスにお気持ちを。食器・調理器具は、キッチンにあります。</p><p class="more"><a href="setsubi.html">くわしく見る →</a></p></details><details class="qa"><summary>冷蔵庫の使い方は？</summary><p>譲り合って使ってください。部屋ごとの置き場は、冷蔵庫のタグで分かります。食材は自己責任で管理してください。出発のときは、持ち帰るか、処分してください。冷蔵庫の中の「共有棚」に、日付を書いて置いていくこともできます。</p><p class="more"><a href="setsubi.html">くわしく見る →</a></p></details><details class="qa"><summary>近くで買い物できる店は？</summary><p>ファミリーマート（徒歩6分）、うらりマルシェ（徒歩9分）があります。</p><p class="more"><a href="tochaku.html">くわしく見る →</a></p></details><h2 id="s4">お風呂・洗濯</h2><details class="qa"><summary>お風呂の使い方と、時間は？</summary><p>時間の決まりはありません。夜10時〜朝8時は、音に気をつけてください。</p><p class="more"><a href="ofuro.html">くわしく見る →</a></p></details><details class="qa"><summary>洗濯機・干場は？</summary><p>洗濯機は1回100円。洗濯物は、2階の干場で干せます。</p><p class="more"><a href="ofuro.html">くわしく見る →</a></p></details><details class="qa"><summary>タオル・ドライヤーは？</summary><p>ドライヤーは置いてあります。タオルは、ご自分でご用意ください。</p><p class="more"><a href="ofuro.html">くわしく見る →</a></p></details><h2 id="s5">ゴミ</h2><details class="qa"><summary>ゴミの分別と、出す曜日は？</summary><p>三浦市の分別ルールに従います。燃せるごみは、毎週火・金です。</p><p class="more"><a href="gomi.html">くわしく見る →</a></p></details><h2 id="s6">部屋・寝具</h2><details class="qa"><summary>エアコン・暖房は？</summary><p>夏は、キッチンの扇風機と共用和室のエアコンを、つけっぱなしにしています。冬の暖房は、エアコンです。</p><p class="more"><a href="setsubi.html">くわしく見る →</a></p></details><details class="qa"><summary>部屋に鍵はかけられる？ 貴重品は？</summary><p>どの部屋にも、内鍵があります。貴重品は、ご自分で管理してください。</p><p class="more"><a href="setsubi.html">くわしく見る →</a></p></details><details class="qa"><summary>寝具の追加は？</summary><p>シーツ・枕カバーは、和室の共有スペースにあります。追加の寝具は、202号室の押し入れの布団です。202号室が使用中のときは、家守に問い合わせてください。</p><p class="more"><a href="setsubi.html">くわしく見る →</a></p></details><h2 id="s7">共用部・ルール</h2><details class="qa"><summary>静かにする時間は？</summary><p>夜10時〜朝8時は、生活音に気をつけてください。</p><p class="more"><a href="rules.html">くわしく見る →</a></p></details><details class="qa"><summary>共用部での飲食・お酒・来客は？</summary><p>飲食・お酒は、周りに気を配って、楽しんでください。友人を招くときは、事前に家守の承諾が必要です。</p><p class="more"><a href="rules.html">くわしく見る →</a></p></details><details class="qa"><summary>ペット・喫煙は？</summary><p>ペットは、原則として、連れてこられません。たばこは、決まった場所以外では吸えません。</p><p class="more"><a href="rules.html">くわしく見る →</a></p></details><h2 id="s8">困ったとき</h2><details class="qa"><summary>鍵が開かないときは？</summary><p>前日のメールの「入室情報」で、暗証番号を確かめてください。それでも開かなければ、オープンチャット、家守の順に連絡します。</p><p class="more"><a href="konnatoki.html#kagi">くわしく見る →</a></p></details><details class="qa"><summary>体調が悪い・けがをしたときは？</summary><p>命に関わるときは119。迷うときは、#7119（24時間）に電話してください。</p><p class="more"><a href="bosai.html">くわしく見る →</a></p></details><details class="qa"><summary>災害・避難のときは？</summary><p>揺れたら、まず身を守ります。津波のおそれがあるときは、直ちに近くの高台へ。車は使いません。</p><p class="more"><a href="bosai.html">くわしく見る →</a></p></details><details class="qa"><summary>宅配便や郵便は、受け取れる？</summary><p>ご自分で受け取ってください。到着前に送るときは、家守に相談してください。</p><p class="more"><a href="raihou.html">くわしく見る →</a></p></details><h2 id="s9">出発</h2><details class="qa"><summary>チェックアウトの時間とやることは？</summary><p>11時までです。リネンの返却、ゴミの分別、鍵の返却などがあります。</p><p class="more"><a href="shuppatsu.html">くわしく見る →</a></p></details><details class="qa"><summary>忘れ物をしたら？</summary><p>まず、家守に連絡してください。送るときは、着払いです。</p><p class="more"><a href="shuppatsu.html">くわしく見る →</a></p></details>
+<footer>三浦A邸（ADDress）。住所・鍵の番号・Wi-Fiのパスワードは、予約前日のメールにあります。</footer>
+</div><nav class="bar"><a href="index.html">トップ・ページ一覧</a><a class="alert" href="bosai.html">防災</a><a class="alert" href="konnatoki.html">困ったとき</a></nav></body></html>
