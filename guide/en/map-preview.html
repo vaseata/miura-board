@@ -9,77 +9,146 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@800&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.css">
-<style>/* 閲覧専用の公開版。ホームページのデザインに合わせて差し替えられるよう、色・書体は :root の変数だけで決める。
-   いまは「どのデザインにも馴染む」中立の配色（白・墨色・青）。 */
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.min.css">
+<style>/* 家守のおすすめマップ（本番・2026-11-14 作り直し）。3D の地形地図が入口で、平面と写真はボタンで切り替える。
+   色はデザインシステム「三浦A邸 大漁旗」。主役は海の青。食べ物だけ暖色「柿」（ヤヌキ判断 2026-11-14）。マグロの赤は地図に置かない。
+   地図の色は、三崎の日の出・日の入りの時刻から朝・昼・夕・夜に切り替える。現在地は押したときだけ、端末の中だけで使う。
+   地図は MapLibre GL JS、標高は国土地理院の標高タイル、形は OpenFreeMap（OpenStreetMap）、橋・灯台・防波堤は structures.json */
 :root{
-  /* デザインシステム「三浦A邸 大漁旗」の色（2026-11-14） */
-  --ink:#14202B; --ink-2:#4F6070; --accent:#0A5A8C; --soft:#F2F6F9; --soft-2:#E6F0F6;
-  --line:#D9E1E8; --bg:#FFFFFF; --card:#FFFFFF; --kon:#2E4C9E; --tuna:#B8243A;
+  --ink:#14202B; --mute:#4F6070; --sea:#0A5A8C; --sea-press:#084a73; --sea-tint:#E6F0F6;
+  --tint:#F2F6F9; --hair:#D9E1E8; --paper:#FFFFFF; --kon:#2E4C9E; --tuna:#B8243A;
+  --kaki:#B4501A; --kaki-tint:#FBEDE3; --kinari:#F7F1E6;
+  --draft:#FFF8E1; --draft-ink:#5A4400;
   --font:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",sans-serif;
   --mincho:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
-  --r:14px; --sea:#0A5A8C; --mute:#4F6070; --hair:#D9E1E8; --tint:#F2F6F9;
+  --r:14px; --accent:var(--sea); --line:var(--hair); --soft:var(--tint); --ink-2:var(--mute);
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font:500 16px/1.75 var(--font);-webkit-text-size-adjust:100%}
-.wrap{max-width:760px;margin:0 auto;padding:24px 16px 40px}
+body{margin:0;background:var(--paper);color:var(--ink);font:500 16px/1.7 var(--font);-webkit-text-size-adjust:100%}
+body.big{overflow:hidden}
+.wrap{max-width:760px;margin:0 auto;padding:24px max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
 body.embed .hero{display:none}
 body.embed .wrap{padding-top:8px}
-a{color:var(--accent)}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+a{color:var(--sea)}
+:focus-visible{outline:2px solid var(--sea);outline-offset:2px}
 button{font:inherit;color:inherit}
 
 .hero{padding:0 0 4px}
-.eyebrow{margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--accent)}
-h1{margin:4px 0 0;font-family:var(--mincho);font-size:clamp(26px,6.5vw,34px);line-height:1.3;font-weight:800;letter-spacing:.02em}
 .hd{display:block;width:100%;height:auto;border-radius:10px;margin:0 0 12px}
-.eyebrow{display:flex;align-items:center;gap:8px}.eyebrow img{width:40px;height:40px}
-.two{width:120px;height:9px;margin:14px 0 0;background:linear-gradient(var(--accent),var(--accent)) 0 0/100% 3px no-repeat,linear-gradient(var(--tuna),var(--tuna)) 0 6px/60% 3px no-repeat}
+.eyebrow{display:flex;align-items:center;gap:8px;margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--sea)}
+.eyebrow img{width:40px;height:40px}
+h1{margin:4px 0 0;font-family:var(--mincho);font-size:clamp(26px,6.5vw,34px);line-height:1.3;font-weight:800;letter-spacing:.02em}
 h1 span{display:inline-block}
-.lede{margin:10px 0 0;font-size:15px;line-height:1.8;color:var(--ink-2);max-width:34em}
-.draft{margin:16px 0 0;padding:10px 14px;background:#FFF8E1;border:1px solid #EBD38A;border-radius:10px;font-size:13.5px;line-height:1.6}
+.two{width:120px;height:9px;margin:14px 0 0;background:linear-gradient(var(--sea),var(--sea)) 0 0/100% 3px no-repeat,linear-gradient(var(--tuna),var(--tuna)) 0 6px/60% 3px no-repeat}
+.lede{margin:10px 0 0;font-size:15px;line-height:1.8;color:var(--mute);max-width:34em}
+.draft{margin:16px 0 0;padding:10px 14px;background:var(--draft);color:var(--draft-ink);border:1px solid #EBD38A;border-radius:10px;font-size:13.5px;line-height:1.6}
 
+/* 選ぶ部品：ジャンルは segmented（1つだけ）、シーンは絞り込みの札（✓と薄い青） */
 .filters{margin-top:20px;display:grid;gap:10px}
+.seg{display:inline-grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:2px;padding:3px;background:var(--tint);border:1px solid var(--hair);border-radius:999px;max-width:100%}
+.seg button{min-height:40px;padding:0 14px;border:0;border-radius:999px;background:none;color:var(--mute);font-size:14.5px;font-weight:500;cursor:pointer;white-space:nowrap}
+.seg button small{margin-left:4px;font-size:12px}
+.seg button[aria-pressed=true]{background:#fff;color:var(--ink);font-weight:700;box-shadow:0 0 0 1px var(--hair)}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{min-height:42px;padding:0 16px;border:1px solid var(--line);border-radius:99px;background:#fff;font-weight:700;font-size:14.5px;cursor:pointer}
-.chip[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:#fff}
-.chip small{font-weight:500;opacity:.75;margin-left:4px}
-.chips.sc .chip{min-height:36px;font-size:13.5px;padding:0 13px}
+.chip{position:relative;min-height:36px;margin:4px 0;padding:0 14px;border:1px solid var(--hair);border-radius:999px;background:#fff;font-size:13.5px;font-weight:700;color:var(--ink);cursor:pointer}
+.chip::after{content:"";position:absolute;inset:-4px 0}
+.chip[aria-pressed=true]{background:var(--sea-tint);border-color:var(--sea);color:var(--sea)}
+.chip[aria-pressed=true]::before{content:"✓ "}
 
-.mapcard{margin-top:16px;border:1px solid var(--line);border-radius:var(--r);background:#fff;overflow:hidden}
-#map{height:clamp(320px,56vh,540px);background:#ecedee}
-.mapfoot{border-top:1px solid var(--line);padding:10px 16px;font-size:12.5px;color:var(--ink-2);line-height:1.55}
-.leaflet-tile-pane{filter:grayscale(.35) brightness(1.04) contrast(.95)}
-.leaflet-bar{border:1px solid var(--line)!important;border-radius:10px!important;overflow:hidden;box-shadow:none!important}
-.leaflet-bar a{color:var(--ink)!important}
-.pin{width:30px;height:30px;border-radius:50%;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.35)}
-.leaflet-popup-content-wrapper{border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.18)}
-.leaflet-popup-content{font:500 14px/1.6 var(--font);margin:12px 14px;color:var(--ink)}
-.leaflet-control-attribution{font-size:10px}
+/* 地図カード */
+.mapcard{margin-top:16px;border:1px solid var(--hair);border-radius:var(--r);background:#fff;overflow:hidden;display:flex;flex-direction:column}
+.mapwrap{position:relative}
+#map{height:clamp(380px,64vh,600px);background:var(--kinari);transition:background .6s}
+.mapcard.night #map{background:#1A2631}
+.mapcard.big{position:fixed;inset:0;z-index:1000;margin:0;border:0;border-radius:0;padding-top:env(safe-area-inset-top,0px)}
+.mapcard.big .mapwrap{flex:1;min-height:0}
+.mapcard.big #map{height:100%}
+.mapcard.big .mapfoot,.mapcard.big .legend{display:none}
+.mapcard.big .tools{padding-bottom:calc(10px + env(safe-area-inset-bottom,0px))}
+.nogl{display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;color:var(--mute);font-size:14.5px}
 
-h2{display:flex;align-items:baseline;gap:10px;margin:32px 0 14px;font-family:var(--mincho);font-weight:800;font-size:20px;line-height:1.35;font-weight:700}
-h2 small{font-size:13px;font-weight:500;color:var(--ink-2)}
-.item{position:relative;display:block;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:12px;margin:0 0 12px;cursor:pointer}
-/* 番号は写真の左上に重ねる（左の余白をなくし、写真と店名を囲いいっぱいに。2026-11-14 ヤヌキ指示） */
+.tools{display:grid;gap:8px;padding:10px 12px;border-top:1px solid var(--hair)}
+.tools .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn2{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:0 14px;border:0;border-radius:12px;background:var(--sea-tint);color:var(--sea);font-size:14px;font-weight:700;cursor:pointer;transition:transform .12s,background .18s}
+.btn2:active{transform:scale(.97)}
+.btn2[aria-pressed=true]{background:var(--sea);color:#fff}
+.btn2 svg{width:18px;height:18px;flex:none}
+.tools .end{margin-left:auto}
+.mapfoot{border-top:1px solid var(--hair);padding:10px 16px;font-size:12.5px;color:var(--mute);line-height:1.6}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;padding:8px 16px 0;font-size:12.5px;color:var(--mute)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:inline-block}
+
+/* 地図の上の部品 */
+.pad{position:absolute;left:calc(10px + env(safe-area-inset-left,0px));bottom:30px;z-index:5;display:grid;grid-template-columns:repeat(3,40px);grid-template-rows:repeat(3,40px);gap:2px}
+.pad button{display:flex;align-items:center;justify-content:center;color:var(--ink);border:1px solid var(--hair);border-radius:10px;background:rgba(255,255,255,.94);font-size:15px;line-height:1;padding:0;cursor:pointer;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+.pad button::after{content:"";position:absolute;inset:-2px}
+.pad button:active{background:var(--sea-tint)}
+.pad .u{grid-area:1/2}.pad .l{grid-area:2/1}.pad .r{grid-area:2/3}.pad .d{grid-area:3/2}
+.me-btn{position:absolute;right:calc(10px + env(safe-area-inset-right,0px));bottom:30px;z-index:5;display:inline-flex;align-items:center;gap:6px;min-height:48px;padding:0 16px;border:0;border-radius:12px;background:var(--sea);color:#fff;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.25);transition:transform .12s}
+.me-btn:active{transform:scale(.97);background:var(--sea-press)}
+.me-btn svg{width:20px;height:20px}
+.me-btn[aria-pressed=true]{background:#fff;color:var(--sea)}
+.cap{position:absolute;left:10px;top:10px;z-index:5;max-width:calc(100% - 70px);padding:8px 14px;border-radius:12px;background:rgba(255,255,255,.96);box-shadow:0 2px 8px rgba(0,0,0,.2);pointer-events:none;line-height:1.5;color:var(--ink)}
+.cap b{display:block;font-size:15px}
+.cap span{display:block;font-size:12.5px;color:var(--mute)}
+#map.rot .maplibregl-canvas-container{cursor:grab}
+
+/* ピン：地面に立つしずく形。色は食べる＝柿、買う＝海の青、暮らし＝墨 */
+.pin{position:absolute;left:0;top:0;width:30px;height:37px;padding:0;border:0;background:none;cursor:pointer;font:700 14px/1 var(--font);transition:opacity .6s}
+.pin::before{content:"";position:absolute;left:50%;bottom:-3px;width:16px;height:6px;margin-left:-8px;border-radius:50%;background:rgba(0,0,0,.3);filter:blur(1.5px)}
+.pin i{position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2px solid #fff;box-shadow:-1px 2px 4px rgba(0,0,0,.4)}
+.pin span{position:absolute;left:0;top:0;width:30px;height:30px;display:flex;align-items:center;justify-content:center}
+.pin b{display:none;position:absolute;left:100%;top:4px;margin-left:3px;max-width:10em;padding:0 8px;border-radius:99px;background:rgba(255,255,255,.96);color:var(--ink);font:700 11.5px/22px var(--font);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:0 1px 3px rgba(0,0,0,.28)}
+.pin.lab b{display:block}
+.pin.home b{top:7px;color:var(--tuna)}
+#map.intro .pin:not(.home){opacity:0!important;pointer-events:none}
+.pin.cl{width:38px;height:46px;font-size:15px}
+.pin.cl i,.pin.cl span{width:38px;height:38px}
+.pin.cl i{background:#fff;border-color:var(--kaki)}
+.pin.cl span{color:var(--kaki)}
+.pin.cl small{font-size:10.5px;margin-left:1px;margin-top:2px}
+.pin.home{width:36px;height:44px;z-index:3}
+.pin.home i,.pin.home span{width:36px;height:36px}
+.pin.home i{background:var(--tuna)}
+.pin.home span{color:#fff}
+/* 現在地：青い点と白い縁。ゆっくり脈打つ輪（動きを減らす設定では止める） */
+.me{width:22px;height:22px;border-radius:50%;background:#1E7BD8;border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4);pointer-events:none}
+.me::after{content:"";position:absolute;inset:-9px;border-radius:50%;border:2px solid rgba(30,123,216,.55);animation:pulse 2s ease-out infinite}
+@keyframes pulse{from{transform:scale(.6);opacity:1}to{transform:scale(1.5);opacity:0}}
+.maplibregl-popup{max-width:min(270px,70vw)!important}
+.maplibregl-popup-content{border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.18);padding:12px 30px 12px 14px;font:500 14px/1.6 var(--font);color:var(--ink)}
+.maplibregl-popup-close-button{width:36px;height:36px;font-size:22px;color:var(--mute)}
+.pq{color:var(--kaki);font-weight:700}
+.pl{display:grid;gap:6px;margin-top:6px}
+.pl button{min-height:40px;padding:4px 12px;border:1px solid var(--hair);border-radius:10px;background:#fff;text-align:left;font-size:13.5px;font-weight:700;cursor:pointer}
+.maplibregl-ctrl-attrib{font-size:10px}
+.maplibregl-ctrl-group button{width:40px;height:40px}
+.maplibregl-cooperative-gesture-screen{font-family:var(--font);font-size:15px;padding:16px}
+
+/* お店リスト */
+h2{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 10px;margin:32px 0 14px;font-family:var(--mincho);font-weight:800;font-size:20px;line-height:1.35}
+h2 small{font-family:var(--font);font-size:13px;font-weight:500;color:var(--mute)}
+.item{position:relative;display:block;background:#fff;border:1px solid var(--hair);border-radius:var(--r);padding:12px;margin:0 0 12px;cursor:pointer}
 .item .n{position:absolute;top:20px;left:20px;z-index:1;width:34px;height:34px;border-radius:50%;font-weight:700;font-size:14.5px;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.3)}
 .item>div:not(.n){padding:0 2px}
 .item h3{margin:0;font-size:17.5px;line-height:1.4;font-weight:700}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
-.tag{font-size:12px;font-weight:700;color:var(--ink-2);background:var(--soft);border-radius:99px;padding:0 10px;line-height:22px}
-.tag.chk{color:#7a5a00;background:#FFF3C4}
+.tag{font-size:12px;font-weight:700;color:var(--mute);background:var(--tint);border-radius:99px;padding:0 10px;line-height:22px}
+.tag.chk{color:var(--draft-ink);background:#FFF3C4}
+.dist{display:inline-block;margin:4px 0 0;font-size:13px;font-weight:700;color:var(--sea)}
 .hearts{margin:8px 0 0;font-size:17px;letter-spacing:1px;line-height:1.2}
-.quote{margin:10px 0 0;padding:9px 12px;background:var(--soft);border-left:3px solid var(--accent);border-radius:4px 10px 10px 4px;font-size:14.5px;line-height:1.7}
-.quote b{display:block;font-size:11.5px;letter-spacing:.08em;color:var(--accent);margin-bottom:2px}
+.quote{margin:10px 0 0;padding:9px 12px;background:var(--kaki-tint);border-left:3px solid var(--kaki);border-radius:4px 10px 10px 4px;font-size:14.5px;line-height:1.7}
+.quote b{display:block;font-size:11.5px;letter-spacing:.08em;color:var(--kaki);margin-bottom:2px}
 .note{margin:10px 0 0;font-size:14.5px;line-height:1.75}
-.meta{margin:6px 0 0;font-size:13px;line-height:1.6;color:var(--ink-2)}
-.meta a{margin-left:6px}
-.ph{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:10px;margin:0 0 8px;background:var(--soft-2)}
-.noph{display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:12px;font-weight:700;letter-spacing:.1em}
+.meta{margin:6px 0 0;font-size:13px;line-height:1.6;color:var(--mute)}
+.ph{display:block;width:100%;max-width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:10px;margin:0 0 8px;background:var(--kaki-tint)}
+.noph{display:flex;align-items:center;justify-content:center;color:var(--kaki);font-size:12px;font-weight:700;letter-spacing:.1em}
 .acts{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0}
-.acts a{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:12px;background:var(--soft-2);color:var(--accent);font-weight:700;font-size:14px;text-decoration:none}
-.item .ost{margin:4px 0 0}
+.acts a{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:12px;background:var(--sea-tint);color:var(--sea);font-weight:700;font-size:14px;text-decoration:none}
+.item .ost{margin:4px 8px 0 0}
 
 .ost{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;line-height:1.4}
 .ost::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor;flex:none}
@@ -88,14 +157,14 @@ h2 small{font-size:13px;font-weight:500;color:var(--ink-2)}
 .ost[data-s="off"]{color:var(--mute);font-weight:400}
 .ost[data-s="off"]::before,.ost[data-s="closed"]::before,.ost[data-s="unknown"]::before{background:none;border:1.5px solid currentColor;width:6px;height:6px}
 
-.empty{padding:28px 16px;text-align:center;color:var(--ink-2);background:var(--soft);border-radius:var(--r)}
-.foot{margin-top:24px;font-size:12.5px;color:var(--ink-2);line-height:1.7}
+.empty{padding:28px 16px;text-align:center;color:var(--mute);background:var(--tint);border-radius:var(--r)}
+.foot{margin-top:24px;font-size:12.5px;color:var(--mute);line-height:1.7}
 .lang{float:right;display:inline-grid;grid-template-columns:1fr 1fr;gap:2px;padding:3px;margin:0 0 10px 8px;background:var(--tint);border:1px solid var(--hair);border-radius:999px}
 .lang a{display:flex;align-items:center;justify-content:center;min-width:52px;min-height:38px;border-radius:999px;color:var(--mute);font:400 14px/1 var(--font);letter-spacing:.04em;text-decoration:none}
 .lang a[aria-current="page"]{background:#fff;color:var(--ink);font-weight:700;box-shadow:0 0 0 1px var(--hair)}
 .hero .hd{clear:both}
 body.embed .lang{display:none}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.me::after{animation:none;opacity:.5}.btn2,.me-btn{transition:none}}
 @media (min-width:720px){.wrap{padding-top:40px}.item{padding:14px}}
 </style></head><body>
 <div class="wrap">
@@ -106,28 +175,50 @@ body.embed .lang{display:none}
   <p class="eyebrow"><img src="../../img/brand/logo.png" alt="" width="40" height="40">MIURA A-TEI</p>
   <h1><span>The house manager's</span> <span>recommended map</span></h1>
   <div class="two" aria-hidden="true"></div>
-  <p class="lede">Places to eat and shop in Misaki and Jogashima. Tap a shop to see where it is and the house manager's comment.</p>
+  <p class="lede">Places to eat and shop in Misaki and Jogashima, on a 3D map whose colors follow the time of day. Tap “My location” to sort the shops by distance.</p>
   <p class="draft">Draft. Includes shops not yet confirmed. Hours and other details may have changed.</p>
 </header>
 
 <div class="filters">
-  <div class="chips" id="cats" role="group" aria-label="Filter by type"></div>
-  <div class="chips sc" id="scs" role="group" aria-label="Filter by occasion"></div>
+  <div class="seg" id="cats" role="group" aria-label="Filter by type"></div>
+  <div class="chips" id="scs" role="group" aria-label="Filter by occasion"></div>
 </div>
 
-<section class="mapcard" aria-label="Map of recommended shops">
-  <div id="map" role="application" aria-label="Map"></div>
-  <div class="mapfoot">Numbers match the list. Numbers in white circles show how many shops overlap there (tap to expand).</div>
+<section class="mapcard" id="card" aria-label="Map of recommended shops">
+  <div class="mapwrap">
+    <div id="map" role="application" aria-label="Map"></div>
+    <div class="cap" id="cap" role="status" aria-live="polite" hidden><b id="capn"></b><span id="capt"></span></div>
+    <div class="pad" id="pad" role="group">
+      <button type="button" class="u" data-p="10">▲</button>
+      <button type="button" class="l" data-b="-20"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.6-5.9"/><path d="M4 4v5h5"/></svg></button>
+      <button type="button" class="r" data-b="20"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transform:scaleX(-1)"><path d="M4 12a8 8 0 1 0 2.6-5.9"/><path d="M4 4v5h5"/></svg></button>
+      <button type="button" class="d" data-p="-10">▼</button>
+    </div>
+    <button type="button" class="me-btn" id="tme" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg><span></span></button>
+  </div>
+  <div class="tools" id="tools">
+    <div class="row">
+      <div class="seg" id="view" role="group"><button type="button" data-v="3d"></button><button type="button" data-v="flat"></button><button type="button" data-v="photo"></button></div>
+      <button type="button" class="btn2" id="ttod"></button>
+    </div>
+    <div class="row">
+      <button type="button" class="btn2" id="ttr" aria-pressed="false"></button>
+      <button type="button" class="btn2" id="thm"></button>
+      <button type="button" class="btn2" id="tdr" aria-pressed="false" hidden></button>
+      <button type="button" class="btn2 end" id="tbg" aria-pressed="false"></button>
+    </div>
+  </div>
+  <div class="legend" id="legend"></div>
+  <div class="mapfoot">Numbers match the list. White pins with a number group nearby shops (tap to expand). On a phone, use two fingers to move and rotate the map; the arrows at the bottom left also turn and tilt it. Your location is used only on this device and never sent anywhere. Buildings without height data are drawn 5 m tall. Land and building heights are true to scale.</div>
 </section>
 
 <h2 id="lh">Shops <small id="lc"></small></h2>
 <div id="list" aria-live="polite"></div>
 
-<p class="foot">Hours and days off can change; check the shop's information before you go. Comments are translated from Japanese. Map © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors.</p>
+<p class="foot">Hours and days off can change; check the shop's information before you go. Comments are translated from Japanese.<br>Map, buildings and structures © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors (tiles: <a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a> © OpenMapTiles). Aerial photos and elevation: <a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">GSI Japan</a>.</p>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.min.js"></script>
 <script>
 window.shopStatus=function(sc,closed,known){
   var now=new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Tokyo'}));
@@ -148,58 +239,374 @@ window.shopStatus=function(sc,closed,known){
 </script>
 <script>
 (function(){
-var D=[{"id": "kurobatei", "name": "Kurobatei", "cat": "食べる", "area": "Misaki", "lat": 35.141872, "lon": 139.621399, "c": "There's an ADDress set meal just for ADDress members!", "note": "A tuna restaurant listed in the tourist association's food guide (Misaki old town)", "hours": "11:00–20:00 (last order 19:30)", "closed": "Closed Wed", "url": "https://miura-info.ne.jp/gourmet-misaki/", "color": "#0A5A8C", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": {"d": [[[660, 1200]], [[660, 1200]], [], [[660, 1200]], [[660, 1200]], [[660, 1200]], [[660, 1200]]]}, "cl": [2], "img": ""}, {"id": "misaki_donuts", "name": "Misaki Donuts (main shop)", "cat": "食べる", "area": "Misaki", "lat": 35.141113, "lon": 139.618439, "c": "A bit pricier than Mister Donut, lol, but I always look forward to the seasonal doughnuts!", "note": "An old-town doughnut shop listed in the tourist association's food & souvenir guide", "hours": "Weekdays 11:00–17:00 / Sat, Sun & holidays 10:00–18:00", "closed": "Closed Wed", "url": "https://miura-info.ne.jp/souvenir-misaki/", "color": "#0A5A8C", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": {"d": [[[660, 1020]], [[660, 1020]], [], [[660, 1020]], [[660, 1020]], [[600, 1080]], [[600, 1080]]]}, "cl": [2], "img": ""}, {"id": "kinoyo", "name": "Kinoyo (tuna dishes & sushi, Misaki)", "cat": "食べる", "area": "Misaki", "lat": 35.14193, "lon": 139.621506, "c": "Hana loves the Torotoro-don! It's topped with tuna in lots of different flavors!", "note": "A tuna and sushi restaurant founded in the Meiji era. Its signature is the “Torotoro-don”, a bowl topped with four kinds of tuna. Tatami seating; no cards", "hours": "Mon, Wed–Fri 11:00–15:00 (LO 14:30), 17:00–20:00 (LO 19:00) / Sat, Sun & holidays 11:00–20:30 (LO 19:00)", "closed": "Closed Tue", "url": "https://savorjapan.com/0006117514", "color": "#0A5A8C", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": {"d": [[[660, 900], [1020, 1200]], [], [[660, 900], [1020, 1200]], [[660, 900], [1020, 1200]], [[660, 900], [1020, 1200]], [[660, 1230]], [[660, 1230]]]}, "cl": [1], "img": ""}, {"id": "korakutei", "name": "Korakutei", "cat": "食べる", "area": "Misaki", "lat": 35.141598, "lon": 139.617569, "c": "Noodles in thick sauce (ankake soba) / My sister-in-law works here! Mapo ramen, motsu-ni (offal stew) ramen! The fried chicken is delicious! The daily lunch is recommended too!", "note": "Home of Misaki tuna ramen. Chinese food. Cards and QR payments accepted", "hours": "Mon–Fri 11:30–15:00 (LO 14:00) / Sat & Sun 11:30–15:00, 17:30–21:00 (LO 20:00). Closes when the soup runs out", "closed": "Closed Wed", "url": "https://tabelog.com/kanagawa/A1406/A140603/14020968/", "color": "#0A5A8C", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": null, "cl": [2], "img": ""}, {"id": "bocca", "name": "Misaki Italiano Bocca", "cat": "食べる", "area": "Misaki", "lat": 35.141346, "lon": 139.617264, "c": "Tasty Italian / Everything is delicious! Lunch is great value! It's run by a married couple, so if the service feels off, they probably just had a fight, lol", "note": "A seafood Italian restaurant on the 2nd floor overlooking the port. Courses available. Parking discount at the nearby Misaki Port Exchange Plaza", "hours": "Wed–Sun 11:30–15:00, 18:00–22:00 (one listing says lunch only on Fri)", "closed": "Closed Mon, Tue", "url": "https://tabelog.com/kanagawa/A1406/A140603/14056067/", "color": "#0A5A8C", "fg": "#fff", "r": 5, "rm": 5, "w": [], "draft": true, "sc": null, "cl": [0, 1], "img": ""}, {"id": "misakipresso", "name": "Misakipresso", "cat": "食べる", "area": "Misaki", "lat": 35.14072, "lon": 139.618652, "c": "A café where you can watch the Kamome Choir practice! Lucky if you catch one of their occasional shared-kitchen days", "note": "An Italian dining bar and café. In summer they serve “Miura omurice”. 10 seats, parking available", "hours": "", "closed": "", "url": "https://hamoni.jp/shop/NcmOEx5nDH7nmw4Epp7C", "color": "#0A5A8C", "fg": "#fff", "r": 3, "rm": 5, "w": [], "draft": true, "sc": null, "cl": null, "img": ""}, {"id": "shokubomiura", "name": "Shokubo miura", "cat": "食べる", "area": "Misaki", "lat": 35.143501, "lon": 139.620331, "c": "Just delicious! The tomato salad is outstanding! Carefully made food and drinks — very satisfying!", "note": "An izakaya serving fish from the Miura Peninsula. Fried horse mackerel, sashimi, pickles, curry. Tatami and sunken-kotatsu seating, parking available", "hours": "17:30–22:00 (listed for Monday; varies on holidays)", "closed": "", "url": "https://hamoni.jp/shop/lTJCsCHUn2KBXfbUhrdL", "color": "#0A5A8C", "fg": "#fff", "r": 5, "rm": 5, "w": [], "draft": true, "sc": null, "cl": null, "img": ""}, {"id": "yatai_misaki", "name": "Yatai (izakaya)", "cat": "食べる", "area": "Misaki", "lat": 35.1399067, "lon": 139.618006, "c": "Oden, okonomiyaki / Oden and okonomiyaki! Lots of à la carte dishes too! When the owner is on their own, the food comes out slowly!", "note": "An izakaya serving oden, tuna monja, and okonomiyaki. Tatami seats with griddles, and a street-stall-style counter", "hours": "From 18:00 (closing time not checked)", "closed": "", "url": "https://maps.app.goo.gl/LNVK8Nd3LJbK3QRk8", "color": "#0A5A8C", "fg": "#fff", "r": 3, "rm": 5, "w": [], "draft": true, "sc": null, "cl": null, "img": ""}, {"id": "daiki_sakanatosakana", "name": "Sakana to Sakana Daiki", "cat": "食べる", "area": "Misaki", "lat": 35.141586, "lon": 139.617081, "c": "The wife catches the fish and squid, the husband serves them! Not just seafood — a big menu, recommended!", "note": "A Japanese izakaya in a back alley of Misaki Port. Misaki Port fish and local vegetables served as sashimi, salt-grilled, or simmered (opened December 2024)", "hours": "Weekdays 16:00–23:00 (LO 22:00) / Sat, Sun & holidays 12:00–23:00 (LO 22:00)", "closed": "Closed Mon", "url": "https://da-iki-misaki.com/", "color": "#0A5A8C", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": {"d": [[], [[960, 1380]], [[960, 1380]], [[960, 1380]], [[960, 1380]], [[720, 1380]], [[720, 1380]]]}, "cl": [0], "img": ""}, {"id": "chochin_tokyo_1", "name": "Chochin Tokyo No. 1 (Gohan to Osake)", "cat": "食べる", "area": "Misaki", "lat": 35.1430752, "lon": 139.622536, "c": "It feels like a late-night place, but it opens early too! The multinational-style food might get you hooked!", "note": "An izakaya at Misaki Port in a former snack bar. Skewers, abura soba, cold noodles, and more (opened December 2022; “No. 1” is in the name)", "hours": "From 18:00 (hours by day not checked)", "closed": "", "url": "https://gooone.help/20230531/1990/", "color": "#0A5A8C", "fg": "#fff", "r": 3, "rm": 5, "w": [], "draft": true, "sc": null, "cl": null, "img": ""}, {"id": "otoyu", "name": "Izakaya Otoyu", "cat": "食べる", "area": "Misaki", "lat": 35.140999, "lon": 139.620178, "c": "Everything is good! / An old-style izakaya run by a family! Reliably delicious!", "note": "An izakaya down an alley off the Misaki Shitamachi shopping street. Famous for fish dishes by an owner who used to cook for tuna fishing boats (24 seats)", "hours": "Mon–Sat 17:00–23:30", "closed": "Closed Sun", "url": "https://tabelog.com/kanagawa/A1406/A140603/14041869/", "color": "#0A5A8C", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": {"d": [[[1020, 1410]], [[1020, 1410]], [[1020, 1410]], [[1020, 1410]], [[1020, 1410]], [[1020, 1410]], []]}, "cl": [6], "img": ""}, {"id": "keimaru", "name": "Osakana Kobo Keimaru", "cat": "買う", "area": "Misaki", "lat": 35.141224, "lon": 139.620026, "c": "If you're buying tuna, this is the place! / Their tuna is the best! You'll be amazed by the price too! But it's so unpredictable that it's never open when I go, lol. If you want some, ask Hana!", "note": "A tuna and fresh-fish shop in Misaki 2-chome. Tabelog reviews describe it as a fisherman's direct shop with rare tuna cuts and delicacies", "hours": "", "closed": "", "url": "https://tabelog.com/kanagawa/A1406/A140603/14083015/", "color": "#4F6070", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": null, "cl": null, "img": ""}, {"id": "tabegotoya_minato", "name": "Tabegotoya Minato", "cat": "食べる", "area": "Misaki", "lat": 35.139942, "lon": 139.618835, "c": "Asian; bento on weekday lunchtimes / Hana recommends the peanut noodles! Run by two lovely sisters!", "note": "Home-style cooking with an Asian touch, using Miura Peninsula ingredients. Bento and deli at lunchtime (opened May 2022, run by two sisters)", "hours": "Wed 11:30–14:00 / Thu–Sat 11:30–14:00 & 18:00–22:00 / Sun 17:00–21:00", "closed": "Closed Mon, Tue", "url": "https://www.kanaloco.jp/news/life/article-927910.html", "color": "#0A5A8C", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": {"d": [[], [], [[690, 840]], [[690, 840], [1080, 1320]], [[690, 840], [1080, 1320]], [[690, 840], [1080, 1320]], [[1020, 1260]]]}, "cl": [0, 1], "img": ""}, {"id": "chuka_botan", "name": "Chinese restaurant Botan", "cat": "食べる", "area": "Misaki", "lat": 35.14072, "lon": 139.618652, "c": "Tasty Chinese, shumai / Everything is delicious at this neighborhood Chinese place! The shumai is outstanding!", "note": "A long-standing local Chinese diner in Misaki with over 70 years of history. Popular for handmade jumbo shumai and wonton noodles with charcoal-grilled char siu", "hours": "11:30–15:00 / 17:00–21:00 (Mon–Wed, some days closed 14:30–17:00)", "closed": "Closed Thu", "url": "https://newcal.jp/feature/misakiguchi-botan_1", "color": "#0A5A8C", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": null, "cl": [3], "img": ""}, {"id": "kinmedai_koukai", "name": "Kinmedai specialty restaurant Koukai", "cat": "食べる", "area": "Misaki", "lat": 35.1412279, "lon": 139.6184688, "c": "Kinmedai / Misaki isn't just tuna — there are kinmedai boats too, so you can eat a fresh kinmedai set meal!", "note": "Specializes in kinmedai (golden-eye snapper): marinated kinmedai bowl, simmered and grilled fish set meals, sashimi set meal, salty fish-bone soup. Fillets and miso-marinated fish sold at the shop front", "hours": "Weekdays 11:00–15:00 / Sat, Sun & holidays 10:30–15:30 (dinner by reservation 18:00–20:00, courses from 5,000 yen)", "closed": "Closed Mon", "url": "https://kanagawa-kankou.or.jp/spot/7008", "color": "#0A5A8C", "fg": "#fff", "r": 3, "rm": 5, "w": [], "draft": true, "sc": null, "cl": [0], "img": ""}, {"id": "sushi_ohata", "name": "Sushi Ohata", "cat": "食べる", "area": "Misaki", "lat": 35.140064, "lon": 139.617325, "c": "The limited lunch is recommended too! Please try the kinmedai tempura!", "note": "A sushi restaurant opened by Ohata Sengyo, a fresh-fish shop at Misaki Port. Opened August 2026. Opens early on Sunday morning-market days", "hours": "Wed–Fri 11:00–15:00 (LO 14:30) & 17:00–22:00 (LO 21:30) / Sat 11:00–21:00 / Sun 5:00–9:00 & 11:00–17:00", "closed": "Closed Mon, Tue", "url": "https://misaki-gyo.com", "color": "#0A5A8C", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": {"d": [[], [], [[660, 900], [1020, 1320]], [[660, 900], [1020, 1320]], [[660, 900], [1020, 1320]], [[660, 1260]], [[300, 540], [660, 1020]]]}, "cl": [0, 1], "img": ""}, {"id": "asameshi_arube", "name": "Asameshi Arube", "cat": "食べる", "area": "Misaki", "lat": 35.141598, "lon": 139.617569, "c": "Breakfast / Little side dishes you think you could make at home but never do! Dried fish from a local shop! A breakfast that warms your heart — recommended!", "note": "A breakfast place near the Misaki-ko bus stop. Breakfast with Miura vegetables and local ingredients. Different pop-up shops take turns by day (run by MISAKI STAYLE)", "hours": "Wed–Sun 6:00–10:00", "closed": "Closed Mon, Tue", "url": "https://misaki-stayle.com/", "color": "#0A5A8C", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": {"d": [[], [], [[360, 600]], [[360, 600]], [[360, 600]], [[360, 600]], [[360, 600]]]}, "cl": [0, 1], "img": ""}, {"id": "watatsumi_misaki", "name": "Misaki Maguro to Shun no Sakana Watatsumi", "cat": "食べる", "area": "Misaki", "lat": 35.141586, "lon": 139.617081, "c": "My daughter works part-time here! Reasonable prices but amazing! Fresh! Highly recommended! Good for sake lovers too!", "note": "A seafood restaurant one street behind, directly opposite Urari at Misaki Port. Misaki tuna and seasonal fish (30 seats, tatami room upstairs)", "hours": "11:30–20:00", "closed": "Closed Wed", "url": "https://tabelog.com/kanagawa/A1406/A140603/14061017/", "color": "#0A5A8C", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": {"d": [[[690, 1200]], [[690, 1200]], [], [[690, 1200]], [[690, 1200]], [[690, 1200]], [[690, 1200]]]}, "cl": [2], "img": ""}, {"id": "joshuya_curry_yakiudon", "name": "Joshuya", "cat": "食べる", "area": "Tenjin-cho", "lat": 35.1487194, "lon": 139.6220694, "c": "Yaki-udon / Misaki's soul food! Curry yaki-udon is the most popular, but Hana can't eat spicy food, so I have the regular yaki-udon!", "note": "A diner in Tenjin-cho, Miura City. Famous for curry yaki-udon (around 1,000 yen per reviews). 13 seats", "hours": "11:00–15:00 / 17:00–19:00", "closed": "Closed Wed", "url": "https://tabelog.com/kanagawa/A1406/A140603/14019242/", "color": "#0A5A8C", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": {"d": [[[660, 900], [1020, 1140]], [[660, 900], [1020, 1140]], [], [[660, 900], [1020, 1140]], [[660, 900], [1020, 1140]], [[660, 900], [1020, 1140]], [[660, 900], [1020, 1140]]]}, "cl": [2], "img": ""}, {"id": "ichigoichie", "name": "Shokudoraku Ichigo Ichie", "cat": "食べる", "area": "Shiroyama-cho", "lat": 35.144547, "lon": 139.620071, "c": "Cheap! Delicious! Can't believe you can eat this well for this price!", "note": "A set-meal diner and izakaya in Shiroyama-cho, Miura City (north of Misaki Port). Tuna and local fish, sashimi platters, seafood bowls", "hours": "12:00–14:00 / 17:00–21:00", "closed": "Closed Wed, Thu", "url": "https://tabelog.com/kanagawa/A1406/A140603/14094180/", "color": "#0A5A8C", "fg": "#fff", "r": 3, "rm": 5, "w": [], "draft": true, "sc": {"d": [[[720, 840], [1020, 1260]], [[720, 840], [1020, 1260]], [], [], [[720, 840], [1020, 1260]], [[720, 840], [1020, 1260]], [[720, 840], [1020, 1260]]]}, "cl": [2, 3], "img": ""}, {"id": "ryoushigoya", "name": "Ryoshi Goya", "cat": "食べる", "area": "Misaki", "lat": 35.1414511, "lon": 139.620717, "c": "The fried chicken is a must! Highly recommended! It's unpredictable whether it's open, but lately it's been open short hours on weekends!", "note": "A seafood restaurant (Google Maps category). Misaki 1-chome", "hours": "Not listed", "closed": "", "url": "https://www.google.com/maps/search/%E6%BC%81%E5%B8%AB%E5%B0%8F%E5%B1%8B+%E4%B8%89%E5%B4%8E", "color": "#0A5A8C", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": null, "cl": null, "img": ""}, {"id": "yaoshige", "name": "Yaoshige", "cat": "買う", "area": "Shiroyama-cho", "lat": 35.1438382, "lon": 139.6197322, "c": "Bento / Sometimes they put out discounted vegetables and fruit, so I dash over! Lots of lunch bento choices, but they're on the sweet side!", "note": "A greengrocer with homemade deli dishes and bento (Google Maps reviews)", "hours": "Closes 18:00 (hours by day not checked)", "closed": "", "url": "https://www.google.com/maps/search/%E5%85%AB%E7%99%BE%E9%87%8D+%E4%B8%89%E5%B4%8E", "color": "#4F6070", "fg": "#fff", "r": 2, "rm": 5, "w": [], "draft": true, "sc": null, "cl": null, "img": ""}], KEEPER="家守";
-var CATS=[["all", "All"], ["食べる", "Eat"], ["買う", "Shop"], ["困ったとき", "Daily needs"]], T={"nophoto": "Photo coming soon", "draft": "Unconfirmed", "rating": "House manager's rating", "quote": "From the house manager", "gmap": "Open in Google Maps", "info": "Shop info", "empty": "No shops of this type yet.", "count": " shops"};
+var D=[{"id": "kurobatei", "name": "Kurobatei", "cat": "食べる", "area": "Misaki", "lat": 35.141872, "lon": 139.621399, "c": "There's an ADDress set meal just for ADDress members!", "note": "A tuna restaurant listed in the tourist association's food guide (Misaki old town)", "hours": "11:00–20:00 (last order 19:30)", "closed": "Closed Wed", "url": "https://miura-info.ne.jp/gourmet-misaki/", "color": "#B4501A", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": {"d": [[[660, 1200]], [[660, 1200]], [], [[660, 1200]], [[660, 1200]], [[660, 1200]], [[660, 1200]]]}, "cl": [2], "img": ""}, {"id": "misaki_donuts", "name": "Misaki Donuts (main shop)", "cat": "食べる", "area": "Misaki", "lat": 35.141113, "lon": 139.618439, "c": "A bit pricier than Mister Donut, lol, but I always look forward to the seasonal doughnuts!", "note": "An old-town doughnut shop listed in the tourist association's food & souvenir guide", "hours": "Weekdays 11:00–17:00 / Sat, Sun & holidays 10:00–18:00", "closed": "Closed Wed", "url": "https://miura-info.ne.jp/souvenir-misaki/", "color": "#B4501A", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": {"d": [[[660, 1020]], [[660, 1020]], [], [[660, 1020]], [[660, 1020]], [[600, 1080]], [[600, 1080]]]}, "cl": [2], "img": ""}, {"id": "kinoyo", "name": "Kinoyo (tuna dishes & sushi, Misaki)", "cat": "食べる", "area": "Misaki", "lat": 35.14193, "lon": 139.621506, "c": "Hana loves the Torotoro-don! It's topped with tuna in lots of different flavors!", "note": "A tuna and sushi restaurant founded in the Meiji era. Its signature is the “Torotoro-don”, a bowl topped with four kinds of tuna. Tatami seating; no cards", "hours": "Mon, Wed–Fri 11:00–15:00 (LO 14:30), 17:00–20:00 (LO 19:00) / Sat, Sun & holidays 11:00–20:30 (LO 19:00)", "closed": "Closed Tue", "url": "https://savorjapan.com/0006117514", "color": "#B4501A", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": {"d": [[[660, 900], [1020, 1200]], [], [[660, 900], [1020, 1200]], [[660, 900], [1020, 1200]], [[660, 900], [1020, 1200]], [[660, 1230]], [[660, 1230]]]}, "cl": [1], "img": ""}, {"id": "korakutei", "name": "Korakutei", "cat": "食べる", "area": "Misaki", "lat": 35.141598, "lon": 139.617569, "c": "Noodles in thick sauce (ankake soba) / My sister-in-law works here! Mapo ramen, motsu-ni (offal stew) ramen! The fried chicken is delicious! The daily lunch is recommended too!", "note": "Home of Misaki tuna ramen. Chinese food. Cards and QR payments accepted", "hours": "Mon–Fri 11:30–15:00 (LO 14:00) / Sat & Sun 11:30–15:00, 17:30–21:00 (LO 20:00). Closes when the soup runs out", "closed": "Closed Wed", "url": "https://tabelog.com/kanagawa/A1406/A140603/14020968/", "color": "#B4501A", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": null, "cl": [2], "img": ""}, {"id": "bocca", "name": "Misaki Italiano Bocca", "cat": "食べる", "area": "Misaki", "lat": 35.141346, "lon": 139.617264, "c": "Tasty Italian / Everything is delicious! Lunch is great value! It's run by a married couple, so if the service feels off, they probably just had a fight, lol", "note": "A seafood Italian restaurant on the 2nd floor overlooking the port. Courses available. Parking discount at the nearby Misaki Port Exchange Plaza", "hours": "Wed–Sun 11:30–15:00, 18:00–22:00 (one listing says lunch only on Fri)", "closed": "Closed Mon, Tue", "url": "https://tabelog.com/kanagawa/A1406/A140603/14056067/", "color": "#B4501A", "fg": "#fff", "r": 5, "rm": 5, "w": [], "draft": true, "sc": null, "cl": [0, 1], "img": ""}, {"id": "misakipresso", "name": "Misakipresso", "cat": "食べる", "area": "Misaki", "lat": 35.14072, "lon": 139.618652, "c": "A café where you can watch the Kamome Choir practice! Lucky if you catch one of their occasional shared-kitchen days", "note": "An Italian dining bar and café. In summer they serve “Miura omurice”. 10 seats, parking available", "hours": "", "closed": "", "url": "https://hamoni.jp/shop/NcmOEx5nDH7nmw4Epp7C", "color": "#B4501A", "fg": "#fff", "r": 3, "rm": 5, "w": [], "draft": true, "sc": null, "cl": null, "img": ""}, {"id": "shokubomiura", "name": "Shokubo miura", "cat": "食べる", "area": "Misaki", "lat": 35.143501, "lon": 139.620331, "c": "Just delicious! The tomato salad is outstanding! Carefully made food and drinks — very satisfying!", "note": "An izakaya serving fish from the Miura Peninsula. Fried horse mackerel, sashimi, pickles, curry. Tatami and sunken-kotatsu seating, parking available", "hours": "17:30–22:00 (listed for Monday; varies on holidays)", "closed": "", "url": "https://hamoni.jp/shop/lTJCsCHUn2KBXfbUhrdL", "color": "#B4501A", "fg": "#fff", "r": 5, "rm": 5, "w": [], "draft": true, "sc": null, "cl": null, "img": ""}, {"id": "yatai_misaki", "name": "Yatai (izakaya)", "cat": "食べる", "area": "Misaki", "lat": 35.1399067, "lon": 139.618006, "c": "Oden, okonomiyaki / Oden and okonomiyaki! Lots of à la carte dishes too! When the owner is on their own, the food comes out slowly!", "note": "An izakaya serving oden, tuna monja, and okonomiyaki. Tatami seats with griddles, and a street-stall-style counter", "hours": "From 18:00 (closing time not checked)", "closed": "", "url": "https://maps.app.goo.gl/LNVK8Nd3LJbK3QRk8", "color": "#B4501A", "fg": "#fff", "r": 3, "rm": 5, "w": [], "draft": true, "sc": null, "cl": null, "img": ""}, {"id": "daiki_sakanatosakana", "name": "Sakana to Sakana Daiki", "cat": "食べる", "area": "Misaki", "lat": 35.141586, "lon": 139.617081, "c": "The wife catches the fish and squid, the husband serves them! Not just seafood — a big menu, recommended!", "note": "A Japanese izakaya in a back alley of Misaki Port. Misaki Port fish and local vegetables served as sashimi, salt-grilled, or simmered (opened December 2024)", "hours": "Weekdays 16:00–23:00 (LO 22:00) / Sat, Sun & holidays 12:00–23:00 (LO 22:00)", "closed": "Closed Mon", "url": "https://da-iki-misaki.com/", "color": "#B4501A", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": {"d": [[], [[960, 1380]], [[960, 1380]], [[960, 1380]], [[960, 1380]], [[720, 1380]], [[720, 1380]]]}, "cl": [0], "img": ""}, {"id": "chochin_tokyo_1", "name": "Chochin Tokyo No. 1 (Gohan to Osake)", "cat": "食べる", "area": "Misaki", "lat": 35.1430752, "lon": 139.622536, "c": "It feels like a late-night place, but it opens early too! The multinational-style food might get you hooked!", "note": "An izakaya at Misaki Port in a former snack bar. Skewers, abura soba, cold noodles, and more (opened December 2022; “No. 1” is in the name)", "hours": "From 18:00 (hours by day not checked)", "closed": "", "url": "https://gooone.help/20230531/1990/", "color": "#B4501A", "fg": "#fff", "r": 3, "rm": 5, "w": [], "draft": true, "sc": null, "cl": null, "img": ""}, {"id": "otoyu", "name": "Izakaya Otoyu", "cat": "食べる", "area": "Misaki", "lat": 35.140999, "lon": 139.620178, "c": "Everything is good! / An old-style izakaya run by a family! Reliably delicious!", "note": "An izakaya down an alley off the Misaki Shitamachi shopping street. Famous for fish dishes by an owner who used to cook for tuna fishing boats (24 seats)", "hours": "Mon–Sat 17:00–23:30", "closed": "Closed Sun", "url": "https://tabelog.com/kanagawa/A1406/A140603/14041869/", "color": "#B4501A", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": {"d": [[[1020, 1410]], [[1020, 1410]], [[1020, 1410]], [[1020, 1410]], [[1020, 1410]], [[1020, 1410]], []]}, "cl": [6], "img": ""}, {"id": "keimaru", "name": "Osakana Kobo Keimaru", "cat": "買う", "area": "Misaki", "lat": 35.141224, "lon": 139.620026, "c": "If you're buying tuna, this is the place! / Their tuna is the best! You'll be amazed by the price too! But it's so unpredictable that it's never open when I go, lol. If you want some, ask Hana!", "note": "A tuna and fresh-fish shop in Misaki 2-chome. Tabelog reviews describe it as a fisherman's direct shop with rare tuna cuts and delicacies", "hours": "", "closed": "", "url": "https://tabelog.com/kanagawa/A1406/A140603/14083015/", "color": "#0A5A8C", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": null, "cl": null, "img": ""}, {"id": "tabegotoya_minato", "name": "Tabegotoya Minato", "cat": "食べる", "area": "Misaki", "lat": 35.139942, "lon": 139.618835, "c": "Asian; bento on weekday lunchtimes / Hana recommends the peanut noodles! Run by two lovely sisters!", "note": "Home-style cooking with an Asian touch, using Miura Peninsula ingredients. Bento and deli at lunchtime (opened May 2022, run by two sisters)", "hours": "Wed 11:30–14:00 / Thu–Sat 11:30–14:00 & 18:00–22:00 / Sun 17:00–21:00", "closed": "Closed Mon, Tue", "url": "https://www.kanaloco.jp/news/life/article-927910.html", "color": "#B4501A", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": {"d": [[], [], [[690, 840]], [[690, 840], [1080, 1320]], [[690, 840], [1080, 1320]], [[690, 840], [1080, 1320]], [[1020, 1260]]]}, "cl": [0, 1], "img": ""}, {"id": "chuka_botan", "name": "Chinese restaurant Botan", "cat": "食べる", "area": "Misaki", "lat": 35.14072, "lon": 139.618652, "c": "Tasty Chinese, shumai / Everything is delicious at this neighborhood Chinese place! The shumai is outstanding!", "note": "A long-standing local Chinese diner in Misaki with over 70 years of history. Popular for handmade jumbo shumai and wonton noodles with charcoal-grilled char siu", "hours": "11:30–15:00 / 17:00–21:00 (Mon–Wed, some days closed 14:30–17:00)", "closed": "Closed Thu", "url": "https://newcal.jp/feature/misakiguchi-botan_1", "color": "#B4501A", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": null, "cl": [3], "img": ""}, {"id": "kinmedai_koukai", "name": "Kinmedai specialty restaurant Koukai", "cat": "食べる", "area": "Misaki", "lat": 35.1412279, "lon": 139.6184688, "c": "Kinmedai / Misaki isn't just tuna — there are kinmedai boats too, so you can eat a fresh kinmedai set meal!", "note": "Specializes in kinmedai (golden-eye snapper): marinated kinmedai bowl, simmered and grilled fish set meals, sashimi set meal, salty fish-bone soup. Fillets and miso-marinated fish sold at the shop front", "hours": "Weekdays 11:00–15:00 / Sat, Sun & holidays 10:30–15:30 (dinner by reservation 18:00–20:00, courses from 5,000 yen)", "closed": "Closed Mon", "url": "https://kanagawa-kankou.or.jp/spot/7008", "color": "#B4501A", "fg": "#fff", "r": 3, "rm": 5, "w": [], "draft": true, "sc": null, "cl": [0], "img": ""}, {"id": "sushi_ohata", "name": "Sushi Ohata", "cat": "食べる", "area": "Misaki", "lat": 35.140064, "lon": 139.617325, "c": "The limited lunch is recommended too! Please try the kinmedai tempura!", "note": "A sushi restaurant opened by Ohata Sengyo, a fresh-fish shop at Misaki Port. Opened August 2026. Opens early on Sunday morning-market days", "hours": "Wed–Fri 11:00–15:00 (LO 14:30) & 17:00–22:00 (LO 21:30) / Sat 11:00–21:00 / Sun 5:00–9:00 & 11:00–17:00", "closed": "Closed Mon, Tue", "url": "https://misaki-gyo.com", "color": "#B4501A", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": {"d": [[], [], [[660, 900], [1020, 1320]], [[660, 900], [1020, 1320]], [[660, 900], [1020, 1320]], [[660, 1260]], [[300, 540], [660, 1020]]]}, "cl": [0, 1], "img": ""}, {"id": "asameshi_arube", "name": "Asameshi Arube", "cat": "食べる", "area": "Misaki", "lat": 35.141598, "lon": 139.617569, "c": "Breakfast / Little side dishes you think you could make at home but never do! Dried fish from a local shop! A breakfast that warms your heart — recommended!", "note": "A breakfast place near the Misaki-ko bus stop. Breakfast with Miura vegetables and local ingredients. Different pop-up shops take turns by day (run by MISAKI STAYLE)", "hours": "Wed–Sun 6:00–10:00", "closed": "Closed Mon, Tue", "url": "https://misaki-stayle.com/", "color": "#B4501A", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": {"d": [[], [], [[360, 600]], [[360, 600]], [[360, 600]], [[360, 600]], [[360, 600]]]}, "cl": [0, 1], "img": ""}, {"id": "watatsumi_misaki", "name": "Misaki Maguro to Shun no Sakana Watatsumi", "cat": "食べる", "area": "Misaki", "lat": 35.141586, "lon": 139.617081, "c": "My daughter works part-time here! Reasonable prices but amazing! Fresh! Highly recommended! Good for sake lovers too!", "note": "A seafood restaurant one street behind, directly opposite Urari at Misaki Port. Misaki tuna and seasonal fish (30 seats, tatami room upstairs)", "hours": "11:30–20:00", "closed": "Closed Wed", "url": "https://tabelog.com/kanagawa/A1406/A140603/14061017/", "color": "#B4501A", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": {"d": [[[690, 1200]], [[690, 1200]], [], [[690, 1200]], [[690, 1200]], [[690, 1200]], [[690, 1200]]]}, "cl": [2], "img": ""}, {"id": "joshuya_curry_yakiudon", "name": "Joshuya", "cat": "食べる", "area": "Tenjin-cho", "lat": 35.1487194, "lon": 139.6220694, "c": "Yaki-udon / Misaki's soul food! Curry yaki-udon is the most popular, but Hana can't eat spicy food, so I have the regular yaki-udon!", "note": "A diner in Tenjin-cho, Miura City. Famous for curry yaki-udon (around 1,000 yen per reviews). 13 seats", "hours": "11:00–15:00 / 17:00–19:00", "closed": "Closed Wed", "url": "https://tabelog.com/kanagawa/A1406/A140603/14019242/", "color": "#B4501A", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": {"d": [[[660, 900], [1020, 1140]], [[660, 900], [1020, 1140]], [], [[660, 900], [1020, 1140]], [[660, 900], [1020, 1140]], [[660, 900], [1020, 1140]], [[660, 900], [1020, 1140]]]}, "cl": [2], "img": ""}, {"id": "ichigoichie", "name": "Shokudoraku Ichigo Ichie", "cat": "食べる", "area": "Shiroyama-cho", "lat": 35.144547, "lon": 139.620071, "c": "Cheap! Delicious! Can't believe you can eat this well for this price!", "note": "A set-meal diner and izakaya in Shiroyama-cho, Miura City (north of Misaki Port). Tuna and local fish, sashimi platters, seafood bowls", "hours": "12:00–14:00 / 17:00–21:00", "closed": "Closed Wed, Thu", "url": "https://tabelog.com/kanagawa/A1406/A140603/14094180/", "color": "#B4501A", "fg": "#fff", "r": 3, "rm": 5, "w": [], "draft": true, "sc": {"d": [[[720, 840], [1020, 1260]], [[720, 840], [1020, 1260]], [], [], [[720, 840], [1020, 1260]], [[720, 840], [1020, 1260]], [[720, 840], [1020, 1260]]]}, "cl": [2, 3], "img": ""}, {"id": "ryoushigoya", "name": "Ryoshi Goya", "cat": "食べる", "area": "Misaki", "lat": 35.1414511, "lon": 139.620717, "c": "The fried chicken is a must! Highly recommended! It's unpredictable whether it's open, but lately it's been open short hours on weekends!", "note": "A seafood restaurant (Google Maps category). Misaki 1-chome", "hours": "Not listed", "closed": "", "url": "https://www.google.com/maps/search/%E6%BC%81%E5%B8%AB%E5%B0%8F%E5%B1%8B+%E4%B8%89%E5%B4%8E", "color": "#B4501A", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": null, "cl": null, "img": ""}, {"id": "yaoshige", "name": "Yaoshige", "cat": "買う", "area": "Shiroyama-cho", "lat": 35.1438382, "lon": 139.6197322, "c": "Bento / Sometimes they put out discounted vegetables and fruit, so I dash over! Lots of lunch bento choices, but they're on the sweet side!", "note": "A greengrocer with homemade deli dishes and bento (Google Maps reviews)", "hours": "Closes 18:00 (hours by day not checked)", "closed": "", "url": "https://www.google.com/maps/search/%E5%85%AB%E7%99%BE%E9%87%8D+%E4%B8%89%E5%B4%8E", "color": "#0A5A8C", "fg": "#fff", "r": 2, "rm": 5, "w": [], "draft": true, "sc": null, "cl": null, "img": ""}], ST={"type":"FeatureCollection","source":"© OpenStreetMap contributors (ODbL)・Overpass API","features":[{"type":"Feature","properties":{"kind":"lighthouse","name":"城ヶ島灯台","h":11.5,"b":0,"c":"#ffffff","osm":"node/1211621029"},"geometry":{"type":"Polygon","coordinates":[[[139.611155,35.135079],[139.611151,35.13509],[139.611141,35.135099],[139.611128,35.135102],[139.611114,35.135099],[139.611104,35.13509],[139.6111,35.135079],[139.611104,35.135068],[139.611114,35.13506],[139.611128,35.135057],[139.611141,35.13506],[139.611151,35.135068],[139.611155,35.135079]]]}},{"type":"Feature","properties":{"kind":"lighthouse","name":"安房埼灯台","h":16,"b":0,"c":"#ffffff","osm":"node/12364319660"},"geometry":{"type":"Polygon","coordinates":[[[139.627595,35.130201],[139.627591,35.130212],[139.627581,35.13022],[139.627567,35.130223],[139.627553,35.13022],[139.627543,35.130212],[139.62754,35.130201],[139.627543,35.13019],[139.627553,35.130181],[139.627567,35.130178],[139.627581,35.130181],[139.627591,35.13019],[139.627595,35.130201]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/130990872"},"geometry":{"type":"Polygon","coordinates":[[[139.607444,35.138652],[139.607245,35.139463],[139.607016,35.13942],[139.607042,35.139302],[139.606877,35.139214],[139.607049,35.138424],[139.609131,35.137607],[139.609242,35.137784],[139.609344,35.13775],[139.609428,35.137913],[139.607481,35.138575],[139.607444,35.138652]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/160351380"},"geometry":{"type":"Polygon","coordinates":[[[139.606658,35.146373],[139.605935,35.146861],[139.605914,35.146841],[139.605848,35.14684],[139.606493,35.147494],[139.606499,35.147487],[139.607717,35.148708],[139.607633,35.14877],[139.605759,35.14689],[139.606602,35.146312],[139.606658,35.146373]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/160351382"},"geometry":{"type":"Polygon","coordinates":[[[139.612831,35.147954],[139.612713,35.147915],[139.612355,35.14727],[139.612056,35.146764],[139.611992,35.146741],[139.611911,35.146597],[139.611928,35.146431],[139.612116,35.146433],[139.612155,35.146631],[139.612487,35.147185],[139.612882,35.147853],[139.612887,35.147924],[139.612831,35.147954]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/160351383"},"geometry":{"type":"Polygon","coordinates":[[[139.611172,35.159247],[139.611168,35.159188],[139.611201,35.159187],[139.611204,35.159245],[139.611172,35.159247]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/160351384"},"geometry":{"type":"Polygon","coordinates":[[[139.610725,35.159348],[139.610724,35.159337],[139.610985,35.159307],[139.611208,35.159251],[139.611211,35.159261],[139.610984,35.15932],[139.610725,35.159348]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/160351385"},"geometry":{"type":"Polygon","coordinates":[[[139.609949,35.156107],[139.60995,35.156044],[139.609987,35.156014],[139.6101,35.156056],[139.610211,35.156107],[139.610294,35.156161],[139.610312,35.156208],[139.610279,35.156216],[139.610118,35.156167],[139.609949,35.156107]]]}},{"type":"Feature","properties":{"kind":"pier","name":"","h":2,"b":0,"c":"#c9c3b7","osm":"way/172137869"},"geometry":{"type":"Polygon","coordinates":[[[139.638128,35.140192],[139.638219,35.140217],[139.638223,35.140262],[139.63806,35.140423],[139.63801,35.140475],[139.638025,35.140681],[139.638044,35.140869],[139.638007,35.140895],[139.637958,35.140878],[139.637921,35.14084],[139.637898,35.140589],[139.637901,35.140427],[139.637978,35.140357],[139.638051,35.140251],[139.638128,35.140192]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/172137873"},"geometry":{"type":"Polygon","coordinates":[[[139.638163,35.13894],[139.638363,35.138987],[139.638499,35.139119],[139.638317,35.139323],[139.638216,35.139248],[139.637669,35.139813],[139.637762,35.139881],[139.637569,35.140128],[139.637486,35.140024],[139.637354,35.139964],[139.637329,35.139842],[139.637647,35.139556],[139.637883,35.139277],[139.637955,35.139141],[139.638062,35.139087],[139.638163,35.13894]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/172137879"},"geometry":{"type":"Polygon","coordinates":[[[139.612347,35.137627],[139.612434,35.137616],[139.612445,35.137664],[139.612432,35.137665],[139.61258,35.138205],[139.612305,35.139024],[139.612242,35.139006],[139.612516,35.138198],[139.612416,35.137842],[139.612362,35.137855],[139.612284,35.137822],[139.612301,35.137768],[139.612385,35.137727],[139.612375,35.137675],[139.612358,35.137678],[139.612347,35.137627]]]}},{"type":"Feature","properties":{"kind":"pier","name":"","h":2,"b":0,"c":"#c9c3b7","osm":"way/172137890"},"geometry":{"type":"Polygon","coordinates":[[[139.639159,35.140976],[139.63954,35.141038],[139.639537,35.14105],[139.639574,35.141055],[139.639576,35.141045],[139.639772,35.141089],[139.640236,35.140663],[139.640123,35.140577],[139.640133,35.140567],[139.640077,35.140521],[139.64007,35.140528],[139.639978,35.140458],[139.640148,35.140301],[139.640038,35.140216],[139.640044,35.140208],[139.639987,35.140165],[139.639981,35.140171],[139.639784,35.140018],[139.639792,35.14001],[139.639734,35.139967],[139.639729,35.139974],[139.639629,35.139901],[139.639667,35.139872],[139.639652,35.139857],[139.639267,35.140204],[139.639283,35.140216],[139.639616,35.139916],[139.63986,35.140104],[139.639393,35.140526],[139.63941,35.140539],[139.639874,35.14012],[139.640112,35.140302],[139.639651,35.140729],[139.639671,35.140744],[139.639963,35.140469],[139.640204,35.14066],[139.639768,35.141063],[139.63958,35.141031],[139.639582,35.141022],[139.639546,35.141016],[139.639545,35.141023],[139.639161,35.140954],[139.639159,35.140976]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/172137893"},"geometry":{"type":"Polygon","coordinates":[[[139.639776,35.139724],[139.639597,35.139589],[139.63957,35.139615],[139.639747,35.139751],[139.639757,35.139742],[139.639588,35.139614],[139.639597,35.139606],[139.639766,35.139733],[139.639776,35.139724]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/172137894"},"geometry":{"type":"Polygon","coordinates":[[[139.638831,35.140188],[139.639572,35.139504],[139.639622,35.139541],[139.63948,35.139674],[139.639503,35.139693],[139.639041,35.140117],[139.639021,35.140101],[139.638881,35.140229],[139.638831,35.140188]]]}},{"type":"Feature","properties":{"kind":"pier","name":"","h":2,"b":0,"c":"#c9c3b7","osm":"way/420038646"},"geometry":{"type":"Polygon","coordinates":[[[139.613004,35.137531],[139.612951,35.137392],[139.612909,35.137403],[139.612962,35.137542],[139.613004,35.137531]]]}},{"type":"Feature","properties":{"kind":"pier","name":"","h":2,"b":0,"c":"#c9c3b7","osm":"way/420038646"},"geometry":{"type":"Polygon","coordinates":[[[139.612951,35.137392],[139.612912,35.13729],[139.61287,35.137301],[139.612909,35.137403],[139.612951,35.137392]]]}},{"type":"Feature","properties":{"kind":"pier","name":"","h":2,"b":0,"c":"#c9c3b7","osm":"way/638500458"},"geometry":{"type":"Polygon","coordinates":[[[139.622386,35.142784],[139.622756,35.142992],[139.622958,35.143051],[139.623262,35.143071],[139.623563,35.143082],[139.623635,35.143061],[139.623857,35.142841],[139.623912,35.142844],[139.623901,35.142865],[139.623833,35.142933],[139.623821,35.142926],[139.62374,35.143005],[139.623752,35.143012],[139.623685,35.143076],[139.623641,35.143102],[139.623593,35.143116],[139.623546,35.143119],[139.623311,35.143104],[139.623311,35.143091],[139.623215,35.143087],[139.623214,35.143099],[139.622942,35.143084],[139.622888,35.143068],[139.622893,35.143058],[139.622794,35.143029],[139.622788,35.14304],[139.622742,35.143026],[139.622348,35.142805],[139.622365,35.142794],[139.622386,35.142784]]]}},{"type":"Feature","properties":{"kind":"bridge","name":"城ヶ島大橋","h":23.5,"b":21.0,"c":"#c5cbd1","osm":"way/766104762"},"geometry":{"type":"Polygon","coordinates":[[[139.623699,35.140392],[139.621603,35.135501],[139.62172,35.135467],[139.623815,35.140358],[139.623797,35.140364],[139.623699,35.140392]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/1157813172"},"geometry":{"type":"Polygon","coordinates":[[[139.616977,35.136609],[139.617035,35.136823],[139.617086,35.136811],[139.616985,35.13646],[139.616936,35.136469],[139.616977,35.136609]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/1157813173"},"geometry":{"type":"Polygon","coordinates":[[[139.617786,35.136693],[139.617964,35.136585],[139.618108,35.136427],[139.61825,35.136272],[139.618211,35.13625],[139.618076,35.136406],[139.617929,35.136564],[139.61776,35.136664],[139.617786,35.136693]]]}},{"type":"Feature","properties":{"kind":"pier","name":"","h":2,"b":0,"c":"#c9c3b7","osm":"way/1157813174"},"geometry":{"type":"Polygon","coordinates":[[[139.620897,35.13681],[139.621109,35.136423],[139.621068,35.136408],[139.620856,35.136796],[139.620897,35.13681]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/1157813175"},"geometry":{"type":"Polygon","coordinates":[[[139.627158,35.133961],[139.627968,35.134578],[139.628005,35.134545],[139.627195,35.133928],[139.627158,35.133961]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/1157813176"},"geometry":{"type":"Polygon","coordinates":[[[139.62404,35.136351],[139.623807,35.135667],[139.623754,35.135679],[139.623987,35.136363],[139.62404,35.136351]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/1157813177"},"geometry":{"type":"Polygon","coordinates":[[[139.626222,35.132057],[139.626154,35.131962],[139.626107,35.131985],[139.626174,35.13208],[139.626222,35.132057]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/1157813178"},"geometry":{"type":"Polygon","coordinates":[[[139.626097,35.131885],[139.625985,35.131725],[139.625937,35.131748],[139.626049,35.131907],[139.626097,35.131885]]]}},{"type":"Feature","properties":{"kind":"groyne","name":"","h":2,"b":0,"c":"#b4b9be","osm":"way/1157813187"},"geometry":{"type":"Polygon","coordinates":[[[139.62104,35.136829],[139.621174,35.136449],[139.621142,35.136441],[139.621008,35.136822],[139.62104,35.136829]]]}}]}, HOME=null, KEEPER="家守", EXAG=1;
+var CATS=[["all", "All"], ["食べる", "Eat"], ["買う", "Shop"], ["困ったとき", "Daily needs"]], T={"nophoto": "Photo coming soon", "draft": "Unconfirmed", "rating": "House manager's rating", "quote": "From the house manager", "gmap": "Open in Google Maps", "info": "Shop info", "empty": "No shops of this type yet.", "count": " shops", "sep": " / ", "namekey": "name:en", "stkey": "name_en", "attrGsi": "Photo & elevation: GSI Japan", "catName": {"食べる": "Eat", "買う": "Shop", "困ったとき": "Daily needs"}, "view": {"3d": "3D", "flat": "Flat", "photo": "Photo"}, "viewlbl": "Map view", "toolslbl": "Map controls", "tod": {"morning": "Morning", "day": "Day", "evening": "Evening", "night": "Night"}, "todBtn": "Colors: {p}", "todAuto": " (auto)", "todAria": "Change the time-of-day colors", "locate": "My location", "locOff": "Stop location", "locating": "Finding your location…", "locDenied": "Location access is off. Allow this site to use your location in your phone's settings.", "locFail": "Couldn't find your location. Try again outdoors.", "locFar": "You're far from Misaki, so the map stays where it is.", "privacy": "Your location is used only on this device. It is never sent anywhere.", "meHere": "Your location", "fromHere": "From here", "walk": "about {n} min walk", "nearSort": "nearest first", "tour": "Fly-through", "tourStop": "Stop", "tourStart": "Starting here", "home": "Reset view", "backHome": "Back to {n}", "big": "Full screen", "close": "Close", "drag": "Drag to rotate", "dragTitle": "When on, dragging changes the direction and tilt", "padlbl": "Map direction and tilt", "tilt": "Tilt", "up": "Look straight down", "left": "Rotate left", "right": "Rotate right", "cl": "", "clAria": "{n} shops here. Tap to expand", "same": "{n} shops at the same spot", "homeHere": "This is the house", "nogl": "This device can't show the 3D map.", "flatlink": "Open the flat map", "tourStops": [["Kainan Shrine", "Miura's main guardian shrine"], ["Misaki Port / Urari", "Urari market (fish & vegetables)"], ["Jogashima Bridge", "575 m long, 16–23.5 m above the sea"], ["Jogashima Lighthouse", "West tip of the island. Tower 11.5 m"], ["Awasaki Lighthouse", "East tip, in Jogashima Park. 16 m tall"]], "gl": {"CooperativeGesturesHandler.WindowsHelpText": "Use Ctrl + scroll to zoom the map", "CooperativeGesturesHandler.MacHelpText": "Use ⌘ + scroll to zoom the map", "CooperativeGesturesHandler.MobileHelpText": "Use two fingers to move the map", "NavigationControl.ZoomIn": "Zoom in", "NavigationControl.ZoomOut": "Zoom out", "NavigationControl.ResetBearing": "Reset north"}};
+var COL={"食べる":"#B4501A","買う":"#0A5A8C","困ったとき":"#4F6070"};
 var st={cat:"all",sc:""};
 function $(s){return document.querySelector(s)}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function hs(n,m){m=m||5;var o="";for(var i=1;i<=m;i++)o+=i<=n?"❤️":"♡";return o}
+function fmt(s,n){return s.replace("{n}",n)}
 if(/[?&]embed=1/.test(location.search))document.body.classList.add("embed");
+var calm=window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches;
+var fine=window.matchMedia&&matchMedia("(pointer:fine)").matches;
 
-var touch=("ontouchstart" in window)||navigator.maxTouchPoints>0;
-var map=L.map("map",{scrollWheelZoom:false,dragging:!touch,tap:false});
-L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:'© OpenStreetMap',maxZoom:19}).addTo(map);
-var group=L.markerClusterGroup({showCoverageOnHover:false,maxClusterRadius:34,spiderfyOnMaxZoom:true,iconCreateFunction:function(c){return L.divIcon({className:"",html:'<div class="pin" style="width:38px;height:38px;background:#fff;color:var(--accent);font-size:15px">'+c.getChildCount()+'</div>',iconSize:[38,38]})}});
-map.addLayer(group);
-var markers={};
-function pop(d,n){return '<b>'+n+'. '+esc(d.name)+'</b>'+(d.r?'<br>'+hs(d.r,d.rm):'')+(d.c?'<br><span style="color:var(--accent);font-weight:700">'+esc(d.c)+'</span>':'')+(d.note?'<br>'+esc(d.note):'')}
+/* ---------- 時刻の色：三崎（35.14N, 139.62E）の日の出・日の入りを、日本時間で計算する（NOAA の近似式。±数分） ---------- */
+var LAT=35.14,LON=139.62;
+function sun(now){
+  var j=new Date(now.getTime()+9*3600e3),y0=Date.UTC(j.getUTCFullYear(),0,1),n=Math.floor((j-y0)/864e5)+1,g=2*Math.PI/365*(n-1),r=Math.PI/180;
+  var eq=229.18*(0.000075+0.001868*Math.cos(g)-0.032077*Math.sin(g)-0.014615*Math.cos(2*g)-0.040849*Math.sin(2*g));
+  var de=0.006918-0.399912*Math.cos(g)+0.070257*Math.sin(g)-0.006758*Math.cos(2*g)+0.000907*Math.sin(2*g)-0.002697*Math.cos(3*g)+0.00148*Math.sin(3*g);
+  var ha=Math.acos(Math.cos(90.833*r)/(Math.cos(LAT*r)*Math.cos(de))-Math.tan(LAT*r)*Math.tan(de))/r;
+  return {rise:720-4*(LON+ha)-eq+540,set:720-4*(LON-ha)-eq+540,m:j.getUTCHours()*60+j.getUTCMinutes()}}
+function phaseNow(){var s=sun(new Date());
+  if(s.m<s.rise-40||s.m>=s.set+40)return "night";
+  if(s.m<s.rise+120)return "morning";
+  if(s.m<s.set-60)return "day";
+  return "evening"}
+/* 地図の絵柄の色。昼が基本（生成りの地・海の青・白い建物）。夜は「夜の港」の紺で、建物の一部に明かり */
+var PAL={
+  morning:{land:"#F6EFE8",farm:"#EFE6D6",grass:"#DFE6D0",wood:"#CCD9BC",sand:"#F3E4CC",rock:"#E7DDD3",water:"#9CC3DA",road:"#FFFFFF",roadCase:"#E8DACB",path:"#DACDBC",bld:"#FFF8F1",text:"#5A4E42",seaText:"#1F5F8B",halo:"rgba(255,255,255,.85)",
+    sky:{"sky-color":"#BFD6E6","horizon-color":"#F6D9C6","fog-color":"#F6E7DC"},sh:["#5d6a62","#ffffff","#76817a"],stOp:.95},
+  day:{land:"#F7F1E6",farm:"#F0E9D4",grass:"#E2E6CC",wood:"#CFDAB8",sand:"#F2E5C6",rock:"#E6DED0",water:"#8CB8D2",road:"#FFFFFF",roadCase:"#E6D9C6",path:"#D9CCB6",bld:"#FFFBF4",text:"#5A4E42",seaText:"#1F5F8B",halo:"rgba(255,255,255,.85)",
+    sky:{"sky-color":"#A9CBE0","horizon-color":"#F6EBDD","fog-color":"#F6EBDD"},sh:["#4f6257","#ffffff","#6d7b70"],stOp:.95},
+  evening:{land:"#EDD5B8",farm:"#E6CFB0",grass:"#D6D0AE",wood:"#C2C19A",sand:"#EDD2A8",rock:"#DDC9B2",water:"#6F92B0",road:"#FFF2E2",roadCase:"#DDBF9E",path:"#CCB092",bld:"#F9DEC0",text:"#5A4636",seaText:"#1D4F78",halo:"rgba(255,246,236,.85)",
+    sky:{"sky-color":"#C99AA0","horizon-color":"#F2B985","fog-color":"#F3D8BC"},sh:["#6a5040","#fff6ea","#80655a"],stOp:.95},
+  night:{land:"#1A2631",farm:"#1D2A33",grass:"#1C2B2C",wood:"#1A2A26",sand:"#2A2E30",rock:"#242E36",water:"#0C1720",road:"#3A4A5A",roadCase:"#22303C",path:"#33424F",
+    bld:["case",[">=",["coalesce",["get","render_height"],0],9],"#C99A55","#2D3E51"],text:"#C9D6E0",seaText:"#6BB6E3",halo:"rgba(14,24,32,.85)",
+    sky:{"sky-color":"#0B141C","horizon-color":"#1E3040","fog-color":"#16232E"},sh:["#000000","#3b4b58","#10181f"],stOp:.7}};
+var tod="auto",phase=phaseNow();
+try{var _t=localStorage.getItem("hanaTod");if(_t&&(PAL[_t]||_t==="auto"))tod=_t}catch(e){}
+function curPhase(){return tod==="auto"?phaseNow():tod}
+var C=PAL[curPhase()];phase=curPhase();
 
-function visible(){return D.filter(function(d){return (st.cat==="all"||d.cat===st.cat)&&(!st.sc||(d.w||[]).indexOf(st.sc)>=0)})}
-function render(){
-  var rows=visible();
-  group.clearLayers();markers={};
-  var pts=[];
-  var html="";
+var map=null,pins=[],marks=[],hm=null,pp=null,sig="",flat=false,photo=false,ready=false;
+var INTRO=!!HOME&&!calm,landing=false;
+var GSI="cyberjapandata.gsi.go.jp/xyz/";
+
+/* 標高：地理院の標高タイル（dem_png）を Terrarium 形式に直す。海・タイルなし・0m未満は 0m */
+function demTile(p,ac){
+  return fetch(p.url.replace("gsidem://","https://"),{signal:ac.signal})
+    .then(function(r){return r.ok?r.blob():null})
+    .then(function(b){return b?createImageBitmap(b):null})
+    .then(function(bm){
+      var c=document.createElement("canvas");c.width=c.height=256;
+      var x=c.getContext("2d"),im;
+      if(bm){x.drawImage(bm,0,0);im=x.getImageData(0,0,256,256)}else im=x.createImageData(256,256);
+      var d=im.data;
+      for(var i=0;i<d.length;i+=4){
+        var v=d[i]*65536+d[i+1]*256+d[i+2],h=(!bm||v===8388608)?0:(v<8388608?v:v-16777216)*0.01;
+        if(h<0)h=0;
+        var t=h+32768,f=Math.floor(t);
+        d[i]=f>>8;d[i+1]=f&255;d[i+2]=Math.floor((t-f)*256);d[i+3]=255}
+      x.putImageData(im,0,0);
+      return new Promise(function(ok){c.toBlob(ok,"image/png")})})
+    .then(function(b){return b.arrayBuffer()})
+    .then(function(buf){return {data:buf}})}
+var seaBuf=null;
+function seaTile(){
+  if(!seaBuf)seaBuf=new Promise(function(ok){var c=document.createElement("canvas");c.width=c.height=256;var x=c.getContext("2d");x.fillStyle="#263f52";x.fillRect(0,0,256,256);c.toBlob(ok,"image/png")}).then(function(b){return b.arrayBuffer()});
+  return seaBuf.then(function(b){return b.slice(0)})}
+function photoTile(p,ac){
+  return fetch(p.url.replace("gsiphoto://","https://"),{signal:ac.signal})
+    .then(function(r){return r.ok?r.arrayBuffer():seaTile()})
+    .then(function(buf){return {data:buf}})}
+function dem(){return {type:"raster-dem",tiles:["gsidem://"+GSI+"dem_png/{z}/{x}/{y}.png"],tileSize:256,maxzoom:14,encoding:"terrarium"}}
+
+var NAME=["coalesce",["get",T.namekey],["get","name"]],FONT=["Noto Sans Regular"];
+function w(a,b,c){return ["interpolate",["exponential",1.5],["zoom"],12,a,16,b,20,c]}
+function road(id,cls,color,width,extra){return Object.assign({id:id,type:"line",source:"ofm","source-layer":"transportation",
+  filter:["all",["==",["geometry-type"],"LineString"],["in",["get","class"],["literal",cls]],["!=",["get","brunnel"],"bridge"]],
+  layout:{"line-cap":"round","line-join":"round"},paint:{"line-color":color,"line-width":width}},extra||{})}
+var MAIN=["motorway","trunk","primary","secondary","tertiary"],MINOR=["minor","service","track"];
+var BASE=["lc","park","water","pier","rd_bridge","rd_path","rd_minor_c","rd_main_c","rd_minor","rd_main","shade"];
+function lcColor(P){return ["match",["get","class"],"farmland",P.farm,"grass",P.grass,"wood",P.wood,"sand",P.sand,"rock",P.rock,"wetland",P.grass,P.land]}
+function skyOf(P){return Object.assign({"sky-horizon-blend":.6,"horizon-fog-blend":.6,"fog-ground-blend":.2},P.sky)}
+var STYLE={version:8,glyphs:"https://tiles.openfreemap.org/fonts/{fontstack}/{range}.pbf",
+  sources:{
+    photo:{type:"raster",tiles:["gsiphoto://"+GSI+"seamlessphoto/{z}/{x}/{y}.jpg"],tileSize:256,minzoom:2,maxzoom:18,attribution:T.attrGsi},
+    ofm:{type:"vector",url:"https://tiles.openfreemap.org/planet",attribution:"OpenFreeMap © OpenMapTiles © OpenStreetMap"},
+    st:{type:"geojson",data:ST},
+    me:{type:"geojson",data:{type:"FeatureCollection",features:[]}},
+    dem:dem(),shade:dem()},
+  layers:[
+    {id:"land",type:"background",paint:{"background-color":C.land,"background-color-transition":{duration:800}}},
+    {id:"lc",type:"fill",source:"ofm","source-layer":"landcover",paint:{"fill-color":lcColor(C),"fill-opacity":.9}},
+    {id:"park",type:"fill",source:"ofm","source-layer":"park",paint:{"fill-color":C.grass,"fill-opacity":.7}},
+    {id:"water",type:"fill",source:"ofm","source-layer":"water",paint:{"fill-color":C.water}},
+    {id:"pier",type:"fill",source:"ofm","source-layer":"transportation",filter:["all",["==",["geometry-type"],"Polygon"],["==",["get","class"],"pier"]],paint:{"fill-color":C.land}},
+    {id:"rd_bridge",type:"line",source:"ofm","source-layer":"transportation",filter:["all",["==",["geometry-type"],"LineString"],["==",["get","brunnel"],"bridge"],["in",["get","class"],["literal",MAIN.concat(MINOR)]]],
+      layout:{"line-cap":"butt"},paint:{"line-color":"rgba(40,60,80,.18)","line-width":w(1,5,22)}},
+    road("rd_path",["path"],C.path,w(.4,1,3),{minzoom:14,paint:{"line-color":C.path,"line-width":w(.4,1,3),"line-dasharray":[2,2]}}),
+    road("rd_minor_c",MINOR,C.roadCase,w(.8,4,20),{minzoom:13}),
+    road("rd_main_c",MAIN,C.roadCase,w(2,7.5,30)),
+    road("rd_minor",MINOR,C.road,w(.3,2.6,16),{minzoom:13}),
+    road("rd_main",MAIN,C.road,w(1.2,5.5,26)),
+    {id:"photo",type:"raster",source:"photo",layout:{visibility:"none"}},
+    {id:"shade",type:"hillshade",source:"shade",paint:{"hillshade-exaggeration":.32,"hillshade-shadow-color":C.sh[0],"hillshade-highlight-color":C.sh[1],"hillshade-accent-color":C.sh[2]}},
+    {id:"bld2d",type:"fill",source:"ofm","source-layer":"building",minzoom:13,layout:{visibility:"none"},paint:{"fill-color":C.roadCase,"fill-outline-color":C.path}},
+    {id:"bld",type:"fill-extrusion",source:"ofm","source-layer":"building",minzoom:13,filter:["!=",["get","hide_3d"],true],
+      paint:{"fill-extrusion-color":C.bld,"fill-extrusion-height":["*",EXAG,["coalesce",["get","render_height"],5]],"fill-extrusion-base":["*",EXAG,["coalesce",["get","render_min_height"],0]],"fill-extrusion-opacity":.94}},
+    {id:"st",type:"fill-extrusion",source:"st",
+      paint:{"fill-extrusion-color":["get","c"],"fill-extrusion-height":["*",EXAG,["get","h"]],"fill-extrusion-base":["*",EXAG,["get","b"]],"fill-extrusion-opacity":C.stOp}},
+    {id:"me_acc",type:"fill",source:"me",filter:["==",["get","k"],"acc"],paint:{"fill-color":"#1E7BD8","fill-opacity":.12}},
+    {id:"me_acc_l",type:"line",source:"me",filter:["==",["get","k"],"acc"],paint:{"line-color":"#1E7BD8","line-opacity":.4,"line-width":1}},
+    {id:"lb_sea",type:"symbol",source:"ofm","source-layer":"water_name",filter:["==",["geometry-type"],"Point"],
+      layout:{"text-field":NAME,"text-font":["Noto Sans Italic"],"text-size":13,"text-letter-spacing":.12},
+      paint:{"text-color":C.seaText,"text-halo-color":C.halo,"text-halo-width":1.2}},
+    {id:"lb_sea_l",type:"symbol",source:"ofm","source-layer":"water_name",filter:["==",["geometry-type"],"LineString"],
+      layout:{"text-field":NAME,"text-font":["Noto Sans Italic"],"text-size":13,"text-letter-spacing":.12,"symbol-placement":"line"},
+      paint:{"text-color":C.seaText,"text-halo-color":C.halo,"text-halo-width":1.2}},
+    {id:"lb_st",type:"symbol",source:"st",filter:["!=",["get","name"],""],minzoom:13,
+      layout:{"text-field":["coalesce",["get",T.stkey],["get","name"]],"text-font":FONT,"text-size":12,"text-offset":[0,-1.2],"text-anchor":"bottom"},
+      paint:{"text-color":C.text,"text-halo-color":C.halo,"text-halo-width":1.6}},
+    {id:"lb_place",type:"symbol",source:"ofm","source-layer":"place",filter:["in",["get","class"],["literal",["city","town","village","hamlet","suburb","quarter","neighbourhood","island"]]],
+      layout:{"text-field":NAME,"text-font":FONT,"text-size":["match",["get","class"],["city","town","island"],13,11],"text-letter-spacing":.06,"text-padding":14},
+      paint:{"text-color":C.text,"text-halo-color":C.halo,"text-halo-width":1.4,"text-opacity":["match",["get","class"],["city","town","island"],.9,.7]}}],
+  terrain:{source:"dem",exaggeration:EXAG},
+  sky:skyOf(C)};
+
+/* 時刻の色を地図に当てる（スタイルを作り直さず、色だけ差し替える） */
+function applyPal(){
+  var p=curPhase();phase=p;var P=PAL[p];
+  $("#card").classList.toggle("night",p==="night");
+  todLabel();
+  if(!map||!ready)return;
+  var S=function(l,k,v){try{map.setPaintProperty(l,k,v)}catch(e){}};
+  S("land","background-color",P.land);S("lc","fill-color",lcColor(P));S("park","fill-color",P.grass);S("water","fill-color",P.water);S("pier","fill-color",P.land);
+  S("rd_path","line-color",P.path);S("rd_minor_c","line-color",P.roadCase);S("rd_main_c","line-color",P.roadCase);S("rd_minor","line-color",P.road);S("rd_main","line-color",P.road);
+  S("shade","hillshade-shadow-color",P.sh[0]);S("shade","hillshade-highlight-color",P.sh[1]);S("shade","hillshade-accent-color",P.sh[2]);
+  S("bld","fill-extrusion-color",P.bld);S("bld2d","fill-color",P.roadCase);S("bld2d","fill-outline-color",P.path);S("st","fill-extrusion-opacity",P.stOp);
+  ["lb_sea","lb_sea_l"].forEach(function(l){S(l,"text-color",P.seaText);S(l,"text-halo-color",P.halo)});
+  ["lb_st","lb_place"].forEach(function(l){S(l,"text-color",P.text);S(l,"text-halo-color",P.halo)});
+  try{map.setSky(skyOf(P))}catch(e){}
+}
+function todLabel(){var b=$("#ttod");if(!b)return;b.textContent=T.todBtn.replace("{p}",T.tod[curPhase()])+(tod==="auto"?T.todAuto:"");
+  b.setAttribute("aria-label",T.todAria+"："+b.textContent)}
+
+try{
+  maplibregl.addProtocol("gsidem",demTile);
+  maplibregl.addProtocol("gsiphoto",photoTile);
+  map=new maplibregl.Map({container:"map",style:STYLE,center:INTRO?[HOME.lon,HOME.lat]:[139.6195,35.1415],zoom:INTRO?11.3:14.5,pitch:INTRO?0:55,bearing:INTRO?-40:0,maxPitch:75,maxZoom:19.5,minZoom:9,
+    cooperativeGestures:true,attributionControl:{compact:true},locale:T.gl});
+  map.addControl(new maplibregl.NavigationControl({visualizePitch:true}),"top-right");
+  map.on("moveend",function(){place(false)});
+  map.once("style.load",function(){ready=true;applyPal()});
+  if(INTRO){
+    $("#map").classList.add("intro");
+    var landed=function(){landing=false;$("#map").classList.remove("intro")};
+    map.once("load",function(){setTimeout(function(){
+      if(!$("#map").classList.contains("intro"))return;
+      landing=true;
+      map.easeTo({center:[HOME.lon,HOME.lat],zoom:16.1,pitch:60,bearing:0,duration:6500,essential:true,easing:function(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}});
+      map.once("moveend",landed)},400)});
+    setTimeout(function(){if($("#map").classList.contains("intro")&&!landing){landed();fit(true)}},12000);
+  }
+  if(HOME){var he=document.createElement("button");he.type="button";he.className="pin home";he.setAttribute("aria-label",HOME.name);
+    he.innerHTML='<i></i><span><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 3.2 2.5 11.4h2.7V20h5.1v-5.4h3.4V20h5.1v-8.6h2.7z"/></svg></span><b></b>';he.lastChild.textContent=HOME.name;
+    hm={el:he,ll:[HOME.lon,HOME.lat],h:44,b:he.lastChild};
+    he.onclick=function(e){e.stopPropagation();homePop()};
+    new maplibregl.Marker({element:he,anchor:"bottom",opacityWhenCovered:"1"}).setLngLat([HOME.lon,HOME.lat]).addTo(map)}
+}catch(e){
+  map=null;
+  $("#map").className="nogl";$("#map").innerHTML='<p>'+esc(T.nogl)+'<br><a href="map-flat.html">'+esc(T.flatlink)+'</a></p>';
+  $("#tools").hidden=true;$("#pad").hidden=true;$("#tme").hidden=true;
+}
+function go(o){if(!map)return;if(calm)map.jumpTo(o);else map.easeTo(Object.assign({duration:700},o))}
+
+/* ---------- 現在地（押したときだけ。位置はこの端末の中だけで使い、どこにも送らない） ---------- */
+var me=null,meMk=null,watch=null,firstFix=false;
+function km(a,b){var r=Math.PI/180,dl=(b[1]-a[1])*r,dn=(b[0]-a[0])*r,x=Math.sin(dl/2)*Math.sin(dl/2)+Math.cos(a[1]*r)*Math.cos(b[1]*r)*Math.sin(dn/2)*Math.sin(dn/2);return 12742*Math.asin(Math.sqrt(x))}
+function circle(c,m){var pts=[],k=m/111320;for(var i=0;i<=40;i++){var a=i/40*2*Math.PI;pts.push([c[0]+k*Math.cos(a)/Math.cos(c[1]*Math.PI/180),c[1]+k*Math.sin(a)])}return pts}
+function say(n,t){$("#capn").textContent=n;$("#capt").textContent=t||"";$("#cap").hidden=false;clearTimeout(say.t);say.t=setTimeout(function(){if(ti<0)$("#cap").hidden=true},5000)}
+function meOff(){if(watch!==null)navigator.geolocation.clearWatch(watch);watch=null;me=null;firstFix=false;
+  if(meMk){meMk.remove();meMk=null}if(map&&ready)map.getSource("me").setData({type:"FeatureCollection",features:[]});
+  $("#tme").setAttribute("aria-pressed",false);$("#tme span").textContent=T.locate;render()}
+function meOn(){
+  if(!navigator.geolocation){say(T.locate,T.locFail);return}
+  $("#tme").setAttribute("aria-pressed",true);$("#tme span").textContent=T.locOff;say(T.locate,T.locating);
+  watch=navigator.geolocation.watchPosition(function(p){
+    var c=[p.coords.longitude,p.coords.latitude],was=!!me;me=c;
+    if(!meMk){var el=document.createElement("div");el.className="me";el.setAttribute("aria-label",T.meHere);meMk=new maplibregl.Marker({element:el}).setLngLat(c).addTo(map)}else meMk.setLngLat(c);
+    if(ready)map.getSource("me").setData({type:"FeatureCollection",features:[{type:"Feature",properties:{k:"acc"},geometry:{type:"Polygon",coordinates:[circle(c,Math.min(p.coords.accuracy||30,300))]}}]});
+    if(!firstFix){firstFix=true;
+      if(km(c,[139.6195,35.1415])>12)say(T.locate,T.locFar);
+      else{$("#cap").hidden=true;go({center:c,zoom:Math.max(map.getZoom(),16.5),duration:1000})}}
+    if(!was||render.lastSort!==sortKey())render();else updDist()},
+    function(err){meOff();say(T.locate,err&&err.code===1?T.locDenied:T.locFail)},
+    {enableHighAccuracy:true,maximumAge:5000,timeout:20000})}
+function walkMin(d){return Math.max(1,Math.ceil(d*1300/80))}  /* 直線×1.3、分速80m。目安 */
+function distTxt(d){var m=d*1000;return T.fromHere+" "+(m<1000?Math.round(m/10)*10+" m":(Math.round(m/100)/10)+" km")+"・"+fmt(T.walk,walkMin(d))}
+function sortKey(){return me?"near":"list"}
+function updDist(){if(!me)return;document.querySelectorAll(".item").forEach(function(el){var d=D.filter(function(x){return x.id===el.dataset.id})[0];var s=el.querySelector(".dist");if(d&&s&&d.lat)s.textContent=distTxt(km(me,[d.lon,d.lat]))})}
+
+function visible(){var r=D.filter(function(d){return (st.cat==="all"||d.cat===st.cat)&&(!st.sc||(d.w||[]).indexOf(st.sc)>=0)});
+  if(me)r=r.slice().sort(function(a,b){return (a.lat?km(me,[a.lon,a.lat]):1e9)-(b.lat?km(me,[b.lon,b.lat]):1e9)});return r}
+function col(d){return COL[d.cat]||"#4F6070"}
+function popHtml(d,n){return '<b>'+n+'. '+esc(d.name)+'</b><br><small style="color:var(--mute)">'+esc(T.catName[d.cat]||"")+(me&&d.lat?"・"+esc(distTxt(km(me,[d.lon,d.lat]))):"")+'</small>'+(d.r?'<br>'+hs(d.r,d.rm):'')+(d.c?'<br><span class="pq">'+esc(d.c)+'</span>':'')+(d.note?'<br>'+esc(d.note):'')}
+function shut(){if(pp){pp.remove();pp=null}}
+function off(h){var u=[0,-h-4],d=[0,8];return {bottom:u,"bottom-left":u,"bottom-right":u,top:d,"top-left":d,"top-right":d,left:[18,-h/2],right:[-18,-h/2]}}
+function show(o,html){shut();pp=new maplibregl.Popup({offset:off(37),focusAfterOpen:false}).setLngLat(o).setHTML(html).addTo(map)}
+function homePop(){shut();pp=new maplibregl.Popup({offset:off(44),focusAfterOpen:false}).setLngLat([HOME.lon,HOME.lat]).setHTML("<b>"+esc(HOME.name)+"</b><br>"+esc(T.homeHere)).addTo(map)}
+function focus(d,n){go({center:[d.lon,d.lat],zoom:Math.max(map.getZoom(),17)});show([d.lon,d.lat],popHtml(d,n))}
+
+/* ピン：画面上で近いものは白い丸にまとめる。押すと広がる。広がりきらないときは店名の一覧 */
+function place(force){
+  if(!map)return;
+  var rows=visible(),gs=[],R=map.getZoom()>=16?24:34;
+  rows.forEach(function(d,i){if(!(d.lat&&d.lon))return;
+    var p=map.project([d.lon,d.lat]),g=null;
+    for(var k=0;k<gs.length;k++){var dx=gs[k].x-p.x,dy=gs[k].y-p.y;if(dx*dx+dy*dy<R*R){g=gs[k];break}}
+    if(g)g.m.push({d:d,n:i+1});else gs.push({x:p.x,y:p.y,m:[{d:d,n:i+1}]})});
+  var s=gs.map(function(g){return g.m.map(function(m){return m.n+":"+m.d.id}).join("+")}).join("|");
+  if(!force&&s===sig){labels();return}
+  sig=s;pins.forEach(function(m){m.remove()});pins=[];marks=[];
+  gs.forEach(function(g){
+    var el=document.createElement("button");el.type="button";
+    if(g.m.length===1){var d=g.m[0].d,n=g.m[0].n;
+      el.className="pin";el.innerHTML="<i></i><span></span><b></b>";el.firstChild.style.background=col(d);el.children[1].style.color="#fff";el.children[1].textContent=n;el.lastChild.textContent=d.name;el.setAttribute("aria-label",n+" "+d.name+"（"+(T.catName[d.cat]||"")+"）");
+      marks.push({el:el,ll:[d.lon,d.lat],h:37,b:el.lastChild});
+      el.onclick=function(e){e.stopPropagation();go({center:[d.lon,d.lat]});show([d.lon,d.lat],popHtml(d,n))};
+      pins.push(new maplibregl.Marker({element:el,anchor:"bottom",opacityWhenCovered:"1"}).setLngLat([d.lon,d.lat]).addTo(map));
+    }else{
+      var b=new maplibregl.LngLatBounds();g.m.forEach(function(m){b.extend([m.d.lon,m.d.lat])});
+      el.className="pin cl";el.innerHTML="<i></i><span></span>";el.lastChild.innerHTML=g.m.length+(T.cl?"<small>"+esc(T.cl)+"</small>":"");el.setAttribute("aria-label",fmt(T.clAria,g.m.length));
+      var bc=b.getCenter();marks.push({el:el,ll:[bc.lng,bc.lat],h:46,b:null});
+      el.onclick=function(e){e.stopPropagation();
+        if(map.getZoom()<18.5){shut();map.fitBounds(b,{padding:70,maxZoom:19,bearing:map.getBearing(),pitch:map.getPitch(),duration:calm?0:700});return}
+        var wd=document.createElement("div");wd.innerHTML="<b>"+esc(fmt(T.same,g.m.length))+"</b>";
+        var l=document.createElement("div");l.className="pl";
+        g.m.forEach(function(m){var x=document.createElement("button");x.type="button";x.textContent=m.n+". "+m.d.name;x.onclick=function(){go({center:[m.d.lon,m.d.lat]});show([m.d.lon,m.d.lat],popHtml(m.d,m.n))};l.appendChild(x)});
+        wd.appendChild(l);shut();pp=new maplibregl.Popup({offset:off(46),focusAfterOpen:false}).setLngLat(b.getCenter()).setDOMContent(wd).addTo(map)};
+      pins.push(new maplibregl.Marker({element:el,anchor:"bottom",opacityWhenCovered:"1"}).setLngLat(b.getCenter()).addTo(map));
+    }});
+  labels();
+}
+function labels(){
+  if(!map)return;
+  var on=map.getZoom()>=15.6,all=(hm?[hm]:[]).concat(marks),used=[];
+  all.forEach(function(k){var p=map.project(k.ll);k.x=p.x;k.y=p.y;used.push([p.x-17,p.y-k.h,p.x+17,p.y])});
+  all.forEach(function(k){if(!k.b)return;
+    if(!on&&k!==hm){k.el.classList.remove("lab");return}
+    k.el.classList.add("lab");
+    var r=[k.x+17,k.y-k.h+2,k.x+22+k.b.offsetWidth,k.y-k.h+28],hit=false;
+    for(var i=0;i<used.length;i++){var u=used[i];if(r[0]<u[2]&&r[2]>u[0]&&r[1]<u[3]&&r[3]>u[1]){hit=true;break}}
+    if(hit)k.el.classList.remove("lab");else used.push(r)});
+}
+function fit(first,anim){
+  if(!map)return;
+  var pts=visible().filter(function(d){return d.lat&&d.lon});
+  if(!pts.length)return;
+  var b=new maplibregl.LngLatBounds();pts.forEach(function(d){b.extend([d.lon,d.lat])});
+  if(HOME)b.extend([HOME.lon,HOME.lat]);
+  map.fitBounds(b,{padding:{top:70,bottom:90,left:50,right:50},maxZoom:16.5,bearing:first?0:map.getBearing(),pitch:first?(flat?0:55):map.getPitch(),duration:((first&&!anim)||calm)?0:700});
+}
+
+function render(first){
+  var rows=visible(),html="";render.lastSort=sortKey();
   rows.forEach(function(d,i){var n=i+1;
-    if(d.lat&&d.lon){var ic=L.divIcon({className:"",html:'<div class="pin" style="background:'+d.color+';color:'+d.fg+'">'+n+'</div>',iconSize:[30,30],iconAnchor:[15,15],popupAnchor:[0,-14]});
-      var m=L.marker([d.lat,d.lon],{icon:ic,title:d.name}).bindPopup(pop(d,n));markers[d.id]=m;group.addLayer(m);pts.push([d.lat,d.lon])}
-    html+='<article class="item" data-id="'+d.id+'"><div class="n" style="background:'+d.color+';color:'+d.fg+'">'+n+'</div><div>'
-     +(d.img?'<img class="ph" src="'+esc(d.img)+'" alt="" loading="lazy" width="480" height="300">':'<div class="ph noph" aria-hidden="true">'+T.nophoto+'</div>')
+    html+='<article class="item" data-id="'+esc(d.id)+'"><div class="n" style="background:'+col(d)+';color:#fff">'+n+'</div><div>'
+     +(d.img?'<img class="ph" src="'+esc(d.img)+'" alt="" loading="lazy" width="480" height="300">':'<div class="ph noph" aria-hidden="true">'+esc(T.nophoto)+'</div>')
      +'<h3>'+esc(d.name)+'</h3>'
-     +'<div class="tags">'+(d.area?'<span class="tag">'+esc(d.area)+'</span>':'')+(d.w||[]).map(function(w){return '<span class="tag">'+esc(w)+'</span>'}).join('')+(d.draft?'<span class="tag chk">'+T.draft+'</span>':'')+'</div>'
+     +'<div class="tags"><span class="tag">'+esc(T.catName[d.cat]||"")+'</span>'+(d.area?'<span class="tag">'+esc(d.area)+'</span>':'')+(d.w||[]).map(function(x){return '<span class="tag">'+esc(x)+'</span>'}).join('')+(d.draft?'<span class="tag chk">'+esc(T.draft)+'</span>':'')+'</div>'
      +(function(){var s=window.shopStatus?shopStatus(d.sc,d.cl,d.cl!==null):null;return s?'<p class="ost" data-s="'+s.s+'">'+esc(s.t)+'</p>':''})()
-     +(d.r?'<div class="hearts" aria-label="'+T.rating+' '+d.r+'/'+d.rm+'">'+hs(d.r,d.rm)+'</div>':'')
+     +(me&&d.lat?'<span class="dist">'+esc(distTxt(km(me,[d.lon,d.lat])))+'</span>':'<span class="dist" hidden></span>')
+     +(d.r?'<div class="hearts" aria-label="'+esc(T.rating)+' '+d.r+'/'+d.rm+'">'+hs(d.r,d.rm)+'</div>':'')
      +(d.c?'<p class="quote"><b>'+esc(T.quote)+'</b>'+esc(d.c)+'</p>':'')
-     +'<p class="note">'+esc(d.note)+'</p>'
-     +'<p class="meta">'+esc([d.hours,d.closed].filter(Boolean).join(" ／ "))+'</p>'
-     +'<p class="acts">'+(d.lat?'<a href="https://www.google.com/maps/search/?api=1&amp;query='+d.lat+','+d.lon+'" target="_blank" rel="noopener">'+T.gmap+'</a>':'')+(d.url?'<a href="'+esc(d.url)+'" target="_blank" rel="noopener">'+T.info+'</a>':'')+'</p>'
+     +(d.note?'<p class="note">'+esc(d.note)+'</p>':'')
+     +'<p class="meta">'+esc([d.hours,d.closed].filter(Boolean).join(T.sep))+'</p>'
+     +'<p class="acts">'+(d.lat?'<a href="https://www.google.com/maps/search/?api=1&amp;query='+d.lat+','+d.lon+'" target="_blank" rel="noopener">'+esc(T.gmap)+'</a>':'')+(d.url?'<a href="'+esc(d.url)+'" target="_blank" rel="noopener">'+esc(T.info)+'</a>':'')+'</p>'
      +'</div></article>'});
-  $("#list").innerHTML=rows.length?html:'<div class="empty">'+T.empty+'</div>';
-  $("#lc").textContent=rows.length+T.count;
-  if(pts.length)map.fitBounds(L.latLngBounds(pts).pad(.15));else map.setView([35.1415,139.6195],15);
-  document.querySelectorAll(".item").forEach(function(el){el.onclick=function(e){if(e.target.closest("a"))return;var m=markers[el.dataset.id];if(m){window.scrollTo({top:$("#map").getBoundingClientRect().top+window.scrollY-12});group.zoomToShowLayer(m,function(){map.setView(m.getLatLng(),Math.max(map.getZoom(),17));m.openPopup()})}}});
+  $("#list").innerHTML=rows.length?html:'<div class="empty">'+esc(T.empty)+'</div>';
+  $("#lc").textContent=rows.length+T.count+(me?"・"+T.nearSort:"");
+  if(map){shut();if(!(first&&INTRO)&&!me)fit(first);place(true)}
+  document.querySelectorAll(".item").forEach(function(el){el.onclick=function(e){if(e.target.closest("a")||!map)return;
+    var i=-1;rows.forEach(function(d,k){if(d.id===el.dataset.id)i=k});var d=rows[i];
+    if(d&&d.lat&&d.lon){window.scrollTo({top:$("#card").getBoundingClientRect().top+window.scrollY-12});focus(d,i+1)}}});
 }
 function chips(){
   var c=$("#cats");c.innerHTML="";
   CATS.forEach(function(x){var n=x[0]==="all"?D.length:D.filter(function(d){return d.cat===x[0]}).length;if(x[0]!=="all"&&!n)return;
-    var b=document.createElement("button");b.type="button";b.className="chip";b.setAttribute("aria-pressed",st.cat===x[0]);b.innerHTML=esc(x[1])+'<small>'+n+'</small>';
+    var b=document.createElement("button");b.type="button";b.setAttribute("aria-pressed",st.cat===x[0]);b.innerHTML=esc(x[1])+'<small>'+n+'</small>';
     b.onclick=function(){st.cat=x[0];chips();render()};c.appendChild(b)});
   var sc=[];D.forEach(function(d){(d.w||[]).forEach(function(w){if(sc.indexOf(w)<0)sc.push(w)})});
   var s=$("#scs");s.innerHTML="";s.hidden=!sc.length;
   sc.forEach(function(w){var b=document.createElement("button");b.type="button";b.className="chip";b.setAttribute("aria-pressed",st.sc===w);b.textContent=w;
     b.onclick=function(){st.sc=(st.sc===w?"":w);chips();render()};s.appendChild(b)});
 }
-chips();render();
+/* 凡例（色だけで意味を伝えない：リストとポップアップにもジャンル名を出す） */
+(function(){var h="",seen={};D.forEach(function(d){if(!seen[d.cat]){seen[d.cat]=1;h+='<span><i style="background:'+col(d)+'"></i>'+esc(T.catName[d.cat]||d.cat)+'</span>'}});$("#legend").innerHTML=h})();
+
+/* 操作ボタンの文字 */
+$("#tme span").textContent=T.locate;$("#tme").title=T.privacy;
+[].forEach.call(document.querySelectorAll("#view button"),function(b){b.textContent=T.view[b.dataset.v]});
+$("#view").setAttribute("aria-label",T.viewlbl);$("#tools").setAttribute("aria-label",T.toolslbl);$("#pad").setAttribute("aria-label",T.padlbl);
+$(".pad .u").setAttribute("aria-label",T.tilt);$(".pad .d").setAttribute("aria-label",T.up);$(".pad .l").setAttribute("aria-label",T.left);$(".pad .r").setAttribute("aria-label",T.right);
+$("#ttr").textContent=T.tour;$("#thm").textContent=HOME?fmt(T.backHome,HOME.name):T.home;$("#tbg").textContent=T.big;$("#tdr").textContent=T.drag;$("#tdr").title=T.dragTitle;
+todLabel();$("#card").classList.toggle("night",phase==="night");
+
+if(map){
+  function vis(l,on){map.setLayoutProperty(l,"visibility",on?"visible":"none")}
+  function mode(){vis("photo",photo);BASE.forEach(function(l){vis(l,!photo)});vis("bld2d",!photo&&flat);vis("bld",!flat);vis("st",!flat);vis("lb_st",!flat)}
+  function setView(v){if(!ready)return;var wasFlat=flat;flat=v==="flat";photo=v==="photo";
+    [].forEach.call(document.querySelectorAll("#view button"),function(b){b.setAttribute("aria-pressed",b.dataset.v===v)});
+    map.setTerrain(flat?null:{source:"dem",exaggeration:EXAG});mode();
+    if(flat!==wasFlat)go({pitch:flat?0:55,bearing:flat?0:map.getBearing()});
+    $("#pad").hidden=flat}
+  [].forEach.call(document.querySelectorAll("#view button"),function(b){b.setAttribute("aria-pressed",b.dataset.v==="3d");b.onclick=function(){setView(b.dataset.v)}});
+  /* 時刻の色：自動 → 朝 → 昼 → 夕 → 夜 → 自動 */
+  $("#ttod").onclick=function(){var o=["auto","morning","day","evening","night"];tod=o[(o.indexOf(tod)+1)%o.length];try{localStorage.setItem("hanaTod",tod)}catch(e){}applyPal()};
+  setInterval(function(){if(tod==="auto"&&phaseNow()!==phase)applyPal()},5*60e3);
+  $("#tme").onclick=function(){if(watch!==null)meOff();else meOn()};
+  function nudge(b){var o={duration:250,easing:function(t){return t}};
+    if(b.dataset.b)o.bearing=map.getBearing()+(+b.dataset.b);
+    if(b.dataset.p)o.pitch=Math.max(0,Math.min(75,map.getPitch()+(+b.dataset.p)));
+    if(calm)map.jumpTo(o);else map.easeTo(o)}
+  [].forEach.call(document.querySelectorAll("#pad button"),function(b){var t=null;
+    function stop(){if(t){clearInterval(t);t=null}}
+    b.addEventListener("pointerdown",function(e){e.preventDefault();stop();nudge(b);t=setInterval(function(){nudge(b)},260)});
+    ["pointerup","pointerleave","pointercancel"].forEach(function(k){b.addEventListener(k,stop)});
+    b.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();nudge(b)}});
+    b.addEventListener("contextmenu",function(e){e.preventDefault()})});
+  /* 「ドラッグで回す」：マウスのときだけ出す（スマホは指2本で回せる） */
+  var rot=false,dr=null,cc=map.getCanvasContainer();
+  if(fine)$("#tdr").hidden=false;
+  function syncRot(){$("#map").classList.toggle("rot",rot);if(rot)map.dragPan.disable();else map.dragPan.enable()}
+  $("#tdr").onclick=function(){rot=this.getAttribute("aria-pressed")!=="true";this.setAttribute("aria-pressed",rot);syncRot()};
+  cc.addEventListener("pointerdown",function(e){
+    if(!rot||e.button!==0||e.ctrlKey||e.pointerType==="touch"||!e.isPrimary)return;
+    if(e.target.closest&&e.target.closest(".pin,.maplibregl-popup"))return;
+    dr={x:e.clientX,y:e.clientY,b:map.getBearing(),p:map.getPitch(),id:e.pointerId};map.stop();try{cc.setPointerCapture(e.pointerId)}catch(_){}});
+  cc.addEventListener("pointermove",function(e){if(!dr||e.pointerId!==dr.id)return;
+    map.jumpTo({bearing:dr.b+(e.clientX-dr.x)*.5,pitch:Math.max(0,Math.min(75,dr.p-(e.clientY-dr.y)*.4))})});
+  ["pointerup","pointercancel"].forEach(function(k){cc.addEventListener(k,function(e){if(dr&&e.pointerId===dr.id)dr=null})});
+  if(HOME)$("#thm").onclick=function(){go({center:[HOME.lon,HOME.lat],zoom:16.5,bearing:0,pitch:flat?0:55,duration:900});homePop()};
+  else $("#thm").onclick=function(){shut();fit(true,true)};
+  $("#tbg").onclick=function(){var on=this.getAttribute("aria-pressed")!=="true";this.setAttribute("aria-pressed",on);this.textContent=on?T.close:T.big;
+    $("#card").classList.toggle("big",on);document.body.classList.toggle("big",on);
+    if(on)map.cooperativeGestures.disable();else map.cooperativeGestures.enable();
+    map.resize()};
+  /* 「ひとめぐり」：港から城ヶ島の灯台までを順に飛ぶ。場所は OpenStreetMap と structures.json、数字は Wikipedia で確認 */
+  var TOUR=[[139.61885,35.14277,17.2,-30,62],[139.61637,35.14091,16.6,10,62],[139.62293,35.13842,15.7,100,68],[139.61113,35.13508,16.8,50,66],[139.62757,35.1302,16.8,-70,66]].map(function(a,i){return {n:T.tourStops[i][0],t:T.tourStops[i][1],c:[a[0],a[1]],z:a[2],b:a[3],p:a[4]}});
+  if(HOME)TOUR.unshift({n:HOME.name,t:T.tourStart,c:[HOME.lon,HOME.lat],z:17.2,b:-20,p:60});
+  var tq=[];
+  function tstop(){if(ti<0)return;ti=-1;tq.forEach(clearTimeout);tq=[];map.stop();$("#cap").hidden=true;$("#ttr").setAttribute("aria-pressed",false);$("#ttr").textContent=T.tour}
+  function tstep(i){
+    if(i>=TOUR.length){tstop();fit(true,true);return}
+    ti=i;var s=TOUR[i],o={center:s.c,zoom:s.z,bearing:s.b,pitch:flat?0:s.p};
+    $("#capn").textContent=(i+1)+" / "+TOUR.length+"　"+s.n;$("#capt").textContent=s.t;$("#cap").hidden=false;shut();
+    if(calm){map.jumpTo(o);tq.push(setTimeout(function(){tstep(i+1)},4500));return}
+    map.flyTo(Object.assign({duration:3800,essential:true},o));
+    tq.push(setTimeout(function(){map.easeTo({bearing:s.b+35,duration:4000,easing:function(t){return t}})},3900));
+    tq.push(setTimeout(function(){tstep(i+1)},8000))}
+  $("#ttr").onclick=function(){if(ti>=0){tstop();return}this.setAttribute("aria-pressed",true);this.textContent=T.tourStop;tstep(0)};
+  $("#card").addEventListener("pointerdown",function(){if(landing)map.stop()},true);
+  $("#card").addEventListener("pointerdown",function(e){if(ti>=0&&!(e.target.closest&&e.target.closest("#ttr")))tstop()},true);
+  cc.addEventListener("wheel",function(){tstop()},{passive:true});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&$("#card").classList.contains("big"))$("#tbg").click()});
+}
+var ti=-1;
+chips();render(true);
 })();
 </script><script>(function(){try{var L=document.documentElement.lang;
 document.querySelectorAll('.lang a').forEach(function(a){a.addEventListener('click',function(){a.href=a.href.split('#')[0]+location.search+location.hash;try{localStorage.setItem('lang',a.hreflang)}catch(e){}})});

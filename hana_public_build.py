@@ -12,7 +12,7 @@ HERE = pathlib.Path(__file__).parent
 OUT = HERE / "guide"
 KEEPER = "家守"  # 名前を出すなら "家守・華さん" に変える
 WD = "月火水木金土日"
-COLOR = {"食べる": "#0A5A8C", "買う": "#4F6070", "困ったとき": "#B8243A"}   # デザインシステム：海の青／墨／マグロの赤（困ったときだけ赤）
+COLOR = {"食べる": "#B4501A", "買う": "#0A5A8C", "困ったとき": "#4F6070"}   # 食べる＝柿（暖色・2026-11-14 ヤヌキ判断）／買う＝海の青／暮らし＝墨。マグロの赤は地図に置かない
 FG = {"食べる": "#fff", "買う": "#fff", "困ったとき": "#fff"}
 EXAG = 1  # 3D版の高さの強調（倍）。1＝実寸（2026-10-11 ヤヌキ指示）。ページの注記も連動する
 EXAGNOTE = "土地と建物の高さは実寸です。" if EXAG == 1 else f"土地と建物の高さは、わかりやすいように{EXAG}倍に強調しています。"
@@ -25,6 +25,7 @@ _hm = HERE / "home.local.json"
 _h = json.load(open(_hm)) if _hm.exists() else None
 HOME_GUEST = json.dumps({"name": "三浦A邸", "lat": round(_h["lat"], 5), "lon": round(_h["lon"], 5)}, ensure_ascii=False) if _h else None
 HOMENOTE_GUEST = "赤い家のピンが三浦A邸です。"
+EXAGNOTE_EN = "Land and building heights are true to scale." if EXAG == 1 else f"Heights are exaggerated {EXAG}x."
 IMAGES = json.load(open(HERE / "places.json", encoding="utf-8"))["images"]
 HIDE_FLAG = ("今はおすすめしない", "閉店・移転した")
 
@@ -38,18 +39,60 @@ TXT = {
            "T_BYCAT": "ジャンルで絞り込む", "T_BYSCENE": "シーンで絞り込む", "T_MAPLABEL": "おすすめのお店の地図", "T_MAP": "地図",
            "T_MAPFOOT": "番号はリストと同じです。白い丸の数字は、重なっているお店の数です（押すと広がります）。", "T_LIST": "お店リスト",
            "T_FOOT": "営業時間・定休日は変わることがあります。お出かけの前に、お店の情報もご確認ください。地図は",
+           "T_LEDE3": "三崎・城ヶ島の、ごはんと買い物のお店です。土地の高さと建物が立ち上がる地図で、時刻に合わせて色が変わります。「現在地」を押すと、近い順に並びます。",
+           "T_MAPFOOT3": "番号はリストと同じです。白いピンの「2軒」などは、近くのお店をまとめたものです（押すと広がります）。スマホでは指2本で動かし、回せます。左下の矢印でも向きとかたむきを変えられます。「現在地」の位置は、この端末の中だけで使い、どこにも送りません。建物の高さは、記録のないものは一律5mの目安です。",
+           "T_FOOT3": "営業時間・定休日は変わることがあります。お出かけの前に、お店の情報もご確認ください。<br>地図・建物・構造物の形は © <a href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\" rel=\"noopener\">OpenStreetMap</a> contributors（タイルは <a href=\"https://openfreemap.org\" target=\"_blank\" rel=\"noopener\">OpenFreeMap</a> © OpenMapTiles）。写真と標高は <a href=\"https://maps.gsi.go.jp/development/ichiran.html\" target=\"_blank\" rel=\"noopener\">国土地理院（地理院タイル）</a>。",
            "cats": [["all", "すべて"], ["食べる", "食べる"], ["買う", "買う"], ["困ったとき", "暮らし"]],
            "js": {"nophoto": "写真準備中", "draft": "確認中", "rating": f"{KEEPER}の評価", "quote": f"{KEEPER}のひとこと", "gmap": "Googleマップで開く",
-                  "info": "お店の情報", "empty": "このジャンルのお店は、まだありません。", "count": "軒"},
+                  "info": "お店の情報", "empty": "このジャンルのお店は、まだありません。", "count": "軒", **{
+                  "sep": " ／ ", "namekey": "name:ja", "stkey": "name", "attrGsi": "写真・標高：国土地理院",
+                  "catName": {"食べる": "食べる", "買う": "買う", "困ったとき": "暮らし"},
+                  "view": {"3d": "3D", "flat": "平面", "photo": "写真"}, "viewlbl": "地図の見え方", "toolslbl": "地図の操作",
+                  "tod": {"morning": "朝", "day": "昼", "evening": "夕", "night": "夜"}, "todBtn": "色：{p}", "todAuto": "（自動）", "todAria": "時刻の色を変える",
+                  "locate": "現在地", "locOff": "現在地を止める", "locating": "現在地を探しています…",
+                  "locDenied": "位置の利用が許可されていません。端末の設定で、このサイトに位置の利用を許可してください。",
+                  "locFail": "現在地が分かりませんでした。外で、もう一度押してください。", "locFar": "今いる所が三崎から離れているので、地図は動かしません。",
+                  "privacy": "位置は、この端末の中だけで使います。どこにも送りません。", "meHere": "現在地",
+                  "fromHere": "ここから", "walk": "徒歩約{n}分", "nearSort": "近い順",
+                  "tour": "ひとめぐり", "tourStop": "止める", "tourStart": "ここから出発します", "home": "最初に戻る", "backHome": "{n}へ戻る",
+                  "big": "大きく見る", "close": "とじる", "drag": "ドラッグで回す", "dragTitle": "オンにすると、ふつうのドラッグで向きとかたむきが変わります",
+                  "padlbl": "地図の向きとかたむき", "tilt": "かたむける", "up": "起こす（真上から見る）", "left": "左に回す", "right": "右に回す",
+                  "cl": "軒", "clAria": "{n}軒のお店。押すと広がります", "same": "{n}軒が同じ場所にあります", "homeHere": "ここが宿です",
+                  "nogl": "この端末では 3D の地図を表示できませんでした。", "flatlink": "平面の地図で見る",
+                  "tourStops": [["海南神社", "三浦の総鎮守"], ["三崎港・うらり", "うらりマルシェ（さかな館・やさい館）"], ["城ヶ島大橋", "長さ575m。海面から16〜23.5mの高さ"],
+                                ["城ヶ島灯台", "島の西の端。塔の高さ11.5m"], ["安房埼灯台", "島の東の端、城ヶ島公園の中。高さ16m"]],
+                  "gl": {"CooperativeGesturesHandler.WindowsHelpText": "Ctrl を押しながらスクロールで拡大できます", "CooperativeGesturesHandler.MacHelpText": "⌘ を押しながらスクロールで拡大できます",
+                         "CooperativeGesturesHandler.MobileHelpText": "指2本で地図を動かせます", "NavigationControl.ZoomIn": "拡大", "NavigationControl.ZoomOut": "縮小", "NavigationControl.ResetBearing": "北を上に戻す"}}},
            "draft": '<p class="draft">下書きです。確認中のお店を含みます。営業時間などは、変わっていることがあります。</p>'},
     "en": {"T_TITLE": "Miura A-tei Recommended Map", "T_EYEBROW": "MIURA A-TEI", "T_H1": "<span>The house manager's</span> <span>recommended map</span>",
            "T_LEDE": "Places to eat and shop in Misaki and Jogashima. Tap a shop to see where it is and the house manager's comment.",
            "T_BYCAT": "Filter by type", "T_BYSCENE": "Filter by occasion", "T_MAPLABEL": "Map of recommended shops", "T_MAP": "Map",
            "T_MAPFOOT": "Numbers match the list. Numbers in white circles show how many shops overlap there (tap to expand).", "T_LIST": "Shops",
            "T_FOOT": "Hours and days off can change; check the shop's information before you go. Comments are translated from Japanese. Map",
+           "T_LEDE3": "Places to eat and shop in Misaki and Jogashima, on a 3D map whose colors follow the time of day. Tap “My location” to sort the shops by distance.",
+           "T_MAPFOOT3": "Numbers match the list. White pins with a number group nearby shops (tap to expand). On a phone, use two fingers to move and rotate the map; the arrows at the bottom left also turn and tilt it. Your location is used only on this device and never sent anywhere. Buildings without height data are drawn 5 m tall.",
+           "T_FOOT3": "Hours and days off can change; check the shop's information before you go. Comments are translated from Japanese.<br>Map, buildings and structures © <a href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\" rel=\"noopener\">OpenStreetMap</a> contributors (tiles: <a href=\"https://openfreemap.org\" target=\"_blank\" rel=\"noopener\">OpenFreeMap</a> © OpenMapTiles). Aerial photos and elevation: <a href=\"https://maps.gsi.go.jp/development/ichiran.html\" target=\"_blank\" rel=\"noopener\">GSI Japan</a>.",
            "cats": [["all", "All"], ["食べる", "Eat"], ["買う", "Shop"], ["困ったとき", "Daily needs"]],
            "js": {"nophoto": "Photo coming soon", "draft": "Unconfirmed", "rating": "House manager's rating", "quote": "From the house manager", "gmap": "Open in Google Maps",
-                  "info": "Shop info", "empty": "No shops of this type yet.", "count": " shops"},
+                  "info": "Shop info", "empty": "No shops of this type yet.", "count": " shops", **{
+                  "sep": " / ", "namekey": "name:en", "stkey": "name_en", "attrGsi": "Photo & elevation: GSI Japan",
+                  "catName": {"食べる": "Eat", "買う": "Shop", "困ったとき": "Daily needs"},
+                  "view": {"3d": "3D", "flat": "Flat", "photo": "Photo"}, "viewlbl": "Map view", "toolslbl": "Map controls",
+                  "tod": {"morning": "Morning", "day": "Day", "evening": "Evening", "night": "Night"}, "todBtn": "Colors: {p}", "todAuto": " (auto)", "todAria": "Change the time-of-day colors",
+                  "locate": "My location", "locOff": "Stop location", "locating": "Finding your location…",
+                  "locDenied": "Location access is off. Allow this site to use your location in your phone's settings.",
+                  "locFail": "Couldn't find your location. Try again outdoors.", "locFar": "You're far from Misaki, so the map stays where it is.",
+                  "privacy": "Your location is used only on this device. It is never sent anywhere.", "meHere": "Your location",
+                  "fromHere": "From here", "walk": "about {n} min walk", "nearSort": "nearest first",
+                  "tour": "Fly-through", "tourStop": "Stop", "tourStart": "Starting here", "home": "Reset view", "backHome": "Back to {n}",
+                  "big": "Full screen", "close": "Close", "drag": "Drag to rotate", "dragTitle": "When on, dragging changes the direction and tilt",
+                  "padlbl": "Map direction and tilt", "tilt": "Tilt", "up": "Look straight down", "left": "Rotate left", "right": "Rotate right",
+                  "cl": "", "clAria": "{n} shops here. Tap to expand", "same": "{n} shops at the same spot", "homeHere": "This is the house",
+                  "nogl": "This device can't show the 3D map.", "flatlink": "Open the flat map",
+                  "tourStops": [["Kainan Shrine", "Miura's main guardian shrine"], ["Misaki Port / Urari", "Urari market (fish & vegetables)"], ["Jogashima Bridge", "575 m long, 16–23.5 m above the sea"],
+                                ["Jogashima Lighthouse", "West tip of the island. Tower 11.5 m"], ["Awasaki Lighthouse", "East tip, in Jogashima Park. 16 m tall"]],
+                  "gl": {"CooperativeGesturesHandler.WindowsHelpText": "Use Ctrl + scroll to zoom the map", "CooperativeGesturesHandler.MacHelpText": "Use ⌘ + scroll to zoom the map",
+                         "CooperativeGesturesHandler.MobileHelpText": "Use two fingers to move the map", "NavigationControl.ZoomIn": "Zoom in", "NavigationControl.ZoomOut": "Zoom out", "NavigationControl.ResetBearing": "Reset north"}}},
            "draft": '<p class="draft">Draft. Includes shops not yet confirmed. Hours and other details may have changed.</p>'},
 }
 LANG_CSS = """.lang{float:right;display:inline-grid;grid-template-columns:1fr 1fr;gap:2px;padding:3px;margin:0 0 10px 8px;background:var(--tint);border:1px solid var(--hair);border-radius:999px}
@@ -102,13 +145,14 @@ def render(tpl, data, draft, flat="", guest=False, lang="ja", page="map-preview.
     note = HOMENOTE_GUEST if guest and HOME_GUEST else ""
     return (tpl.replace("%%DATA%%", json.dumps(data, ensure_ascii=False)).replace("%%KEEPER%%", KEEPER)
                .replace("%%DRAFT%%", banner).replace("%%ROBOTS%%", robots)
-               .replace("%%FLAT%%", flat).replace("%%EXAGNOTE%%", EXAGNOTE).replace("%%EXAG%%", str(EXAG)).replace("%%STRUCT%%", STRUCT)
+               .replace("%%FLAT%%", flat).replace("%%EXAGNOTE%%", EXAGNOTE if lang == "ja" else EXAGNOTE_EN).replace("%%EXAG%%", str(EXAG)).replace("%%STRUCT%%", STRUCT)
                .replace("%%HOME%%", home).replace("%%HOMENOTE%%", note)
                .replace("%%OPENJS%%", shop_hours.OPEN_JS).replace("%%STATUSCSS%%", shop_hours.STATUS_CSS)
                .replace("%%LANG%%", lang).replace("%%R%%", "../../" if lang == "en" else "../")
                .replace("%%T_CATS%%", json.dumps(X["cats"], ensure_ascii=False)).replace("%%T_JS%%", json.dumps(X["js"], ensure_ascii=False))
                .replace("%%LANGCSS%%", LANG_CSS).replace("%%LANGJS%%", LANG_JS).replace("%%LANGSWITCH%%", langswitch(lang, page))
                .replace("%%ALT%%", f'<link rel="alternate" hreflang="ja" href="{SITE}{page}"><link rel="alternate" hreflang="en" href="{SITE}en/{page}">')
+               .replace("%%T_LEDE3%%", X["T_LEDE3"]).replace("%%T_MAPFOOT3%%", X["T_MAPFOOT3"]).replace("%%T_FOOT3%%", X["T_FOOT3"])
                .replace("%%T_TITLE%%", X["T_TITLE"]).replace("%%T_EYEBROW%%", X["T_EYEBROW"]).replace("%%T_H1%%", X["T_H1"]).replace("%%T_LEDE%%", X["T_LEDE"])
                .replace("%%T_BYCAT%%", X["T_BYCAT"]).replace("%%T_BYSCENE%%", X["T_BYSCENE"]).replace("%%T_MAPLABEL%%", X["T_MAPLABEL"])
                .replace("%%T_MAPFOOT%%", X["T_MAPFOOT"]).replace("%%T_LIST%%", X["T_LIST"]).replace("%%T_FOOT%%", X["T_FOOT"]).replace("%%T_MAP%%", X["T_MAP"]))
@@ -119,28 +163,37 @@ def langswitch(lang, page):
     return (f'<nav class="lang" aria-label="Language / 言語"><a href="{ja}" hreflang="ja" lang="ja"{a if lang == "ja" else ""}>JP</a>'
             f'<a href="{en}" hreflang="en" lang="en"{a if lang == "en" else ""}>EN</a></nav>')
 
+REDIRECT = """<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="robots" content="noindex">
+<meta http-equiv="refresh" content="0; url={to}"><link rel="canonical" href="{to}"><title>おすすめマップ</title>
+<script>location.replace("{to}"+location.search+location.hash)</script></head>
+<body><p>おすすめマップは <a href="{to}">こちら</a> に移りました（3D と平面が1つのページになりました）。</p></body></html>
+"""
+
 def main():
+    # 2026-11-14 ヤヌキ判断：入口は 3D の地図1つ（map-preview.html）。平面・写真はページの中のボタンで切り替える。
+    # 平面（Leaflet）の map-flat.html は、3D を出せない端末のための予備。map3d-preview.html は map-preview.html へ移す
     doc = json.load(open(HERE / "spots.json"))
     tpl = (HERE / "hana_public.tpl.html").read_text(encoding="utf-8")
     tpl3 = (HERE / "hana_public3d.tpl.html").read_text(encoding="utf-8")
     OUT.mkdir(exist_ok=True)
-    pre = rows(doc, True)
-    (OUT / "map-preview.html").write_text(render(tpl, pre, True), encoding="utf-8")   # 日本語版
-    (OUT / "map3d-preview.html").write_text(render(tpl3, pre, True, "map-preview.html"), encoding="utf-8")
-    print(f"guide/map-preview.html・map3d-preview.html: {len(pre)}件（下書き・A邸の位置なし）")
     (OUT / "en").mkdir(exist_ok=True)
-    pre_en = rows(doc, True, "en")
-    (OUT / "en" / "map-preview.html").write_text(render(tpl, pre_en, True, lang="en"), encoding="utf-8")
-    print(f"guide/en/map-preview.html: {len(pre_en)}件（英語・下書き）")
+    for lang, d in (("ja", OUT), ("en", OUT / "en")):
+        pre = rows(doc, True, lang)
+        (d / "map-preview.html").write_text(render(tpl3, pre, True, "map-flat.html", lang=lang, page="map-preview.html"), encoding="utf-8")
+        (d / "map-flat.html").write_text(render(tpl, pre, True, lang=lang, page="map-flat.html"), encoding="utf-8")
+        print(f"guide/{'en/' if lang == 'en' else ''}map-preview.html（3D）・map-flat.html（予備の平面）: {len(pre)}件（下書き・A邸の位置なし）")
+    (OUT / "map3d-preview.html").write_text(REDIRECT.format(to="map-preview.html"), encoding="utf-8")
     if HOME_GUEST:
-        (HERE / "map3d-guest.src.html").write_text(render(tpl3, pre, True, "guide/map-preview.html", guest=True), encoding="utf-8")
+        (HERE / "map3d-guest.src.html").write_text(render(tpl3, rows(doc, True), True, "guide/map-flat.html", guest=True), encoding="utf-8")
         print("map3d-guest.src.html: A邸の位置つき（公開しない。合言葉をかけて出す元）")
     fin = rows(doc, False)
     if fin:
-        (OUT / "map.html").write_text(render(tpl, fin, False), encoding="utf-8")
-        (OUT / "map3d.html").write_text(render(tpl3, fin, False, "map.html"), encoding="utf-8")
-        (OUT / "en" / "map.html").write_text(render(tpl, rows(doc, False, "en"), False, lang="en", page="map.html"), encoding="utf-8")
-        print(f"guide/map.html・map3d.html: {len(fin)}件（◎のみ）")
+        for lang, d in (("ja", OUT), ("en", OUT / "en")):
+            f = rows(doc, False, lang)
+            (d / "map.html").write_text(render(tpl3, f, False, "map-flat-final.html", lang=lang, page="map.html"), encoding="utf-8")
+            (d / "map-flat-final.html").write_text(render(tpl, f, False, lang=lang, page="map-flat-final.html"), encoding="utf-8")
+        (OUT / "map3d.html").write_text(REDIRECT.format(to="map.html"), encoding="utf-8")
+        print(f"guide/map.html: {len(fin)}件（◎のみ）")
     else:
         print("guide/map.html: ◎が0件のため作りません（ヤヌキが◎にしたら作られます）")
 
