@@ -61,8 +61,10 @@ h1 span{display:inline-block}
 
 h2{display:flex;align-items:baseline;gap:10px;margin:32px 0 14px;font-family:var(--mincho);font-weight:800;font-size:20px;line-height:1.35;font-weight:700}
 h2 small{font-size:13px;font-weight:500;color:var(--ink-2)}
-.item{display:grid;grid-template-columns:34px minmax(0,1fr);gap:0 12px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 14px;margin:0 0 12px;cursor:pointer}
-.item .n{width:34px;height:34px;border-radius:50%;font-weight:700;font-size:14.5px;display:flex;align-items:center;justify-content:center}
+.item{position:relative;display:block;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:12px;margin:0 0 12px;cursor:pointer}
+/* 番号は写真の左上に重ねる（左の余白をなくし、写真と店名を囲いいっぱいに。2026-11-14 ヤヌキ指示） */
+.item .n{position:absolute;top:20px;left:20px;z-index:1;width:34px;height:34px;border-radius:50%;font-weight:700;font-size:14.5px;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.3)}
+.item>div:not(.n){padding:0 2px}
 .item h3{margin:0;font-size:17.5px;line-height:1.4;font-weight:700}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
 .tag{font-size:12px;font-weight:700;color:var(--ink-2);background:var(--soft);border-radius:99px;padding:0 10px;line-height:22px}
@@ -94,7 +96,7 @@ h2 small{font-size:13px;font-weight:500;color:var(--ink-2)}
 .hero .hd{clear:both}
 body.embed .lang{display:none}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-@media (min-width:720px){.wrap{padding-top:40px}.item{padding:18px 18px}}
+@media (min-width:720px){.wrap{padding-top:40px}.item{padding:14px}}
 </style></head><body>
 <div class="wrap">
 
