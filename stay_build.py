@@ -40,6 +40,8 @@ def fix(href):
     """英語版は1段深いので、../ で始まるリンクを1段上げる。stay の中のページ（bosai.html など）は英語版どうしでつなぐ。"""
     if not href or LANG != "en" or href.startswith(("http", "#", "data:")):
         return href
+    if href.startswith("../guide/"):          # ガイドブックとおすすめマップ（2D）は英語版がある
+        return "../../guide/en/" + href[len("../guide/"):]
     return "../" + href if href.startswith("../") else href
 
 # 画面の言葉（日本語・英語）
@@ -201,8 +203,8 @@ SECTIONS_EN = [
     ("During your stay", "Enjoy Miura", [
         ("House rules", "Night, fire, noise — with the reasons"),
         ("Visitors, nights away & mail", "Inviting friends / nights away / early or late / parcels"),
-        ("Hana's recommended map", "The host's favorite places. 2D and 3D. In Japanese"),
-        ("Eat & See (in Japanese)", "Eat, see, do. Shops open today. In Japanese"),
+        ("The house manager's recommended map", "The house manager's favorite places to eat and shop"),
+        ("Eat & See", "Eat, see, do. Shops open today"),
         ("Miura News", "Events and traffic news. In Japanese"),
         ("History walk", "Historic places by era on a 3D map. In Japanese"),
     ]),

@@ -15,12 +15,49 @@ CAT_LATIN = {"食べる": "Eat", "見る・歩く": "See & Walk", "体験する"
 CONF = {"🟢": "出典確認", "🟡": "要確認", "🗣": "伝聞"}
 BOARD = "../index.html"
 
+SITE = "https://vaseata.github.io/miura-board/guide/"
+EN_DATA = json.load(open(HERE / "spots_en.json")) if (HERE / "spots_en.json").exists() else {"spots": {}, "tags": {}, "areas": {}}
+WD_EN = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+CAT_EN = {"食べる": "Eat", "見る・歩く": "See & walk", "体験する": "Do", "買う": "Shop", "移動": "Getting around", "困ったとき": "Help", "季節": "Season"}
+CONF_EN = {"🟢": "Source checked", "🟡": "To be confirmed", "🗣": "Hearsay"}
+LANG = "ja"   # build() が ja → en の順に切り替える。英語版は guide/en/（2026-11-14）
+
+def en(): return LANG == "en"
+def loc(s):
+    """英語版では spots_en.json の訳で上書きした写しを返す（訳が無い欄は日本語のまま）。"""
+    if not en(): return s
+    t = dict(s)
+    t.update({k: v for k, v in EN_DATA["spots"].get(s["id"], {}).items() if k != "hana"})
+    t["area"] = EN_DATA["areas"].get(s.get("area"), s.get("area"))
+    t["tags"] = [EN_DATA["tags"].get(x, x) for x in s.get("tags", [])]
+    return t
+def indays(n): return "tomorrow" if n == 1 else f"in {n} days"
+def catname(c): return CAT_EN.get(c, c) if en() else c
+
+def langswitch(cur):
+    ja, enl = ("../", "./") if cur == "en" else ("./", "en/")
+    a = ' aria-current="page"'
+    return (f'<nav class="lang" aria-label="Language / 言語"><a href="{ja}" hreflang="ja" lang="ja"{a if cur == "ja" else ""}>JP</a>'
+            f'<a href="{enl}" hreflang="en" lang="en"{a if cur == "en" else ""}>EN</a></nav>')
+LANG_CSS = """.lang{display:inline-grid;grid-template-columns:1fr 1fr;gap:2px;padding:3px;background:var(--tint);border:1px solid var(--hair);border-radius:999px;flex:none}
+.lang a{display:flex;align-items:center;justify-content:center;min-width:52px;min-height:38px;border-radius:999px;color:var(--mute);font:400 14px/1 var(--gothic);letter-spacing:.04em;text-decoration:none}
+.lang a[aria-current="page"]{background:var(--bg);color:var(--ink);font-weight:700;box-shadow:0 0 0 1px var(--hair)}
+.topbar{display:flex;justify-content:flex-end;margin:0 0 8px}"""
+LANG_JS = """<script>(function(){try{var L=document.documentElement.lang;
+document.querySelectorAll('.lang a').forEach(function(a){a.addEventListener('click',function(){a.href=a.href.split('#')[0]+location.hash;try{localStorage.setItem('lang',a.hreflang)}catch(e){}})});
+var p=null;try{p=localStorage.getItem('lang')}catch(e){}
+var r=document.referrer,same=false;try{same=!!r&&new URL(r).origin===location.origin}catch(e){}
+if(p&&p!==L&&!same){var a=document.querySelector('.lang a[hreflang="'+p+'"]');if(a)location.replace(a.href.split('#')[0]+location.hash)}}catch(e){}})();</script>"""
+
 def d(s): return datetime.date.fromisoformat(s)
 def esc(s): return html.escape(str(s if s is not None else ""), quote=True)
 def jdate(dt, approx=False):
+    if en():
+        s = f"{dt.month}/{dt.day} ({WD_EN[dt.weekday()]})"
+        return "around " + s if approx else s
     s = f"{dt.month}/{dt.day}({WD[dt.weekday()]})"
     return s + "頃" if approx else s
-def conf(c): return CONF.get(c, c)
+def conf(c): return CONF_EN.get(c, c) if en() else CONF.get(c, c)
 def short_head(text, n=26):
     for sep in ("。", "（", "、"):
         i = text.find(sep)
@@ -36,7 +73,26 @@ def haversine(a, b):
     h = math.sin(dp / 2) ** 2 + math.cos(p1) * math.cos(p2) * math.sin(dl / 2) ** 2
     return 2 * R * math.asin(math.sqrt(h))
 
+TXT_JA = dict(desc="三浦A邸のゲスト向けガイド。三崎・城ヶ島・三浦海岸の食べる・見る・体験する・買う・移動・困ったときを、A邸からの徒歩時間つきで。",
+              apptitle="A邸ガイド", title="三浦A邸 お店・名所", motif_alt="跳ねるマグロと波、富士山と朝日の絵", h1="三浦A邸<br>お店・名所",
+              t_season="今の季節", t_places="おすすめの場所", t_all="すべて", t_none="この条件では見つかりません。", t_reset="条件をすべて外す",
+              t_detail="詳細", t_close="閉じる", js_open="'今日やっている'", js_near="'徒歩15分以内'", js_count="'件'")
+TXT_EN = dict(desc="A guide for guests of Miura A-tei: places to eat, see, do, and shop around Misaki, Jogashima, and Miura Kaigan, with walking times.",
+              apptitle="A-tei Guide", title="Miura A-tei Eat & See", motif_alt="Drawing of a leaping tuna, waves, Mt. Fuji and the rising sun", h1="Miura A-tei<br>Eat &amp; See",
+              t_season="This season", t_places="Places", t_all="All", t_none="Nothing matches these filters. ", t_reset="Clear all filters",
+              t_detail="Details", t_close="Close", js_open="'Open today'", js_near="'Within 15 min walk'", js_count="' places'")
+
 def build():
+    global LANG
+    for LANG in ("ja", "en"):
+        build_lang()
+    LANG = "ja"
+
+def build_lang():
+    E = en()
+    OUTL = OUT / "en" if E else OUT
+    R = "../../" if E else "../"          # リポジトリの一番上への道
+    BOARD = R + "index.html"
     spots_doc = json.load(open(HERE / "spots.json"))
     # A邸の座標は公開しない。home.local.json（.gitignore）にだけ置く。無ければ徒歩時間は出さない
     home = dict(spots_doc.get("home") or {})
@@ -49,7 +105,7 @@ def build():
     items = json.load(open(HERE / "items.json"))["items"]
     cal = json.load(open(HERE / "calendar.json"))["events"]
     places = json.load(open(HERE / "places.json"))["images"]
-    OUT.mkdir(exist_ok=True)
+    OUTL.mkdir(parents=True, exist_ok=True)
 
     # ---- 徒歩時間（目安）
     for s in spots:
@@ -65,22 +121,28 @@ def build():
 
     def thumb(key, label):
         p = places.get(key or "")
-        if not p: return f'<div class="thumb noimg" aria-hidden="true"><svg viewBox="0 0 48 36"><path d="M6 10h8l3-4h14l3 4h8v22H6z"/><circle cx="24" cy="20" r="7"/></svg><span>{esc(label)}</span><small>写真準備中</small></div>'
-        return f'<div class="thumb"><img src="../{esc(p["file"])}" alt="" loading="lazy" width="480" height="300"></div>'
+        if not p: return f'<div class="thumb noimg" aria-hidden="true"><svg viewBox="0 0 48 36"><path d="M6 10h8l3-4h14l3 4h8v22H6z"/><circle cx="24" cy="20" r="7"/></svg><span>{esc(label)}</span><small>{"Photo coming soon" if E else "写真準備中"}</small></div>'
+        return f'<div class="thumb"><img src="{R}{esc(p["file"])}" alt="" loading="lazy" width="480" height="300"></div>'
     def figure(key):
         p = places.get(key or "")
         if not p: return ""
         cap = f'<figcaption>{esc(p["caption"])}</figcaption>' if p.get("caption") else ""
-        return f'<figure class="photo"><img src="../{esc(p["file"])}" alt="" loading="lazy" width="480" height="300">{cap}</figure>'
+        return f'<figure class="photo"><img src="{R}{esc(p["file"])}" alt="" loading="lazy" width="480" height="300">{cap}</figure>'
 
     def walk_label(s):
         if s["_walk"] is None: return ""
         w = s["_walk"]
+        if E:
+            return f'<span class="walk">{w} min walk</span>' if w <= 60 else f'<span class="walk far">{w} min walk · bus/car</span>'
         if w <= 60: return f'<span class="walk">徒歩{w}分</span>'
         return f'<span class="walk far">徒歩{w}分・バス/車</span>'
 
     def closed_text(s):
         c = s.get("closed")
+        if E:
+            if c is None: return "Days off: to be confirmed"
+            if not c: return "Open every day"
+            return "Closed: " + ", ".join(WD_EN[i] for i in sorted(c))
         if c is None: return "定休日 要確認"
         if not c: return "無休"
         return "定休：" + "・".join(WD[i] for i in sorted(c)) + "曜"
@@ -91,51 +153,56 @@ def build():
         apple = f'https://maps.apple.com/?daddr={q}&dirflg=w'
         goog = "https://www.google.com/maps/dir/?api=1&destination=" + urllib.parse.quote(q) + "&travelmode=walking"
         embed = "https://maps.google.com/maps?q=" + urllib.parse.quote(q) + "&z=16&output=embed"
-        return (f'<div class="gmap"><iframe data-src="{embed}" title="{esc(s["name"])}の地図" referrerpolicy="no-referrer-when-downgrade"></iframe></div>'
-                f'<p class="maps"><a class="btn btn-primary" href="{goog}" target="_blank" rel="noopener">Google マップで道順</a><a class="btn btn-secondary" href="{apple}" target="_blank" rel="noopener">Apple マップ</a></p>')
+        return (f'<div class="gmap"><iframe data-src="{embed}" title="{esc(s["name"])}{" map" if E else "の地図"}" referrerpolicy="no-referrer-when-downgrade"></iframe></div>'
+                f'<p class="maps"><a class="btn btn-primary" href="{goog}" target="_blank" rel="noopener">{"Directions (Google Maps)" if E else "Google マップで道順"}</a><a class="btn btn-secondary" href="{apple}" target="_blank" rel="noopener">{"Apple Maps" if E else "Apple マップ"}</a></p>')
 
     def status_html(s):
         """いま営業中か（ページを開いた時刻で JS が書き換える。JS が無いときは営業時間の文をそのまま出す）"""
         if s.get("closed_until") and d(s["closed_until"]) >= TODAY:
-            return f'<span class="ost" data-s="off">臨時休業（{jdate(d(s["closed_until"]))}まで）</span>'
+            return f'<span class="ost" data-s="off">{"Temporarily closed (until " + jdate(d(s["closed_until"])) + ")" if E else "臨時休業（" + jdate(d(s["closed_until"])) + "まで）"}</span>'
         if s["category"] not in ("食べる", "買う", "体験する", "移動", "困ったとき") and not s.get("hours"):
             return ""
-        sc = shop_hours.parse(s.get("hours"), s.get("closed"))
+        sc = shop_hours.parse(s.get("hours"), s.get("closed"))   # 時間は日本語の正本から読む
+        s = loc(s)
         cl = s.get("closed") if isinstance(s.get("closed"), list) else None
         fallback = esc(s.get("hours") or closed_text(s))
         return (f'<span class="ost js-ost" data-s="unknown" data-sched=\'{json.dumps(sc) if sc else "null"}\' '
                 f'data-closed=\'{json.dumps(cl)}\' data-known="{"1" if cl is not None else ""}">{fallback}</span>')
 
     def spot_card(s):
+        raw = s
+        s = loc(s)
         tags = s.get("tags", [])
         closed = ",".join(str(i) for i in s["closed"]) if isinstance(s.get("closed"), list) else ""
         months = ",".join(str(m) for m in (s.get("season") or list(range(1, 13))))
         off = s.get("links", {}).get("official") if s.get("links") else None
         rows = []
-        if s.get("hours"): rows.append(("営業", s["hours"]))
-        rows.append(("休み", closed_text(s) + (f'（{s["closed_note"]}）' if s.get("closed_note") else "")))
-        if s.get("closed_until"): rows.append(("臨時休業", f'{jdate(d(s["closed_until"]))} まで'))
-        if s.get("price"): rows.append(("料金", s["price"]))
-        if s.get("address"): rows.append(("場所", s["address"]))
-        if s.get("access"): rows.append(("行き方", s["access"]))
-        if s["_walk"] is not None: rows.append(("A邸から", f'徒歩{s["_walk"]}分（目安）'))   # 直線の距離は出さない（A邸の位置が分かるため。2026-11-14 ヤヌキ判断）
-        if s.get("season") and len(s["season"]) < 12: rows.append(("季節", "・".join(f"{m}月" for m in s["season"])))
+        LB = (dict(h="Hours", c="Days off", u="Temporarily closed", p="Price", a="Address", g="Getting there", w="From A-tei", se="Season")
+              if E else dict(h="営業", c="休み", u="臨時休業", p="料金", a="場所", g="行き方", w="A邸から", se="季節"))
+        if s.get("hours"): rows.append((LB["h"], s["hours"]))
+        rows.append((LB["c"], closed_text(s) + ((f' ({s["closed_note"]})' if E else f'（{s["closed_note"]}）') if s.get("closed_note") else "")))
+        if s.get("closed_until"): rows.append((LB["u"], f'until {jdate(d(s["closed_until"]))}' if E else f'{jdate(d(s["closed_until"]))} まで'))
+        if s.get("price"): rows.append((LB["p"], s["price"]))
+        if s.get("address"): rows.append((LB["a"], s["address"]))
+        if s.get("access"): rows.append((LB["g"], s["access"]))
+        if s["_walk"] is not None: rows.append((LB["w"], f'{s["_walk"]} min walk (approx.)' if E else f'徒歩{s["_walk"]}分（目安）'))   # 直線の距離は出さない（A邸の位置が分かるため。2026-11-14 ヤヌキ判断）
+        if s.get("season") and len(s["season"]) < 12: rows.append((LB["se"], ", ".join(datetime.date(2000, m, 1).strftime("%b") for m in s["season"]) if E else "・".join(f"{m}月" for m in s["season"])))
         dl = "".join(f'<dt>{esc(k)}</dt><dd>{esc(v)}</dd>' for k, v in rows)
         return f'''<article class="art spot" data-cat="{esc(s["category"])}" data-tags="{esc(",".join(tags))}" data-walk="{s["_walk"] if s["_walk"] is not None else ""}" data-closed="{closed}" data-closed-known="{"1" if isinstance(s.get("closed"), list) else ""}" data-until="{esc(s.get("closed_until") or "")}" data-months="{months}">
   {thumb(s.get("image"), s["area"])}
-  <div class="ran"><span class="cat">{esc(s["category"])}</span><span class="area">{esc(s["area"])}</span>{walk_label(s)}</div>
+  <div class="ran"><span class="cat">{esc(catname(s["category"]))}</span><span class="area">{esc(s["area"])}</span>{walk_label(s)}</div>
   <h3><button type="button" class="open">{esc(s["name"])}</button></h3>
-  <p class="dt">{status_html(s)}</p>
+  <p class="dt">{status_html(raw)}</p>
   <p class="lede">{esc(s.get("note") or "")}</p>
   <div class="detail" hidden>
     {figure(s.get("image"))}
-    <p class="d-meta"><span class="cat">{esc(s["category"])}</span>{esc(s["area"])}　{"／".join(esc(t) for t in tags)}</p>
+    <p class="d-meta"><span class="cat">{esc(catname(s["category"]))}</span>{esc(s["area"])}　{"／".join(esc(t) for t in tags)}</p>
     <h2 class="d-head">{esc(s["name"])}</h2>
-    <aside class="talk"><span class="tl">ひとこと</span>{esc(s.get("note") or "")}</aside>
+    <aside class="talk"><span class="tl">{"NOTE" if E else "ひとこと"}</span>{esc(s.get("note") or "")}</aside>
     <dl class="info">{dl}</dl>
     {map_links(s)}
-    {f'<p class="off"><a href="{esc(off)}" target="_blank" rel="noopener">公式サイト・案内ページ →</a></p>' if off else ""}
-    <p class="src"><span class="cf">{conf(s.get("confidence", "🟡"))}</span>{sources_html(s.get("sources", []))}<span class="chk">確認 {esc(s.get("last_checked") or "—")}</span></p>
+    {f'<p class="off"><a href="{esc(off)}" target="_blank" rel="noopener">{"Official site / info page →" if E else "公式サイト・案内ページ →"}</a></p>' if off else ""}
+    <p class="src"><span class="cf">{conf(s.get("confidence", "🟡"))}</span>{sources_html(s.get("sources", []))}<span class="chk">{"Checked" if E else "確認"} {esc(s.get("last_checked") or "—")}</span></p>
   </div>
 </article>'''
 
@@ -167,11 +234,16 @@ def build():
 
     def ev_card(start, end, head, area, talk, image):
         now = start <= TODAY <= end
-        when = jdate(start) + (f"〜{jdate(end)}" if end > start else "")
-        st = '<span class="st now">開催中</span>' if now else f'<span class="st soon">{(start-TODAY).days}日後</span>'
-        return f'''<a class="art ev" href="{BOARD}">{thumb(image, area)}<div class="ran"><span class="cat">イベント</span><span class="area">{esc(area)}</span>{st}</div><h3>{esc(head)}</h3><p class="dt">{when}</p><p class="lede">{esc(talk)}</p></a>'''
+        when = jdate(start) + ((f" – {jdate(end)}" if E else f"〜{jdate(end)}") if end > start else "")
+        n = (start - TODAY).days
+        st = (f'<span class="st now">{"On now" if E else "開催中"}</span>' if now else
+              f'<span class="st soon">{indays(n) if E else str(n) + "日後"}</span>')
+        jl = ' lang="ja"' if E else ""   # 出来事の文は日本語のまま（近況ボードの英語化は未定）
+        return f'''<a class="art ev" href="{BOARD}"{' hreflang="ja"' if E else ""}>{thumb(image, area)}<div class="ran"><span class="cat">{"Event" if E else "イベント"}</span><span class="area">{esc(EN_DATA["areas"].get(area, area) if E else area)}</span>{st}</div><h3{jl}>{esc(head)}</h3><p class="dt">{when}</p><p class="lede"{jl}>{esc(talk)}</p></a>'''
     def up_card(dt, e):
-        return f'''<a class="art ev" href="{BOARD}">{thumb(e.get("image"), "定番")}<div class="ran"><span class="cat">定番</span><span class="st soon">{(dt-TODAY).days}日後</span></div><h3>{esc(short_head(e["fact"]))}</h3><p class="dt">{jdate(dt, e.get("approx"))}</p><p class="lede">{esc(e["talk"])}</p></a>'''
+        n = (dt - TODAY).days
+        jl = ' lang="ja"' if E else ""
+        return f'''<a class="art ev" href="{BOARD}"{' hreflang="ja"' if E else ""}>{thumb(e.get("image"), "Annual" if E else "定番")}<div class="ran"><span class="cat">{"Annual" if E else "定番"}</span><span class="st soon">{indays(n) if E else str(n) + "日後"}</span></div><h3{jl}>{esc(short_head(e["fact"]))}</h3><p class="dt">{jdate(dt, e.get("approx"))}</p><p class="lede"{jl}>{esc(e["talk"])}</p></a>'''
 
     season_html = "".join(spot_card(s) for s in season_spots)
     events_html = "".join(ev_card(*t) for t in ev) + "".join(up_card(dt, e) for dt, e in ups)
@@ -179,24 +251,28 @@ def build():
     df_card = ""
     if nxt_df and (nxt_df[0] - TODAY).days <= 30:
         dt, e = nxt_df
-        df_card = f'''<a class="art ev" href="{BOARD}">{thumb(e.get("image"), "城ヶ島")}<div class="ran"><span class="cat">季節</span><span class="area">城ヶ島大橋</span><span class="st soon">{(dt-TODAY).days}日後</span></div><h3>ダイヤモンド富士 {jdate(dt, e.get("approx"))}</h3><p class="dt">日没・城ヶ島大橋から</p><p class="lede">{esc(e["talk"])}</p></a>'''
+        n = (dt - TODAY).days
+        if E:
+            df_card = f'''<a class="art ev" href="{BOARD}" hreflang="ja">{thumb(e.get("image"), "Jogashima")}<div class="ran"><span class="cat">Season</span><span class="area">Jogashima Bridge</span><span class="st soon">{indays(n)}</span></div><h3>Diamond Fuji {jdate(dt, e.get("approx"))}</h3><p class="dt">At sunset, from Jogashima Bridge</p><p class="lede">The sun sets right on the summit of Mt. Fuji.</p></a>'''
+        else:
+            df_card = f'''<a class="art ev" href="{BOARD}">{thumb(e.get("image"), "城ヶ島")}<div class="ran"><span class="cat">季節</span><span class="area">城ヶ島大橋</span><span class="st soon">{n}日後</span></div><h3>ダイヤモンド富士 {jdate(dt, e.get("approx"))}</h3><p class="dt">日没・城ヶ島大橋から</p><p class="lede">{esc(e["talk"])}</p></a>'''
     spots_html = "".join(spot_card(s) for s in published)
-    tabs = "".join(f'<button type="button" data-cat="{esc(c)}" aria-pressed="false">{esc(c)}</button>' for c in CATS)
     counts = {c: sum(1 for s in published if s["category"] == c) for c in CATS}
     credits = " · ".join(f'{k} {v["license"]}' for k, v in places.items() if v.get("source", "").startswith("https://commons"))
 
     page = Template(r'''<!DOCTYPE html>
-<html lang="ja">
+<html lang="$lang">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="三浦A邸のゲスト向けガイド。三崎・城ヶ島・三浦海岸の食べる・見る・体験する・買う・移動・困ったときを、A邸からの徒歩時間つきで。">
-<meta name="apple-mobile-web-app-title" content="A邸ガイド">
+<meta name="description" content="$desc">
+$alternates
+<meta name="apple-mobile-web-app-title" content="$apptitle">
 <meta name="theme-color" content="#0A5A8C">
-<link rel="apple-touch-icon" href="../img/icon-180.png">
-<link rel="manifest" href="manifest.webmanifest">
-<title>三浦A邸 お店・名所</title>
-<link rel="icon" href="../img/brand/logo.png">
+<link rel="apple-touch-icon" href="${R}img/icon-180.png">
+<link rel="manifest" href="${R}guide/manifest.webmanifest">
+<title>$title</title>
+<link rel="icon" href="${R}img/brand/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
@@ -295,6 +371,7 @@ a{color:inherit} button{font:inherit;color:inherit}
 .src .chk{margin-left:8px}
 .src a{margin-right:8px;text-underline-offset:2px}
 $ui_css
+$lang_css
 $status_css
 /* 奥付 */
 .okuzuke{margin-top:44px;border-top:3px double var(--rule);padding-top:12px;font-size:11.5px;line-height:1.9;color:var(--mute)}
@@ -304,36 +381,35 @@ $status_css
 <body>
 $sitenav
 <main>
-<img class="motif" src="../img/brand/header-maguro.jpg" alt="跳ねるマグロと波、富士山と朝日の絵" width="1500" height="500">
+<div class="topbar">$langswitch</div>
+<img class="motif" src="${R}img/brand/header-maguro.jpg" alt="$motif_alt" width="1500" height="500">
 <header class="masthead">
-  <h1 class="daiji"><small>MIURA A-TEI · EAT &amp; SEE</small>三浦A邸<br>お店・名所</h1>
-  <p class="mh-lead">三崎・城ヶ島・三浦海岸で、食べる・見る・体験する・買う。A邸からの徒歩時間つき。<br>$ymd 現在。毎朝自動で更新しています。</p>
+  <h1 class="daiji"><small>MIURA A-TEI · EAT &amp; SEE</small>$h1</h1>
+  <p class="mh-lead">$lead</p>
 </header>
 
 $hana
 <section class="sec" id="season">
-  <h2 class="men">今の季節<span class="latin">$month</span></h2>
+  <h2 class="men">$t_season<span class="latin">$month</span></h2>
   <div class="grid">$df$season$events</div>
   $season_empty
 </section>
 
 <section class="sec" id="spots">
-  <h2 class="men">おすすめの場所<span class="latin">Places</span><span class="count-n" id="count"></span></h2>
+  <h2 class="men">$t_places<span class="latin">Places</span><span class="count-n" id="count"></span></h2>
   <div class="filter">
-    <div class="tabs"><button type="button" class="fchip" data-cat="all" aria-pressed="true">すべて<span class="n">$total</span></button>$tabs</div>
+    <div class="tabs"><button type="button" class="fchip" data-cat="all" aria-pressed="true">$t_all<span class="n">$total</span></button>$tabs</div>
     <div class="chips" id="chips"></div>
   </div>
   <div class="grid" id="grid">$spots</div>
-  <p class="empty" id="empty" hidden>この条件では見つかりません。<button type="button" class="btn btn-tertiary" id="reset">条件をすべて外す</button></p>
+  <p class="empty" id="empty" hidden>$t_none<button type="button" class="btn btn-tertiary" id="reset">$t_reset</button></p>
 </section>
 
 <footer class="okuzuke">
-出典確認＝公式や観光協会の案内を開いて確かめたもの／要確認＝一次でない・未確認。営業時間・定休は変わることがあります（各項目の「確認」日を参照）。<br>
-徒歩時間は A邸からの直線距離×1.3÷80m/分 の目安。写真：Wikimedia Commons（$credits）、公式サイト、出典記事の og:image。<br>
-<a href="$board">最近の三浦</a> · Since 2026.10 · By Yanuki
+$foot
 </footer>
 </main>
-<dialog id="sheet" aria-label="詳細"><div class="sheet-in"><div class="sheet-bar"><button type="button" class="btn btn-secondary sheet-close">閉じる</button></div><div class="sheet-body"></div></div></dialog>
+<dialog id="sheet" aria-label="$t_detail"><div class="sheet-in"><div class="sheet-bar"><button type="button" class="btn btn-secondary sheet-close">$t_close</button></div><div class="sheet-body"></div></div></dialog>
 $open_js
 <script>
 (function(){
@@ -364,12 +440,12 @@ $open_js
     tabs.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.cat===state.cat));});
     var inCat=cards.filter(function(el){return state.cat==='all'||el.dataset.cat===state.cat;});
     var tagCount={}; inCat.forEach(function(el){tagsOf(el).forEach(function(t){tagCount[t]=(tagCount[t]||0)+1;});});
-    var tags=Object.keys(tagCount).sort(function(a,b){return tagCount[b]-tagCount[a]||a.localeCompare(b,'ja');}).slice(0,14);
+    var tags=Object.keys(tagCount).sort(function(a,b){return tagCount[b]-tagCount[a]||a.localeCompare(b,'$lang');}).slice(0,14);
     if(state.tag&&tags.indexOf(state.tag)<0)state.tag='';
     chips.innerHTML='';
     function chip(label,pressed,cls,fn){var b=document.createElement('button');b.type='button';b.textContent=label;b.className='fchip';b.setAttribute('aria-pressed',String(pressed));b.addEventListener('click',fn);chips.appendChild(b);}
-    chip('今日やっている',state.open,'tg',function(){state.open=!state.open;render();});
-    chip('徒歩15分以内',state.near,'tg',function(){state.near=!state.near;render();});
+    chip($js_open,state.open,'tg',function(){state.open=!state.open;render();});
+    chip($js_near,state.near,'tg',function(){state.near=!state.near;render();});
     if(tags.length){var s=document.createElement('span');s.className='sep';chips.appendChild(s);}
     tags.forEach(function(t){chip(t,state.tag===t,'',function(){state.tag=state.tag===t?'':t;render();});});
     var shown=0;
@@ -377,7 +453,7 @@ $open_js
       var ok=(state.cat==='all'||el.dataset.cat===state.cat)&&(!state.tag||tagsOf(el).indexOf(state.tag)>=0)&&(!state.open||openToday(el))&&(!state.near||(el.dataset.walk!==''&&+el.dataset.walk<=15));
       el.hidden=!ok; if(ok)shown++;
     });
-    empty.hidden=shown>0; count.textContent=shown+'件';
+    empty.hidden=shown>0; count.textContent=shown+$js_count;
     writeHash();
   }
   tabs.forEach(function(b){b.addEventListener('click',function(){state.cat=b.dataset.cat;render();document.getElementById('spots').scrollIntoView({block:'start'});});});
@@ -396,14 +472,29 @@ $open_js
   [].forEach.call(document.querySelectorAll('.js-ost'),function(el){try{var r=shopStatus(JSON.parse(el.dataset.sched),JSON.parse(el.dataset.closed),!!el.dataset.known);el.dataset.s=r.s;el.textContent=r.t;}catch(e){}});
 })();
 </script>
+$lang_js
 </body>
 </html>
-''').substitute(ymd=f"{TODAY.year}年{TODAY.month}月{TODAY.day}日", board=BOARD, month=f"{TODAY.month}月 · {TODAY.strftime('%B')}",
+''').substitute(lang=LANG, R=R, board=BOARD, month=(f"{TODAY.strftime('%B')}" if E else f"{TODAY.month}月 · {TODAY.strftime('%B')}"),
                  df=df_card, season=season_html, events=events_html,
-                 season_empty='' if (season_html or events_html) else '<p class="empty">いまは季節の項目がありません。</p>',
-                 total=len(published), tabs="".join(f'<button type="button" class="fchip" data-cat="{esc(c)}" aria-pressed="false">{esc(c)}<span class="n">{counts[c]}</span></button>' for c in CATS),
-                 spots=spots_html or '<p class="empty">掲載中の場所はまだありません。</p>', credits=credits, cats_json=json.dumps(CATS, ensure_ascii=False), ui_css=UI_CSS, hana=hana_banner("../"), status_css=shop_hours.STATUS_CSS, open_js=shop_hours.OPEN_JS, sitenav=sitenav("guide", "../", is_top=True, sos=True))
-    (OUT / "index.html").write_text(page, encoding="utf-8")
+                 season_empty='' if (season_html or events_html) else f'<p class="empty">{"Nothing seasonal right now." if E else "いまは季節の項目がありません。"}</p>',
+                 total=len(published), tabs="".join(f'<button type="button" class="fchip" data-cat="{esc(c)}" aria-pressed="false">{esc(catname(c))}<span class="n">{counts[c]}</span></button>' for c in CATS),
+                 spots=spots_html or f'<p class="empty">{"No places are listed yet." if E else "掲載中の場所はまだありません。"}</p>', credits=credits, cats_json=json.dumps(CATS, ensure_ascii=False), ui_css=UI_CSS,
+                 hana=hana_banner(R, lang=LANG), status_css=shop_hours.STATUS_CSS, open_js=shop_hours.OPEN_JS, sitenav=sitenav("guide", R, lang=LANG, is_top=True, sos=True),
+                 lang_css=LANG_CSS, lang_js=LANG_JS, langswitch=langswitch(LANG),
+                 alternates=f'<link rel="alternate" hreflang="ja" href="{SITE}"><link rel="alternate" hreflang="en" href="{SITE}en/"><link rel="alternate" hreflang="x-default" href="{SITE}">',
+                 **(TXT_EN if E else TXT_JA),
+                 lead=(f"Eat, see, do, and shop around Misaki, Jogashima, and Miura Kaigan — with walking times from A-tei.<br>As of {TODAY.strftime('%B')} {TODAY.day}, {TODAY.year}. Updated automatically every morning. Seasonal events are shown in Japanese."
+                       if E else f"三崎・城ヶ島・三浦海岸で、食べる・見る・体験する・買う。A邸からの徒歩時間つき。<br>{TODAY.year}年{TODAY.month}月{TODAY.day}日 現在。毎朝自動で更新しています。"),
+                 foot=(f'''Source checked = confirmed on an official or tourist-association page / To be confirmed = not a primary source or not yet checked. Hours and days off can change (see the “Checked” date on each item). Translated from the Japanese; if they differ, the Japanese version is correct.<br>
+Walking times are estimates: straight-line distance from A-tei × 1.3 ÷ 80 m/min. Photos: Wikimedia Commons ({credits}), official sites, og:image of source articles.<br>
+<a href="{BOARD}" hreflang="ja">Miura news (Japanese)</a> · Since 2026.10 · By Yanuki''' if E else f'''出典確認＝公式や観光協会の案内を開いて確かめたもの／要確認＝一次でない・未確認。営業時間・定休は変わることがあります（各項目の「確認」日を参照）。<br>
+徒歩時間は A邸からの直線距離×1.3÷80m/分 の目安。写真：Wikimedia Commons（{credits}）、公式サイト、出典記事の og:image。<br>
+<a href="{BOARD}">最近の三浦</a> · Since 2026.10 · By Yanuki'''))
+    (OUTL / "index.html").write_text(page, encoding="utf-8")
+    if E:
+        print(f"guide/en/: {len(published)} 掲載（英訳なし {sum(1 for x in published if x['id'] not in EN_DATA['spots'])}）")
+        return
 
     # ---- review.html（候補の確認用・noindex）
     def row(s):

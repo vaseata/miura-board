@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="../../img/brand/logo.png">
+<title>Miura A-tei Recommended Map</title>
+<link rel="alternate" hreflang="ja" href="https://vaseata.github.io/miura-board/guide/map-preview.html"><link rel="alternate" hreflang="en" href="https://vaseata.github.io/miura-board/guide/en/map-preview.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@800&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.css">
+<style>/* 閲覧専用の公開版。ホームページのデザインに合わせて差し替えられるよう、色・書体は :root の変数だけで決める。
+   いまは「どのデザインにも馴染む」中立の配色（白・墨色・青）。 */
+:root{
+  /* デザインシステム「三浦A邸 大漁旗」の色（2026-11-14） */
+  --ink:#14202B; --ink-2:#4F6070; --accent:#0A5A8C; --soft:#F2F6F9; --soft-2:#E6F0F6;
+  --line:#D9E1E8; --bg:#FFFFFF; --card:#FFFFFF; --kon:#2E4C9E; --tuna:#B8243A;
+  --font:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",sans-serif;
+  --mincho:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
+  --r:14px; --sea:#0A5A8C; --mute:#4F6070; --hair:#D9E1E8; --tint:#F2F6F9;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:500 16px/1.75 var(--font);-webkit-text-size-adjust:100%}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 40px}
+body.embed .hero{display:none}
+body.embed .wrap{padding-top:8px}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button{font:inherit;color:inherit}
+
+.hero{padding:0 0 4px}
+.eyebrow{margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--accent)}
+h1{margin:4px 0 0;font-family:var(--mincho);font-size:clamp(26px,6.5vw,34px);line-height:1.3;font-weight:800;letter-spacing:.02em}
+.hd{display:block;width:100%;height:auto;border-radius:10px;margin:0 0 12px}
+.eyebrow{display:flex;align-items:center;gap:8px}.eyebrow img{width:40px;height:40px}
+.two{width:120px;height:9px;margin:14px 0 0;background:linear-gradient(var(--accent),var(--accent)) 0 0/100% 3px no-repeat,linear-gradient(var(--tuna),var(--tuna)) 0 6px/60% 3px no-repeat}
+h1 span{display:inline-block}
+.lede{margin:10px 0 0;font-size:15px;line-height:1.8;color:var(--ink-2);max-width:34em}
+.draft{margin:16px 0 0;padding:10px 14px;background:#FFF8E1;border:1px solid #EBD38A;border-radius:10px;font-size:13.5px;line-height:1.6}
+
+.filters{margin-top:20px;display:grid;gap:10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:42px;padding:0 16px;border:1px solid var(--line);border-radius:99px;background:#fff;font-weight:700;font-size:14.5px;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:#fff}
+.chip small{font-weight:500;opacity:.75;margin-left:4px}
+.chips.sc .chip{min-height:36px;font-size:13.5px;padding:0 13px}
+
+.mapcard{margin-top:16px;border:1px solid var(--line);border-radius:var(--r);background:#fff;overflow:hidden}
+#map{height:clamp(320px,56vh,540px);background:#ecedee}
+.mapfoot{border-top:1px solid var(--line);padding:10px 16px;font-size:12.5px;color:var(--ink-2);line-height:1.55}
+.leaflet-tile-pane{filter:grayscale(.35) brightness(1.04) contrast(.95)}
+.leaflet-bar{border:1px solid var(--line)!important;border-radius:10px!important;overflow:hidden;box-shadow:none!important}
+.leaflet-bar a{color:var(--ink)!important}
+.pin{width:30px;height:30px;border-radius:50%;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.35)}
+.leaflet-popup-content-wrapper{border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.18)}
+.leaflet-popup-content{font:500 14px/1.6 var(--font);margin:12px 14px;color:var(--ink)}
+.leaflet-control-attribution{font-size:10px}
+
+h2{display:flex;align-items:baseline;gap:10px;margin:32px 0 14px;font-family:var(--mincho);font-weight:800;font-size:20px;line-height:1.35;font-weight:700}
+h2 small{font-size:13px;font-weight:500;color:var(--ink-2)}
+.item{display:grid;grid-template-columns:34px minmax(0,1fr);gap:0 12px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 14px;margin:0 0 12px;cursor:pointer}
+.item .n{width:34px;height:34px;border-radius:50%;font-weight:700;font-size:14.5px;display:flex;align-items:center;justify-content:center}
+.item h3{margin:0;font-size:17.5px;line-height:1.4;font-weight:700}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.tag{font-size:12px;font-weight:700;color:var(--ink-2);background:var(--soft);border-radius:99px;padding:0 10px;line-height:22px}
+.tag.chk{color:#7a5a00;background:#FFF3C4}
+.hearts{margin:8px 0 0;font-size:17px;letter-spacing:1px;line-height:1.2}
+.quote{margin:10px 0 0;padding:9px 12px;background:var(--soft);border-left:3px solid var(--accent);border-radius:4px 10px 10px 4px;font-size:14.5px;line-height:1.7}
+.quote b{display:block;font-size:11.5px;letter-spacing:.08em;color:var(--accent);margin-bottom:2px}
+.note{margin:10px 0 0;font-size:14.5px;line-height:1.75}
+.meta{margin:6px 0 0;font-size:13px;line-height:1.6;color:var(--ink-2)}
+.meta a{margin-left:6px}
+.ph{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:10px;margin:0 0 8px;background:var(--soft-2)}
+.noph{display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:12px;font-weight:700;letter-spacing:.1em}
+.acts{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0}
+.acts a{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:12px;background:var(--soft-2);color:var(--accent);font-weight:700;font-size:14px;text-decoration:none}
+.item .ost{margin:4px 0 0}
+
+.ost{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;line-height:1.4}
+.ost::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor;flex:none}
+.ost[data-s="open"]{color:var(--sea)}
+.ost[data-s="soon"],.ost[data-s="closed"],.ost[data-s="unknown"]{color:var(--mute);font-weight:400}
+.ost[data-s="off"]{color:var(--mute);font-weight:400}
+.ost[data-s="off"]::before,.ost[data-s="closed"]::before,.ost[data-s="unknown"]::before{background:none;border:1.5px solid currentColor;width:6px;height:6px}
+
+.empty{padding:28px 16px;text-align:center;color:var(--ink-2);background:var(--soft);border-radius:var(--r)}
+.foot{margin-top:24px;font-size:12.5px;color:var(--ink-2);line-height:1.7}
+.lang{float:right;display:inline-grid;grid-template-columns:1fr 1fr;gap:2px;padding:3px;margin:0 0 10px 8px;background:var(--tint);border:1px solid var(--hair);border-radius:999px}
+.lang a{display:flex;align-items:center;justify-content:center;min-width:52px;min-height:38px;border-radius:999px;color:var(--mute);font:400 14px/1 var(--font);letter-spacing:.04em;text-decoration:none}
+.lang a[aria-current="page"]{background:#fff;color:var(--ink);font-weight:700;box-shadow:0 0 0 1px var(--hair)}
+.hero .hd{clear:both}
+body.embed .lang{display:none}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media (min-width:720px){.wrap{padding-top:40px}.item{padding:18px 18px}}
+</style></head><body>
+<div class="wrap">
+
+<header class="hero">
+  <nav class="lang" aria-label="Language / 言語"><a href="../map-preview.html" hreflang="ja" lang="ja">JP</a><a href="map-preview.html" hreflang="en" lang="en" aria-current="page">EN</a></nav>
+  <img class="hd" src="../../img/brand/header-maguro.jpg" alt="" width="1500" height="500">
+  <p class="eyebrow"><img src="../../img/brand/logo.png" alt="" width="40" height="40">MIURA A-TEI</p>
+  <h1><span>The house manager's</span> <span>recommended map</span></h1>
+  <div class="two" aria-hidden="true"></div>
+  <p class="lede">Places to eat and shop in Misaki and Jogashima. Tap a shop to see where it is and the house manager's comment.</p>
+  <p class="draft">Draft. Includes shops not yet confirmed. Hours and other details may have changed.</p>
+</header>
+
+<div class="filters">
+  <div class="chips" id="cats" role="group" aria-label="Filter by type"></div>
+  <div class="chips sc" id="scs" role="group" aria-label="Filter by occasion"></div>
+</div>
+
+<section class="mapcard" aria-label="Map of recommended shops">
+  <div id="map" role="application" aria-label="Map"></div>
+  <div class="mapfoot">Numbers match the list. Numbers in white circles show how many shops overlap there (tap to expand).</div>
+</section>
+
+<h2 id="lh">Shops <small id="lc"></small></h2>
+<div id="list" aria-live="polite"></div>
+
+<p class="foot">Hours and days off can change; check the shop's information before you go. Comments are translated from Japanese. Map © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors.</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.js"></script>
+<script>
+window.shopStatus=function(sc,closed,known){
+  var now=new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Tokyo'}));
+  var wd=(now.getDay()+6)%7, m=now.getHours()*60+now.getMinutes();
+  function hm(x){return Math.floor(x/60)+':'+('0'+x%60).slice(-2);}
+  var E=document.documentElement.lang==='en';   // 英語版（guide/en/ など）は英語で出す
+  if(closed&&closed.indexOf(wd)>=0)return {s:'off',t:E?'Closed today':'今日は定休日'};
+  if(!sc){return known?{s:'unknown',t:E?'Open today (see details for hours)':'今日は営業日（時間は詳細で）'}:{s:'unknown',t:E?'Days off: to be confirmed':'定休日は要確認'};}
+  var r=sc.d[wd]||[];
+  if(!r.length)return {s:'off',t:E?'Closed today':'今日はお休み'};
+  if(r[0][0]===0&&r[0][1]===1440)return {s:'open',t:E?'Open 24 hours':'24時間'};
+  for(var i=0;i<r.length;i++){
+    if(m>=r[i][0]&&m<r[i][1]){var left=r[i][1]-m;return {s:'open',t:E?(left<=60?'Closing soon · until ':'Open · until ')+hm(r[i][1]):(left<=60?'まもなく閉店 ':'営業中・')+hm(r[i][1])+'まで'};}
+    if(m<r[i][0])return {s:'soon',t:E?(i>0?'On a break · ':'')+'Opens '+hm(r[i][0]):(i>0?'休憩中・':'')+hm(r[i][0])+'から'};
+  }
+  return {s:'closed',t:E?'Closed for today (open until '+hm(r[r.length-1][1])+')':'今日は終了（'+hm(r[r.length-1][1])+'まで）'};
+};
+</script>
+<script>
+(function(){
+var D=[{"id": "kurobatei", "name": "Kurobatei", "cat": "食べる", "area": "Misaki", "lat": 35.141872, "lon": 139.621399, "c": "There's an ADDress set meal just for ADDress members!", "note": "A tuna restaurant listed in the tourist association's food guide (Misaki old town)", "hours": "11:00–20:00 (last order 19:30)", "closed": "Closed Wed", "url": "https://miura-info.ne.jp/gourmet-misaki/", "color": "#0A5A8C", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": {"d": [[[660, 1200]], [[660, 1200]], [], [[660, 1200]], [[660, 1200]], [[660, 1200]], [[660, 1200]]]}, "cl": [2], "img": ""}, {"id": "misaki_donuts", "name": "Misaki Donuts (main shop)", "cat": "食べる", "area": "Misaki", "lat": 35.141113, "lon": 139.618439, "c": "A bit pricier than Mister Donut, lol, but I always look forward to the seasonal doughnuts!", "note": "An old-town doughnut shop listed in the tourist association's food & souvenir guide", "hours": "Weekdays 11:00–17:00 / Sat, Sun & holidays 10:00–18:00", "closed": "Closed Wed", "url": "https://miura-info.ne.jp/souvenir-misaki/", "color": "#0A5A8C", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": {"d": [[[660, 1020]], [[660, 1020]], [], [[660, 1020]], [[660, 1020]], [[600, 1080]], [[600, 1080]]]}, "cl": [2], "img": ""}, {"id": "kinoyo", "name": "Kinoyo (tuna dishes & sushi, Misaki)", "cat": "食べる", "area": "Misaki", "lat": 35.14193, "lon": 139.621506, "c": "Hana loves the Torotoro-don! It's topped with tuna in lots of different flavors!", "note": "A tuna and sushi restaurant founded in the Meiji era. Its signature is the “Torotoro-don”, a bowl topped with four kinds of tuna. Tatami seating; no cards", "hours": "Mon, Wed–Fri 11:00–15:00 (LO 14:30), 17:00–20:00 (LO 19:00) / Sat, Sun & holidays 11:00–20:30 (LO 19:00)", "closed": "Closed Tue", "url": "https://savorjapan.com/0006117514", "color": "#0A5A8C", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": {"d": [[[660, 900], [1020, 1200]], [], [[660, 900], [1020, 1200]], [[660, 900], [1020, 1200]], [[660, 900], [1020, 1200]], [[660, 1230]], [[660, 1230]]]}, "cl": [1], "img": ""}, {"id": "korakutei", "name": "Korakutei", "cat": "食べる", "area": "Misaki", "lat": 35.141598, "lon": 139.617569, "c": "Noodles in thick sauce (ankake soba) / My sister-in-law works here! Mapo ramen, motsu-ni (offal stew) ramen! The fried chicken is delicious! The daily lunch is recommended too!", "note": "Home of Misaki tuna ramen. Chinese food. Cards and QR payments accepted", "hours": "Mon–Fri 11:30–15:00 (LO 14:00) / Sat & Sun 11:30–15:00, 17:30–21:00 (LO 20:00). Closes when the soup runs out", "closed": "Closed Wed", "url": "https://tabelog.com/kanagawa/A1406/A140603/14020968/", "color": "#0A5A8C", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": null, "cl": [2], "img": ""}, {"id": "bocca", "name": "Misaki Italiano Bocca", "cat": "食べる", "area": "Misaki", "lat": 35.141346, "lon": 139.617264, "c": "Tasty Italian / Everything is delicious! Lunch is great value! It's run by a married couple, so if the service feels off, they probably just had a fight, lol", "note": "A seafood Italian restaurant on the 2nd floor overlooking the port. Courses available. Parking discount at the nearby Misaki Port Exchange Plaza", "hours": "Wed–Sun 11:30–15:00, 18:00–22:00 (one listing says lunch only on Fri)", "closed": "Closed Mon, Tue", "url": "https://tabelog.com/kanagawa/A1406/A140603/14056067/", "color": "#0A5A8C", "fg": "#fff", "r": 5, "rm": 5, "w": [], "draft": true, "sc": null, "cl": [0, 1], "img": ""}, {"id": "misakipresso", "name": "Misakipresso", "cat": "食べる", "area": "Misaki", "lat": 35.14072, "lon": 139.618652, "c": "A café where you can watch the Kamome Choir practice! Lucky if you catch one of their occasional shared-kitchen days", "note": "An Italian dining bar and café. In summer they serve “Miura omurice”. 10 seats, parking available", "hours": "", "closed": "", "url": "https://hamoni.jp/shop/NcmOEx5nDH7nmw4Epp7C", "color": "#0A5A8C", "fg": "#fff", "r": 3, "rm": 5, "w": [], "draft": true, "sc": null, "cl": null, "img": ""}, {"id": "shokubomiura", "name": "Shokubo miura", "cat": "食べる", "area": "Misaki", "lat": 35.143501, "lon": 139.620331, "c": "Just delicious! The tomato salad is outstanding! Carefully made food and drinks — very satisfying!", "note": "An izakaya serving fish from the Miura Peninsula. Fried horse mackerel, sashimi, pickles, curry. Tatami and sunken-kotatsu seating, parking available", "hours": "17:30–22:00 (listed for Monday; varies on holidays)", "closed": "", "url": "https://hamoni.jp/shop/lTJCsCHUn2KBXfbUhrdL", "color": "#0A5A8C", "fg": "#fff", "r": 5, "rm": 5, "w": [], "draft": true, "sc": null, "cl": null, "img": ""}, {"id": "yatai_misaki", "name": "Yatai (izakaya)", "cat": "食べる", "area": "Misaki", "lat": 35.1399067, "lon": 139.618006, "c": "Oden, okonomiyaki / Oden and okonomiyaki! Lots of à la carte dishes too! When the owner is on their own, the food comes out slowly!", "note": "An izakaya serving oden, tuna monja, and okonomiyaki. Tatami seats with griddles, and a street-stall-style counter", "hours": "From 18:00 (closing time not checked)", "closed": "", "url": "https://maps.app.goo.gl/LNVK8Nd3LJbK3QRk8", "color": "#0A5A8C", "fg": "#fff", "r": 3, "rm": 5, "w": [], "draft": true, "sc": null, "cl": null, "img": ""}, {"id": "daiki_sakanatosakana", "name": "Sakana to Sakana Daiki", "cat": "食べる", "area": "Misaki", "lat": 35.141586, "lon": 139.617081, "c": "The wife catches the fish and squid, the husband serves them! Not just seafood — a big menu, recommended!", "note": "A Japanese izakaya in a back alley of Misaki Port. Misaki Port fish and local vegetables served as sashimi, salt-grilled, or simmered (opened December 2024)", "hours": "Weekdays 16:00–23:00 (LO 22:00) / Sat, Sun & holidays 12:00–23:00 (LO 22:00)", "closed": "Closed Mon", "url": "https://da-iki-misaki.com/", "color": "#0A5A8C", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": {"d": [[], [[960, 1380]], [[960, 1380]], [[960, 1380]], [[960, 1380]], [[720, 1380]], [[720, 1380]]]}, "cl": [0], "img": ""}, {"id": "chochin_tokyo_1", "name": "Chochin Tokyo No. 1 (Gohan to Osake)", "cat": "食べる", "area": "Misaki", "lat": 35.1430752, "lon": 139.622536, "c": "It feels like a late-night place, but it opens early too! The multinational-style food might get you hooked!", "note": "An izakaya at Misaki Port in a former snack bar. Skewers, abura soba, cold noodles, and more (opened December 2022; “No. 1” is in the name)", "hours": "From 18:00 (hours by day not checked)", "closed": "", "url": "https://gooone.help/20230531/1990/", "color": "#0A5A8C", "fg": "#fff", "r": 3, "rm": 5, "w": [], "draft": true, "sc": null, "cl": null, "img": ""}, {"id": "otoyu", "name": "Izakaya Otoyu", "cat": "食べる", "area": "Misaki", "lat": 35.140999, "lon": 139.620178, "c": "Everything is good! / An old-style izakaya run by a family! Reliably delicious!", "note": "An izakaya down an alley off the Misaki Shitamachi shopping street. Famous for fish dishes by an owner who used to cook for tuna fishing boats (24 seats)", "hours": "Mon–Sat 17:00–23:30", "closed": "Closed Sun", "url": "https://tabelog.com/kanagawa/A1406/A140603/14041869/", "color": "#0A5A8C", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": {"d": [[[1020, 1410]], [[1020, 1410]], [[1020, 1410]], [[1020, 1410]], [[1020, 1410]], [[1020, 1410]], []]}, "cl": [6], "img": ""}, {"id": "keimaru", "name": "Osakana Kobo Keimaru", "cat": "買う", "area": "Misaki", "lat": 35.141224, "lon": 139.620026, "c": "If you're buying tuna, this is the place! / Their tuna is the best! You'll be amazed by the price too! But it's so unpredictable that it's never open when I go, lol. If you want some, ask Hana!", "note": "A tuna and fresh-fish shop in Misaki 2-chome. Tabelog reviews describe it as a fisherman's direct shop with rare tuna cuts and delicacies", "hours": "", "closed": "", "url": "https://tabelog.com/kanagawa/A1406/A140603/14083015/", "color": "#4F6070", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": null, "cl": null, "img": ""}, {"id": "tabegotoya_minato", "name": "Tabegotoya Minato", "cat": "食べる", "area": "Misaki", "lat": 35.139942, "lon": 139.618835, "c": "Asian; bento on weekday lunchtimes / Hana recommends the peanut noodles! Run by two lovely sisters!", "note": "Home-style cooking with an Asian touch, using Miura Peninsula ingredients. Bento and deli at lunchtime (opened May 2022, run by two sisters)", "hours": "Wed 11:30–14:00 / Thu–Sat 11:30–14:00 & 18:00–22:00 / Sun 17:00–21:00", "closed": "Closed Mon, Tue", "url": "https://www.kanaloco.jp/news/life/article-927910.html", "color": "#0A5A8C", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": {"d": [[], [], [[690, 840]], [[690, 840], [1080, 1320]], [[690, 840], [1080, 1320]], [[690, 840], [1080, 1320]], [[1020, 1260]]]}, "cl": [0, 1], "img": ""}, {"id": "chuka_botan", "name": "Chinese restaurant Botan", "cat": "食べる", "area": "Misaki", "lat": 35.14072, "lon": 139.618652, "c": "Tasty Chinese, shumai / Everything is delicious at this neighborhood Chinese place! The shumai is outstanding!", "note": "A long-standing local Chinese diner in Misaki with over 70 years of history. Popular for handmade jumbo shumai and wonton noodles with charcoal-grilled char siu", "hours": "11:30–15:00 / 17:00–21:00 (Mon–Wed, some days closed 14:30–17:00)", "closed": "Closed Thu", "url": "https://newcal.jp/feature/misakiguchi-botan_1", "color": "#0A5A8C", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": null, "cl": [3], "img": ""}, {"id": "kinmedai_koukai", "name": "Kinmedai specialty restaurant Koukai", "cat": "食べる", "area": "Misaki", "lat": 35.1412279, "lon": 139.6184688, "c": "Kinmedai / Misaki isn't just tuna — there are kinmedai boats too, so you can eat a fresh kinmedai set meal!", "note": "Specializes in kinmedai (golden-eye snapper): marinated kinmedai bowl, simmered and grilled fish set meals, sashimi set meal, salty fish-bone soup. Fillets and miso-marinated fish sold at the shop front", "hours": "Weekdays 11:00–15:00 / Sat, Sun & holidays 10:30–15:30 (dinner by reservation 18:00–20:00, courses from 5,000 yen)", "closed": "Closed Mon", "url": "https://kanagawa-kankou.or.jp/spot/7008", "color": "#0A5A8C", "fg": "#fff", "r": 3, "rm": 5, "w": [], "draft": true, "sc": null, "cl": [0], "img": ""}, {"id": "sushi_ohata", "name": "Sushi Ohata", "cat": "食べる", "area": "Misaki", "lat": 35.140064, "lon": 139.617325, "c": "The limited lunch is recommended too! Please try the kinmedai tempura!", "note": "A sushi restaurant opened by Ohata Sengyo, a fresh-fish shop at Misaki Port. Opened August 2026. Opens early on Sunday morning-market days", "hours": "Wed–Fri 11:00–15:00 (LO 14:30) & 17:00–22:00 (LO 21:30) / Sat 11:00–21:00 / Sun 5:00–9:00 & 11:00–17:00", "closed": "Closed Mon, Tue", "url": "https://misaki-gyo.com", "color": "#0A5A8C", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": {"d": [[], [], [[660, 900], [1020, 1320]], [[660, 900], [1020, 1320]], [[660, 900], [1020, 1320]], [[660, 1260]], [[300, 540], [660, 1020]]]}, "cl": [0, 1], "img": ""}, {"id": "asameshi_arube", "name": "Asameshi Arube", "cat": "食べる", "area": "Misaki", "lat": 35.141598, "lon": 139.617569, "c": "Breakfast / Little side dishes you think you could make at home but never do! Dried fish from a local shop! A breakfast that warms your heart — recommended!", "note": "A breakfast place near the Misaki-ko bus stop. Breakfast with Miura vegetables and local ingredients. Different pop-up shops take turns by day (run by MISAKI STAYLE)", "hours": "Wed–Sun 6:00–10:00", "closed": "Closed Mon, Tue", "url": "https://misaki-stayle.com/", "color": "#0A5A8C", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": {"d": [[], [], [[360, 600]], [[360, 600]], [[360, 600]], [[360, 600]], [[360, 600]]]}, "cl": [0, 1], "img": ""}, {"id": "watatsumi_misaki", "name": "Misaki Maguro to Shun no Sakana Watatsumi", "cat": "食べる", "area": "Misaki", "lat": 35.141586, "lon": 139.617081, "c": "My daughter works part-time here! Reasonable prices but amazing! Fresh! Highly recommended! Good for sake lovers too!", "note": "A seafood restaurant one street behind, directly opposite Urari at Misaki Port. Misaki tuna and seasonal fish (30 seats, tatami room upstairs)", "hours": "11:30–20:00", "closed": "Closed Wed", "url": "https://tabelog.com/kanagawa/A1406/A140603/14061017/", "color": "#0A5A8C", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": {"d": [[[690, 1200]], [[690, 1200]], [], [[690, 1200]], [[690, 1200]], [[690, 1200]], [[690, 1200]]]}, "cl": [2], "img": ""}, {"id": "joshuya_curry_yakiudon", "name": "Joshuya", "cat": "食べる", "area": "Tenjin-cho", "lat": 35.1487194, "lon": 139.6220694, "c": "Yaki-udon / Misaki's soul food! Curry yaki-udon is the most popular, but Hana can't eat spicy food, so I have the regular yaki-udon!", "note": "A diner in Tenjin-cho, Miura City. Famous for curry yaki-udon (around 1,000 yen per reviews). 13 seats", "hours": "11:00–15:00 / 17:00–19:00", "closed": "Closed Wed", "url": "https://tabelog.com/kanagawa/A1406/A140603/14019242/", "color": "#0A5A8C", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": {"d": [[[660, 900], [1020, 1140]], [[660, 900], [1020, 1140]], [], [[660, 900], [1020, 1140]], [[660, 900], [1020, 1140]], [[660, 900], [1020, 1140]], [[660, 900], [1020, 1140]]]}, "cl": [2], "img": ""}, {"id": "ichigoichie", "name": "Shokudoraku Ichigo Ichie", "cat": "食べる", "area": "Shiroyama-cho", "lat": 35.144547, "lon": 139.620071, "c": "Cheap! Delicious! Can't believe you can eat this well for this price!", "note": "A set-meal diner and izakaya in Shiroyama-cho, Miura City (north of Misaki Port). Tuna and local fish, sashimi platters, seafood bowls", "hours": "12:00–14:00 / 17:00–21:00", "closed": "Closed Wed, Thu", "url": "https://tabelog.com/kanagawa/A1406/A140603/14094180/", "color": "#0A5A8C", "fg": "#fff", "r": 3, "rm": 5, "w": [], "draft": true, "sc": {"d": [[[720, 840], [1020, 1260]], [[720, 840], [1020, 1260]], [], [], [[720, 840], [1020, 1260]], [[720, 840], [1020, 1260]], [[720, 840], [1020, 1260]]]}, "cl": [2, 3], "img": ""}, {"id": "ryoushigoya", "name": "Ryoshi Goya", "cat": "食べる", "area": "Misaki", "lat": 35.1414511, "lon": 139.620717, "c": "The fried chicken is a must! Highly recommended! It's unpredictable whether it's open, but lately it's been open short hours on weekends!", "note": "A seafood restaurant (Google Maps category). Misaki 1-chome", "hours": "Not listed", "closed": "", "url": "https://www.google.com/maps/search/%E6%BC%81%E5%B8%AB%E5%B0%8F%E5%B1%8B+%E4%B8%89%E5%B4%8E", "color": "#0A5A8C", "fg": "#fff", "r": 4, "rm": 5, "w": [], "draft": true, "sc": null, "cl": null, "img": ""}, {"id": "yaoshige", "name": "Yaoshige", "cat": "買う", "area": "Shiroyama-cho", "lat": 35.1438382, "lon": 139.6197322, "c": "Bento / Sometimes they put out discounted vegetables and fruit, so I dash over! Lots of lunch bento choices, but they're on the sweet side!", "note": "A greengrocer with homemade deli dishes and bento (Google Maps reviews)", "hours": "Closes 18:00 (hours by day not checked)", "closed": "", "url": "https://www.google.com/maps/search/%E5%85%AB%E7%99%BE%E9%87%8D+%E4%B8%89%E5%B4%8E", "color": "#4F6070", "fg": "#fff", "r": 2, "rm": 5, "w": [], "draft": true, "sc": null, "cl": null, "img": ""}], KEEPER="家守";
+var CATS=[["all", "All"], ["食べる", "Eat"], ["買う", "Shop"], ["困ったとき", "Daily needs"]], T={"nophoto": "Photo coming soon", "draft": "Unconfirmed", "rating": "House manager's rating", "quote": "From the house manager", "gmap": "Open in Google Maps", "info": "Shop info", "empty": "No shops of this type yet.", "count": " shops"};
+var st={cat:"all",sc:""};
+function $(s){return document.querySelector(s)}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function hs(n,m){m=m||5;var o="";for(var i=1;i<=m;i++)o+=i<=n?"❤️":"♡";return o}
+if(/[?&]embed=1/.test(location.search))document.body.classList.add("embed");
+
+var touch=("ontouchstart" in window)||navigator.maxTouchPoints>0;
+var map=L.map("map",{scrollWheelZoom:false,dragging:!touch,tap:false});
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:'© OpenStreetMap',maxZoom:19}).addTo(map);
+var group=L.markerClusterGroup({showCoverageOnHover:false,maxClusterRadius:34,spiderfyOnMaxZoom:true,iconCreateFunction:function(c){return L.divIcon({className:"",html:'<div class="pin" style="width:38px;height:38px;background:#fff;color:var(--accent);font-size:15px">'+c.getChildCount()+'</div>',iconSize:[38,38]})}});
+map.addLayer(group);
+var markers={};
+function pop(d,n){return '<b>'+n+'. '+esc(d.name)+'</b>'+(d.r?'<br>'+hs(d.r,d.rm):'')+(d.c?'<br><span style="color:var(--accent);font-weight:700">'+esc(d.c)+'</span>':'')+(d.note?'<br>'+esc(d.note):'')}
+
+function visible(){return D.filter(function(d){return (st.cat==="all"||d.cat===st.cat)&&(!st.sc||(d.w||[]).indexOf(st.sc)>=0)})}
+function render(){
+  var rows=visible();
+  group.clearLayers();markers={};
+  var pts=[];
+  var html="";
+  rows.forEach(function(d,i){var n=i+1;
+    if(d.lat&&d.lon){var ic=L.divIcon({className:"",html:'<div class="pin" style="background:'+d.color+';color:'+d.fg+'">'+n+'</div>',iconSize:[30,30],iconAnchor:[15,15],popupAnchor:[0,-14]});
+      var m=L.marker([d.lat,d.lon],{icon:ic,title:d.name}).bindPopup(pop(d,n));markers[d.id]=m;group.addLayer(m);pts.push([d.lat,d.lon])}
+    html+='<article class="item" data-id="'+d.id+'"><div class="n" style="background:'+d.color+';color:'+d.fg+'">'+n+'</div><div>'
+     +(d.img?'<img class="ph" src="'+esc(d.img)+'" alt="" loading="lazy" width="480" height="300">':'<div class="ph noph" aria-hidden="true">'+T.nophoto+'</div>')
+     +'<h3>'+esc(d.name)+'</h3>'
+     +'<div class="tags">'+(d.area?'<span class="tag">'+esc(d.area)+'</span>':'')+(d.w||[]).map(function(w){return '<span class="tag">'+esc(w)+'</span>'}).join('')+(d.draft?'<span class="tag chk">'+T.draft+'</span>':'')+'</div>'
+     +(function(){var s=window.shopStatus?shopStatus(d.sc,d.cl,d.cl!==null):null;return s?'<p class="ost" data-s="'+s.s+'">'+esc(s.t)+'</p>':''})()
+     +(d.r?'<div class="hearts" aria-label="'+T.rating+' '+d.r+'/'+d.rm+'">'+hs(d.r,d.rm)+'</div>':'')
+     +(d.c?'<p class="quote"><b>'+esc(T.quote)+'</b>'+esc(d.c)+'</p>':'')
+     +'<p class="note">'+esc(d.note)+'</p>'
+     +'<p class="meta">'+esc([d.hours,d.closed].filter(Boolean).join(" ／ "))+'</p>'
+     +'<p class="acts">'+(d.lat?'<a href="https://www.google.com/maps/search/?api=1&amp;query='+d.lat+','+d.lon+'" target="_blank" rel="noopener">'+T.gmap+'</a>':'')+(d.url?'<a href="'+esc(d.url)+'" target="_blank" rel="noopener">'+T.info+'</a>':'')+'</p>'
+     +'</div></article>'});
+  $("#list").innerHTML=rows.length?html:'<div class="empty">'+T.empty+'</div>';
+  $("#lc").textContent=rows.length+T.count;
+  if(pts.length)map.fitBounds(L.latLngBounds(pts).pad(.15));else map.setView([35.1415,139.6195],15);
+  document.querySelectorAll(".item").forEach(function(el){el.onclick=function(e){if(e.target.closest("a"))return;var m=markers[el.dataset.id];if(m){window.scrollTo({top:$("#map").getBoundingClientRect().top+window.scrollY-12});group.zoomToShowLayer(m,function(){map.setView(m.getLatLng(),Math.max(map.getZoom(),17));m.openPopup()})}}});
+}
+function chips(){
+  var c=$("#cats");c.innerHTML="";
+  CATS.forEach(function(x){var n=x[0]==="all"?D.length:D.filter(function(d){return d.cat===x[0]}).length;if(x[0]!=="all"&&!n)return;
+    var b=document.createElement("button");b.type="button";b.className="chip";b.setAttribute("aria-pressed",st.cat===x[0]);b.innerHTML=esc(x[1])+'<small>'+n+'</small>';
+    b.onclick=function(){st.cat=x[0];chips();render()};c.appendChild(b)});
+  var sc=[];D.forEach(function(d){(d.w||[]).forEach(function(w){if(sc.indexOf(w)<0)sc.push(w)})});
+  var s=$("#scs");s.innerHTML="";s.hidden=!sc.length;
+  sc.forEach(function(w){var b=document.createElement("button");b.type="button";b.className="chip";b.setAttribute("aria-pressed",st.sc===w);b.textContent=w;
+    b.onclick=function(){st.sc=(st.sc===w?"":w);chips();render()};s.appendChild(b)});
+}
+chips();render();
+})();
+</script><script>(function(){try{var L=document.documentElement.lang;
+document.querySelectorAll('.lang a').forEach(function(a){a.addEventListener('click',function(){a.href=a.href.split('#')[0]+location.search+location.hash;try{localStorage.setItem('lang',a.hreflang)}catch(e){}})});
+var p=null;try{p=localStorage.getItem('lang')}catch(e){}
+var r=document.referrer,same=false;try{same=!!r&&new URL(r).origin===location.origin}catch(e){}
+if(p&&p!==L&&!same&&!/[?&]embed=1/.test(location.search)){var a=document.querySelector('.lang a[hreflang="'+p+'"]');if(a)location.replace(a.href.split('#')[0]+location.search+location.hash)}}catch(e){}})();</script></body></html>

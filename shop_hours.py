@@ -89,16 +89,17 @@ window.shopStatus=function(sc,closed,known){
   var now=new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Tokyo'}));
   var wd=(now.getDay()+6)%7, m=now.getHours()*60+now.getMinutes();
   function hm(x){return Math.floor(x/60)+':'+('0'+x%60).slice(-2);}
-  if(closed&&closed.indexOf(wd)>=0)return {s:'off',t:'今日は定休日'};
-  if(!sc){return known?{s:'unknown',t:'今日は営業日（時間は詳細で）'}:{s:'unknown',t:'定休日は要確認'};}
+  var E=document.documentElement.lang==='en';   // 英語版（guide/en/ など）は英語で出す
+  if(closed&&closed.indexOf(wd)>=0)return {s:'off',t:E?'Closed today':'今日は定休日'};
+  if(!sc){return known?{s:'unknown',t:E?'Open today (see details for hours)':'今日は営業日（時間は詳細で）'}:{s:'unknown',t:E?'Days off: to be confirmed':'定休日は要確認'};}
   var r=sc.d[wd]||[];
-  if(!r.length)return {s:'off',t:'今日はお休み'};
-  if(r[0][0]===0&&r[0][1]===1440)return {s:'open',t:'24時間'};
+  if(!r.length)return {s:'off',t:E?'Closed today':'今日はお休み'};
+  if(r[0][0]===0&&r[0][1]===1440)return {s:'open',t:E?'Open 24 hours':'24時間'};
   for(var i=0;i<r.length;i++){
-    if(m>=r[i][0]&&m<r[i][1]){var left=r[i][1]-m;return {s:'open',t:(left<=60?'まもなく閉店 ':'営業中・')+hm(r[i][1])+'まで'};}
-    if(m<r[i][0])return {s:'soon',t:(i>0?'休憩中・':'')+hm(r[i][0])+'から'};
+    if(m>=r[i][0]&&m<r[i][1]){var left=r[i][1]-m;return {s:'open',t:E?(left<=60?'Closing soon · until ':'Open · until ')+hm(r[i][1]):(left<=60?'まもなく閉店 ':'営業中・')+hm(r[i][1])+'まで'};}
+    if(m<r[i][0])return {s:'soon',t:E?(i>0?'On a break · ':'')+'Opens '+hm(r[i][0]):(i>0?'休憩中・':'')+hm(r[i][0])+'から'};
   }
-  return {s:'closed',t:'今日は終了（'+hm(r[r.length-1][1])+'まで）'};
+  return {s:'closed',t:E?'Closed for today (open until '+hm(r[r.length-1][1])+')':'今日は終了（'+hm(r[r.length-1][1])+'まで）'};
 };
 </script>"""
 

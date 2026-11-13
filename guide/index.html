@@ -4,10 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="三浦A邸のゲスト向けガイド。三崎・城ヶ島・三浦海岸の食べる・見る・体験する・買う・移動・困ったときを、A邸からの徒歩時間つきで。">
+<link rel="alternate" hreflang="ja" href="https://vaseata.github.io/miura-board/guide/"><link rel="alternate" hreflang="en" href="https://vaseata.github.io/miura-board/guide/en/"><link rel="alternate" hreflang="x-default" href="https://vaseata.github.io/miura-board/guide/">
 <meta name="apple-mobile-web-app-title" content="A邸ガイド">
 <meta name="theme-color" content="#0A5A8C">
 <link rel="apple-touch-icon" href="../img/icon-180.png">
-<link rel="manifest" href="manifest.webmanifest">
+<link rel="manifest" href="../guide/manifest.webmanifest">
 <title>三浦A邸 お店・名所</title>
 <link rel="icon" href="../img/brand/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -168,6 +169,10 @@ a{color:inherit} button{font:inherit;color:inherit}
 @media (min-width:720px){.bn{left:50%;right:auto;width:560px;transform:translateX(-50%);border:1px solid var(--hair);border-bottom:0;border-radius:12px 12px 0 0}}
 @media (prefers-reduced-motion:reduce){.btn,.fchip,.seg button{transition:none}.btn:active{transform:none}}
 
+.lang{display:inline-grid;grid-template-columns:1fr 1fr;gap:2px;padding:3px;background:var(--tint);border:1px solid var(--hair);border-radius:999px;flex:none}
+.lang a{display:flex;align-items:center;justify-content:center;min-width:52px;min-height:38px;border-radius:999px;color:var(--mute);font:400 14px/1 var(--gothic);letter-spacing:.04em;text-decoration:none}
+.lang a[aria-current="page"]{background:var(--bg);color:var(--ink);font-weight:700;box-shadow:0 0 0 1px var(--hair)}
+.topbar{display:flex;justify-content:flex-end;margin:0 0 8px}
 
 .ost{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;line-height:1.4}
 .ost::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor;flex:none}
@@ -184,6 +189,7 @@ a{color:inherit} button{font:inherit;color:inherit}
 <body>
 <nav class="sn has-sos" aria-label="三浦A邸のサイト"><div class="sn-in"><a class="home" href="../stay/" aria-label="三浦A邸 家の案内のトップ"><img src="../img/brand/logo.png" alt="" width="28" height="28"><span class="t">三浦A邸</span></a><a class="s" href="../stay/">家の案内</a><a class="s" href="../guide/" aria-current="page">お店・名所</a><a class="s" href="../">最近の三浦</a><a class="s sos" href="../stay/bosai.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17v.01"/></svg>防災</a></div></nav>
 <main>
+<div class="topbar"><nav class="lang" aria-label="Language / 言語"><a href="./" hreflang="ja" lang="ja" aria-current="page">JP</a><a href="en/" hreflang="en" lang="en">EN</a></nav></div>
 <img class="motif" src="../img/brand/header-maguro.jpg" alt="跳ねるマグロと波、富士山と朝日の絵" width="1500" height="500">
 <header class="masthead">
   <h1 class="daiji"><small>MIURA A-TEI · EAT &amp; SEE</small>三浦A邸<br>お店・名所</h1>
@@ -219,16 +225,17 @@ window.shopStatus=function(sc,closed,known){
   var now=new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Tokyo'}));
   var wd=(now.getDay()+6)%7, m=now.getHours()*60+now.getMinutes();
   function hm(x){return Math.floor(x/60)+':'+('0'+x%60).slice(-2);}
-  if(closed&&closed.indexOf(wd)>=0)return {s:'off',t:'今日は定休日'};
-  if(!sc){return known?{s:'unknown',t:'今日は営業日（時間は詳細で）'}:{s:'unknown',t:'定休日は要確認'};}
+  var E=document.documentElement.lang==='en';   // 英語版（guide/en/ など）は英語で出す
+  if(closed&&closed.indexOf(wd)>=0)return {s:'off',t:E?'Closed today':'今日は定休日'};
+  if(!sc){return known?{s:'unknown',t:E?'Open today (see details for hours)':'今日は営業日（時間は詳細で）'}:{s:'unknown',t:E?'Days off: to be confirmed':'定休日は要確認'};}
   var r=sc.d[wd]||[];
-  if(!r.length)return {s:'off',t:'今日はお休み'};
-  if(r[0][0]===0&&r[0][1]===1440)return {s:'open',t:'24時間'};
+  if(!r.length)return {s:'off',t:E?'Closed today':'今日はお休み'};
+  if(r[0][0]===0&&r[0][1]===1440)return {s:'open',t:E?'Open 24 hours':'24時間'};
   for(var i=0;i<r.length;i++){
-    if(m>=r[i][0]&&m<r[i][1]){var left=r[i][1]-m;return {s:'open',t:(left<=60?'まもなく閉店 ':'営業中・')+hm(r[i][1])+'まで'};}
-    if(m<r[i][0])return {s:'soon',t:(i>0?'休憩中・':'')+hm(r[i][0])+'から'};
+    if(m>=r[i][0]&&m<r[i][1]){var left=r[i][1]-m;return {s:'open',t:E?(left<=60?'Closing soon · until ':'Open · until ')+hm(r[i][1]):(left<=60?'まもなく閉店 ':'営業中・')+hm(r[i][1])+'まで'};}
+    if(m<r[i][0])return {s:'soon',t:E?(i>0?'On a break · ':'')+'Opens '+hm(r[i][0]):(i>0?'休憩中・':'')+hm(r[i][0])+'から'};
   }
-  return {s:'closed',t:'今日は終了（'+hm(r[r.length-1][1])+'まで）'};
+  return {s:'closed',t:E?'Closed for today (open until '+hm(r[r.length-1][1])+')':'今日は終了（'+hm(r[r.length-1][1])+'まで）'};
 };
 </script>
 <script>
@@ -292,5 +299,10 @@ window.shopStatus=function(sc,closed,known){
   [].forEach.call(document.querySelectorAll('.js-ost'),function(el){try{var r=shopStatus(JSON.parse(el.dataset.sched),JSON.parse(el.dataset.closed),!!el.dataset.known);el.dataset.s=r.s;el.textContent=r.t;}catch(e){}});
 })();
 </script>
+<script>(function(){try{var L=document.documentElement.lang;
+document.querySelectorAll('.lang a').forEach(function(a){a.addEventListener('click',function(){a.href=a.href.split('#')[0]+location.hash;try{localStorage.setItem('lang',a.hreflang)}catch(e){}})});
+var p=null;try{p=localStorage.getItem('lang')}catch(e){}
+var r=document.referrer,same=false;try{same=!!r&&new URL(r).origin===location.origin}catch(e){}
+if(p&&p!==L&&!same){var a=document.querySelector('.lang a[hreflang="'+p+'"]');if(a)location.replace(a.href.split('#')[0]+location.hash)}}catch(e){}})();</script>
 </body>
 </html>

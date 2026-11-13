@@ -77,7 +77,7 @@ UI_CSS = """
 
 SITES = [  # (key, 日本語版の道, 英語版の道 or None, 日本語の名前, 英語の名前)
     ("stay", "stay/", "stay/en/", "家の案内", "House"),
-    ("guide", "guide/", None, "お店・名所", "Eat & See"),
+    ("guide", "guide/", "guide/en/", "お店・名所", "Eat & See"),   # 英語版 2026-11-14
     ("board", "", None, "最近の三浦", "Miura news"),
 ]
 _SOS_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17v.01"/></svg>'
@@ -111,10 +111,10 @@ def sitenav(current, root, lang="ja", is_top=False, sos=False):
 def hana_banner(root, lang="ja"):
     """家守のおすすめマップへの大きな入口（滞在ガイドとガイドブックのトップ）。地図の絵は OpenStreetMap。"""
     en = lang == "en"
-    href = root + "guide/map-preview.html"
-    k, t, sub, go = (("HOUSE MANAGER'S PICKS", "Recommended food & shops map", "Places to eat and shop nearby, with today's opening status (in Japanese)", "Open the map")
+    href = root + ("guide/en/map-preview.html" if en else "guide/map-preview.html")
+    k, t, sub, go = (("HOUSE MANAGER'S PICKS", "Recommended food & shops map", "Places to eat and shop nearby, with today's opening status", "Open the map")
                      if en else ("家守のおすすめ", "おすすめマップ", "三崎・城ヶ島の、ごはんと買い物のお店。今日やっているかも分かります", "地図をひらく"))
-    hl = ' hreflang="ja"' if en else ""
+    hl = ""
     return (f'<a class="hana" href="{_esc(href)}"{hl}><img src="{_esc(root)}img/brand/hana-map.jpg" alt="" width="800" height="397" loading="lazy">'
             f'<span class="hx"><span class="hk">{k}</span><b>{t}</b><span class="hs">{sub}</span>'
             f'<span class="hgo">{go} →</span><span class="hcr">地図 © OpenStreetMap contributors</span></span></a>')

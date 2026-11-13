@@ -110,7 +110,7 @@ PAGES_EN = {
                 ["Winter (cold)", "In winter, the hallway and kitchen feel cold. Slippers and a jacket help."],
             ]),
             ("note", "Event dates change every year. The latest information is on “Miura News” (in Japanese)."),
-            ("links", [("Miura News (news board, in Japanese)", "../index.html"), ("Eat & See (in Japanese)", "../guide/")]),
+            ("links", [("Miura News (news board, in Japanese)", "../index.html"), ("Eat & See", "../guide/")]),
             ("h2", "All year"),
             ("ul", [
                 "Many nearby shops are **closed on Tuesdays and Wednesdays**. Wednesday has the fewest open shops.",
@@ -359,7 +359,7 @@ PAGES_EN = {
                 ("Other rooms tonight", "Which rooms are in use tonight is on the “Arrival card” (passphrase). No names are shown", "ARRIVAL"),
                 ("Where the linens are", "In the shared space of the washitsu", "#mazu"),
                 ("Toilet, washbasin, bath", "Where they are and how to use them: “Bath, toilet & laundry”", "ofuro.html"),
-                ("Shops open nearby", "In Eat & See, “Open today” shows only the shops open now (in Japanese)", "../guide/#open=1"),
+                ("Shops open nearby", "In Eat & See, “Open today” shows only the shops open now", "../guide/#open=1"),
             ]),
             ("table", ["Before you arrive", "Key point"], [
                 ["Time", "**14:00–21:00**. You cannot enter outside these hours"],
@@ -414,7 +414,7 @@ PAGES_EN = {
                 "Kurobatei has a set meal for ADDress members. Ordering ahead is recommended. {仮}　{記入:Current set meal, price, and conditions (check with the restaurant)}",
             ]),
             ("p", "Many nearby shops are **closed on Tuesdays and Wednesdays**, and Wednesday has the fewest. Some, like the kinmedai (golden-eye snapper) restaurants, close around 15:00. If you walk to Misaki Port, you will find shops that are open."),
-            ("links", [("Hana's recommended map (in Japanese)", "../guide/map-preview.html")]),
+            ("links", [("The house manager's recommended map", "../guide/map-preview.html")]),
             ("h2", "Can I meet the host?"),
             ("p", "The host lives nearby, but may not be around every day. If you'd like to talk or visit local shops together, **send a short message when you book**. Other guests and neighbors may also help you."),
             ("h2", "At night", "yoru"),

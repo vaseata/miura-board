@@ -1,10 +1,11 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8">
+<html lang="%%LANG%%"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 %%ROBOTS%%
 <meta name="color-scheme" content="light">
-<link rel="icon" href="../img/brand/logo.png">
-<title>三浦A邸 おすすめマップ</title>
+<link rel="icon" href="%%R%%img/brand/logo.png">
+<title>%%T_TITLE%%</title>
+%%ALT%%
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@800&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap">
@@ -80,34 +81,36 @@ h2 small{font-size:13px;font-weight:500;color:var(--ink-2)}
 %%STATUSCSS%%
 .empty{padding:28px 16px;text-align:center;color:var(--ink-2);background:var(--soft);border-radius:var(--r)}
 .foot{margin-top:24px;font-size:12.5px;color:var(--ink-2);line-height:1.7}
+%%LANGCSS%%
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 @media (min-width:720px){.wrap{padding-top:40px}.item{padding:18px 18px}}
 </style></head><body>
 <div class="wrap">
 
 <header class="hero">
-  <img class="hd" src="../img/brand/header-maguro.jpg" alt="" width="1500" height="500">
-  <p class="eyebrow"><img src="../img/brand/logo.png" alt="" width="40" height="40">MIURA A-TEI · 三浦A邸</p>
-  <h1><span>%%KEEPER%%の</span> <span>おすすめマップ</span></h1>
+  %%LANGSWITCH%%
+  <img class="hd" src="%%R%%img/brand/header-maguro.jpg" alt="" width="1500" height="500">
+  <p class="eyebrow"><img src="%%R%%img/brand/logo.png" alt="" width="40" height="40">%%T_EYEBROW%%</p>
+  <h1>%%T_H1%%</h1>
   <div class="two" aria-hidden="true"></div>
-  <p class="lede">三崎・城ヶ島の、ごはんと買い物のお店です。気になるお店を押すと、地図の場所と、ひとことが見られます。</p>
+  <p class="lede">%%T_LEDE%%</p>
   %%DRAFT%%
 </header>
 
 <div class="filters">
-  <div class="chips" id="cats" role="group" aria-label="ジャンルで絞り込む"></div>
-  <div class="chips sc" id="scs" role="group" aria-label="シーンで絞り込む"></div>
+  <div class="chips" id="cats" role="group" aria-label="%%T_BYCAT%%"></div>
+  <div class="chips sc" id="scs" role="group" aria-label="%%T_BYSCENE%%"></div>
 </div>
 
-<section class="mapcard" aria-label="おすすめのお店の地図">
-  <div id="map" role="application" aria-label="地図"></div>
-  <div class="mapfoot">番号はリストと同じです。白い丸の数字は、重なっているお店の数です（押すと広がります）。</div>
+<section class="mapcard" aria-label="%%T_MAPLABEL%%">
+  <div id="map" role="application" aria-label="%%T_MAP%%"></div>
+  <div class="mapfoot">%%T_MAPFOOT%%</div>
 </section>
 
-<h2 id="lh">お店リスト <small id="lc"></small></h2>
+<h2 id="lh">%%T_LIST%% <small id="lc"></small></h2>
 <div id="list" aria-live="polite"></div>
 
-<p class="foot">営業時間・定休日は変わることがあります。お出かけの前に、お店の情報もご確認ください。地図は © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors。</p>
+<p class="foot">%%T_FOOT%% © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors.</p>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
@@ -116,7 +119,7 @@ h2 small{font-size:13px;font-weight:500;color:var(--ink-2)}
 <script>
 (function(){
 var D=%%DATA%%, KEEPER="%%KEEPER%%";
-var CATS=[["all","すべて"],["食べる","食べる"],["買う","買う"],["困ったとき","暮らし"]];
+var CATS=%%T_CATS%%, T=%%T_JS%%;
 var st={cat:"all",sc:""};
 function $(s){return document.querySelector(s)}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
@@ -141,18 +144,18 @@ function render(){
     if(d.lat&&d.lon){var ic=L.divIcon({className:"",html:'<div class="pin" style="background:'+d.color+';color:'+d.fg+'">'+n+'</div>',iconSize:[30,30],iconAnchor:[15,15],popupAnchor:[0,-14]});
       var m=L.marker([d.lat,d.lon],{icon:ic,title:d.name}).bindPopup(pop(d,n));markers[d.id]=m;group.addLayer(m);pts.push([d.lat,d.lon])}
     html+='<article class="item" data-id="'+d.id+'"><div class="n" style="background:'+d.color+';color:'+d.fg+'">'+n+'</div><div>'
-     +(d.img?'<img class="ph" src="'+esc(d.img)+'" alt="" loading="lazy" width="480" height="300">':'<div class="ph noph" aria-hidden="true">写真準備中</div>')
+     +(d.img?'<img class="ph" src="'+esc(d.img)+'" alt="" loading="lazy" width="480" height="300">':'<div class="ph noph" aria-hidden="true">'+T.nophoto+'</div>')
      +'<h3>'+esc(d.name)+'</h3>'
-     +'<div class="tags">'+(d.area?'<span class="tag">'+esc(d.area)+'</span>':'')+(d.w||[]).map(function(w){return '<span class="tag">'+esc(w)+'</span>'}).join('')+(d.draft?'<span class="tag chk">確認中</span>':'')+'</div>'
+     +'<div class="tags">'+(d.area?'<span class="tag">'+esc(d.area)+'</span>':'')+(d.w||[]).map(function(w){return '<span class="tag">'+esc(w)+'</span>'}).join('')+(d.draft?'<span class="tag chk">'+T.draft+'</span>':'')+'</div>'
      +(function(){var s=window.shopStatus?shopStatus(d.sc,d.cl,d.cl!==null):null;return s?'<p class="ost" data-s="'+s.s+'">'+esc(s.t)+'</p>':''})()
-     +(d.r?'<div class="hearts" aria-label="'+KEEPER+'の評価 '+d.r+'/'+d.rm+'">'+hs(d.r,d.rm)+'</div>':'')
-     +(d.c?'<p class="quote"><b>'+esc(KEEPER)+'のひとこと</b>'+esc(d.c)+'</p>':'')
+     +(d.r?'<div class="hearts" aria-label="'+T.rating+' '+d.r+'/'+d.rm+'">'+hs(d.r,d.rm)+'</div>':'')
+     +(d.c?'<p class="quote"><b>'+esc(T.quote)+'</b>'+esc(d.c)+'</p>':'')
      +'<p class="note">'+esc(d.note)+'</p>'
      +'<p class="meta">'+esc([d.hours,d.closed].filter(Boolean).join(" ／ "))+'</p>'
-     +'<p class="acts">'+(d.lat?'<a href="https://www.google.com/maps/search/?api=1&amp;query='+d.lat+','+d.lon+'" target="_blank" rel="noopener">Googleマップで開く</a>':'')+(d.url?'<a href="'+esc(d.url)+'" target="_blank" rel="noopener">お店の情報</a>':'')+'</p>'
+     +'<p class="acts">'+(d.lat?'<a href="https://www.google.com/maps/search/?api=1&amp;query='+d.lat+','+d.lon+'" target="_blank" rel="noopener">'+T.gmap+'</a>':'')+(d.url?'<a href="'+esc(d.url)+'" target="_blank" rel="noopener">'+T.info+'</a>':'')+'</p>'
      +'</div></article>'});
-  $("#list").innerHTML=rows.length?html:'<div class="empty">このジャンルのお店は、まだありません。</div>';
-  $("#lc").textContent=rows.length+"軒";
+  $("#list").innerHTML=rows.length?html:'<div class="empty">'+T.empty+'</div>';
+  $("#lc").textContent=rows.length+T.count;
   if(pts.length)map.fitBounds(L.latLngBounds(pts).pad(.15));else map.setView([35.1415,139.6195],15);
   document.querySelectorAll(".item").forEach(function(el){el.onclick=function(e){if(e.target.closest("a"))return;var m=markers[el.dataset.id];if(m){window.scrollTo({top:$("#map").getBoundingClientRect().top+window.scrollY-12});group.zoomToShowLayer(m,function(){map.setView(m.getLatLng(),Math.max(map.getZoom(),17));m.openPopup()})}}});
 }
@@ -168,4 +171,4 @@ function chips(){
 }
 chips();render();
 })();
-</script></body></html>
+</script>%%LANGJS%%</body></html>
