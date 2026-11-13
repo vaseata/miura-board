@@ -195,10 +195,27 @@ th{background:var(--tint)}
 .bar a{flex:1;max-width:220px;text-align:center;padding:9px 6px;border-radius:99px;border:1px solid var(--hair);background:var(--tint);font-size:13px;color:inherit;text-decoration:none}
 .bar a.alert{border-color:var(--tuna);color:var(--tuna);font-weight:700}
 body{padding-bottom:64px}
+.shoot{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;aspect-ratio:4/3;width:100%;max-width:100%;border:1.5px dashed var(--hair);border-radius:12px;background:var(--sea-tint);color:var(--kon);text-align:center;padding:10px}
+.shoot .cam{width:44px;height:auto;fill:none;stroke:var(--kon);stroke-width:2.5;stroke-linejoin:round;opacity:.75}
+.shoot .lbl{font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--kon)}
+.shoot .what{font-size:13px;color:var(--mute);line-height:1.4}
+.phrow .shoot{aspect-ratio:1/1;border-radius:10px;padding:6px}.phrow .shoot .what{display:none}.phrow .shoot .cam{width:32px}
+.card.im .shoot{aspect-ratio:auto;height:100%;min-height:92px;border:0;border-right:1.5px dashed var(--hair);border-radius:0}
+.card.im .shoot.sm .cam{width:32px}
+.card.im.big .shoot{aspect-ratio:16/9;height:auto;border-right:0;border-bottom:1.5px dashed var(--hair)}
 .draft{margin:16px 0 0;padding:10px 14px;border:1px dashed #E0C050;background:#FFF9E0;color:#5a4400;border-radius:8px;font-size:13px}
 """
 
 CREDIT = ("<br>三浦の景色の写真：Wikimedia Commons（Aspere 撮影・CC0）" if DEMO else "")
+
+CAM = ('<svg class="cam" viewBox="0 0 48 40" aria-hidden="true"><rect x="3" y="9" width="42" height="28" rx="6"/>'
+       '<circle cx="24" cy="23" r="8"/><path d="M16 9l3-5h10l3 5"/></svg>')
+
+def shoot(cap, small=False):
+    """撮影予定の枠（写真が届くまでの置き場）。"""
+    if small:
+        return f'<div class="shoot sm">{CAM}</div>'
+    return f'<div class="shoot">{CAM}<span class="lbl">撮影予定</span><span class="what">{esc(cap)}</span></div>'
 
 def esc(s): return html.escape(str(s), quote=True)
 
@@ -212,6 +229,11 @@ def card(name, desc, href, ext, first=False):
                 f'<div class="tx"><b>{esc(name)}</b><span>{esc(desc)}</span></div></a>')
     if href and key:
         src = photo_src(key)
+        if not src and not PROTO:
+            tgt = ' target="_blank" rel="noopener"' if ext else ""
+            cls = "card im big" if first else "card im"
+            return (f'<a class="{cls}" href="{esc(href)}"{tgt}>{shoot(name, small=not first)}'
+                    f'<div class="tx"><b>{esc(name)}</b><span>{esc(desc)}</span></div></a>')
         if src or PROTO:
             im = src or dummy_img(name)
             tgt = ' target="_blank" rel="noopener"' if ext else ""
@@ -264,17 +286,14 @@ def render_block(b):
             return f'<figure class="ph"><img src="{src}" alt="{esc(alt)}" loading="lazy"><figcaption>{esc(cap)}</figcaption></figure>'
         if PROTO:
             return f'<figure class="ph dm"><img src="{dummy_img(alt)}" alt="ダミー画像：{esc(alt)}" loading="lazy"><figcaption><span class="dummy">ダミー</span>{esc(cap)}</figcaption></figure>'
-        if DEMO: return ""
-        return f'<figure class="ph wait"><div>写真待ち：{esc(cap)}</div></figure>'
+        return f'<figure class="ph">{shoot(cap)}<figcaption>{esc(cap)}</figcaption></figure>'
     if kind == "photos":
         cells = []
         for key, alt, cap in b[1]:
             src = photo_src(key)
             if src: cells.append(f'<figure><img src="{src}" alt="{esc(alt)}" loading="lazy"><figcaption>{esc(cap)}</figcaption></figure>')
             elif PROTO: cells.append(f'<figure class="dm"><img src="{dummy_img(cap)}" alt="ダミー画像：{esc(alt)}" loading="lazy"><figcaption><span class="dummy">ダミー</span>{esc(cap)}</figcaption></figure>')
-            elif DEMO: continue
-            else: cells.append(f'<figure class="wait"><div>写真待ち</div><figcaption>{esc(cap)}</figcaption></figure>')
-        if DEMO and not cells: return ""
+            else: cells.append(f'<figure>{shoot(cap)}<figcaption>{esc(cap)}</figcaption></figure>')
         return '<div class="phrow">' + "".join(cells) + "</div>"
     if kind == "toc":
         return '<nav class="toc">' + "".join(f'<a href="#{esc(i)}">{esc(l)}</a>' for i, l in b[1]) + "</nav>"
@@ -329,7 +348,7 @@ def build_page(slug, spec, public):
     notice = ""
     if (tmp or fill) and not public:
         if DEMO:
-            notice = '<div class="slim"><b>試作版</b>：「記入待ち」と「仮」の札がある所は、家守に確かめてから直します。</div>'
+            notice = '<div class="slim"><b>試作版</b>：「記入待ち」と「仮」の札がある所は家守に確かめてから直します。「撮影予定」の枠には、写真を順に入れていきます。</div>'
         elif PROTO:
             notice = '<div class="draft"><b>ラピッドプロトタイプ。</b>「ダミー」の札の文は、作り話です。実際の内容ではありません。</div>'
         else:
