@@ -119,13 +119,18 @@ SECTION_ID = {"到着前": "mae", "到着したら": "toochaku", "滞在中": "t
 STEPS = [("mae", "到着前", "来る前に"), ("toochaku", "着いたら", "家の中"), ("taizai", "滞在中", "三浦を楽しむ"), ("komatta", "困った・出発", "いざというとき")]
 
 CSS = """
-:root{--bg:#fff;--ink:#14202B;--mute:#4F6070;--hair:#D9E1E8;--tint:#F2F6F9;--sea:#0A5A8C;--sea-tint:#E6F0F6;--tuna:#B8243A;
+:root{--bg:#fff;--ink:#14202B;--mute:#4F6070;--hair:#D9E1E8;--tint:#F2F6F9;--sea:#0A5A8C;--sea-tint:#E6F0F6;--tuna:#B8243A;--kon:#2E4C9E;
 --mincho:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;--gothic:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif}
-@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0E1820;--ink:#E8EEF3;--mute:#9DB0C0;--hair:#25384A;--tint:#16252F;--sea:#6BB6E3;--sea-tint:#12303F;--tuna:#F08A9A}}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0E1820;--ink:#E8EEF3;--mute:#9DB0C0;--hair:#25384A;--tint:#16252F;--sea:#6BB6E3;--sea-tint:#12303F;--tuna:#F08A9A;--kon:#9DB4F0}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--gothic);line-height:1.7}
 .wrap{max-width:720px;margin:0 auto;padding:0 16px 56px}
-header{padding:40px 0 20px;border-bottom:3px solid var(--sea)}
+header{padding:40px 0 22px;position:relative}
+header::after{content:"";position:absolute;left:0;bottom:0;width:120px;height:9px;background:linear-gradient(var(--sea),var(--sea)) 0 0/100% 3px no-repeat,linear-gradient(var(--tuna),var(--tuna)) 0 6px/60% 3px no-repeat}
+.brand{display:flex;align-items:center;gap:10px}.brand img{width:44px;height:44px;flex:none}
+.motif{display:block;width:100%;max-width:100%;height:auto;margin:0 0 6px}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .motif,:root:not([data-theme=light]) .brand img{filter:brightness(1.7) saturate(.85)}}
+header.top{padding-top:8px}
 .eyebrow{font-size:12px;letter-spacing:.18em;color:var(--sea);font-weight:700}
 h1{font-family:var(--mincho);font-weight:800;font-size:34px;margin:6px 0 4px;line-height:1.25}
 .lede{color:var(--mute);margin:0;font-size:15px}
@@ -292,6 +297,7 @@ def head_html(title):
 <title>{esc(title)}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;800&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+<link rel="icon" href="../img/brand/logo.png"><link rel="apple-touch-icon" href="../img/brand/logo.png">
 <style>{CSS}</style></head>"""
 
 BAR = ('<nav class="bar"><a href="index.html">トップ・ページ一覧</a>'
@@ -331,7 +337,7 @@ def build_page(slug, spec, public):
     body = "".join(render_block(b) for b in spec["blocks"])
     page = f"""{head_html(spec["title"] + "｜三浦A邸 滞在ガイド")}<body><div class="wrap page">
 <a class="back" href="index.html">← 滞在ガイドのトップ</a>
-<header><div class="eyebrow">MIURA · STAY GUIDE</div><h1>{esc(spec["title"])}</h1>
+<header><div class="brand"><img src="../img/brand/logo.png" alt="" width="44" height="44"><div class="eyebrow">MIURA · STAY GUIDE</div></div><h1>{esc(spec["title"])}</h1>
 <p class="lede">{esc(spec["lede"])}</p></header>
 {notice}
 {body}
@@ -367,8 +373,10 @@ def build(public=False):
 <title>三浦A邸 滞在ガイド</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;800&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+<link rel="icon" href="../img/brand/logo.png"><link rel="apple-touch-icon" href="../img/brand/logo.png">
 <style>{CSS}</style></head><body><div class="wrap">
-<header><div class="eyebrow">MIURA · STAY GUIDE</div><h1>三浦A邸 滞在ガイド</h1>
+<header class="top"><img class="motif" src="../img/brand/asahi-nami.png" alt="" width="1200" height="400">
+<div class="brand"><img src="../img/brand/logo.png" alt="" width="44" height="44"><div class="eyebrow">MIURA · STAY GUIDE</div></div><h1>三浦A邸 滞在ガイド</h1>
 <p class="lede">来る前・着いたとき・滞在中・帰るときに、ここを開いてください。</p>
 {hero}{quick}{steps}</header>
 {dummy}

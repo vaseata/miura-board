@@ -180,17 +180,22 @@ def build():
 <link rel="apple-touch-icon" href="../img/icon-180.png">
 <link rel="manifest" href="manifest.webmanifest">
 <title>三浦A邸 ガイドブック</title>
+<link rel="icon" href="../img/brand/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{ color-scheme:light;
   --bg:#FFFFFF; --ink:#14202B; --ink2:#3E4C58; --mute:#4F6070; --rule:#14202B; --hair:#D9E1E8; --tint:#F2F6F9;
-  --sea:#0A5A8C; --sea-tint:#E6F0F6; --tuna:#B8243A; --tuna-tint:#FBEAEC; --on:#FFFFFF;
+  --sea:#0A5A8C; --sea-tint:#E6F0F6; --tuna:#B8243A; --tuna-tint:#FBEAEC; --kon:#2E4C9E; --on:#FFFFFF;
   --shadow:0 18px 50px rgba(10,40,70,.22);
   --mincho:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
   --gothic:"Zen Kaku Gothic New","Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
 }
+.motif{display:block;width:100%;max-width:520px;height:auto;margin:0 0 -4px auto}
+.daiji small img{width:40px;height:40px;vertical-align:middle;margin:0 8px 0 0;letter-spacing:0}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .motif,:root:not([data-theme="light"]) .daiji small img{filter:brightness(1.7) saturate(.85)}}
+:root[data-theme="dark"] .motif,:root[data-theme="dark"] .daiji small img{filter:brightness(1.7) saturate(.85)}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--gothic);background:var(--bg);color:var(--ink);line-height:1.75;font-size:15.5px;font-feature-settings:"palt";-webkit-font-smoothing:antialiased;overflow-x:hidden}
 main{max-width:1240px;margin:0 auto;padding:12px 16px 56px}
@@ -201,7 +206,7 @@ a{color:inherit} button{font:inherit;color:inherit}
 .masthead{padding:8px 0 12px;border-bottom:4px solid var(--sea);position:relative}
 .masthead::after{content:"";position:absolute;left:0;right:0;bottom:-8px;border-bottom:1px solid var(--sea)}
 .daiji{font-family:var(--mincho);font-weight:800;font-size:clamp(30px,7.5vw,60px);line-height:1.15;letter-spacing:.12em}
-.daiji small{display:block;font-family:var(--gothic);font-weight:700;font-size:11px;letter-spacing:.3em;color:var(--tuna);margin-bottom:6px}
+.daiji small{display:block;font-family:var(--gothic);font-weight:700;font-size:11px;letter-spacing:.3em;color:var(--kon);margin-bottom:6px}
 .mh-lead{font-size:13px;color:var(--ink2);margin-top:8px;line-height:1.8}
 .mh-links{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:12.5px;margin-top:8px}
 .mh-links a{color:var(--sea);font-weight:700;text-underline-offset:3px}
@@ -223,7 +228,7 @@ a{color:inherit} button{font:inherit;color:inherit}
 .tabs button .n{font-weight:500;font-size:11px;margin-left:4px;opacity:.75}
 .chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;align-items:center}
 .chips button{font-size:12.5px;background:var(--tint);border:1px solid var(--hair);border-radius:999px;padding:5px 11px;min-height:34px;cursor:pointer}
-.chips button[aria-pressed="true"]{background:var(--tuna);border-color:var(--tuna);color:var(--on);font-weight:700}
+.chips button[aria-pressed="true"]{background:var(--kon);border-color:var(--kon);color:var(--on);font-weight:700}
 .chips .tg{border-color:var(--sea);color:var(--sea);font-weight:700;background:var(--bg)}
 .chips .tg[aria-pressed="true"]{background:var(--sea);color:var(--on)}
 .chips .sep{width:1px;height:22px;background:var(--hair);margin:0 2px}
@@ -241,10 +246,10 @@ a{color:inherit} button{font:inherit;color:inherit}
 .noimg span{font-family:var(--mincho);font-weight:800;font-size:clamp(18px,5vw,28px);letter-spacing:.3em;color:var(--sea);opacity:.8}
 .ran{display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;font-size:11px;line-height:1.5}
 .cat{display:inline-block;font-weight:700;letter-spacing:.12em;padding:1px 7px;border:1px solid var(--ink);color:var(--ink)}
-.art[data-cat="食べる"] .cat,.d-meta .cat{background:var(--tuna);border-color:var(--tuna);color:var(--on)}
+.art[data-cat="食べる"] .cat,.d-meta .cat{background:var(--kon);border-color:var(--kon);color:var(--on)}
 .art[data-cat="見る・歩く"] .cat,.art[data-cat="体験する"] .cat,.art[data-cat="季節"] .cat{background:var(--sea);border-color:var(--sea);color:var(--on)}
 .art[data-cat="移動"] .cat,.art[data-cat="困ったとき"] .cat{border-color:var(--sea);color:var(--sea)}
-.art.ev .cat{background:var(--tuna);border-color:var(--tuna);color:var(--on)}
+.art.ev .cat{background:var(--kon);border-color:var(--kon);color:var(--on)}
 .area{color:var(--mute);letter-spacing:.08em}
 .walk{margin-left:auto;font-weight:700;color:var(--sea);white-space:nowrap;font-variant-numeric:tabular-nums}
 .walk.far{color:var(--mute);font-weight:500}
@@ -289,8 +294,9 @@ a{color:inherit} button{font:inherit;color:inherit}
 </head>
 <body>
 <main>
+<img class="motif" src="../img/brand/asahi-nami.png" alt="" width="1200" height="400">
 <header class="masthead">
-  <h1 class="daiji"><small>MIURA A-TEI · GUIDE</small>三浦A邸<br>ガイドブック</h1>
+  <h1 class="daiji"><small><img src="../img/brand/logo.png" alt="" width="40" height="40">MIURA A-TEI · GUIDE</small>三浦A邸<br>ガイドブック</h1>
   <p class="mh-lead">三崎・城ヶ島・三浦海岸で、食べる・見る・体験する・買う。A邸からの徒歩時間つき。<br>$ymd 現在。毎朝自動で更新しています。</p>
   <p class="mh-links"><a href="$board">最近の三浦（近況・イベント）→</a></p>
 </header>

@@ -5,14 +5,20 @@
 <title>ゴミ出し｜三浦A邸 滞在ガイド</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;800&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+<link rel="icon" href="../img/brand/logo.png"><link rel="apple-touch-icon" href="../img/brand/logo.png">
 <style>
-:root{--bg:#fff;--ink:#14202B;--mute:#4F6070;--hair:#D9E1E8;--tint:#F2F6F9;--sea:#0A5A8C;--sea-tint:#E6F0F6;--tuna:#B8243A;
+:root{--bg:#fff;--ink:#14202B;--mute:#4F6070;--hair:#D9E1E8;--tint:#F2F6F9;--sea:#0A5A8C;--sea-tint:#E6F0F6;--tuna:#B8243A;--kon:#2E4C9E;
 --mincho:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;--gothic:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif}
-@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0E1820;--ink:#E8EEF3;--mute:#9DB0C0;--hair:#25384A;--tint:#16252F;--sea:#6BB6E3;--sea-tint:#12303F;--tuna:#F08A9A}}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0E1820;--ink:#E8EEF3;--mute:#9DB0C0;--hair:#25384A;--tint:#16252F;--sea:#6BB6E3;--sea-tint:#12303F;--tuna:#F08A9A;--kon:#9DB4F0}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--gothic);line-height:1.7}
 .wrap{max-width:720px;margin:0 auto;padding:0 16px 56px}
-header{padding:40px 0 20px;border-bottom:3px solid var(--sea)}
+header{padding:40px 0 22px;position:relative}
+header::after{content:"";position:absolute;left:0;bottom:0;width:120px;height:9px;background:linear-gradient(var(--sea),var(--sea)) 0 0/100% 3px no-repeat,linear-gradient(var(--tuna),var(--tuna)) 0 6px/60% 3px no-repeat}
+.brand{display:flex;align-items:center;gap:10px}.brand img{width:44px;height:44px;flex:none}
+.motif{display:block;width:100%;max-width:100%;height:auto;margin:0 0 6px}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .motif,:root:not([data-theme=light]) .brand img{filter:brightness(1.7) saturate(.85)}}
+header.top{padding-top:8px}
 .eyebrow{font-size:12px;letter-spacing:.18em;color:var(--sea);font-weight:700}
 h1{font-family:var(--mincho);font-weight:800;font-size:34px;margin:6px 0 4px;line-height:1.25}
 .lede{color:var(--mute);margin:0;font-size:15px}
@@ -80,7 +86,7 @@ body{padding-bottom:64px}
 .draft{margin:16px 0 0;padding:10px 14px;border:1px dashed #E0C050;background:#FFF9E0;color:#5a4400;border-radius:8px;font-size:13px}
 </style></head><body><div class="wrap page">
 <a class="back" href="index.html">← 滞在ガイドのトップ</a>
-<header><div class="eyebrow">MIURA · STAY GUIDE</div><h1>ゴミ出し</h1>
+<header><div class="brand"><img src="../img/brand/logo.png" alt="" width="44" height="44"><div class="eyebrow">MIURA · STAY GUIDE</div></div><h1>ゴミ出し</h1>
 <p class="lede">三浦市のルールに従って、分けて捨てます。</p></header>
 <div class="slim"><b>試作版</b>：「記入待ち」と「仮」の札がある所は、家守に確かめてから直します。</div>
 <nav class="toc"><a href="#s1">まず</a><a href="#s2">三崎地区の収集日</a><a href="#s3">分け方のコツ</a><a href="#s4">帰るとき</a><a href="#s5">分からないとき</a></nav><h2 id="s1">まず</h2><ul><li>ゴミは、三浦市の分別ルールに従って、分けてください。キッチンのゴミ箱も、分けてあります。</li><li>個室の中に、ゴミ箱は基本的にありません。共用部の所定の場所に捨ててください。</li><li>ゴミ箱がいっぱいのときは、新しいゴミ袋に替えてください。</li><li>ゴミ箱とゴミ袋は、キッチンにあります。</li></ul><h2 id="s2">三崎地区の収集日</h2><table><tr><th>分け方</th><th>収集日</th></tr><tr><td>燃せるごみ</td><td>毎週 火・金</td></tr><tr><td>びん・缶・金物類</td><td>毎週 月</td></tr><tr><td>ペットボトル</td><td>毎週 木</td></tr><tr><td>プラスチック製容器包装</td><td>毎週 木</td></tr><tr><td>不燃ごみ</td><td>第2・第4 水</td></tr><tr><td>古着古布・蛍光管類・破砕できないごみ</td><td>第1・第3 水</td></tr><tr><td>枝木・草葉類</td><td>第1・第3・第5 水</td></tr><tr><td>新聞紙・雑誌・段ボール・紙パック・その他の紙</td><td>毎週 月</td></tr></table><p class="note">出典：三浦市「ごみの分別品目と収集日」（2026年10月21日に確認）。</p><p><b>宿泊者も、ゴミを出してかまいません。</b> 収集所は、<b>家の前か、すぐ近く</b>です。出す時間は、収集日（火・金）の<b>当日の朝8時まで</b>です。</p><h2 id="s3">分け方のコツ</h2><ul><li>ペットボトル、缶、びんは、すすいでから、所定の場所に置いてください。</li><li>魚をさばいたときの生ごみ（アラなど）：キッチンのゴミ箱に入れてください。</li></ul><h2 id="s4">帰るとき</h2><p>使った場所のゴミは、分けて捨ててから、出発してください。</p><h2 id="s5">分からないとき</h2><p>このサイトと各部屋のマナーの紙 → 館内で会えた住人 → （会えなければ）家守への電話かオープンチャット、の順に聞いてください。市のルールは、次のページで調べられます。</p><div class="links"><a href="https://www.city.miura.kanagawa.jp/9587.html" target="_blank" rel="noopener">三浦市：ごみの分別品目と収集日 ↗</a></div><p class="note">三浦市 廃棄物対策課 046-882-1111（内線291・299）。市役所が開いているのは、平日の午前8時30分〜午後5時15分です。</p>

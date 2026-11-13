@@ -273,25 +273,30 @@ issue_no = (TODAY - FIRST_ISSUE).days + 1
 
 
 page = Template('''<title>最近の三浦</title>
+<link rel="icon" href="img/brand/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#FFFFFF; --ink:#14202B; --ink2:#3E4C58; --mute:#5A6A77; --rule:#14202B; --hair:#D9E1E8; --tint:#F2F6F9;
-  --sea:#0A5A8C; --sea-tint:#E6F0F6; --tuna:#B8243A; --tuna-tint:#FBEAEC; --on:#FFFFFF;
+  --sea:#0A5A8C; --sea-tint:#E6F0F6; --tuna:#B8243A; --tuna-tint:#FBEAEC; --kon:#2E4C9E; --on:#FFFFFF;
   --shadow:0 18px 50px rgba(10,40,70,.22);
   --mincho:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
   --gothic:"Zen Kaku Gothic New","Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
 }
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
   --bg:#0E151B; --ink:#E7EDF2; --ink2:#C3CED7; --mute:#8FA0AD; --rule:#E7EDF2; --hair:#26333E; --tint:#15202A;
-  --sea:#5DB0E4; --sea-tint:#10283A; --tuna:#F0697C; --tuna-tint:#3A1820; --on:#0E151B; --shadow:0 18px 50px rgba(0,0,0,.6);
+  --sea:#5DB0E4; --sea-tint:#10283A; --tuna:#F0697C; --tuna-tint:#3A1820; --kon:#9DB4F0; --on:#0E151B; --shadow:0 18px 50px rgba(0,0,0,.6);
 }}
 :root[data-theme="dark"]{
   --bg:#0E151B; --ink:#E7EDF2; --ink2:#C3CED7; --mute:#8FA0AD; --rule:#E7EDF2; --hair:#26333E; --tint:#15202A;
-  --sea:#5DB0E4; --sea-tint:#10283A; --tuna:#F0697C; --tuna-tint:#3A1820; --on:#0E151B; --shadow:0 18px 50px rgba(0,0,0,.6);
+  --sea:#5DB0E4; --sea-tint:#10283A; --tuna:#F0697C; --tuna-tint:#3A1820; --kon:#9DB4F0; --on:#0E151B; --shadow:0 18px 50px rgba(0,0,0,.6);
 }
+.motif{display:block;width:100%;max-width:520px;height:auto;margin:0 0 -4px auto}
+.daiji small img{width:40px;height:40px;vertical-align:middle;margin:0 8px 0 0;letter-spacing:0}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .motif,:root:not([data-theme="light"]) .daiji small img{filter:brightness(1.7) saturate(.85)}}
+:root[data-theme="dark"] .motif,:root[data-theme="dark"] .daiji small img{filter:brightness(1.7) saturate(.85)}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--gothic);background:var(--bg);color:var(--ink);line-height:1.75;font-size:15px;font-feature-settings:"palt";-webkit-font-smoothing:antialiased;overflow-x:hidden}
 main{max-width:1240px;margin:0 auto;padding:14px 16px 48px}
@@ -306,7 +311,7 @@ button{font:inherit;color:inherit}
 .daiji{font-family:var(--mincho);font-weight:800;font-size:clamp(34px,8vw,68px);line-height:1.1;letter-spacing:.14em}
 .daiji small{display:block;font-family:var(--gothic);font-weight:500;font-size:11px;letter-spacing:.28em;color:var(--mute);margin-bottom:6px}
 .issue{text-align:right;font-size:12px;line-height:1.6;color:var(--ink2)}
-.issue .no{display:inline-block;font-family:var(--mincho);font-weight:800;font-size:15px;color:var(--tuna);border:2px solid var(--tuna);padding:0 8px;margin-bottom:4px;letter-spacing:.08em}
+.issue .no{display:inline-block;font-family:var(--mincho);font-weight:800;font-size:15px;color:var(--kon);border:2px solid var(--kon);padding:0 8px;margin-bottom:4px;letter-spacing:.08em}
 .mh-lead{grid-column:1/-1;font-size:12.5px;color:var(--mute);letter-spacing:.06em}
 
 /* ── 前回は（絞り込み） ── */
@@ -314,10 +319,10 @@ button{font:inherit;color:inherit}
 .toggle .q{font-size:12px;color:var(--mute);margin-right:4px;letter-spacing:.08em}
 .toggle button{font-size:13px;background:var(--bg);border:1px solid var(--hair);border-radius:999px;padding:4px 12px;cursor:pointer;min-height:32px}
 .toggle button[aria-pressed="true"]{background:var(--sea);border-color:var(--sea);color:var(--on);font-weight:700}
-.toggle .tag-want{margin-left:auto;border-color:var(--tuna);color:var(--tuna)}
-.toggle .tag-want[aria-pressed="true"]{background:var(--tuna);border-color:var(--tuna);color:var(--on)}
-.toggle .tag-reco{border-style:dashed;border-color:var(--tuna);color:var(--tuna)}
-.toggle .tag-reco[aria-pressed="true"]{background:var(--tuna);color:var(--on);border-style:solid}
+.toggle .tag-want{margin-left:auto;border-color:var(--kon);color:var(--kon)}
+.toggle .tag-want[aria-pressed="true"]{background:var(--kon);border-color:var(--kon);color:var(--on)}
+.toggle .tag-reco{border-style:dashed;border-color:var(--kon);color:var(--kon)}
+.toggle .tag-reco[aria-pressed="true"]{background:var(--kon);color:var(--on);border-style:solid}
 .toggle .n{font-weight:700;margin-left:2px}
 
 /* ── 面見出し ── */
@@ -338,17 +343,17 @@ button{font:inherit;color:inherit}
 .noimg span{font-family:var(--mincho);font-weight:800;font-size:clamp(20px,5vw,30px);letter-spacing:.3em;color:var(--sea);opacity:.8}
 .ran{display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;font-size:11px;line-height:1.5}
 .cat{display:inline-block;font-weight:700;letter-spacing:.12em;padding:1px 7px;border:1px solid var(--ink);color:var(--ink)}
-.art[data-cat="イベント"] .cat,.d-meta .cat.ev{background:var(--tuna);border-color:var(--tuna);color:var(--on)}
+.art[data-cat="イベント"] .cat,.d-meta .cat.ev{background:var(--kon);border-color:var(--kon);color:var(--on)}
 .art[data-cat="季節"] .cat,.art[data-cat="店"] .cat{background:var(--sea);border-color:var(--sea);color:var(--on)}
 .art[data-cat="交通"] .cat{border-color:var(--sea);color:var(--sea)}
 .area{color:var(--mute);letter-spacing:.08em}
 .st{margin-left:auto;color:var(--mute);font-variant-numeric:tabular-nums;white-space:nowrap}
 .st.soon{color:var(--sea);font-weight:700}
 .st.now{color:var(--on);background:var(--sea);padding:0 6px;font-weight:700}
-.st.going{color:var(--tuna);font-weight:700}
+.st.going{color:var(--kon);font-weight:700}
 .box{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.08em;padding:0 6px;line-height:1.7}
-.box.want-tag{background:var(--tuna);color:var(--on)}
-.box.reco-tag{border:1px dashed var(--tuna);color:var(--tuna)}
+.box.want-tag{background:var(--kon);color:var(--on)}
+.box.reco-tag{border:1px dashed var(--kon);color:var(--kon)}
 .art h3{font-family:var(--mincho);font-weight:700;font-size:15.5px;line-height:1.5;letter-spacing:.02em;text-wrap:balance}
 .art h3 .open{all:unset;cursor:pointer;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .art h3 .open::after{content:"";position:absolute;inset:0;z-index:1}
@@ -356,7 +361,7 @@ button{font:inherit;color:inherit}
 .art:has(.open:focus-visible){outline:2px solid var(--sea);outline-offset:4px}
 .art:hover h3 .open{color:var(--sea)}
 .dt{font-size:11.5px;color:var(--mute);font-variant-numeric:tabular-nums;display:flex;gap:8px;flex-wrap:wrap}
-.more{color:var(--tuna);font-weight:700}
+.more{color:var(--kon);font-weight:700}
 .more::before{content:"▸ "}
 .lede{font-size:12.5px;line-height:1.7;color:var(--ink2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 @media (max-width:639px){ .grid .art:not(.lead) .lede{display:none} .art h3{font-size:14.5px} }
@@ -388,15 +393,15 @@ button{font:inherit;color:inherit}
 .src{font-size:11px;color:var(--mute);line-height:1.9;margin-top:10px}
 .src .cf{font-weight:700;letter-spacing:.12em;margin-right:8px;color:var(--ink2)}
 .src a{margin-right:8px;text-underline-offset:2px}
-.entry{display:flex;flex-direction:column;border:1px solid var(--tuna);padding:8px 12px;margin-bottom:14px;font-size:13px}
-.entry b{color:var(--tuna);font-size:15px}
+.entry{display:flex;flex-direction:column;border:1px solid var(--kon);padding:8px 12px;margin-bottom:14px;font-size:13px}
+.entry b{color:var(--kon);font-size:15px}
 .entry span{color:var(--ink2);font-size:12px}
 /* 行ってみたい */
 .want{margin:0 0 14px}
-.want-btn{font-size:14px;font-weight:700;letter-spacing:.12em;background:var(--bg);color:var(--tuna);border:2px solid var(--tuna);padding:6px 18px;cursor:pointer;min-height:40px}
-.want-btn[aria-expanded="true"],.want.done .want-btn{background:var(--tuna);color:var(--on)}
+.want-btn{font-size:14px;font-weight:700;letter-spacing:.12em;background:var(--bg);color:var(--kon);border:2px solid var(--kon);padding:6px 18px;cursor:pointer;min-height:40px}
+.want-btn[aria-expanded="true"],.want.done .want-btn{background:var(--kon);color:var(--on)}
 .want.done .want-btn::before{content:"✓ "}
-.want-to{margin-top:10px;padding:8px 0 4px 12px;border-left:2px solid var(--tuna)}
+.want-to{margin-top:10px;padding:8px 0 4px 12px;border-left:2px solid var(--kon)}
 .want-what{font-size:13px;line-height:1.8;color:var(--ink2);margin-bottom:6px}
 .want-link{display:inline-block;font-size:14px;font-weight:700;color:var(--sea);margin:2px 18px 6px 0;padding:4px 0;text-underline-offset:3px}
 .want-off{font-size:12px;color:var(--mute);background:none;border:0;cursor:pointer;padding:4px 0;text-decoration:underline}
@@ -407,8 +412,8 @@ button{font:inherit;color:inherit}
 .prep dl{font-size:13.5px;line-height:1.85}
 .prep dt{font-weight:700;color:var(--sea);margin-top:12px}
 .prep dd .src{display:block;margin-top:2px}
-.oq{margin-top:14px;background:var(--tuna-tint);padding:10px 14px;font-size:13px;line-height:1.8}
-.oq .tl{color:var(--tuna)}
+.oq{margin-top:14px;background:var(--sea-tint);padding:10px 14px;font-size:13px;line-height:1.8}
+.oq .tl{color:var(--kon)}
 .oq ul{padding-left:1.2em}
 
 /* ── 灯台（囲み） ── */
@@ -424,7 +429,7 @@ button{font:inherit;color:inherit}
 .vid{display:block;text-decoration:none;min-width:0}
 .vthumb{position:relative;aspect-ratio:16/9;background:var(--tint);overflow:hidden;max-width:100%}
 .vthumb img{display:block;width:100%;height:100%;object-fit:cover}
-.live{position:absolute;left:0;top:0;background:var(--tuna);color:#fff;font-size:10px;font-weight:700;letter-spacing:.2em;padding:1px 8px}
+.live{position:absolute;left:0;top:0;background:var(--kon);color:#fff;font-size:10px;font-weight:700;letter-spacing:.2em;padding:1px 8px}
 .vtitle{font-size:12.5px;line-height:1.55;margin-top:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .vid:hover .vtitle{color:var(--sea)}
 .vmeta{font-size:10.5px;color:var(--mute);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -435,8 +440,9 @@ button{font:inherit;color:inherit}
 @media (prefers-reduced-motion: reduce){ .thumb img{transition:none} }
 </style>
 <main>
+<img class="motif" src="img/brand/asahi-nami.png" alt="" width="1200" height="400">
 <header class="masthead">
-  <h1 class="daiji"><small>三浦A邸 近況ボード</small>最近の三浦</h1>
+  <h1 class="daiji"><small><img src="img/brand/logo.png" alt="" width="40" height="40">三浦A邸 近況ボード</small>最近の三浦</h1>
   <div class="issue"><span class="no">第$issue号</span><br>$ymd（$wd）</div>
   <p class="mh-lead">城ヶ島・三崎・三浦海岸・油壺・小網代 ── この町で起きたこと、はじまったこと、季節のこと。記事をタップすると詳しく読めます。</p>
   <p class="mh-lead"><a href="guide/"><b>ゲスト向けガイドブック（食べる・見る・体験する）→</b></a></p>
