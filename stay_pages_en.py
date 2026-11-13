@@ -392,6 +392,8 @@ PAGES_EN = {
                 "Don't ring the bell; just come in. The entrance is a normal home entrance.",
             ]),
             ("h2", "First things on arrival", "mazu"),
+            ("photo", "madori3d", "Hand-drawn bird's-eye map of the first and second floors of Miura A, with room names and notes (labels in Japanese)", "House map, 1F and 2F (labels in Japanese)"),
+            ("links", [("Open the map full size", "https://vaseata.github.io/miura-board/stay/img/madori3d.jpg")]),
             ("photos", [("kutsu", "Where to put shoes", "Shoes"), ("linen", "Where the linens are", "Linens"), ("kitchen", "Wooden table and kitchen", "Living room and kitchen")]),
             ("ol", [
                 "Take off your shoes and come in. There is no fixed place for shoes; put them anywhere there is space.",
