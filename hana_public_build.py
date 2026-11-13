@@ -6,6 +6,7 @@
                                           建物は OpenFreeMap のベクトルタイル、橋・灯台・防波堤は structures.json）
 ◎にできるのはヤヌキだけ。埋め込み: <iframe src=".../guide/map.html?embed=1"> """
 import json, pathlib, sys
+import shop_hours
 
 HERE = pathlib.Path(__file__).parent
 OUT = HERE / "guide"
@@ -24,6 +25,7 @@ _hm = HERE / "home.local.json"
 _h = json.load(open(_hm)) if _hm.exists() else None
 HOME_GUEST = json.dumps({"name": "三浦A邸", "lat": round(_h["lat"], 5), "lon": round(_h["lon"], 5)}, ensure_ascii=False) if _h else None
 HOMENOTE_GUEST = "赤い家のピンが三浦A邸です。"
+IMAGES = json.load(open(HERE / "places.json", encoding="utf-8"))["images"]
 HIDE_FLAG = ("今はおすすめしない", "閉店・移転した")
 
 def rows(doc, include_draft):
@@ -45,6 +47,8 @@ def rows(doc, include_draft):
             "color": COLOR.get(s["category"], "#555"), "fg": FG.get(s["category"], "#fff"),
             "r": h.get("rating") or 0, "rm": h.get("rating_max") or 5, "w": h.get("when") or [],
             "draft": s.get("status") != "◎",
+            "sc": shop_hours.parse(s.get("hours"), closed), "cl": closed if isinstance(closed, list) else None,
+            "img": ("../" + IMAGES[s["image"]]["file"]) if s.get("image") in IMAGES else "",
         })
     return out
 
@@ -56,7 +60,8 @@ def render(tpl, data, draft, flat="", guest=False):
     return (tpl.replace("%%DATA%%", json.dumps(data, ensure_ascii=False)).replace("%%KEEPER%%", KEEPER)
                .replace("%%DRAFT%%", banner).replace("%%ROBOTS%%", robots)
                .replace("%%FLAT%%", flat).replace("%%EXAGNOTE%%", EXAGNOTE).replace("%%EXAG%%", str(EXAG)).replace("%%STRUCT%%", STRUCT)
-               .replace("%%HOME%%", home).replace("%%HOMENOTE%%", note))
+               .replace("%%HOME%%", home).replace("%%HOMENOTE%%", note)
+               .replace("%%OPENJS%%", shop_hours.OPEN_JS).replace("%%STATUSCSS%%", shop_hours.STATUS_CSS))
 
 def main():
     doc = json.load(open(HERE / "spots.json"))

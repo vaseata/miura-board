@@ -3,7 +3,8 @@
 単体で動く（build.py には依存しない）。build.py の末尾からも呼ばれる。"""
 import json, datetime, html, pathlib, math, urllib.parse
 from string import Template
-from ui_parts import UI_CSS, sitenav
+from ui_parts import UI_CSS, sitenav, hana_banner
+import shop_hours
 
 HERE = pathlib.Path(__file__).parent
 OUT = HERE / "guide"
@@ -64,7 +65,7 @@ def build():
 
     def thumb(key, label):
         p = places.get(key or "")
-        if not p: return f'<div class="thumb noimg" aria-hidden="true"><span>{esc(label)}</span></div>'
+        if not p: return f'<div class="thumb noimg" aria-hidden="true"><svg viewBox="0 0 48 36"><path d="M6 10h8l3-4h14l3 4h8v22H6z"/><circle cx="24" cy="20" r="7"/></svg><span>{esc(label)}</span><small>写真準備中</small></div>'
         return f'<div class="thumb"><img src="../{esc(p["file"])}" alt="" loading="lazy" width="480" height="300"></div>'
     def figure(key):
         p = places.get(key or "")
@@ -89,7 +90,21 @@ def build():
         q = f'{s["lat"]},{s["lon"]}'
         apple = f'https://maps.apple.com/?daddr={q}&dirflg=w'
         goog = "https://www.google.com/maps/dir/?api=1&destination=" + urllib.parse.quote(q) + "&travelmode=walking"
-        return f'<p class="maps"><a class="btn btn-primary" href="{apple}" target="_blank" rel="noopener">Apple マップで徒歩経路</a><a class="btn btn-secondary" href="{goog}" target="_blank" rel="noopener">Google マップ</a></p>'
+        embed = "https://maps.google.com/maps?q=" + urllib.parse.quote(q) + "&z=16&output=embed"
+        return (f'<div class="gmap"><iframe data-src="{embed}" title="{esc(s["name"])}の地図" referrerpolicy="no-referrer-when-downgrade"></iframe></div>'
+                f'<p class="maps"><a class="btn btn-primary" href="{goog}" target="_blank" rel="noopener">Google マップで道順</a><a class="btn btn-secondary" href="{apple}" target="_blank" rel="noopener">Apple マップ</a></p>')
+
+    def status_html(s):
+        """いま営業中か（ページを開いた時刻で JS が書き換える。JS が無いときは営業時間の文をそのまま出す）"""
+        if s.get("closed_until") and d(s["closed_until"]) >= TODAY:
+            return f'<span class="ost" data-s="off">臨時休業（{jdate(d(s["closed_until"]))}まで）</span>'
+        if s["category"] not in ("食べる", "買う", "体験する", "移動", "困ったとき") and not s.get("hours"):
+            return ""
+        sc = shop_hours.parse(s.get("hours"), s.get("closed"))
+        cl = s.get("closed") if isinstance(s.get("closed"), list) else None
+        fallback = esc(s.get("hours") or closed_text(s))
+        return (f'<span class="ost js-ost" data-s="unknown" data-sched=\'{json.dumps(sc) if sc else "null"}\' '
+                f'data-closed=\'{json.dumps(cl)}\' data-known="{"1" if cl is not None else ""}">{fallback}</span>')
 
     def spot_card(s):
         tags = s.get("tags", [])
@@ -110,7 +125,7 @@ def build():
   {thumb(s.get("image"), s["area"])}
   <div class="ran"><span class="cat">{esc(s["category"])}</span><span class="area">{esc(s["area"])}</span>{walk_label(s)}</div>
   <h3><button type="button" class="open">{esc(s["name"])}</button></h3>
-  <p class="dt">{esc(s.get("hours") or "")}{"　" if s.get("hours") else ""}<span class="cl">{esc(closed_text(s))}</span></p>
+  <p class="dt">{status_html(s)}</p>
   <p class="lede">{esc(s.get("note") or "")}</p>
   <div class="detail" hidden>
     {figure(s.get("image"))}
@@ -235,6 +250,9 @@ a{color:inherit} button{font:inherit;color:inherit}
 .thumb img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
 .art:hover .thumb img{transform:scale(1.03)}
 .noimg{display:flex;align-items:center;justify-content:center;background:var(--sea-tint)}
+.noimg{flex-direction:column;gap:4px}.noimg svg{width:40px;height:30px;fill:none;stroke:var(--sea);stroke-width:2;opacity:.7}
+.noimg small{font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--sea);opacity:.8}
+.gmap{margin:0 -20px 12px;aspect-ratio:4/3;max-height:320px;background:var(--tint)}.gmap iframe{display:block;width:100%;height:100%;border:0}
 .noimg span{font-family:var(--mincho);font-weight:800;font-size:clamp(18px,5vw,28px);letter-spacing:.3em;color:var(--sea);opacity:.8}
 .ran{display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;font-size:11px;line-height:1.5}
 .cat{display:inline-block;font-weight:700;letter-spacing:.12em;padding:1px 7px;border:1px solid var(--ink);color:var(--ink)}
@@ -277,6 +295,7 @@ a{color:inherit} button{font:inherit;color:inherit}
 .src .chk{margin-left:8px}
 .src a{margin-right:8px;text-underline-offset:2px}
 $ui_css
+$status_css
 /* 奥付 */
 .okuzuke{margin-top:44px;border-top:3px double var(--rule);padding-top:12px;font-size:11.5px;line-height:1.9;color:var(--mute)}
 .okuzuke a{color:var(--sea)}
@@ -291,6 +310,7 @@ $sitenav
   <p class="mh-lead">三崎・城ヶ島・三浦海岸で、食べる・見る・体験する・買う。A邸からの徒歩時間つき。<br>$ymd 現在。毎朝自動で更新しています。</p>
 </header>
 
+$hana
 <section class="sec" id="season">
   <h2 class="men">今の季節<span class="latin">$month</span></h2>
   <div class="grid">$df$season$events</div>
@@ -314,6 +334,7 @@ $sitenav
 </footer>
 </main>
 <dialog id="sheet" aria-label="詳細"><div class="sheet-in"><div class="sheet-bar"><button type="button" class="btn btn-secondary sheet-close">閉じる</button></div><div class="sheet-body"></div></div></dialog>
+$open_js
 <script>
 (function(){
   var CATS=$cats_json;
@@ -365,13 +386,14 @@ $sitenav
   /* 詳細シート（記事の中身をシートへ移し、閉じたら戻す） */
   var sheet=document.getElementById('sheet'), sbody=sheet.querySelector('.sheet-body'), sin=sheet.querySelector('.sheet-in'), home=null, cur=null, opener=null;
   function putBack(){ if(cur&&home){cur.hidden=true;home.appendChild(cur);} cur=home=null; if(opener){opener.focus();opener=null;} }
-  function openCard(card,btn){ var det=card.querySelector('.detail'); if(!det)return; home=card;cur=det;opener=btn; sbody.appendChild(det); det.hidden=false; sin.scrollTop=0; if(sheet.showModal){sheet.showModal();}else{sheet.setAttribute('open','');} }
+  function openCard(card,btn){ var det=card.querySelector('.detail'); if(!det)return; home=card;cur=det;opener=btn; sbody.appendChild(det); det.hidden=false; [].forEach.call(det.querySelectorAll('iframe[data-src]'),function(f){if(!f.src)f.src=f.dataset.src;}); sin.scrollTop=0; if(sheet.showModal){sheet.showModal();}else{sheet.setAttribute('open','');} }
   function closeSheet(){ if(sheet.close&&sheet.open){sheet.close();}else{sheet.removeAttribute('open');putBack();} }
   sheet.addEventListener('close',putBack);
   sheet.addEventListener('click',function(e){if(e.target===sheet)closeSheet();});
   sheet.querySelector('.sheet-close').addEventListener('click',closeSheet);
   [].forEach.call(document.querySelectorAll('.art .open'),function(b){b.addEventListener('click',function(){openCard(b.closest('.art'),b);});});
   readHash(); render();
+  [].forEach.call(document.querySelectorAll('.js-ost'),function(el){try{var r=shopStatus(JSON.parse(el.dataset.sched),JSON.parse(el.dataset.closed),!!el.dataset.known);el.dataset.s=r.s;el.textContent=r.t;}catch(e){}});
 })();
 </script>
 </body>
@@ -380,7 +402,7 @@ $sitenav
                  df=df_card, season=season_html, events=events_html,
                  season_empty='' if (season_html or events_html) else '<p class="empty">いまは季節の項目がありません。</p>',
                  total=len(published), tabs="".join(f'<button type="button" class="fchip" data-cat="{esc(c)}" aria-pressed="false">{esc(c)}<span class="n">{counts[c]}</span></button>' for c in CATS),
-                 spots=spots_html or '<p class="empty">掲載中の場所はまだありません。</p>', credits=credits, cats_json=json.dumps(CATS, ensure_ascii=False), ui_css=UI_CSS, sitenav=sitenav("guide", "../", is_top=True, sos=True))
+                 spots=spots_html or '<p class="empty">掲載中の場所はまだありません。</p>', credits=credits, cats_json=json.dumps(CATS, ensure_ascii=False), ui_css=UI_CSS, hana=hana_banner("../"), status_css=shop_hours.STATUS_CSS, open_js=shop_hours.OPEN_JS, sitenav=sitenav("guide", "../", is_top=True, sos=True))
     (OUT / "index.html").write_text(page, encoding="utf-8")
 
     # ---- review.html（候補の確認用・noindex）

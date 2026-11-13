@@ -33,6 +33,16 @@ UI_CSS = """
 .sn.has-sos .sn-in{flex-wrap:wrap}
 @media (max-width:359px){.sn.has-sos .sn-in{mask-image:none;-webkit-mask-image:none}}
 @media print{.sn,.bn,.lang{display:none!important}body{padding-bottom:0!important}}
+/* 家守のおすすめマップの入口（2026-11-14 ヤヌキ依頼「目立つ場所に」） */
+.hana{display:grid;grid-template-columns:1fr;margin:16px 0 0;border:1.5px solid var(--sea);border-radius:14px;overflow:hidden;background:var(--bg);color:var(--ink);text-decoration:none}
+.hana img{display:block;width:100%;height:auto;aspect-ratio:2/1;object-fit:cover}
+.hana .hx{padding:12px 16px 14px}
+.hana .hk{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--sea)}
+.hana b{display:block;font-family:var(--mincho);font-size:20px;line-height:1.35;margin:2px 0}
+.hana .hs{display:block;font-size:13px;color:var(--mute)}
+.hana .hgo{display:inline-flex;align-items:center;min-height:44px;margin-top:6px;padding:0 18px;border-radius:12px;background:var(--sea);color:#fff;font-weight:700;font-size:15px}
+.hana .hcr{display:block;font-size:10px;color:var(--mute);margin-top:6px}
+@media (min-width:600px){.hana{grid-template-columns:1.1fr 1fr;align-items:center}.hana img{height:100%;aspect-ratio:auto;min-height:200px}}
 /* ボタン（行動） */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:0 18px;border-radius:12px;border:1.5px solid transparent;font:700 15px/1.3 var(--gothic);letter-spacing:0;text-align:center;text-decoration:none;cursor:pointer;transition:transform 120ms,background-color 120ms}
 .btn:active{transform:scale(.97)}
@@ -96,6 +106,18 @@ def sitenav(current, root, lang="ja", is_top=False, sos=False):
     return (f'<nav class="sn{" has-sos" if sos else ""}" aria-label="{label}"><div class="sn-in">'
             f'<a class="home" href="{_esc(home)}" aria-label="{home_label}"><img src="{_esc(root)}img/brand/logo.png" alt="" width="28" height="28">'
             f'<span class="t">{"Miura A-tei" if en else "三浦A邸"}</span></a>{"".join(items)}</div></nav>')
+
+
+def hana_banner(root, lang="ja"):
+    """家守のおすすめマップへの大きな入口（滞在ガイドとガイドブックのトップ）。地図の絵は OpenStreetMap。"""
+    en = lang == "en"
+    href = root + "guide/map-preview.html"
+    k, t, sub, go = (("HOUSE MANAGER'S PICKS", "Recommended food & shops map", "Places to eat and shop nearby, with today's opening status (in Japanese)", "Open the map")
+                     if en else ("家守のおすすめ", "おすすめマップ", "三崎・城ヶ島の、ごはんと買い物のお店。今日やっているかも分かります", "地図をひらく"))
+    hl = ' hreflang="ja"' if en else ""
+    return (f'<a class="hana" href="{_esc(href)}"{hl}><img src="{_esc(root)}img/brand/hana-map.jpg" alt="" width="800" height="397" loading="lazy">'
+            f'<span class="hx"><span class="hk">{k}</span><b>{t}</b><span class="hs">{sub}</span>'
+            f'<span class="hgo">{go} →</span><span class="hcr">地図 © OpenStreetMap contributors</span></span></a>')
 
 
 _ICONS = {

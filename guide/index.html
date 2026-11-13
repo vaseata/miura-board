@@ -63,6 +63,9 @@ a{color:inherit} button{font:inherit;color:inherit}
 .thumb img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
 .art:hover .thumb img{transform:scale(1.03)}
 .noimg{display:flex;align-items:center;justify-content:center;background:var(--sea-tint)}
+.noimg{flex-direction:column;gap:4px}.noimg svg{width:40px;height:30px;fill:none;stroke:var(--sea);stroke-width:2;opacity:.7}
+.noimg small{font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--sea);opacity:.8}
+.gmap{margin:0 -20px 12px;aspect-ratio:4/3;max-height:320px;background:var(--tint)}.gmap iframe{display:block;width:100%;height:100%;border:0}
 .noimg span{font-family:var(--mincho);font-weight:800;font-size:clamp(18px,5vw,28px);letter-spacing:.3em;color:var(--sea);opacity:.8}
 .ran{display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;font-size:11px;line-height:1.5}
 .cat{display:inline-block;font-weight:700;letter-spacing:.12em;padding:1px 7px;border:1px solid var(--ink);color:var(--ink)}
@@ -124,6 +127,16 @@ a{color:inherit} button{font:inherit;color:inherit}
 .sn.has-sos .sn-in{flex-wrap:wrap}
 @media (max-width:359px){.sn.has-sos .sn-in{mask-image:none;-webkit-mask-image:none}}
 @media print{.sn,.bn,.lang{display:none!important}body{padding-bottom:0!important}}
+/* 家守のおすすめマップの入口（2026-11-14 ヤヌキ依頼「目立つ場所に」） */
+.hana{display:grid;grid-template-columns:1fr;margin:16px 0 0;border:1.5px solid var(--sea);border-radius:14px;overflow:hidden;background:var(--bg);color:var(--ink);text-decoration:none}
+.hana img{display:block;width:100%;height:auto;aspect-ratio:2/1;object-fit:cover}
+.hana .hx{padding:12px 16px 14px}
+.hana .hk{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--sea)}
+.hana b{display:block;font-family:var(--mincho);font-size:20px;line-height:1.35;margin:2px 0}
+.hana .hs{display:block;font-size:13px;color:var(--mute)}
+.hana .hgo{display:inline-flex;align-items:center;min-height:44px;margin-top:6px;padding:0 18px;border-radius:12px;background:var(--sea);color:#fff;font-weight:700;font-size:15px}
+.hana .hcr{display:block;font-size:10px;color:var(--mute);margin-top:6px}
+@media (min-width:600px){.hana{grid-template-columns:1.1fr 1fr;align-items:center}.hana img{height:100%;aspect-ratio:auto;min-height:200px}}
 /* ボタン（行動） */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:0 18px;border-radius:12px;border:1.5px solid transparent;font:700 15px/1.3 var(--gothic);letter-spacing:0;text-align:center;text-decoration:none;cursor:pointer;transition:transform 120ms,background-color 120ms}
 .btn:active{transform:scale(.97)}
@@ -155,6 +168,14 @@ a{color:inherit} button{font:inherit;color:inherit}
 @media (min-width:720px){.bn{left:50%;right:auto;width:560px;transform:translateX(-50%);border:1px solid var(--hair);border-bottom:0;border-radius:12px 12px 0 0}}
 @media (prefers-reduced-motion:reduce){.btn,.fchip,.seg button{transition:none}.btn:active{transform:none}}
 
+
+.ost{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;line-height:1.4}
+.ost::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor;flex:none}
+.ost[data-s="open"]{color:var(--sea)}
+.ost[data-s="soon"],.ost[data-s="closed"],.ost[data-s="unknown"]{color:var(--mute);font-weight:400}
+.ost[data-s="off"]{color:var(--mute);font-weight:400}
+.ost[data-s="off"]::before,.ost[data-s="closed"]::before,.ost[data-s="unknown"]::before{background:none;border:1.5px solid currentColor;width:6px;height:6px}
+
 /* 奥付 */
 .okuzuke{margin-top:44px;border-top:3px double var(--rule);padding-top:12px;font-size:11.5px;line-height:1.9;color:var(--mute)}
 .okuzuke a{color:var(--sea)}
@@ -169,6 +190,7 @@ a{color:inherit} button{font:inherit;color:inherit}
   <p class="mh-lead">三崎・城ヶ島・三浦海岸で、食べる・見る・体験する・買う。A邸からの徒歩時間つき。<br>2026年11月14日 現在。毎朝自動で更新しています。</p>
 </header>
 
+<a class="hana" href="../guide/map-preview.html"><img src="../img/brand/hana-map.jpg" alt="" width="800" height="397" loading="lazy"><span class="hx"><span class="hk">家守のおすすめ</span><b>おすすめマップ</b><span class="hs">三崎・城ヶ島の、ごはんと買い物のお店。今日やっているかも分かります</span><span class="hgo">地図をひらく →</span><span class="hcr">地図 © OpenStreetMap contributors</span></span></a>
 <section class="sec" id="season">
   <h2 class="men">今の季節<span class="latin">11月 · November</span></h2>
   <div class="grid"><a class="art ev" href="../index.html"><div class="thumb"><img src="../img/misaki_harbor.jpg" alt="" loading="lazy" width="480" height="300"></div><div class="ran"><span class="cat">イベント</span><span class="area">三浦市</span><span class="st now">開催中</span></div><h3>10/3〜12/31 三崎マグロ茜身スタンプラリー</h3><p class="dt">10/3(土)〜12/31(木)</p><p class="lede">年末まで、マグロの茜身（血合い）のスタンプラリーをやっています。スマホだけで、ふつうに食事や買い物をしても押せるそうです</p></a><a class="art ev" href="../index.html"><div class="thumb"><img src="../img/jogashima_lighthouse.jpg" alt="" loading="lazy" width="480" height="300"></div><div class="ran"><span class="cat">イベント</span><span class="area">城ヶ島</span><span class="st now">開催中</span></div><h3>11/29まで 城ヶ島の白秋記念館で白秋特別展</h3><p class="dt">11/1(日)〜11/29(日)</p><p class="lede">いま城ヶ島の白秋記念館で、白秋が自分で描いた挿絵の展示をやっているそうです。月・金曜はお休みなので気をつけてください</p></a><a class="art ev" href="../index.html"><div class="thumb"><img src="../img/welovemiura_2026.jpg" alt="" loading="lazy" width="480" height="300"></div><div class="ran"><span class="cat">イベント</span><span class="area">三崎</span><span class="st soon">1日後</span></div><h3>11/15 うらりで台風復興チャリティーライブ</h3><p class="dt">11/15(日)</p><p class="lede">11/15の日曜、うらりの展望デッキで台風の復興チャリティーライブがあります。観覧は無料で、最後にみんなでゴスペルを歌うそうですよ</p></a><a class="art ev" href="../index.html"><div class="thumb"><img src="../img/miura_beach.jpg" alt="" loading="lazy" width="480" height="300"></div><div class="ran"><span class="cat">イベント</span><span class="area">三浦海岸</span><span class="st soon">7日後</span></div><h3>11/21 三浦海岸の地引網大会（改めて開催）</h3><p class="dt">11/21(土)</p><p class="lede">10/24に雨で流れた地引網、11/21の土曜にやり直すそうです。申込制で11/16までなので、その頃来るなら一緒に引けますよ</p></a><a class="art ev" href="../index.html"><div class="thumb"><img src="../img/hatsuse_wagyu_2026.jpg" alt="" loading="lazy" width="480" height="300"></div><div class="ran"><span class="cat">イベント</span><span class="area">三浦市</span><span class="st soon">7日後</span></div><h3>11/21 初声高の収穫祭、自校育ちの和牛を販売</h3><p class="dt">11/21(土)</p><p class="lede">初声高の畜産部が育てたA5の和牛が、11/21の収穫祭で買えるそうです。カレーは200食だけだとか</p></a><a class="art ev" href="../index.html"><div class="thumb"><img src="../img/misaki_harbor.jpg" alt="" loading="lazy" width="480" height="300"></div><div class="ran"><span class="cat">定番</span><span class="st soon">45日後</span></div><h3>三崎朝市 年末特別セール</h3><p class="dt">12/29(火)</p><p class="lede">年末は朝市が特別体制です</p></a></div>
@@ -192,6 +214,23 @@ a{color:inherit} button{font:inherit;color:inherit}
 </footer>
 </main>
 <dialog id="sheet" aria-label="詳細"><div class="sheet-in"><div class="sheet-bar"><button type="button" class="btn btn-secondary sheet-close">閉じる</button></div><div class="sheet-body"></div></div></dialog>
+<script>
+window.shopStatus=function(sc,closed,known){
+  var now=new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Tokyo'}));
+  var wd=(now.getDay()+6)%7, m=now.getHours()*60+now.getMinutes();
+  function hm(x){return Math.floor(x/60)+':'+('0'+x%60).slice(-2);}
+  if(closed&&closed.indexOf(wd)>=0)return {s:'off',t:'今日は定休日'};
+  if(!sc){return known?{s:'unknown',t:'今日は営業日（時間は詳細で）'}:{s:'unknown',t:'定休日は要確認'};}
+  var r=sc.d[wd]||[];
+  if(!r.length)return {s:'off',t:'今日はお休み'};
+  if(r[0][0]===0&&r[0][1]===1440)return {s:'open',t:'24時間'};
+  for(var i=0;i<r.length;i++){
+    if(m>=r[i][0]&&m<r[i][1]){var left=r[i][1]-m;return {s:'open',t:(left<=60?'まもなく閉店 ':'営業中・')+hm(r[i][1])+'まで'};}
+    if(m<r[i][0])return {s:'soon',t:(i>0?'休憩中・':'')+hm(r[i][0])+'から'};
+  }
+  return {s:'closed',t:'今日は終了（'+hm(r[r.length-1][1])+'まで）'};
+};
+</script>
 <script>
 (function(){
   var CATS=["食べる", "見る・歩く", "体験する", "買う", "移動", "困ったとき"];
@@ -243,13 +282,14 @@ a{color:inherit} button{font:inherit;color:inherit}
   /* 詳細シート（記事の中身をシートへ移し、閉じたら戻す） */
   var sheet=document.getElementById('sheet'), sbody=sheet.querySelector('.sheet-body'), sin=sheet.querySelector('.sheet-in'), home=null, cur=null, opener=null;
   function putBack(){ if(cur&&home){cur.hidden=true;home.appendChild(cur);} cur=home=null; if(opener){opener.focus();opener=null;} }
-  function openCard(card,btn){ var det=card.querySelector('.detail'); if(!det)return; home=card;cur=det;opener=btn; sbody.appendChild(det); det.hidden=false; sin.scrollTop=0; if(sheet.showModal){sheet.showModal();}else{sheet.setAttribute('open','');} }
+  function openCard(card,btn){ var det=card.querySelector('.detail'); if(!det)return; home=card;cur=det;opener=btn; sbody.appendChild(det); det.hidden=false; [].forEach.call(det.querySelectorAll('iframe[data-src]'),function(f){if(!f.src)f.src=f.dataset.src;}); sin.scrollTop=0; if(sheet.showModal){sheet.showModal();}else{sheet.setAttribute('open','');} }
   function closeSheet(){ if(sheet.close&&sheet.open){sheet.close();}else{sheet.removeAttribute('open');putBack();} }
   sheet.addEventListener('close',putBack);
   sheet.addEventListener('click',function(e){if(e.target===sheet)closeSheet();});
   sheet.querySelector('.sheet-close').addEventListener('click',closeSheet);
   [].forEach.call(document.querySelectorAll('.art .open'),function(b){b.addEventListener('click',function(){openCard(b.closest('.art'),b);});});
   readHash(); render();
+  [].forEach.call(document.querySelectorAll('.js-ost'),function(el){try{var r=shopStatus(JSON.parse(el.dataset.sched),JSON.parse(el.dataset.closed),!!el.dataset.known);el.dataset.s=r.s;el.textContent=r.t;}catch(e){}});
 })();
 </script>
 </body>

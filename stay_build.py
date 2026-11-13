@@ -6,7 +6,7 @@
 import html, pathlib, re, shutil, sys, urllib.parse
 from stay_pages import PAGES
 from stay_pages_en import PAGES_EN
-from ui_parts import UI_CSS, sitenav, bottomnav
+from ui_parts import UI_CSS, sitenav, bottomnav, hana_banner
 import carousel
 
 HERE = pathlib.Path(__file__).parent
@@ -281,6 +281,12 @@ footer{margin-top:40px;font-size:12px;color:var(--mute)}
 .back{margin:4px 0 0;font-size:14px}
 .page h2{border-left:4px solid var(--sea);padding-left:10px;font-size:20px;margin:32px 0 8px}
 .page p{margin:8px 0}.page ul,.page ol{margin:8px 0;padding-left:1.4em}.page li{margin:6px 0}
+.contacts{display:grid;gap:8px;margin:12px 0}
+@media(min-width:600px){.contacts{grid-template-columns:1fr 1fr}}
+.btn.ct{justify-content:flex-start;gap:12px;min-height:56px;padding:8px 16px;text-align:left}
+.ct-ic svg{display:block;width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linejoin:round}
+.ct-tx{display:flex;flex-direction:column;line-height:1.35}.ct-tx b{font-size:16px}.ct-tx small{font-size:12px;font-weight:400;opacity:.9}
+.ct-off{display:flex;align-items:center;min-height:56px;padding:8px 16px;border:1px dashed var(--hair);border-radius:12px;color:var(--ink)}
 .alert-box{margin:20px 0 0;padding:14px 16px;border:2px solid var(--tuna);border-radius:10px;color:var(--tuna);font-weight:700}
 .note{font-size:12px;color:var(--mute);margin:6px 0}
 table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
@@ -408,6 +414,34 @@ def count_marks(blocks):
     nophoto += sum(1 for b in blocks if b[0] == "photos" for k, _a, _c in b[1] if not photo_src(k))
     return raw.count("{仮}"), len(re.findall(r"\{記入:", raw)) + nophoto
 
+# 連絡先（押せばすぐ電話・連絡できるボタン。2026-11-14 ヤヌキ依頼「連絡先は可能な限りボタンやリンクに」）
+# (番号, リンク, 日本語の名前, 日本語の説明, 英語の名前, 英語の説明, 種類)。リンクが None は「記入待ち」か、前日のメールにあるもの
+CONTACTS = [
+    ("119", "tel:119", "消防・救急", "命に関わるとき", "Fire / ambulance", "Life-threatening", "sos"),
+    ("#7119", "tel:%237119", "救急かどうか迷ったら", "神奈川県の電話相談（24時間）", "Not sure if it's an emergency", "Kanagawa phone advice, 24h", "sos2"),
+    ("110", "tel:110", "警察", "事件・事故", "Police", "Crime / accident", "sos2"),
+    ("", "MAIL", "家守", "電話番号は、予約の前日のメールにあります", "House manager", "The phone number is in the email sent the day before", "house"),
+    ("", None, "オープンチャット", "{記入:三浦A邸のオープンチャットのURL}", "Open chat", "{記入:Open chat URL}", "house"),
+    ("", None, "ADDress 会員サポート", "{記入:会員サポートの連絡先のURL}", "ADDress member support", "{記入:Support URL}", "house"),
+]
+
+def contacts_html(which):
+    en = LANG == "en"
+    out = []
+    for num, href, ja, jn, el, enote, kind in CONTACTS:
+        if which == "emergency" and not kind.startswith("sos"):
+            continue
+        name, note = (el, enote) if en else (ja, jn)
+        if href and href != "MAIL":
+            cls = "btn btn-emergency" if kind == "sos" else "btn btn-secondary"
+            out.append(f'<a class="{cls} ct" href="{esc(href)}"><span class="ct-ic" aria-hidden="true">{PHONE_SVG}</span>'
+                       f'<span class="ct-tx"><b>{esc(num)}　{esc(name)}</b><small>{esc(note)}</small></span></a>')
+        else:
+            out.append(f'<div class="ct ct-off"><span class="ct-tx"><b>{esc(name)}</b><small>{inline(note)}</small></span></div>')
+    return '<div class="contacts">' + "".join(out) + "</div>"
+
+PHONE_SVG = '<svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>'
+
 def render_block(b):
     kind = b[0]
     if kind == "h2":
@@ -416,6 +450,7 @@ def render_block(b):
     if kind == "p": return f"<p>{inline(b[1])}</p>"
     if kind == "note": return f'<p class="note">{inline(b[1])}</p>'
     if kind == "alert": return f'<div class="alert-box">{inline(b[1])}</div>'
+    if kind == "contacts": return contacts_html(b[1])
     if kind in ("ul", "ol"): return f"<{kind}>" + "".join(f"<li>{inline(x)}</li>" for x in b[1]) + f"</{kind}>"
     if kind == "table":
         head = "<tr>" + "".join(f"<th>{inline(h)}</th>" for h in b[1]) + "</tr>"
@@ -550,7 +585,7 @@ def build_lang(public=False):
 <header class="top"><img class="motif" src="{root()}img/brand/header-maguro.jpg" alt="{t("motif_alt")}" width="1500" height="500">
 <div class="brand"><div class="eyebrow">MIURA A-TEI · STAY GUIDE</div>{langswitch("index")}</div><h1>{t("site")}</h1>
 <p class="lede">{t("lede")}</p>
-{hero}{quick}{steps}</header>
+{hero}{quick}{hana_banner(root(), LANG)}{steps}</header>
 {dummy}
 {"".join(parts)}
 <footer>{t("foot")}{credit}</footer>

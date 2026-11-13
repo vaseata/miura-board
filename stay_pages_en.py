@@ -242,6 +242,7 @@ PAGES_EN = {
         "lede": "Find what to do by situation. First, check this page and the “manners sheet” in each room.",
         "blocks": [
             ("h2", "Who to contact, in order", "renraku"),
+            ("contacts", "all"),
             ("ol", [
                 "Check this site and the **ADDress official manners sheet** in each room",
                 "If you meet a **resident** in the house, feel free to ask them",
@@ -499,6 +500,7 @@ PAGES_EN = {
         "lede": "What to do in an emergency. Please read this once before you need it.",
         "blocks": [
             ("alert", "If it is life-threatening, call 119 (fire and ambulance) at once."),
+            ("contacts", "emergency"),
             ("alert", "If there is a risk of tsunami, **go to nearby high ground at once.** This may not be an evacuation shelter. Do not use a car."),
             ("toc", [("yure", "When it shakes"), ("basho", "Where to evacuate"), ("mono", "In the house"), ("byoki", "Feeling sick")]),
             ("h2", "When it shakes", "yure"),
