@@ -28,6 +28,8 @@ def get_pass():
     if not pw and PASS_FILE.exists():
         pw = PASS_FILE.read_text().strip()
     if not pw:
+        if not sys.stdin.isatty():
+            sys.exit('合言葉が未保存です。ターミナルで `python3 share_lock.py --save-pass` を一度実行してください')
         pw = getpass.getpass('合言葉: ')
     if len(pw) < 6:
         sys.exit('合言葉は6文字以上にしてください')
