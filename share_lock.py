@@ -108,9 +108,11 @@ def lock(plain: bytes, token_name: str, title: str, pw: str = None) -> str:
 
 if __name__ == '__main__':
     if '--save-pass' in sys.argv:
-        pw = getpass.getpass('合言葉（ハザードマップと同じもの）: ')
+        pw = getpass.getpass('合言葉（宿泊者向けページ共通。ひらがなの単語4つ・12字以上がおすすめ）: ').strip()
         if len(pw) < 6:
             sys.exit('合言葉は6文字以上にしてください')
+        if getpass.getpass('もう一度: ').strip() != pw:
+            sys.exit('1回目と2回目が違います。もう一度やり直してください')
         PASS_FILE.parent.mkdir(exist_ok=True)
         PASS_FILE.write_text(pw)
         os.chmod(PASS_FILE, 0o600)
