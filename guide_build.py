@@ -3,6 +3,7 @@
 単体で動く（build.py には依存しない）。build.py の末尾からも呼ばれる。"""
 import json, datetime, html, pathlib, math, urllib.parse
 from string import Template
+from ui_parts import UI_CSS, sitenav
 
 HERE = pathlib.Path(__file__).parent
 OUT = HERE / "guide"
@@ -88,7 +89,7 @@ def build():
         q = f'{s["lat"]},{s["lon"]}'
         apple = f'https://maps.apple.com/?daddr={q}&dirflg=w'
         goog = "https://www.google.com/maps/dir/?api=1&destination=" + urllib.parse.quote(q) + "&travelmode=walking"
-        return f'<p class="maps"><a href="{apple}" target="_blank" rel="noopener">Apple マップで徒歩経路</a><a href="{goog}" target="_blank" rel="noopener">Google マップ</a></p>'
+        return f'<p class="maps"><a class="btn btn-primary" href="{apple}" target="_blank" rel="noopener">Apple マップで徒歩経路</a><a class="btn btn-secondary" href="{goog}" target="_blank" rel="noopener">Google マップ</a></p>'
 
     def spot_card(s):
         tags = s.get("tags", [])
@@ -219,19 +220,11 @@ a{color:inherit} button{font:inherit;color:inherit}
 .df .n{flex-basis:100%;font-size:12px;color:var(--ink2)}
 /* 絞り込み */
 .filter{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);padding:8px 0 10px;margin:22px 0 14px;border-bottom:1px solid var(--hair)}
-.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px;-webkit-overflow-scrolling:touch}
+.tabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:0;-webkit-overflow-scrolling:touch}
 .tabs::-webkit-scrollbar{display:none}
-.tabs button{flex:none;font-size:14px;font-weight:700;letter-spacing:.06em;background:var(--bg);border:1.5px solid var(--hair);border-radius:999px;padding:8px 14px;min-height:44px;cursor:pointer;white-space:nowrap}
-.tabs button[aria-pressed="true"]{background:var(--sea);border-color:var(--sea);color:var(--on)}
-.tabs button .n{font-weight:500;font-size:11px;margin-left:4px;opacity:.75}
-.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;align-items:center}
-.chips button{font-size:12.5px;background:var(--tint);border:1px solid var(--hair);border-radius:999px;padding:5px 11px;min-height:34px;cursor:pointer}
-.chips button[aria-pressed="true"]{background:var(--kon);border-color:var(--kon);color:var(--on);font-weight:700}
-.chips .tg{border-color:var(--sea);color:var(--sea);font-weight:700;background:var(--bg)}
-.chips .tg[aria-pressed="true"]{background:var(--sea);color:var(--on)}
+.chips{display:flex;gap:0 8px;flex-wrap:wrap;margin-top:4px;align-items:center}
 .chips .sep{width:1px;height:22px;background:var(--hair);margin:0 2px}
 .empty{font-size:14px;color:var(--ink2);padding:18px 0}
-.empty button{margin-left:8px;color:var(--sea);background:none;border:0;text-decoration:underline;cursor:pointer}
 /* グリッド */
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 12px}
 @media (min-width:640px){ .grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:24px 20px} }
@@ -267,7 +260,6 @@ a{color:inherit} button{font:inherit;color:inherit}
 @media (max-width:639px){ #sheet{margin:auto 0 0;width:100%;max-height:92vh;border-radius:14px 14px 0 0} }
 .sheet-in{max-height:inherit;overflow-y:auto;overscroll-behavior:contain;padding:0 20px calc(24px + env(safe-area-inset-bottom,0px))}
 .sheet-bar{position:sticky;top:0;z-index:2;display:flex;justify-content:flex-end;padding:10px 0 6px;background:var(--bg)}
-.sheet-close{border:1px solid var(--hair);background:var(--bg);border-radius:999px;padding:6px 16px;font-size:14px;cursor:pointer;min-height:40px}
 .detail .photo{margin:0 -20px 12px}
 .detail .photo img{display:block;width:100%;max-height:340px;object-fit:cover}
 .detail .photo figcaption{font-size:10.5px;color:var(--mute);text-align:right;padding:4px 20px 0}
@@ -278,25 +270,24 @@ a{color:inherit} button{font:inherit;color:inherit}
 .info{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:14.5px;line-height:1.8;margin-bottom:14px}
 .info dt{font-weight:700;color:var(--sea);white-space:nowrap;letter-spacing:.06em}
 .maps{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px}
-.maps a{display:inline-block;font-weight:700;font-size:14px;color:var(--on);background:var(--sea);padding:10px 16px;border-radius:999px;text-decoration:none;min-height:44px}
-.maps a+a{background:var(--bg);color:var(--sea);border:1.5px solid var(--sea)}
 .off a{font-weight:700;color:var(--sea);text-underline-offset:3px}
 .src{font-size:11px;color:var(--mute);line-height:1.9;margin-top:10px}
 .src .cf{font-weight:700;letter-spacing:.12em;margin-right:8px;color:var(--ink2)}
 .src .chk{margin-left:8px}
 .src a{margin-right:8px;text-underline-offset:2px}
+$ui_css
 /* 奥付 */
 .okuzuke{margin-top:44px;border-top:3px double var(--rule);padding-top:12px;font-size:11.5px;line-height:1.9;color:var(--mute)}
 .okuzuke a{color:var(--sea)}
 </style>
 </head>
 <body>
+$sitenav
 <main>
 <img class="motif" src="../img/brand/header-maguro.jpg" alt="跳ねるマグロと波、富士山と朝日の絵" width="1500" height="500">
 <header class="masthead">
   <h1 class="daiji"><small><img src="../img/brand/logo.png" alt="" width="40" height="40">MIURA A-TEI · GUIDE</small>三浦A邸<br>ガイドブック</h1>
   <p class="mh-lead">三崎・城ヶ島・三浦海岸で、食べる・見る・体験する・買う。A邸からの徒歩時間つき。<br>$ymd 現在。毎朝自動で更新しています。</p>
-  <p class="mh-links"><a href="$board">最近の三浦（近況・イベント）→</a></p>
 </header>
 
 <section class="sec" id="season">
@@ -308,11 +299,11 @@ a{color:inherit} button{font:inherit;color:inherit}
 <section class="sec" id="spots">
   <h2 class="men">おすすめの場所<span class="latin">Places</span><span class="count-n" id="count"></span></h2>
   <div class="filter">
-    <div class="tabs"><button type="button" data-cat="all" aria-pressed="true">すべて<span class="n">$total</span></button>$tabs</div>
+    <div class="tabs"><button type="button" class="fchip" data-cat="all" aria-pressed="true">すべて<span class="n">$total</span></button>$tabs</div>
     <div class="chips" id="chips"></div>
   </div>
   <div class="grid" id="grid">$spots</div>
-  <p class="empty" id="empty" hidden>この条件では見つかりません。<button type="button" id="reset">条件を外す</button></p>
+  <p class="empty" id="empty" hidden>この条件では見つかりません。<button type="button" class="btn btn-tertiary" id="reset">条件をすべて外す</button></p>
 </section>
 
 <footer class="okuzuke">
@@ -321,7 +312,7 @@ a{color:inherit} button{font:inherit;color:inherit}
 <a href="$board">最近の三浦</a> · Since 2026.10 · By Yanuki
 </footer>
 </main>
-<dialog id="sheet" aria-label="詳細"><div class="sheet-in"><div class="sheet-bar"><button type="button" class="sheet-close">閉じる</button></div><div class="sheet-body"></div></div></dialog>
+<dialog id="sheet" aria-label="詳細"><div class="sheet-in"><div class="sheet-bar"><button type="button" class="btn btn-secondary sheet-close">閉じる</button></div><div class="sheet-body"></div></div></dialog>
 <script>
 (function(){
   var CATS=$cats_json;
@@ -354,7 +345,7 @@ a{color:inherit} button{font:inherit;color:inherit}
     var tags=Object.keys(tagCount).sort(function(a,b){return tagCount[b]-tagCount[a]||a.localeCompare(b,'ja');}).slice(0,14);
     if(state.tag&&tags.indexOf(state.tag)<0)state.tag='';
     chips.innerHTML='';
-    function chip(label,pressed,cls,fn){var b=document.createElement('button');b.type='button';b.textContent=label;b.className=cls||'';b.setAttribute('aria-pressed',String(pressed));b.addEventListener('click',fn);chips.appendChild(b);}
+    function chip(label,pressed,cls,fn){var b=document.createElement('button');b.type='button';b.textContent=label;b.className='fchip';b.setAttribute('aria-pressed',String(pressed));b.addEventListener('click',fn);chips.appendChild(b);}
     chip('今日やっている',state.open,'tg',function(){state.open=!state.open;render();});
     chip('徒歩15分以内',state.near,'tg',function(){state.near=!state.near;render();});
     if(tags.length){var s=document.createElement('span');s.className='sep';chips.appendChild(s);}
@@ -387,8 +378,8 @@ a{color:inherit} button{font:inherit;color:inherit}
 ''').substitute(ymd=f"{TODAY.year}年{TODAY.month}月{TODAY.day}日", board=BOARD, month=f"{TODAY.month}月 · {TODAY.strftime('%B')}",
                  df=df_card, season=season_html, events=events_html,
                  season_empty='' if (season_html or events_html) else '<p class="empty">いまは季節の項目がありません。</p>',
-                 total=len(published), tabs="".join(f'<button type="button" data-cat="{esc(c)}" aria-pressed="false">{esc(c)}<span class="n">{counts[c]}</span></button>' for c in CATS),
-                 spots=spots_html or '<p class="empty">掲載中の場所はまだありません。</p>', credits=credits, cats_json=json.dumps(CATS, ensure_ascii=False))
+                 total=len(published), tabs="".join(f'<button type="button" class="fchip" data-cat="{esc(c)}" aria-pressed="false">{esc(c)}<span class="n">{counts[c]}</span></button>' for c in CATS),
+                 spots=spots_html or '<p class="empty">掲載中の場所はまだありません。</p>', credits=credits, cats_json=json.dumps(CATS, ensure_ascii=False), ui_css=UI_CSS, sitenav=sitenav("guide", "../"))
     (OUT / "index.html").write_text(page, encoding="utf-8")
 
     # ---- review.html（候補の確認用・noindex）

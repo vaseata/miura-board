@@ -30,12 +30,13 @@ a.card:hover,a.card:focus-visible{border-color:var(--sea);background:var(--sea-t
 .card span{display:block;font-size:13px;color:var(--mute)}
 .card.soon{opacity:.6}
 .card.soon b::after{content:"準備中";margin-left:8px;font-size:11px;color:var(--tuna);border:1px solid var(--tuna);border-radius:99px;padding:1px 7px;vertical-align:2px}
-.quick{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0}
-.chip{display:inline-block;padding:8px 14px;border-radius:99px;border:1px solid var(--hair);background:var(--tint);font-size:14px;color:inherit;text-decoration:none}
-.chip.alert{border-color:var(--tuna);color:var(--tuna);font-weight:700}
+.quick{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0}
+.chip{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--hair);background:var(--tint);font-size:14px;color:inherit;text-decoration:none}
+.sos2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:18px 0 0}
+.sos2 .btn{font-size:14px;padding:0 10px}
 .chip.soon{opacity:.55}
 footer{margin-top:40px;font-size:12px;color:var(--mute)}
-.back{display:inline-block;margin:16px 0 0;font-size:13px;color:var(--sea);text-decoration:none}
+.back{margin:4px 0 0;font-size:14px}
 .page h2{border-left:4px solid var(--sea);padding-left:10px;font-size:20px;margin:32px 0 8px}
 .page p{margin:8px 0}.page ul,.page ol{margin:8px 0;padding-left:1.4em}.page li{margin:6px 0}
 .alert-box{margin:20px 0 0;padding:14px 16px;border:2px solid var(--tuna);border-radius:10px;color:var(--tuna);font-weight:700}
@@ -44,7 +45,8 @@ table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
 th,td{border:1px solid var(--hair);padding:8px 10px;text-align:left;vertical-align:top}
 th{background:var(--tint)}
 .links{display:flex;flex-direction:column;gap:6px;margin:8px 0}
-.links a{color:var(--sea)}
+.links a{display:flex;align-items:center;min-height:44px;color:var(--sea)}
+.page header{padding-top:12px}
 .tmp{display:inline-block;font-size:11px;font-weight:700;color:#7a5b00;background:#FFF2C2;border:1px solid #E0C050;border-radius:4px;padding:0 6px;margin-left:4px}
 .phrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0 14px}
 .phrow figure{margin:0}
@@ -52,7 +54,7 @@ th{background:var(--tint)}
 .phrow figcaption{font-size:11px;color:var(--mute);margin-top:4px;line-height:1.4}
 .phrow .wait div{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;border:1px dashed var(--tuna);border-radius:10px;color:var(--tuna);font-size:12px}
 .toc{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
-.toc a{padding:7px 12px;border:1px solid var(--hair);border-radius:99px;background:var(--sea-tint);color:var(--sea);font-weight:700;font-size:13px;text-decoration:none}
+.toc a{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border:1px solid var(--hair);border-radius:999px;background:var(--tint);color:var(--ink);font-size:14px;text-decoration:none}
 .ph{margin:12px 0 18px}
 .ph img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;background:var(--tint)}
 .ph figcaption{font-size:12px;color:var(--mute);margin-top:6px}
@@ -63,8 +65,9 @@ th{background:var(--tint)}
 .card.im.big{display:block}
 .card.im.big img{aspect-ratio:16/9;height:auto}
 .card.im.big .tx{padding:12px 16px 14px}
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:14px 0 0}
-.steps a{display:block;text-align:center;padding:9px 2px;border:1px solid var(--hair);border-radius:10px;background:var(--sea-tint);color:var(--sea);font-weight:700;font-size:13px;text-decoration:none}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);margin:22px 0 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.steps a{display:flex;flex-direction:column;justify-content:center;min-height:56px;text-align:center;padding:6px 2px;color:var(--sea);font-weight:700;font-size:13px;line-height:1.3;text-decoration:none}
+.steps a+a{border-left:1px solid var(--hair)}
 .steps small{display:block;font-weight:400;font-size:10px;color:var(--mute)}
 .slim{margin:12px 0 0;padding:6px 10px;font-size:12px;color:#6b5314;background:#FFF8E1;border:1px dashed #C9A227;border-radius:8px}
 .hero{margin:18px 0 0}
@@ -77,10 +80,7 @@ th{background:var(--tint)}
 .qa summary::before{content:"Q　";color:var(--sea)}
 .qa[open] summary{border-bottom:1px solid var(--hair)}
 .qa p{margin:0;padding:10px 14px}.qa .more{padding-top:0;font-size:13px}.qa a{color:var(--sea)}
-.bar{position:fixed;left:0;right:0;bottom:0;display:flex;gap:6px;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:var(--bg);border-top:1px solid var(--hair);z-index:10;justify-content:center}
-.bar a{flex:1;max-width:220px;text-align:center;padding:9px 6px;border-radius:99px;border:1px solid var(--hair);background:var(--tint);font-size:13px;color:inherit;text-decoration:none}
-.bar a.alert{border-color:var(--tuna);color:var(--tuna);font-weight:700}
-body{padding-bottom:64px}
+body{padding-bottom:calc(72px + env(safe-area-inset-bottom))}
 .shoot{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;aspect-ratio:4/3;width:100%;max-width:100%;border:1.5px dashed var(--hair);border-radius:12px;background:var(--sea-tint);color:var(--kon);text-align:center;padding:10px}
 .shoot .cam{width:44px;height:auto;fill:none;stroke:var(--kon);stroke-width:2.5;stroke-linejoin:round;opacity:.75}
 .shoot .lbl{font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--kon)}
@@ -95,11 +95,53 @@ body{padding-bottom:64px}
 .eight b{font-size:15px}.eight span{font-size:13px;color:var(--mute)}.eight a{font-size:13px;font-weight:700;color:var(--sea);text-decoration:none;justify-self:start}
 .eight .soon{font-size:12px;color:var(--mute)}
 .draft{margin:16px 0 0;padding:10px 14px;border:1px dashed #E0C050;background:#FFF9E0;color:#5a4400;border-radius:8px;font-size:13px}
-</style></head><body><div class="wrap page">
-<a class="back" href="index.html">← 滞在ガイドのトップ</a>
+
+/* ── 操作の部品（ui_parts.py・設計図どおり） ── */
+:focus-visible{outline:2px solid var(--sea);outline-offset:2px}
+/* サイトの切り替え */
+.sn{position:relative;z-index:30;background:var(--bg);border-bottom:1px solid var(--hair)}
+.sn-in{display:flex;align-items:center;gap:2px;max-width:1240px;margin:0 auto;padding:0 12px;overflow-x:auto;scrollbar-width:none}
+.sn-in::-webkit-scrollbar{display:none}
+.sn .home{display:flex;align-items:center;gap:6px;min-height:44px;margin-right:auto;padding:0 6px 0 0;color:var(--ink);font:800 14px/1 var(--mincho);text-decoration:none;white-space:nowrap;flex:none}
+.sn .home img{width:28px;height:28px;display:block;background:#fff;border-radius:6px}
+.sn a.s{display:flex;align-items:center;min-height:44px;padding:0 9px;color:var(--mute);font:700 13px/1 var(--gothic);letter-spacing:0;text-decoration:none;white-space:nowrap;border-bottom:3px solid transparent;flex:none}
+.sn a.s[aria-current="true"]{color:var(--ink);border-bottom-color:var(--sea)}
+@media (max-width:400px){.sn .home .t{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)} .sn a.s{padding:0 8px}}
+/* ボタン（行動） */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:0 18px;border-radius:12px;border:1.5px solid transparent;font:700 15px/1.3 var(--gothic);letter-spacing:0;text-align:center;text-decoration:none;cursor:pointer;transition:transform 120ms,background-color 120ms}
+.btn:active{transform:scale(.97)}
+.btn-primary{min-height:48px;background:var(--sea);color:var(--on,#fff)}
+.btn-primary:active{filter:brightness(.88)}
+.btn-secondary{background:var(--sea-tint);color:var(--sea)}
+.btn-tertiary{min-height:44px;padding:0 4px;background:none;color:var(--sea);justify-content:flex-start}
+.btn-emergency{min-height:48px;background:var(--bg);color:var(--tuna);border-color:var(--tuna)}
+.btn[hidden],.fchip[hidden]{display:none}
+/* 絞り込みの札（複数選べる） */
+.fchip{position:relative;display:inline-flex;align-items:center;gap:4px;height:36px;margin:4px 0;padding:0 14px;border-radius:999px;border:1px solid var(--hair);background:var(--bg);color:var(--ink);font:400 14px/1 var(--gothic);letter-spacing:0;white-space:nowrap;cursor:pointer;transition:background-color 180ms,border-color 180ms;flex:none}
+.fchip::after{content:"";position:absolute;inset:-4px 0}
+.fchip[aria-pressed="true"],.fchip[aria-checked="true"]{background:var(--sea-tint);border-color:var(--sea);color:var(--sea);font-weight:700}
+.fchip[aria-pressed="true"]::before,.fchip[aria-checked="true"]::before{content:"✓"}
+.fchip .n{font-weight:400;font-size:11px;opacity:.8;margin-left:2px}
+/* 切り替え（1つだけ選ぶ・4つまで） */
+.seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:2px;padding:3px;background:var(--tint);border:1px solid var(--hair);border-radius:999px}
+.seg button{position:relative;min-height:38px;border:0;border-radius:999px;background:none;color:var(--mute);font:400 14px/1 var(--gothic);letter-spacing:0;cursor:pointer;transition:background-color 180ms}
+.seg button::after{content:"";position:absolute;inset:-4px -1px}
+.seg button[aria-checked="true"]{background:var(--bg);color:var(--ink);font-weight:700;box-shadow:0 0 0 1px var(--hair)}
+/* 下のバー（滞在ガイド） */
+.bn{position:fixed;left:0;right:0;bottom:0;z-index:40;display:grid;grid-template-columns:repeat(4,1fr);background:var(--bg);border-top:1px solid var(--hair);padding-bottom:env(safe-area-inset-bottom)}
+.bn a{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:56px;color:var(--mute);font:700 11px/1.2 var(--gothic);text-decoration:none}
+.bn svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.bn a[aria-current="page"]{color:var(--sea)}
+.bn a[aria-current="page"]::before{content:"";position:absolute;top:-1px;left:22%;right:22%;height:3px;border-radius:0 0 3px 3px;background:var(--sea)}
+.bn a.sos{color:var(--tuna)}
+.bn a.sos[aria-current="page"]::before{background:var(--tuna)}
+@media (min-width:720px){.bn{left:50%;right:auto;width:560px;transform:translateX(-50%);border:1px solid var(--hair);border-bottom:0;border-radius:12px 12px 0 0}}
+@media (prefers-reduced-motion:reduce){.btn,.fchip,.seg button{transition:none}.btn:active{transform:none}}
+</style></head><body><nav class="sn" aria-label="三浦A邸のサイト"><div class="sn-in"><a class="home" href="../stay/"><img src="../img/brand/logo.png" alt="" width="28" height="28"><span class="t">三浦A邸</span></a><a class="s" href="../stay/" aria-current="true">滞在ガイド</a><a class="s" href="../guide/">ガイドブック</a><a class="s" href="../">最近の三浦</a></div></nav><div class="wrap page">
+<a class="btn btn-tertiary back" href="index.html">← 滞在ガイドのトップ</a>
 <header><div class="brand"><img src="../img/brand/logo.png" alt="" width="44" height="44"><div class="eyebrow">MIURA · STAY GUIDE</div></div><h1>家のルール</h1>
 <p class="lede">みんなが気持ちよく過ごすためのお願いです。理由も書きました。</p></header>
 <div class="slim"><b>試作版</b>：「記入待ち」と「仮」の札がある所は家守に確かめてから直します。「撮影予定」の枠には、写真を順に入れていきます。</div>
 <nav class="toc"><a href="#s1">静かにする時間</a><a href="#s2">共用部の使い方</a><a href="#s3">友人を招くとき</a><a href="#s4">火の元・たばこ</a><a href="#s5">ペット</a><a href="#s6">壊してしまったとき・古い家なので</a><a href="#s7">泊まりかた</a></nav><h2 id="s1">静かにする時間</h2><figure class="ph"><div class="shoot"><svg class="cam" viewBox="0 0 48 40" aria-hidden="true"><rect x="3" y="9" width="42" height="28" rx="6"/><circle cx="24" cy="23" r="8"/><path d="M16 9l3-5h10l3 5"/></svg><span class="lbl">撮影予定</span><span class="what">夜の廊下（足音が響きます）</span></div><figcaption>夜の廊下（足音が響きます）</figcaption></figure><p><b>夜10時〜朝8時</b>は、生活音に気をつけてください。古い日本家屋なので、隣の部屋の音は聞こえます。201号室は、襖1枚の仕切りです。</p><h2 id="s2">共用部の使い方</h2><div class="phrow"><figure><div class="shoot"><svg class="cam" viewBox="0 0 48 40" aria-hidden="true"><rect x="3" y="9" width="42" height="28" rx="6"/><circle cx="24" cy="23" r="8"/><path d="M16 9l3-5h10l3 5"/></svg><span class="lbl">撮影予定</span><span class="what">居間</span></div><figcaption>居間</figcaption></figure><figure><img src="img/toilet.jpg" alt="トイレ" loading="lazy"><figcaption>トイレ</figcaption></figure><figure><img src="img/senmen.jpg" alt="洗面台" loading="lazy"><figcaption>洗面台</figcaption></figure></div><ul><li>居間とキッチンでの飲食は、かまいません。お酒も、周りに気を配って、楽しんでください。</li><li>使ったあとは、元の状態に戻してください。次の人が、気持ちよく使えます。</li><li>私物は、個室に置いてください。共用部に、長い時間、置きっぱなしにしないでください。貴重品は、ご自分で管理してください。</li><li>共用部のものは、個室へ持ち込まないでください。みんなで使うものだからです。</li></ul><h2 id="s3">友人を招くとき</h2><p><b>事前に、家守の承諾が必要です。</b> 9時〜21時で、会員か家守が一緒にいるときだけです。お風呂とシャワーは、使えません。</p><h2 id="s4">火の元・たばこ</h2><figure class="ph"><div class="shoot"><svg class="cam" viewBox="0 0 48 40" aria-hidden="true"><rect x="3" y="9" width="42" height="28" rx="6"/><circle cx="24" cy="23" r="8"/><path d="M16 9l3-5h10l3 5"/></svg><span class="lbl">撮影予定</span><span class="what">ガスコンロ（使ったら火を確かめる）</span></div><figcaption>ガスコンロ（使ったら火を確かめる）</figcaption></figure><ul><li>決まった場所以外では、火を使わないでください。持ち込みのコンロ、バーベキュー、焚き火、花火、暖房器具は、使えません。使えるのは、備え付けのコンロと暖房器具だけです。</li><li><b>家の中は、すべて禁煙です。</b><span class="tmp">仮</span>　たばこ（電子たばこ・加熱式を含む）は、決まった場所以外では吸えません。ニコチンやタールを含まない製品も、ご遠慮ください。</li></ul><h2 id="s5">ペット</h2><p>ペットは、原則として、連れてこられません。</p><h2 id="s6">壊してしまったとき・古い家なので</h2><ul><li>食器を割る、障子を破るなど、壊したり汚したりしたときは、<b>すぐに家守に伝えてください。</b> 掃除や修理の費用は、その本人の負担になります。心配な人は、少額短期保険を調べておくと安心です。</li><li>電球や消耗品が切れたときは、家守に連絡してください。</li><li>家の外にあるコンセントは、使えません。電気自動車・電動バイク・電動自転車の充電もできません。</li><li>古い日本家屋なので、バリアフリーではありません。</li></ul><h2 id="s7">泊まりかた</h2><ul><li>日中だけの利用や、外泊は、ご遠慮ください。やむを得ない外泊は、家守に連絡してください。</li><li>ほかの滞在者と話すときは、あいさつをして、相手が嫌がることを言わないようにしてください。親しくなる前に、連絡先や今後の予定を聞いたり、しつこく食事に誘ったりするのは、控えてください。</li></ul><p class="note">ADDress公式のルールに、三浦A邸の運用を合わせています。ルールを守らないときは、運営が注意します。</p>
 <footer>三浦A邸（ADDress）。住所・鍵の番号・Wi-Fiのパスワードは、予約前日のメールにあります。</footer>
-</div><nav class="bar"><a href="index.html">トップ・ページ一覧</a><a class="alert" href="bosai.html">防災</a><a class="alert" href="konnatoki.html">困ったとき</a></nav></body></html>
+</div><nav class="bn" aria-label="滞在ガイドのメニュー"><a href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>トップ</a><a href="tochaku.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V4h10l4 4v13"/><path d="M9 12h6M9 16h4"/></svg>到着</a><a href="konnatoki.html"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.5V14"/><path d="M12 17.5v.01"/></svg>困ったとき</a><a href="bosai.html" class="sos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17v.01"/></svg>防災</a></nav></body></html>

@@ -48,19 +48,11 @@ a{color:inherit} button{font:inherit;color:inherit}
 .df .n{flex-basis:100%;font-size:12px;color:var(--ink2)}
 /* 絞り込み */
 .filter{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);padding:8px 0 10px;margin:22px 0 14px;border-bottom:1px solid var(--hair)}
-.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px;-webkit-overflow-scrolling:touch}
+.tabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:0;-webkit-overflow-scrolling:touch}
 .tabs::-webkit-scrollbar{display:none}
-.tabs button{flex:none;font-size:14px;font-weight:700;letter-spacing:.06em;background:var(--bg);border:1.5px solid var(--hair);border-radius:999px;padding:8px 14px;min-height:44px;cursor:pointer;white-space:nowrap}
-.tabs button[aria-pressed="true"]{background:var(--sea);border-color:var(--sea);color:var(--on)}
-.tabs button .n{font-weight:500;font-size:11px;margin-left:4px;opacity:.75}
-.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;align-items:center}
-.chips button{font-size:12.5px;background:var(--tint);border:1px solid var(--hair);border-radius:999px;padding:5px 11px;min-height:34px;cursor:pointer}
-.chips button[aria-pressed="true"]{background:var(--kon);border-color:var(--kon);color:var(--on);font-weight:700}
-.chips .tg{border-color:var(--sea);color:var(--sea);font-weight:700;background:var(--bg)}
-.chips .tg[aria-pressed="true"]{background:var(--sea);color:var(--on)}
+.chips{display:flex;gap:0 8px;flex-wrap:wrap;margin-top:4px;align-items:center}
 .chips .sep{width:1px;height:22px;background:var(--hair);margin:0 2px}
 .empty{font-size:14px;color:var(--ink2);padding:18px 0}
-.empty button{margin-left:8px;color:var(--sea);background:none;border:0;text-decoration:underline;cursor:pointer}
 /* グリッド */
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 12px}
 @media (min-width:640px){ .grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:24px 20px} }
@@ -96,7 +88,6 @@ a{color:inherit} button{font:inherit;color:inherit}
 @media (max-width:639px){ #sheet{margin:auto 0 0;width:100%;max-height:92vh;border-radius:14px 14px 0 0} }
 .sheet-in{max-height:inherit;overflow-y:auto;overscroll-behavior:contain;padding:0 20px calc(24px + env(safe-area-inset-bottom,0px))}
 .sheet-bar{position:sticky;top:0;z-index:2;display:flex;justify-content:flex-end;padding:10px 0 6px;background:var(--bg)}
-.sheet-close{border:1px solid var(--hair);background:var(--bg);border-radius:999px;padding:6px 16px;font-size:14px;cursor:pointer;min-height:40px}
 .detail .photo{margin:0 -20px 12px}
 .detail .photo img{display:block;width:100%;max-height:340px;object-fit:cover}
 .detail .photo figcaption{font-size:10.5px;color:var(--mute);text-align:right;padding:4px 20px 0}
@@ -107,25 +98,66 @@ a{color:inherit} button{font:inherit;color:inherit}
 .info{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:14.5px;line-height:1.8;margin-bottom:14px}
 .info dt{font-weight:700;color:var(--sea);white-space:nowrap;letter-spacing:.06em}
 .maps{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px}
-.maps a{display:inline-block;font-weight:700;font-size:14px;color:var(--on);background:var(--sea);padding:10px 16px;border-radius:999px;text-decoration:none;min-height:44px}
-.maps a+a{background:var(--bg);color:var(--sea);border:1.5px solid var(--sea)}
 .off a{font-weight:700;color:var(--sea);text-underline-offset:3px}
 .src{font-size:11px;color:var(--mute);line-height:1.9;margin-top:10px}
 .src .cf{font-weight:700;letter-spacing:.12em;margin-right:8px;color:var(--ink2)}
 .src .chk{margin-left:8px}
 .src a{margin-right:8px;text-underline-offset:2px}
+
+/* ── 操作の部品（ui_parts.py・設計図どおり） ── */
+:focus-visible{outline:2px solid var(--sea);outline-offset:2px}
+/* サイトの切り替え */
+.sn{position:relative;z-index:30;background:var(--bg);border-bottom:1px solid var(--hair)}
+.sn-in{display:flex;align-items:center;gap:2px;max-width:1240px;margin:0 auto;padding:0 12px;overflow-x:auto;scrollbar-width:none}
+.sn-in::-webkit-scrollbar{display:none}
+.sn .home{display:flex;align-items:center;gap:6px;min-height:44px;margin-right:auto;padding:0 6px 0 0;color:var(--ink);font:800 14px/1 var(--mincho);text-decoration:none;white-space:nowrap;flex:none}
+.sn .home img{width:28px;height:28px;display:block;background:#fff;border-radius:6px}
+.sn a.s{display:flex;align-items:center;min-height:44px;padding:0 9px;color:var(--mute);font:700 13px/1 var(--gothic);letter-spacing:0;text-decoration:none;white-space:nowrap;border-bottom:3px solid transparent;flex:none}
+.sn a.s[aria-current="true"]{color:var(--ink);border-bottom-color:var(--sea)}
+@media (max-width:400px){.sn .home .t{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)} .sn a.s{padding:0 8px}}
+/* ボタン（行動） */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:0 18px;border-radius:12px;border:1.5px solid transparent;font:700 15px/1.3 var(--gothic);letter-spacing:0;text-align:center;text-decoration:none;cursor:pointer;transition:transform 120ms,background-color 120ms}
+.btn:active{transform:scale(.97)}
+.btn-primary{min-height:48px;background:var(--sea);color:var(--on,#fff)}
+.btn-primary:active{filter:brightness(.88)}
+.btn-secondary{background:var(--sea-tint);color:var(--sea)}
+.btn-tertiary{min-height:44px;padding:0 4px;background:none;color:var(--sea);justify-content:flex-start}
+.btn-emergency{min-height:48px;background:var(--bg);color:var(--tuna);border-color:var(--tuna)}
+.btn[hidden],.fchip[hidden]{display:none}
+/* 絞り込みの札（複数選べる） */
+.fchip{position:relative;display:inline-flex;align-items:center;gap:4px;height:36px;margin:4px 0;padding:0 14px;border-radius:999px;border:1px solid var(--hair);background:var(--bg);color:var(--ink);font:400 14px/1 var(--gothic);letter-spacing:0;white-space:nowrap;cursor:pointer;transition:background-color 180ms,border-color 180ms;flex:none}
+.fchip::after{content:"";position:absolute;inset:-4px 0}
+.fchip[aria-pressed="true"],.fchip[aria-checked="true"]{background:var(--sea-tint);border-color:var(--sea);color:var(--sea);font-weight:700}
+.fchip[aria-pressed="true"]::before,.fchip[aria-checked="true"]::before{content:"✓"}
+.fchip .n{font-weight:400;font-size:11px;opacity:.8;margin-left:2px}
+/* 切り替え（1つだけ選ぶ・4つまで） */
+.seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:2px;padding:3px;background:var(--tint);border:1px solid var(--hair);border-radius:999px}
+.seg button{position:relative;min-height:38px;border:0;border-radius:999px;background:none;color:var(--mute);font:400 14px/1 var(--gothic);letter-spacing:0;cursor:pointer;transition:background-color 180ms}
+.seg button::after{content:"";position:absolute;inset:-4px -1px}
+.seg button[aria-checked="true"]{background:var(--bg);color:var(--ink);font-weight:700;box-shadow:0 0 0 1px var(--hair)}
+/* 下のバー（滞在ガイド） */
+.bn{position:fixed;left:0;right:0;bottom:0;z-index:40;display:grid;grid-template-columns:repeat(4,1fr);background:var(--bg);border-top:1px solid var(--hair);padding-bottom:env(safe-area-inset-bottom)}
+.bn a{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:56px;color:var(--mute);font:700 11px/1.2 var(--gothic);text-decoration:none}
+.bn svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.bn a[aria-current="page"]{color:var(--sea)}
+.bn a[aria-current="page"]::before{content:"";position:absolute;top:-1px;left:22%;right:22%;height:3px;border-radius:0 0 3px 3px;background:var(--sea)}
+.bn a.sos{color:var(--tuna)}
+.bn a.sos[aria-current="page"]::before{background:var(--tuna)}
+@media (min-width:720px){.bn{left:50%;right:auto;width:560px;transform:translateX(-50%);border:1px solid var(--hair);border-bottom:0;border-radius:12px 12px 0 0}}
+@media (prefers-reduced-motion:reduce){.btn,.fchip,.seg button{transition:none}.btn:active{transform:none}}
+
 /* 奥付 */
 .okuzuke{margin-top:44px;border-top:3px double var(--rule);padding-top:12px;font-size:11.5px;line-height:1.9;color:var(--mute)}
 .okuzuke a{color:var(--sea)}
 </style>
 </head>
 <body>
+<nav class="sn" aria-label="三浦A邸のサイト"><div class="sn-in"><a class="home" href="../stay/"><img src="../img/brand/logo.png" alt="" width="28" height="28"><span class="t">三浦A邸</span></a><a class="s" href="../stay/">滞在ガイド</a><a class="s" href="../guide/" aria-current="true">ガイドブック</a><a class="s" href="../">最近の三浦</a></div></nav>
 <main>
 <img class="motif" src="../img/brand/header-maguro.jpg" alt="跳ねるマグロと波、富士山と朝日の絵" width="1500" height="500">
 <header class="masthead">
   <h1 class="daiji"><small><img src="../img/brand/logo.png" alt="" width="40" height="40">MIURA A-TEI · GUIDE</small>三浦A邸<br>ガイドブック</h1>
   <p class="mh-lead">三崎・城ヶ島・三浦海岸で、食べる・見る・体験する・買う。A邸からの徒歩時間つき。<br>2026年11月14日 現在。毎朝自動で更新しています。</p>
-  <p class="mh-links"><a href="../index.html">最近の三浦（近況・イベント）→</a></p>
 </header>
 
 <section class="sec" id="season">
@@ -137,11 +169,11 @@ a{color:inherit} button{font:inherit;color:inherit}
 <section class="sec" id="spots">
   <h2 class="men">おすすめの場所<span class="latin">Places</span><span class="count-n" id="count"></span></h2>
   <div class="filter">
-    <div class="tabs"><button type="button" data-cat="all" aria-pressed="true">すべて<span class="n">0</span></button><button type="button" data-cat="食べる" aria-pressed="false">食べる<span class="n">0</span></button><button type="button" data-cat="見る・歩く" aria-pressed="false">見る・歩く<span class="n">0</span></button><button type="button" data-cat="体験する" aria-pressed="false">体験する<span class="n">0</span></button><button type="button" data-cat="買う" aria-pressed="false">買う<span class="n">0</span></button><button type="button" data-cat="移動" aria-pressed="false">移動<span class="n">0</span></button><button type="button" data-cat="困ったとき" aria-pressed="false">困ったとき<span class="n">0</span></button></div>
+    <div class="tabs"><button type="button" class="fchip" data-cat="all" aria-pressed="true">すべて<span class="n">0</span></button><button type="button" class="fchip" data-cat="食べる" aria-pressed="false">食べる<span class="n">0</span></button><button type="button" class="fchip" data-cat="見る・歩く" aria-pressed="false">見る・歩く<span class="n">0</span></button><button type="button" class="fchip" data-cat="体験する" aria-pressed="false">体験する<span class="n">0</span></button><button type="button" class="fchip" data-cat="買う" aria-pressed="false">買う<span class="n">0</span></button><button type="button" class="fchip" data-cat="移動" aria-pressed="false">移動<span class="n">0</span></button><button type="button" class="fchip" data-cat="困ったとき" aria-pressed="false">困ったとき<span class="n">0</span></button></div>
     <div class="chips" id="chips"></div>
   </div>
   <div class="grid" id="grid"><p class="empty">掲載中の場所はまだありません。</p></div>
-  <p class="empty" id="empty" hidden>この条件では見つかりません。<button type="button" id="reset">条件を外す</button></p>
+  <p class="empty" id="empty" hidden>この条件では見つかりません。<button type="button" class="btn btn-tertiary" id="reset">条件をすべて外す</button></p>
 </section>
 
 <footer class="okuzuke">
@@ -150,7 +182,7 @@ a{color:inherit} button{font:inherit;color:inherit}
 <a href="../index.html">最近の三浦</a> · Since 2026.10 · By Yanuki
 </footer>
 </main>
-<dialog id="sheet" aria-label="詳細"><div class="sheet-in"><div class="sheet-bar"><button type="button" class="sheet-close">閉じる</button></div><div class="sheet-body"></div></div></dialog>
+<dialog id="sheet" aria-label="詳細"><div class="sheet-in"><div class="sheet-bar"><button type="button" class="btn btn-secondary sheet-close">閉じる</button></div><div class="sheet-body"></div></div></dialog>
 <script>
 (function(){
   var CATS=["食べる", "見る・歩く", "体験する", "買う", "移動", "困ったとき"];
@@ -183,7 +215,7 @@ a{color:inherit} button{font:inherit;color:inherit}
     var tags=Object.keys(tagCount).sort(function(a,b){return tagCount[b]-tagCount[a]||a.localeCompare(b,'ja');}).slice(0,14);
     if(state.tag&&tags.indexOf(state.tag)<0)state.tag='';
     chips.innerHTML='';
-    function chip(label,pressed,cls,fn){var b=document.createElement('button');b.type='button';b.textContent=label;b.className=cls||'';b.setAttribute('aria-pressed',String(pressed));b.addEventListener('click',fn);chips.appendChild(b);}
+    function chip(label,pressed,cls,fn){var b=document.createElement('button');b.type='button';b.textContent=label;b.className='fchip';b.setAttribute('aria-pressed',String(pressed));b.addEventListener('click',fn);chips.appendChild(b);}
     chip('今日やっている',state.open,'tg',function(){state.open=!state.open;render();});
     chip('徒歩15分以内',state.near,'tg',function(){state.near=!state.near;render();});
     if(tags.length){var s=document.createElement('span');s.className='sep';chips.appendChild(s);}

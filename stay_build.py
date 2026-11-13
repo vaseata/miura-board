@@ -5,6 +5,7 @@
 - リンク先がまだ無いカードは href を None にすると「準備中」で出る"""
 import html, pathlib, re, shutil, sys, urllib.parse
 from stay_pages import PAGES
+from ui_parts import UI_CSS, sitenav, bottomnav
 
 HERE = pathlib.Path(__file__).parent
 OUT = HERE / "stay"
@@ -78,7 +79,7 @@ ARRIVAL = (f"../m/{_tok.read_text().strip()}/" if _tok.exists() and (HERE / "m" 
 # (見出し, 一言, [(カード名, 説明, href, 新しいタブか)])
 # トップに常時出す入口（緊急と、初めての人が迷う3つ）。href が None なら「準備中」
 QUICK = [
-    ("防災（揺れたら・避難）", "bosai.html", True),
+    ("防災・避難", "bosai.html", True),
     ("困ったとき", "konnatoki.html", True),
     ("連絡の順番", "konnatoki.html#renraku", False),
     ("鍵", "konnatoki.html#kagi", False),
@@ -144,12 +145,13 @@ a.card:hover,a.card:focus-visible{border-color:var(--sea);background:var(--sea-t
 .card span{display:block;font-size:13px;color:var(--mute)}
 .card.soon{opacity:.6}
 .card.soon b::after{content:"準備中";margin-left:8px;font-size:11px;color:var(--tuna);border:1px solid var(--tuna);border-radius:99px;padding:1px 7px;vertical-align:2px}
-.quick{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0}
-.chip{display:inline-block;padding:8px 14px;border-radius:99px;border:1px solid var(--hair);background:var(--tint);font-size:14px;color:inherit;text-decoration:none}
-.chip.alert{border-color:var(--tuna);color:var(--tuna);font-weight:700}
+.quick{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0}
+.chip{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--hair);background:var(--tint);font-size:14px;color:inherit;text-decoration:none}
+.sos2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:18px 0 0}
+.sos2 .btn{font-size:14px;padding:0 10px}
 .chip.soon{opacity:.55}
 footer{margin-top:40px;font-size:12px;color:var(--mute)}
-.back{display:inline-block;margin:16px 0 0;font-size:13px;color:var(--sea);text-decoration:none}
+.back{margin:4px 0 0;font-size:14px}
 .page h2{border-left:4px solid var(--sea);padding-left:10px;font-size:20px;margin:32px 0 8px}
 .page p{margin:8px 0}.page ul,.page ol{margin:8px 0;padding-left:1.4em}.page li{margin:6px 0}
 .alert-box{margin:20px 0 0;padding:14px 16px;border:2px solid var(--tuna);border-radius:10px;color:var(--tuna);font-weight:700}
@@ -158,7 +160,8 @@ table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
 th,td{border:1px solid var(--hair);padding:8px 10px;text-align:left;vertical-align:top}
 th{background:var(--tint)}
 .links{display:flex;flex-direction:column;gap:6px;margin:8px 0}
-.links a{color:var(--sea)}
+.links a{display:flex;align-items:center;min-height:44px;color:var(--sea)}
+.page header{padding-top:12px}
 .tmp{display:inline-block;font-size:11px;font-weight:700;color:#7a5b00;background:#FFF2C2;border:1px solid #E0C050;border-radius:4px;padding:0 6px;margin-left:4px}
 .phrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0 14px}
 .phrow figure{margin:0}
@@ -166,7 +169,7 @@ th{background:var(--tint)}
 .phrow figcaption{font-size:11px;color:var(--mute);margin-top:4px;line-height:1.4}
 .phrow .wait div{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;border:1px dashed var(--tuna);border-radius:10px;color:var(--tuna);font-size:12px}
 .toc{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
-.toc a{padding:7px 12px;border:1px solid var(--hair);border-radius:99px;background:var(--sea-tint);color:var(--sea);font-weight:700;font-size:13px;text-decoration:none}
+.toc a{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border:1px solid var(--hair);border-radius:999px;background:var(--tint);color:var(--ink);font-size:14px;text-decoration:none}
 .ph{margin:12px 0 18px}
 .ph img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;background:var(--tint)}
 .ph figcaption{font-size:12px;color:var(--mute);margin-top:6px}
@@ -177,8 +180,9 @@ th{background:var(--tint)}
 .card.im.big{display:block}
 .card.im.big img{aspect-ratio:16/9;height:auto}
 .card.im.big .tx{padding:12px 16px 14px}
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:14px 0 0}
-.steps a{display:block;text-align:center;padding:9px 2px;border:1px solid var(--hair);border-radius:10px;background:var(--sea-tint);color:var(--sea);font-weight:700;font-size:13px;text-decoration:none}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);margin:22px 0 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.steps a{display:flex;flex-direction:column;justify-content:center;min-height:56px;text-align:center;padding:6px 2px;color:var(--sea);font-weight:700;font-size:13px;line-height:1.3;text-decoration:none}
+.steps a+a{border-left:1px solid var(--hair)}
 .steps small{display:block;font-weight:400;font-size:10px;color:var(--mute)}
 .slim{margin:12px 0 0;padding:6px 10px;font-size:12px;color:#6b5314;background:#FFF8E1;border:1px dashed #C9A227;border-radius:8px}
 .hero{margin:18px 0 0}
@@ -191,10 +195,7 @@ th{background:var(--tint)}
 .qa summary::before{content:"Q　";color:var(--sea)}
 .qa[open] summary{border-bottom:1px solid var(--hair)}
 .qa p{margin:0;padding:10px 14px}.qa .more{padding-top:0;font-size:13px}.qa a{color:var(--sea)}
-.bar{position:fixed;left:0;right:0;bottom:0;display:flex;gap:6px;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:var(--bg);border-top:1px solid var(--hair);z-index:10;justify-content:center}
-.bar a{flex:1;max-width:220px;text-align:center;padding:9px 6px;border-radius:99px;border:1px solid var(--hair);background:var(--tint);font-size:13px;color:inherit;text-decoration:none}
-.bar a.alert{border-color:var(--tuna);color:var(--tuna);font-weight:700}
-body{padding-bottom:64px}
+body{padding-bottom:calc(72px + env(safe-area-inset-bottom))}
 .shoot{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;aspect-ratio:4/3;width:100%;max-width:100%;border:1.5px dashed var(--hair);border-radius:12px;background:var(--sea-tint);color:var(--kon);text-align:center;padding:10px}
 .shoot .cam{width:44px;height:auto;fill:none;stroke:var(--kon);stroke-width:2.5;stroke-linejoin:round;opacity:.75}
 .shoot .lbl{font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--kon)}
@@ -209,7 +210,7 @@ body{padding-bottom:64px}
 .eight b{font-size:15px}.eight span{font-size:13px;color:var(--mute)}.eight a{font-size:13px;font-weight:700;color:var(--sea);text-decoration:none;justify-self:start}
 .eight .soon{font-size:12px;color:var(--mute)}
 .draft{margin:16px 0 0;padding:10px 14px;border:1px dashed #E0C050;background:#FFF9E0;color:#5a4400;border-radius:8px;font-size:13px}
-"""
+""" + UI_CSS
 
 CREDIT = ("<br>三浦の景色の写真：Wikimedia Commons（Aspere 撮影・CC0）" if DEMO else "")
 
@@ -251,7 +252,9 @@ def card(name, desc, href, ext, first=False):
     return f'<a class="card" href="{esc(href)}"{tgt}><b>{esc(name)}</b><span>{esc(desc)}</span></a>'
 
 def chip(name, href, alert):
-    cls = "chip" + (" alert" if alert else "") + ("" if href else " soon")
+    if alert and href:
+        return f'<a class="btn btn-emergency" href="{esc(href)}">{esc(name)}</a>'
+    cls = "chip" + ("" if href else " soon")
     label = esc(name) + ("" if href else "（準備中）")
     return f'<a class="{cls}" href="{esc(href)}">{label}</a>' if href else f'<span class="{cls}">{label}</span>'
 
@@ -333,8 +336,7 @@ def head_html(title):
 <link rel="icon" href="../img/brand/logo.png"><link rel="apple-touch-icon" href="../img/brand/logo.png">
 <style>{CSS}</style></head>"""
 
-BAR = ('<nav class="bar"><a href="index.html">トップ・ページ一覧</a>'
-       '<a class="alert" href="bosai.html">防災</a><a class="alert" href="konnatoki.html">困ったとき</a></nav>')
+SITENAV = sitenav("stay", "../")
 
 def with_auto_toc(blocks):
     """h2が4つ以上あり、目次ブロックが無いページには、自動で目次を付ける（h2にidも振る）。"""
@@ -368,14 +370,14 @@ def build_page(slug, spec, public):
         else:
           notice = f'<div class="draft">確認中のページです。仮の文が{tmp}か所、記入待ちが{fill}か所あります。公開する前に、家守に確かめて直します。</div>'
     body = "".join(render_block(b) for b in spec["blocks"])
-    page = f"""{head_html(spec["title"] + "｜三浦A邸 滞在ガイド")}<body><div class="wrap page">
-<a class="back" href="index.html">← 滞在ガイドのトップ</a>
+    page = f"""{head_html(spec["title"] + "｜三浦A邸 滞在ガイド")}<body>{SITENAV}<div class="wrap page">
+<a class="btn btn-tertiary back" href="index.html">← 滞在ガイドのトップ</a>
 <header><div class="brand"><img src="../img/brand/logo.png" alt="" width="44" height="44"><div class="eyebrow">MIURA · STAY GUIDE</div></div><h1>{esc(spec["title"])}</h1>
 <p class="lede">{esc(spec["lede"])}</p></header>
 {notice}
 {body}
 <footer>三浦A邸（ADDress）。住所・鍵の番号・Wi-Fiのパスワードは、予約前日のメールにあります。</footer>
-</div>{BAR}</body></html>"""
+</div>{bottomnav(slug)}</body></html>"""
     (OUT / f"{slug}.html").write_text(page, encoding="utf-8")
     return tmp, fill
 
@@ -393,7 +395,9 @@ def build(public=False):
     hero = (f'<div class="hero"><img src="{hs}" alt="三浦A邸の廊下"></div>' if hs else
             (f'<div class="hero"><img src="{dummy_img("トップの写真")}" alt="ダミー画像"></div>' if PROTO else ""))
     steps = '<nav class="steps">' + "".join(f'<a href="#{i}">{esc(n)}<small>{esc(s)}</small></a>' for i, n, s in STEPS) + "</nav>"
-    quick = '<div class="quick">' + "".join(chip(*q) for q in QUICK) + "</div>"
+    quick = ('<div class="sos2">' + "".join(chip(*q) for q in QUICK if q[2]) + "</div>"
+             + '<div class="quick">' + "".join(chip(*q) for q in QUICK if not q[2]) + "</div>")
+    steps = steps.replace('<nav class="steps">', '<nav class="steps" aria-label="章">')
     parts = []
     for title, sub, cards in SECTIONS:
         sid = SECTION_ID.get(title, "")
@@ -407,7 +411,7 @@ def build(public=False):
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;800&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
 <link rel="icon" href="../img/brand/logo.png"><link rel="apple-touch-icon" href="../img/brand/logo.png">
-<style>{CSS}</style></head><body><div class="wrap">
+<style>{CSS}</style></head><body>{SITENAV}<div class="wrap">
 <header class="top"><img class="motif" src="../img/brand/header-maguro.jpg" alt="跳ねるマグロと波、富士山と朝日の絵" width="1500" height="500">
 <div class="brand"><img src="../img/brand/logo.png" alt="" width="44" height="44"><div class="eyebrow">MIURA · STAY GUIDE</div></div><h1>三浦A邸 滞在ガイド</h1>
 <p class="lede">来る前・着いたとき・滞在中・帰るときに、ここを開いてください。</p>
@@ -415,7 +419,7 @@ def build(public=False):
 {dummy}
 {"".join(parts)}
 <footer>三浦A邸（ADDress）。住所・鍵の番号・Wi-Fiのパスワードは、予約前日のメールにあります。{CREDIT}</footer>
-</div>{BAR}</body></html>"""
+</div>{bottomnav("index")}</body></html>"""
     OUT.mkdir(exist_ok=True)
     (OUT / "img").mkdir(exist_ok=True)
     if PHOTOS.exists():

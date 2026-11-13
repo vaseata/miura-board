@@ -30,12 +30,13 @@ a.card:hover,a.card:focus-visible{border-color:var(--sea);background:var(--sea-t
 .card span{display:block;font-size:13px;color:var(--mute)}
 .card.soon{opacity:.6}
 .card.soon b::after{content:"準備中";margin-left:8px;font-size:11px;color:var(--tuna);border:1px solid var(--tuna);border-radius:99px;padding:1px 7px;vertical-align:2px}
-.quick{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0}
-.chip{display:inline-block;padding:8px 14px;border-radius:99px;border:1px solid var(--hair);background:var(--tint);font-size:14px;color:inherit;text-decoration:none}
-.chip.alert{border-color:var(--tuna);color:var(--tuna);font-weight:700}
+.quick{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0}
+.chip{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--hair);background:var(--tint);font-size:14px;color:inherit;text-decoration:none}
+.sos2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:18px 0 0}
+.sos2 .btn{font-size:14px;padding:0 10px}
 .chip.soon{opacity:.55}
 footer{margin-top:40px;font-size:12px;color:var(--mute)}
-.back{display:inline-block;margin:16px 0 0;font-size:13px;color:var(--sea);text-decoration:none}
+.back{margin:4px 0 0;font-size:14px}
 .page h2{border-left:4px solid var(--sea);padding-left:10px;font-size:20px;margin:32px 0 8px}
 .page p{margin:8px 0}.page ul,.page ol{margin:8px 0;padding-left:1.4em}.page li{margin:6px 0}
 .alert-box{margin:20px 0 0;padding:14px 16px;border:2px solid var(--tuna);border-radius:10px;color:var(--tuna);font-weight:700}
@@ -44,7 +45,8 @@ table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
 th,td{border:1px solid var(--hair);padding:8px 10px;text-align:left;vertical-align:top}
 th{background:var(--tint)}
 .links{display:flex;flex-direction:column;gap:6px;margin:8px 0}
-.links a{color:var(--sea)}
+.links a{display:flex;align-items:center;min-height:44px;color:var(--sea)}
+.page header{padding-top:12px}
 .tmp{display:inline-block;font-size:11px;font-weight:700;color:#7a5b00;background:#FFF2C2;border:1px solid #E0C050;border-radius:4px;padding:0 6px;margin-left:4px}
 .phrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0 14px}
 .phrow figure{margin:0}
@@ -52,7 +54,7 @@ th{background:var(--tint)}
 .phrow figcaption{font-size:11px;color:var(--mute);margin-top:4px;line-height:1.4}
 .phrow .wait div{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;border:1px dashed var(--tuna);border-radius:10px;color:var(--tuna);font-size:12px}
 .toc{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
-.toc a{padding:7px 12px;border:1px solid var(--hair);border-radius:99px;background:var(--sea-tint);color:var(--sea);font-weight:700;font-size:13px;text-decoration:none}
+.toc a{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border:1px solid var(--hair);border-radius:999px;background:var(--tint);color:var(--ink);font-size:14px;text-decoration:none}
 .ph{margin:12px 0 18px}
 .ph img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;background:var(--tint)}
 .ph figcaption{font-size:12px;color:var(--mute);margin-top:6px}
@@ -63,8 +65,9 @@ th{background:var(--tint)}
 .card.im.big{display:block}
 .card.im.big img{aspect-ratio:16/9;height:auto}
 .card.im.big .tx{padding:12px 16px 14px}
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:14px 0 0}
-.steps a{display:block;text-align:center;padding:9px 2px;border:1px solid var(--hair);border-radius:10px;background:var(--sea-tint);color:var(--sea);font-weight:700;font-size:13px;text-decoration:none}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);margin:22px 0 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.steps a{display:flex;flex-direction:column;justify-content:center;min-height:56px;text-align:center;padding:6px 2px;color:var(--sea);font-weight:700;font-size:13px;line-height:1.3;text-decoration:none}
+.steps a+a{border-left:1px solid var(--hair)}
 .steps small{display:block;font-weight:400;font-size:10px;color:var(--mute)}
 .slim{margin:12px 0 0;padding:6px 10px;font-size:12px;color:#6b5314;background:#FFF8E1;border:1px dashed #C9A227;border-radius:8px}
 .hero{margin:18px 0 0}
@@ -77,10 +80,7 @@ th{background:var(--tint)}
 .qa summary::before{content:"Q　";color:var(--sea)}
 .qa[open] summary{border-bottom:1px solid var(--hair)}
 .qa p{margin:0;padding:10px 14px}.qa .more{padding-top:0;font-size:13px}.qa a{color:var(--sea)}
-.bar{position:fixed;left:0;right:0;bottom:0;display:flex;gap:6px;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:var(--bg);border-top:1px solid var(--hair);z-index:10;justify-content:center}
-.bar a{flex:1;max-width:220px;text-align:center;padding:9px 6px;border-radius:99px;border:1px solid var(--hair);background:var(--tint);font-size:13px;color:inherit;text-decoration:none}
-.bar a.alert{border-color:var(--tuna);color:var(--tuna);font-weight:700}
-body{padding-bottom:64px}
+body{padding-bottom:calc(72px + env(safe-area-inset-bottom))}
 .shoot{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;aspect-ratio:4/3;width:100%;max-width:100%;border:1.5px dashed var(--hair);border-radius:12px;background:var(--sea-tint);color:var(--kon);text-align:center;padding:10px}
 .shoot .cam{width:44px;height:auto;fill:none;stroke:var(--kon);stroke-width:2.5;stroke-linejoin:round;opacity:.75}
 .shoot .lbl{font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--kon)}
@@ -95,11 +95,53 @@ body{padding-bottom:64px}
 .eight b{font-size:15px}.eight span{font-size:13px;color:var(--mute)}.eight a{font-size:13px;font-weight:700;color:var(--sea);text-decoration:none;justify-self:start}
 .eight .soon{font-size:12px;color:var(--mute)}
 .draft{margin:16px 0 0;padding:10px 14px;border:1px dashed #E0C050;background:#FFF9E0;color:#5a4400;border-radius:8px;font-size:13px}
-</style></head><body><div class="wrap page">
-<a class="back" href="index.html">← 滞在ガイドのトップ</a>
+
+/* ── 操作の部品（ui_parts.py・設計図どおり） ── */
+:focus-visible{outline:2px solid var(--sea);outline-offset:2px}
+/* サイトの切り替え */
+.sn{position:relative;z-index:30;background:var(--bg);border-bottom:1px solid var(--hair)}
+.sn-in{display:flex;align-items:center;gap:2px;max-width:1240px;margin:0 auto;padding:0 12px;overflow-x:auto;scrollbar-width:none}
+.sn-in::-webkit-scrollbar{display:none}
+.sn .home{display:flex;align-items:center;gap:6px;min-height:44px;margin-right:auto;padding:0 6px 0 0;color:var(--ink);font:800 14px/1 var(--mincho);text-decoration:none;white-space:nowrap;flex:none}
+.sn .home img{width:28px;height:28px;display:block;background:#fff;border-radius:6px}
+.sn a.s{display:flex;align-items:center;min-height:44px;padding:0 9px;color:var(--mute);font:700 13px/1 var(--gothic);letter-spacing:0;text-decoration:none;white-space:nowrap;border-bottom:3px solid transparent;flex:none}
+.sn a.s[aria-current="true"]{color:var(--ink);border-bottom-color:var(--sea)}
+@media (max-width:400px){.sn .home .t{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)} .sn a.s{padding:0 8px}}
+/* ボタン（行動） */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:0 18px;border-radius:12px;border:1.5px solid transparent;font:700 15px/1.3 var(--gothic);letter-spacing:0;text-align:center;text-decoration:none;cursor:pointer;transition:transform 120ms,background-color 120ms}
+.btn:active{transform:scale(.97)}
+.btn-primary{min-height:48px;background:var(--sea);color:var(--on,#fff)}
+.btn-primary:active{filter:brightness(.88)}
+.btn-secondary{background:var(--sea-tint);color:var(--sea)}
+.btn-tertiary{min-height:44px;padding:0 4px;background:none;color:var(--sea);justify-content:flex-start}
+.btn-emergency{min-height:48px;background:var(--bg);color:var(--tuna);border-color:var(--tuna)}
+.btn[hidden],.fchip[hidden]{display:none}
+/* 絞り込みの札（複数選べる） */
+.fchip{position:relative;display:inline-flex;align-items:center;gap:4px;height:36px;margin:4px 0;padding:0 14px;border-radius:999px;border:1px solid var(--hair);background:var(--bg);color:var(--ink);font:400 14px/1 var(--gothic);letter-spacing:0;white-space:nowrap;cursor:pointer;transition:background-color 180ms,border-color 180ms;flex:none}
+.fchip::after{content:"";position:absolute;inset:-4px 0}
+.fchip[aria-pressed="true"],.fchip[aria-checked="true"]{background:var(--sea-tint);border-color:var(--sea);color:var(--sea);font-weight:700}
+.fchip[aria-pressed="true"]::before,.fchip[aria-checked="true"]::before{content:"✓"}
+.fchip .n{font-weight:400;font-size:11px;opacity:.8;margin-left:2px}
+/* 切り替え（1つだけ選ぶ・4つまで） */
+.seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:2px;padding:3px;background:var(--tint);border:1px solid var(--hair);border-radius:999px}
+.seg button{position:relative;min-height:38px;border:0;border-radius:999px;background:none;color:var(--mute);font:400 14px/1 var(--gothic);letter-spacing:0;cursor:pointer;transition:background-color 180ms}
+.seg button::after{content:"";position:absolute;inset:-4px -1px}
+.seg button[aria-checked="true"]{background:var(--bg);color:var(--ink);font-weight:700;box-shadow:0 0 0 1px var(--hair)}
+/* 下のバー（滞在ガイド） */
+.bn{position:fixed;left:0;right:0;bottom:0;z-index:40;display:grid;grid-template-columns:repeat(4,1fr);background:var(--bg);border-top:1px solid var(--hair);padding-bottom:env(safe-area-inset-bottom)}
+.bn a{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:56px;color:var(--mute);font:700 11px/1.2 var(--gothic);text-decoration:none}
+.bn svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.bn a[aria-current="page"]{color:var(--sea)}
+.bn a[aria-current="page"]::before{content:"";position:absolute;top:-1px;left:22%;right:22%;height:3px;border-radius:0 0 3px 3px;background:var(--sea)}
+.bn a.sos{color:var(--tuna)}
+.bn a.sos[aria-current="page"]::before{background:var(--tuna)}
+@media (min-width:720px){.bn{left:50%;right:auto;width:560px;transform:translateX(-50%);border:1px solid var(--hair);border-bottom:0;border-radius:12px 12px 0 0}}
+@media (prefers-reduced-motion:reduce){.btn,.fchip,.seg button{transition:none}.btn:active{transform:none}}
+</style></head><body><nav class="sn" aria-label="三浦A邸のサイト"><div class="sn-in"><a class="home" href="../stay/"><img src="../img/brand/logo.png" alt="" width="28" height="28"><span class="t">三浦A邸</span></a><a class="s" href="../stay/" aria-current="true">滞在ガイド</a><a class="s" href="../guide/">ガイドブック</a><a class="s" href="../">最近の三浦</a></div></nav><div class="wrap page">
+<a class="btn btn-tertiary back" href="index.html">← 滞在ガイドのトップ</a>
 <header><div class="brand"><img src="../img/brand/logo.png" alt="" width="44" height="44"><div class="eyebrow">MIURA · STAY GUIDE</div></div><h1>到着ガイド</h1>
 <p class="lede">着くまでと、着いてからのことです。</p></header>
 <div class="slim"><b>試作版</b>：「記入待ち」と「仮」の札がある所は家守に確かめてから直します。「撮影予定」の枠には、写真を順に入れていきます。</div>
 <p>予約の前日に、メールが届きます。住所、入室の情報、家守の連絡先、Googleマップは、そのメールに書いてあります。このページには、番地や暗証番号は載せていません。</p><h2 id="hachi">はじめての方へ：着いたら知りたい8つ</h2><ol class="eight"><li><b>拠点までのルート</b><span>三崎口駅からバスで「日の出」へ。くわしくは下の「行き方」</span><a href="#ikikata">見る →</a></li><li><b>拠点の外観</b><span>アイボリー色の建物。外観の写真とバス停からの道は「到着カード」（合言葉）に</span><a href="../m/e3opY9JQLyyN6jpx/">見る →</a></li><li><b>キーボックスの暗証番号</b><span>前日のメールの「入室情報」のページにあります</span><a href="#genkan">見る →</a></li><li><b>部屋番号</b><span>前日のメールの「部屋番号」にあります。部屋の場所は「おうちを探検（3D）」で</span><a href="https://miura-a-stay-guide.vaseata.chatgpt.site/" target="_blank" rel="noopener">見る →</a></li><li><b>ほかの部屋の様子</b><span>今夜どの部屋が使われているかは「到着カード」（合言葉）に。名前は載せていません</span><a href="../m/e3opY9JQLyyN6jpx/">見る →</a></li><li><b>リネンの置き場</b><span>和室の共有スペースにあります</span><a href="#mazu">見る →</a></li><li><b>トイレ・洗面所・お風呂</b><span>場所と使い方は「お風呂とトイレ・洗濯」に</span><a href="ofuro.html">見る →</a></li><li><b>近所で開いているお店</b><span>ガイドブックの「今日やっている」で、いま開いているお店だけ出せます</span><a href="../guide/#open=1">見る →</a></li></ol><table><tr><th>着く前に、ひとこと</th><th>ポイント</th></tr><tr><td>時間</td><td><b>14:00〜21:00</b>。時間外は入れません</td></tr><tr><td>バス停</td><td><b>日の出</b>がおすすめ（家から近く、平坦）</td></tr><tr><td>車</td><td><b>駐車場なし</b>。来る前にパーキングを予約</td></tr><tr><td>夕食</td><td>三崎の夜は早い。<b>早めの到着</b>がおすすめ</td></tr><tr><td>連絡</td><td>住所・暗証番号・家守の連絡先は<b>前日のメール</b></td></tr></table><nav class="toc"><a href="#jikan">着く時間</a><a href="#ikikata">行き方</a><a href="#genkan">玄関</a><a href="#mazu">着いたら</a><a href="#yushoku">夕食と買い物</a><a href="#yoru">夜のこと</a></nav><h2 id="jikan">着く時間</h2><p><b>14:00〜21:00</b> のあいだにお越しください。時間外は入れません。変更したいときは、予約の詳細ページから連絡できます。荷物を先に置きたいときは、事前に家守の承諾が必要です。</p><p class="note">三崎の夜は早く、飲食店は夕方に閉まるところが多いです。夕食をとるなら、早めの到着がおすすめです。</p><h2 id="ikikata">行き方（電車とバス）</h2><figure class="ph"><div class="shoot"><svg class="cam" viewBox="0 0 48 40" aria-hidden="true"><rect x="3" y="9" width="42" height="28" rx="6"/><circle cx="24" cy="23" r="8"/><path d="M16 9l3-5h10l3 5"/></svg><span class="lbl">撮影予定</span><span class="what">三崎口駅のバス乗り場</span></div><figcaption>三崎口駅のバス乗り場</figcaption></figure><p>京急線の終点「<b>三崎口駅</b>」から、京急バスに乗ります。乗り場は主に<b>2番のりば</b>です（日や時間帯で変わることがあります）。駅からは14〜20分ほど、運賃は300円ほどです。<span class="tmp">仮</span>　<span class="fill">記入待ち：最新の運賃と時刻（京急バスで確認）</span></p><table><tr><th>降りる場所</th><th>メモ</th></tr><tr><td><b>日の出（おすすめ）</b><br><small>城ヶ島行き［三9］・通り矢行き［三8］</small></td><td>家から近く、道はほぼ平坦です。帰りは、城ヶ島始発の「三崎口駅」行きに、ここから乗れます。</td></tr><tr><td>三崎東岡<br><small>三崎東岡行き［三5］ほか</small></td><td>降りてから徒歩<b>7分ほど</b>です。家までは、ゆるい<b>下り坂</b>です。帰りに「三崎東岡」から乗るときは、<b>坂を登る</b>ことになります。荷物が多いと、少し大変です。三崎口駅から「三崎東岡」が<b>終点</b>のバスや、三崎東岡が<b>始発</b>のバスもあるので、行き先と乗る場所を、よく確かめてください。</td></tr><tr><td>三崎港（終点）<br><small>三崎港行き［三26］など</small></td><td>家からは<b>遠い</b>ので、おすすめしません。<b>日の出</b>で降りるのが、いちばん近いです。<span class="tmp">仮</span></td></tr></table><p>三崎口駅のバス乗り場は、季節によって行列になることがあります。休日・祝日の帰りは、城ヶ島から観光客が乗ってくるので、日の出で乗っても、バスが混んでいることがあります。</p><div class="alert-box">車で来る方：建物に駐車場はありません。<b>来る前に、近くのパーキングを予約してください。</b></div><div class="links"><a href="chusha.html">駐車場・駐輪場（くわしく） →</a></div><h2 id="genkan">玄関から入るまで</h2><div class="alert-box"><b>隣の家と、住所が同じです。</b> 三浦A邸は、<b>アイボリー色の外観の建物</b>です。<b>玄関の表札に、ADDressのマーク</b>があります。隣の家には、入らないでください。迷ったら、家守かオープンチャットに連絡してください。</div><figure class="ph"><div class="shoot"><svg class="cam" viewBox="0 0 48 40" aria-hidden="true"><rect x="3" y="9" width="42" height="28" rx="6"/><circle cx="24" cy="23" r="8"/><path d="M16 9l3-5h10l3 5"/></svg><span class="lbl">撮影予定</span><span class="what">玄関まわり（キーボックスが写るため、公開では別の写真にします）</span></div><figcaption>玄関まわり（キーボックスが写るため、公開では別の写真にします）</figcaption></figure><ol><li>表札の近くに、<b>ADDress のプレート</b>があります。</li><li>玄関に<b>キーボックス</b>があります。暗証番号は、前日のメールの「入室情報」に書いてあります。</li><li>チャイムは鳴らさず、そのままお入りください。玄関は、普通のお宅の玄関です。</li></ol><h2 id="mazu">着いたら、まず</h2><div class="phrow"><figure><div class="shoot"><svg class="cam" viewBox="0 0 48 40" aria-hidden="true"><rect x="3" y="9" width="42" height="28" rx="6"/><circle cx="24" cy="23" r="8"/><path d="M16 9l3-5h10l3 5"/></svg><span class="lbl">撮影予定</span><span class="what">靴の置き場</span></div><figcaption>靴の置き場</figcaption></figure><figure><div class="shoot"><svg class="cam" viewBox="0 0 48 40" aria-hidden="true"><rect x="3" y="9" width="42" height="28" rx="6"/><circle cx="24" cy="23" r="8"/><path d="M16 9l3-5h10l3 5"/></svg><span class="lbl">撮影予定</span><span class="what">リネンの置き場</span></div><figcaption>リネンの置き場</figcaption></figure><figure><img src="img/kitchen.jpg" alt="木のテーブルと台所" loading="lazy"><figcaption>居間とキッチン</figcaption></figure></div><ol><li>靴を脱いで、あがってください。靴の置き場は、決まっていません。空いているところに置いてください。</li><li>荷物は、ご自分のお部屋へ。</li><li><b>シーツ・枕カバーなどのリネン</b>は、<b>和室の共有スペース</b>にあります。1人1セットを使い、帰るときは、リネン回収ボックスへ。見つからないときや、足りないときは、すぐにオープンチャットか家守に連絡してください。</li><li>居間とキッチンは、みんなで使う場所です。使ったあとは、元の状態に戻してください。</li><li>お風呂・洗濯・ゴミのことは、それぞれのページを見てください。</li></ol><div class="links"><a href="ofuro.html">お風呂・トイレ・洗濯 →</a><a href="gomi.html">ゴミ出し →</a><a href="https://miura-a-stay-guide.vaseata.chatgpt.site/" target="_blank" rel="noopener">おうちを探検（3D） ↗</a></div><h2 id="yushoku">夕食と買い物</h2><figure class="ph"><div class="shoot"><svg class="cam" viewBox="0 0 48 40" aria-hidden="true"><rect x="3" y="9" width="42" height="28" rx="6"/><circle cx="24" cy="23" r="8"/><path d="M16 9l3-5h10l3 5"/></svg><span class="lbl">撮影予定</span><span class="what">くろば亭（徒歩1分）</span></div><figcaption>くろば亭（徒歩1分）</figcaption></figure><ul><li>近くのコンビニは、<b>ファミリーマート（徒歩6分）</b>です。</li><li>魚と野菜は、<b>うらりマルシェ（徒歩9分）</b>で買えます。</li><li>外で食べるなら、<b>くろば亭（徒歩1分）</b>。11時〜20時（ラストオーダー19時）で、<b>水曜は定休日</b>です。土日は混むので、平日か、早めの時間が空いています。<span class="tmp">仮</span></li><li>くろば亭には、ADDress会員向けの定食があります。先に頼むのがおすすめです。<span class="tmp">仮</span>　<span class="fill">記入待ち：定食の今の内容・値段・提供条件（お店に確認）</span></li></ul><p>近くのお店は、<b>火曜・水曜が休み</b>のところが多く、特に水曜は少ないです。金目鯛専門店のように、午後3時ごろに閉まるお店もあります。三崎港まで歩くと、開いているお店が見つかります。</p><div class="links"><a href="../guide/map-preview.html">華さんのおすすめマップ →</a></div><h2>家守と会える？</h2><p>家守は近くに住んでいますが、お会いできない日もあります。話したい、地元の店に行きたい、という方は、<b>予約のとき、メッセージでひとこと</b>ください。ほかの滞在者や、近所の方が、教えてくれることもあります。</p><h2 id="yoru">夜のこと</h2><p>夜は静かです。古い日本家屋なので、隣の部屋の音は聞こえます（特に201は、襖1枚の仕切りです）。夜中に、スマホの緊急地震速報が鳴ることがあります。</p><h2>困ったとき</h2><p>まず、このサイトと、各部屋の「マナーの紙」を見てください。それでも分からないときは、館内で住人に会えたら、声をかけてもOKです。会えないときは、家守への電話か、オープンチャットです。</p><div class="links"><a href="konnatoki.html#renraku">連絡の順番（くわしく） →</a><a href="bosai.html">地震・津波・体調が悪いとき →</a></div>
 <footer>三浦A邸（ADDress）。住所・鍵の番号・Wi-Fiのパスワードは、予約前日のメールにあります。</footer>
-</div><nav class="bar"><a href="index.html">トップ・ページ一覧</a><a class="alert" href="bosai.html">防災</a><a class="alert" href="konnatoki.html">困ったとき</a></nav></body></html>
+</div><nav class="bn" aria-label="滞在ガイドのメニュー"><a href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>トップ</a><a href="tochaku.html" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V4h10l4 4v13"/><path d="M9 12h6M9 16h4"/></svg>到着</a><a href="konnatoki.html"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.5V14"/><path d="M12 17.5v.01"/></svg>困ったとき</a><a href="bosai.html" class="sos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17v.01"/></svg>防災</a></nav></body></html>

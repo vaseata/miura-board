@@ -2,6 +2,7 @@
 """items.json + calendar.json + places.json + videos.json → index.html（最近の三浦・紙面）"""
 import json, datetime, html, pathlib, re, urllib.parse
 from string import Template
+from ui_parts import UI_CSS, sitenav
 
 HERE = pathlib.Path(__file__).parent
 TODAY = datetime.date.today()
@@ -140,14 +141,14 @@ def want_html(x):
     en_html = ""
     if en:
         write_ics(en)
-        en_html = f'<p class="want-what">エントリー開始日 {jdate(en["start"])}</p><a class="want-link" href="ics/{en["id"]}.ics">iPhone のカレンダーに追加</a><a class="want-link" href="{esc(gcal_url(en))}" target="_blank" rel="noopener">Google カレンダーに追加</a>'
+        en_html = f'<p class="want-what">エントリー開始日 {jdate(en["start"])}</p><a class="want-link btn btn-secondary" href="ics/{en["id"]}.ics">iPhone のカレンダーに追加</a><a class="want-link btn btn-secondary" href="{esc(gcal_url(en))}" target="_blank" rel="noopener">Google カレンダーに追加</a>'
     return f'''<div class="want" data-id="{ev['id']}">
-    <button type="button" class="want-btn" aria-expanded="false">行ってみたい</button>
+    <button type="button" class="btn btn-secondary want-btn" aria-expanded="false">行ってみたい</button>
     <div class="want-to" hidden>
       <p class="want-what">{esc(ev["title"])}<br>{esc(when_text(ev))}<br>{esc(ev["place"])}</p>
-      <a class="want-link" href="ics/{ev['id']}.ics">iPhone のカレンダーに追加</a><a class="want-link" href="{esc(gcal_url(ev))}" target="_blank" rel="noopener">Google カレンダーに追加</a>
+      <a class="want-link btn btn-primary" href="ics/{ev['id']}.ics">iPhone のカレンダーに追加</a><a class="want-link btn btn-secondary" href="{esc(gcal_url(ev))}" target="_blank" rel="noopener">Google カレンダーに追加</a>
       {en_html}
-      <button type="button" class="want-off" hidden>行ってみたいを外す</button>
+      <button type="button" class="btn btn-tertiary want-off" hidden>行ってみたいを外す</button>
     </div>
   </div>'''
 
@@ -315,15 +316,11 @@ button{font:inherit;color:inherit}
 .mh-lead{grid-column:1/-1;font-size:12.5px;color:var(--mute);letter-spacing:.06em}
 
 /* ── 前回は（絞り込み） ── */
-.toggle{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:18px 0 16px;padding:8px 0;background:var(--bg);border-bottom:1px solid var(--hair)}
-.toggle .q{font-size:12px;color:var(--mute);margin-right:4px;letter-spacing:.08em}
-.toggle button{font-size:13px;background:var(--bg);border:1px solid var(--hair);border-radius:999px;padding:4px 12px;cursor:pointer;min-height:32px}
-.toggle button[aria-pressed="true"]{background:var(--sea);border-color:var(--sea);color:var(--on);font-weight:700}
-.toggle .tag-want{margin-left:auto;border-color:var(--kon);color:var(--kon)}
-.toggle .tag-want[aria-pressed="true"]{background:var(--kon);border-color:var(--kon);color:var(--on)}
-.toggle .tag-reco{border-style:dashed;border-color:var(--kon);color:var(--kon)}
-.toggle .tag-reco[aria-pressed="true"]{background:var(--kon);color:var(--on);border-style:solid}
-.toggle .n{font-weight:700;margin-left:2px}
+.toggle{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;flex-direction:column;gap:4px;margin:18px 0 16px;padding:6px 0 8px;background:var(--bg);border-bottom:1px solid var(--hair)}
+.toggle .q{font-size:12px;color:var(--mute);letter-spacing:.08em}
+.toggle .seg{max-width:440px}
+.toggle .tags{display:flex;flex-wrap:wrap;gap:0 8px}
+.toggle .tags:not(:has(button:not([hidden]))){display:none}
 
 /* ── 面見出し ── */
 .men{display:flex;align-items:baseline;gap:12px;font-family:var(--mincho);font-weight:800;font-size:19px;letter-spacing:.2em;margin:28px 0 12px;padding-bottom:6px;border-bottom:2px solid var(--rule)}
@@ -381,7 +378,6 @@ button{font:inherit;color:inherit}
 @media (max-width:639px){ #sheet{margin:auto 0 0;width:100%;max-height:92vh;border-radius:14px 14px 0 0} }
 .sheet-in{max-height:inherit;overflow-y:auto;overscroll-behavior:contain;padding:0 20px calc(24px + env(safe-area-inset-bottom,0px))}
 .sheet-bar{position:sticky;top:0;z-index:2;display:flex;justify-content:flex-end;padding:10px 0 6px;background:var(--bg)}
-.sheet-close{border:1px solid var(--hair);background:var(--bg);border-radius:999px;padding:4px 14px;font-size:13px;cursor:pointer;min-height:34px}
 .detail .photo{margin:0 -20px 12px}
 .detail .photo img{display:block;width:100%;max-height:340px;object-fit:cover}
 .detail .photo figcaption{font-size:10.5px;color:var(--mute);text-align:right;padding:4px 20px 0}
@@ -398,13 +394,11 @@ button{font:inherit;color:inherit}
 .entry span{color:var(--ink2);font-size:12px}
 /* 行ってみたい */
 .want{margin:0 0 14px}
-.want-btn{font-size:14px;font-weight:700;letter-spacing:.12em;background:var(--bg);color:var(--kon);border:2px solid var(--kon);padding:6px 18px;cursor:pointer;min-height:40px}
-.want-btn[aria-expanded="true"],.want.done .want-btn{background:var(--kon);color:var(--on)}
+.want-btn[aria-expanded="true"],.want.done .want-btn{border-color:var(--sea)}
 .want.done .want-btn::before{content:"✓ "}
+.want-to .btn{margin:0 8px 8px 0}
 .want-to{margin-top:10px;padding:8px 0 4px 12px;border-left:2px solid var(--kon)}
 .want-what{font-size:13px;line-height:1.8;color:var(--ink2);margin-bottom:6px}
-.want-link{display:inline-block;font-size:14px;font-weight:700;color:var(--sea);margin:2px 18px 6px 0;padding:4px 0;text-underline-offset:3px}
-.want-off{font-size:12px;color:var(--mute);background:none;border:0;cursor:pointer;padding:4px 0;text-decoration:underline}
 /* 下調べ */
 .prep{border-top:2px solid var(--rule);padding-top:10px;margin:6px 0 10px}
 .prep h4{font-family:var(--mincho);font-weight:800;font-size:17px;letter-spacing:.2em;display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
@@ -438,6 +432,7 @@ button{font:inherit;color:inherit}
 .okuzuke{margin-top:40px;border-top:4px solid var(--sea);padding-top:10px;font-size:11px;line-height:2;color:var(--mute)}
 .okuzuke .latin{display:block;margin-top:6px;letter-spacing:.25em;text-transform:uppercase;font-size:9.5px}
 @media (prefers-reduced-motion: reduce){ .thumb img{transition:none} }
+$ui_css
 </style>
 <main>
 <img class="motif" src="img/brand/header-maguro.jpg" alt="跳ねるマグロと波、富士山と朝日の絵" width="1500" height="500">
@@ -445,9 +440,8 @@ button{font:inherit;color:inherit}
   <h1 class="daiji"><small><img src="img/brand/logo.png" alt="" width="40" height="40">三浦A邸 近況ボード</small>最近の三浦</h1>
   <div class="issue"><span class="no">第$issue号</span><br>$ymd（$wd）</div>
   <p class="mh-lead">城ヶ島・三崎・三浦海岸・油壺・小網代 ── この町で起きたこと、はじまったこと、季節のこと。記事をタップすると詳しく読めます。</p>
-  <p class="mh-lead"><a href="guide/"><b>ゲスト向けガイドブック（食べる・見る・体験する）→</b></a></p>
 </header>
-<nav class="toggle" role="group" aria-label="前回来てから"><span class="q">前回のご来訪</span><button data-days="31">1ヶ月前</button><button data-days="93">3ヶ月前</button><button data-days="184">半年前</button><button data-days="366">1年前</button><button class="tag-want" data-tag="want" aria-pressed="false" hidden>行ってみたい <b class="n">0</b></button><button class="tag-reco" data-tag="reco" aria-pressed="false" hidden>おすすめ <b class="n">0</b></button></nav>
+<nav class="toggle" aria-label="記事の絞り込み"><span class="q" id="q-days">前回のご来訪</span><div class="seg" role="radiogroup" aria-labelledby="q-days"><button type="button" role="radio" aria-checked="false" data-days="31">1ヶ月前</button><button type="button" role="radio" aria-checked="false" data-days="93">3ヶ月前</button><button type="button" role="radio" aria-checked="false" data-days="184">半年前</button><button type="button" role="radio" aria-checked="false" data-days="366">1年前</button></div><div class="tags"><button type="button" class="fchip tag-want" data-tag="want" aria-pressed="false" hidden>行ってみたい <b class="n">0</b></button><button type="button" class="fchip tag-reco" data-tag="reco" aria-pressed="false" hidden>おすすめ <b class="n">0</b></button></div></nav>
 <section class="sec dated" id="soon"><h2 class="men">これから・開催中<span class="latin">Coming up</span></h2><div class="grid">$soon</div></section>
 <section class="sec dated" id="recent"><h2 class="men">最近のできごと<span class="latin">Recent</span></h2><div class="grid">$recent</div></section>
 <p class="empty" id="none" hidden>この期間に新しい記事はありません。下の「毎年の定番」を話題にどうぞ。</p>
@@ -460,7 +454,7 @@ button{font:inherit;color:inherit}
 <span class="latin">Since 2026.09.12 · Updated every morning · By Yanuki</span>
 </footer>
 </main>
-<dialog id="sheet" aria-label="記事の詳細"><div class="sheet-in"><div class="sheet-bar"><button type="button" class="sheet-close">閉じる</button></div><div class="sheet-body"></div></div></dialog>
+<dialog id="sheet" aria-label="記事の詳細"><div class="sheet-in"><div class="sheet-bar"><button type="button" class="btn btn-secondary sheet-close">閉じる</button></div><div class="sheet-body"></div></div></dialog>
 <script>
 (function(){
   var btns=[].slice.call(document.querySelectorAll('.toggle button[data-days]'));
@@ -486,7 +480,7 @@ button{font:inherit;color:inherit}
       return tagsOf(el).some(function(t){return wantTags[t];});
     }
     if(n===0&&mode!=='days'){mode='days';set('miura-mode',null);}
-    btns.forEach(function(b){b.setAttribute('aria-pressed',String(mode==='days'&&+b.dataset.days===days));});
+    btns.forEach(function(b){b.setAttribute('aria-checked',String(mode==='days'&&+b.dataset.days===days));});
     var shown=0, r=0;
     arts.forEach(function(el){
       var w=isWant(el), rc=isReco(el); if(rc)r++;
@@ -535,14 +529,14 @@ button{font:inherit;color:inherit}
 })();
 </script>
 ''').substitute(issue=issue_no, ymd=f"{TODAY.year}年{TODAY.month}月{TODAY.day}日", wd=WD[TODAY.weekday()],
-                 soon=soon_html, recent=recent_html, df=df_line, upcoming=up_html, videos=videos_html, credits_plain=credits_plain)
+                 soon=soon_html, recent=recent_html, df=df_line, upcoming=up_html, videos=videos_html, credits_plain=credits_plain, ui_css=UI_CSS)
 # Artifact 用（断片）と GitHub Pages 用（完全なHTML）の2本を書く
 (HERE / "artifact.html").write_text(page, encoding="utf-8")
 i = page.index("<main>")
 full = ('<!DOCTYPE html>\n<html lang="ja">\n<head>\n<meta charset="utf-8">\n'
         '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
         '<meta name="description" content="城ヶ島・三崎・三浦海岸——この町で起きたこと、はじまったこと、季節のこと。">\n'
-        + page[:i] + '</head>\n<body>\n' + page[i:] + '</body>\n</html>\n')
+        + page[:i] + '</head>\n<body>\n' + sitenav("board", "") + '\n' + page[i:] + '</body>\n</html>\n')
 (HERE / "index.html").write_text(full, encoding="utf-8")
 print(f"index.html 第{issue_no}号: {len(soon)} soon, {len(recent)} recent, {len(upcoming)} upcoming, {len(videos)} videos, next DF {df_line}")
 
