@@ -110,7 +110,7 @@ PAGES_EN = {
                 ["Winter (cold)", "In winter, the hallway and kitchen feel cold. Slippers and a jacket help."],
             ]),
             ("note", "Event dates change every year. The latest information is on “Miura News” (in Japanese)."),
-            ("links", [("Miura News (news board, in Japanese)", "../index.html"), ("Miura Guidebook (in Japanese)", "../guide/")]),
+            ("links", [("Miura News (news board, in Japanese)", "../index.html"), ("Eat & See (in Japanese)", "../guide/")]),
             ("h2", "All year"),
             ("ul", [
                 "Many nearby shops are **closed on Tuesdays and Wednesdays**. Wednesday has the fewest open shops.",
@@ -359,7 +359,7 @@ PAGES_EN = {
                 ("Other rooms tonight", "Which rooms are in use tonight is on the “Arrival card” (passphrase). No names are shown", "ARRIVAL"),
                 ("Where the linens are", "In the shared space of the washitsu", "#mazu"),
                 ("Toilet, washbasin, bath", "Where they are and how to use them: “Bath, toilet & laundry”", "ofuro.html"),
-                ("Shops open nearby", "In the Guidebook, “Open today” shows only the shops open now (in Japanese)", "../guide/#open=1"),
+                ("Shops open nearby", "In Eat & See, “Open today” shows only the shops open now (in Japanese)", "../guide/#open=1"),
             ]),
             ("table", ["Before you arrive", "Key point"], [
                 ["Time", "**14:00–21:00**. You cannot enter outside these hours"],

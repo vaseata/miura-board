@@ -128,7 +128,7 @@ def body_ja(rooms_html):
 <h2>入るとき</h2>
 <ol><li>玄関にキーボックスがあります。暗証番号は、前日のメールの「入室情報」のページに書いてあります。</li>
 <li>チャイムは鳴らさず、そのままお入りください。</li>
-<li>リネン・トイレ・お風呂の場所は、<a href="{BASE}stay/tochaku.html#mazu">滞在ガイドの「着いたら、まず」</a>にあります。</li></ol>
+<li>リネン・トイレ・お風呂の場所は、<a href="{BASE}stay/tochaku.html#mazu">家の案内の「着いたら、まず」</a>にあります。</li></ol>
 <p class="note">このページの URL と合言葉は、ほかの人に教えないでください。</p>
 </div>'''
 

@@ -438,7 +438,7 @@ $ui_css
 <main>
 <img class="motif" src="img/brand/header-maguro.jpg" alt="跳ねるマグロと波、富士山と朝日の絵" width="1500" height="500">
 <header class="masthead">
-  <h1 class="daiji"><small>三浦A邸 近況ボード</small>最近の三浦</h1>
+  <h1 class="daiji"><small>イベントと町の話題</small>最近の三浦</h1>
   <div class="issue"><span class="no">第$issue号</span><br>$ymd（$wd）</div>
   <p class="mh-lead">城ヶ島・三崎・三浦海岸・油壺・小網代 ── この町で起きたこと、はじまったこと、季節のこと。記事をタップすると詳しく読めます。</p>
 </header>

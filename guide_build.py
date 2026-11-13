@@ -195,7 +195,7 @@ def build():
 <meta name="theme-color" content="#0A5A8C">
 <link rel="apple-touch-icon" href="../img/icon-180.png">
 <link rel="manifest" href="manifest.webmanifest">
-<title>三浦A邸 ガイドブック</title>
+<title>三浦A邸 お店・名所</title>
 <link rel="icon" href="../img/brand/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -306,7 +306,7 @@ $sitenav
 <main>
 <img class="motif" src="../img/brand/header-maguro.jpg" alt="跳ねるマグロと波、富士山と朝日の絵" width="1500" height="500">
 <header class="masthead">
-  <h1 class="daiji"><small>MIURA A-TEI · GUIDE</small>三浦A邸<br>ガイドブック</h1>
+  <h1 class="daiji"><small>MIURA A-TEI · EAT &amp; SEE</small>三浦A邸<br>お店・名所</h1>
   <p class="mh-lead">三崎・城ヶ島・三浦海岸で、食べる・見る・体験する・買う。A邸からの徒歩時間つき。<br>$ymd 現在。毎朝自動で更新しています。</p>
 </header>
 
@@ -419,7 +419,7 @@ $open_js
 <table><tr><th>id</th><th>分類</th><th>名前／ひとこと</th><th>場所／徒歩</th><th>営業・休み・料金</th><th>確認・出典</th></tr>{"".join(row(s) for s in published) or "<tr><td colspan=6>まだありません</td></tr>"}</table>
 </body></html>'''
     (OUT / "review.html").write_text(review, encoding="utf-8")
-    (OUT / "manifest.webmanifest").write_text(json.dumps({"name": "三浦A邸 ガイドブック", "short_name": "A邸ガイド", "start_url": "./", "display": "browser", "background_color": "#FFFFFF", "theme_color": "#0A5A8C",
+    (OUT / "manifest.webmanifest").write_text(json.dumps({"name": "三浦A邸 お店・名所", "short_name": "お店・名所", "start_url": "./", "display": "browser", "background_color": "#FFFFFF", "theme_color": "#0A5A8C",
         "icons": [{"src": "../img/icon-180.png", "sizes": "180x180", "type": "image/png"}, {"src": "../img/icon-512.png", "sizes": "512x512", "type": "image/png"}]}, ensure_ascii=False, indent=1), encoding="utf-8")
     # ---- アイコン（無ければ作る）
     for size in (180, 512):

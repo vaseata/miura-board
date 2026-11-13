@@ -19,7 +19,7 @@ if PROTO:
     OUT = HERE / "stay_proto"
 DEMO = "--demo" in sys.argv              # 人に見せる試作版（2026-11-14 鍋パーティー用）：stay/ に書く。記入待ちは正直に札で出し、
                                          # 写真の無いカードは文字だけ、写真待ちの枠は隠す。外の読みものには公開済みの場所写真（CC0）を付ける
-DEMO_IMG = {"華さんのおすすめマップ": "../img/misaki_harbor.jpg", "三浦のガイドブック": "../img/jogashima_harbor.jpg",
+DEMO_IMG = {"華さんのおすすめマップ": "../img/misaki_harbor.jpg", "お店・名所": "../img/jogashima_harbor.jpg",
             "最近の三浦": "../img/miura_beach.jpg", "歴史さんぽ": "../img/jogashima_lighthouse.jpg"}
 
 # トップのカードに付けるサムネイル（hrefの先頭部分 → 写真のkey）。写真が無ければダミー画像になる
@@ -28,7 +28,7 @@ CARD_IMG = {"chusha.html": "parking", "tochaku.html#ikikata": "bus", "tochaku.ht
             "raihou.html": "genkan", "bosai.html": "koudai", "konnatoki.html": "kyuto", "shuppatsu.html": "linenbox",
             "mochimono.html": "season", "faq.html": "kitchen"}
 CARD_IMG_BY_NAME = {"防災マップ（3D）": "hazard", "おうちを探検（3D）": "tour", "華さんのおすすめマップ": "map",
-                    "三浦のガイドブック": "guide", "最近の三浦": "news", "歴史さんぽ": "history"}
+                    "お店・名所": "guide", "最近の三浦": "news", "歴史さんぽ": "history"}
 
 def photo_src(key):
     """写真があれば img/<key>.jpg を返し、無ければ None。英語版（stay/en/）からは ../img/。"""
@@ -45,7 +45,7 @@ def fix(href):
 # 画面の言葉（日本語・英語）
 L = {
     "ja": {"soon": "準備中", "shoot": "撮影予定", "tmp": "仮", "fill": "記入待ち：", "go": "見る →", "more": "くわしく見る →",
-           "back": "← 滞在ガイドのトップ", "suffix": "｜三浦A邸 滞在ガイド", "site": "三浦A邸 滞在ガイド",
+           "back": "← 家の案内のトップ", "suffix": "｜三浦A邸 家の案内", "site": "三浦A邸 家の案内",
            "foot": "三浦A邸（ADDress）。住所・鍵の番号・Wi-Fiのパスワードは、予約前日のメールにあります。",
            "credit": "<br>三浦の景色の写真：Wikimedia Commons（Aspere 撮影・CC0）",
            "demo_note": '<div class="slim"><b>試作版</b>：「記入待ち」と「仮」の札がある所は家守に確かめてから直します。「撮影予定」の枠には、写真を順に入れていきます。</div>',
@@ -55,7 +55,7 @@ L = {
            "lede": "来る前・着いたとき・滞在中・帰るときに、ここを開いてください。",
            "motif_alt": "跳ねるマグロと波、富士山と朝日の絵", "hero_alt": "三浦A邸の廊下", "steps_label": "章"},
     "en": {"soon": "Coming soon", "shoot": "PHOTO COMING SOON", "tmp": "To be confirmed", "fill": "Pending: ", "go": "Open →", "more": "More →",
-           "back": "← Stay guide home", "suffix": " | Miura A-tei Stay Guide", "site": "Miura A-tei Stay Guide",
+           "back": "← House guide home", "suffix": " | Miura A-tei House Guide", "site": "Miura A-tei House Guide",
            "foot": "Miura A-tei (ADDress). The address, key-box code, and Wi-Fi password are in the email you receive the day before your stay.",
            "credit": "<br>Photos of Miura scenery: Wikimedia Commons (by Aspere, CC0)",
            "demo_note": '<div class="slim"><b>Draft</b>: items tagged “Pending” or “To be confirmed” will be fixed after checking with the host. Photos will be added to the “Photo coming soon” frames.</div>',
@@ -167,7 +167,7 @@ SECTIONS = [
         ("家のルール", "夜・火の元・音。理由も1行ずつ", "rules.html", False),
         ("来客・外泊・郵便", "友人を呼ぶ／外泊／早着・遅くまで／荷物が届く", "raihou.html", False),
         ("華さんのおすすめマップ", "家守のおすすめのお店。平面と3D", "../guide/map-preview.html", False),
-        ("三浦のガイドブック", "食べる・見る・体験する。今日やっているお店も", "../guide/", False),
+        ("お店・名所", "食べる・見る・体験する。今日やっているお店も", "../guide/", False),
         ("最近の三浦", "イベントや交通の近況", "../index.html", False),
         ("歴史さんぽ", "ゆかりの地を時代ごとに3D地図で", "../history/", False),
     ]),
@@ -202,7 +202,7 @@ SECTIONS_EN = [
         ("House rules", "Night, fire, noise — with the reasons"),
         ("Visitors, nights away & mail", "Inviting friends / nights away / early or late / parcels"),
         ("Hana's recommended map", "The host's favorite places. 2D and 3D. In Japanese"),
-        ("Miura Guidebook", "Eat, see, do. Shops open today. In Japanese"),
+        ("Eat & See (in Japanese)", "Eat, see, do. Shops open today. In Japanese"),
         ("Miura News", "Events and traffic news. In Japanese"),
         ("History walk", "Historic places by era on a 3D map. In Japanese"),
     ]),
@@ -543,8 +543,8 @@ def build_page(slug, spec, public):
           notice = f'<div class="draft">確認中のページです。仮の文が{tmp}か所、記入待ちが{fill}か所あります。公開する前に、家守に確かめて直します。</div>'
     body = "".join(render_block(b) for b in spec["blocks"])
     page = f"""{head_html(spec["title"] + t("suffix"), slug)}<body>{sitenav("stay", root(), lang=LANG)}<div class="wrap page">
-<div class="topbar"><nav class="crumb" aria-label="{"You are here" if LANG == "en" else "現在地"}"><a href="index.html">{"Stay guide" if LANG == "en" else "滞在ガイド"}</a><span aria-hidden="true">›</span><span aria-current="page">{esc(spec["title"])}</span></nav>{langswitch(slug)}</div>
-<header><div class="eyebrow">MIURA A-TEI · STAY GUIDE</div><h1>{esc(spec["title"])}</h1>
+<div class="topbar"><nav class="crumb" aria-label="{"You are here" if LANG == "en" else "現在地"}"><a href="index.html">{"House" if LANG == "en" else "家の案内"}</a><span aria-hidden="true">›</span><span aria-current="page">{esc(spec["title"])}</span></nav>{langswitch(slug)}</div>
+<header><div class="eyebrow">MIURA A-TEI · HOUSE GUIDE</div><h1>{esc(spec["title"])}</h1>
 <p class="lede">{esc(spec["lede"])}</p></header>
 {notice}
 {body}
@@ -583,7 +583,7 @@ def build_lang(public=False):
     credit = t("credit") if DEMO else ""
     page = f"""{head_html(t("site"), "index")}<body>{sitenav("stay", root(), lang=LANG, is_top=True)}<div class="wrap">
 <header class="top"><img class="motif" src="{root()}img/brand/header-maguro.jpg" alt="{t("motif_alt")}" width="1500" height="500">
-<div class="brand"><div class="eyebrow">MIURA A-TEI · STAY GUIDE</div>{langswitch("index")}</div><h1>{t("site")}</h1>
+<div class="brand"><div class="eyebrow">MIURA A-TEI · HOUSE GUIDE</div>{langswitch("index")}</div><h1>{t("site")}</h1>
 <p class="lede">{t("lede")}</p>
 {hero}{quick}{hana_banner(root(), LANG)}{steps}</header>
 {dummy}

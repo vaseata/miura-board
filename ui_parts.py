@@ -76,8 +76,8 @@ UI_CSS = """
 """
 
 SITES = [  # (key, 日本語版の道, 英語版の道 or None, 日本語の名前, 英語の名前)
-    ("stay", "stay/", "stay/en/", "滞在ガイド", "Stay guide"),
-    ("guide", "guide/", None, "ガイドブック", "Guidebook"),
+    ("stay", "stay/", "stay/en/", "家の案内", "House"),
+    ("guide", "guide/", None, "お店・名所", "Eat & See"),
     ("board", "", None, "最近の三浦", "Miura news"),
 ]
 _SOS_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17v.01"/></svg>'
@@ -102,7 +102,7 @@ def sitenav(current, root, lang="ja", is_top=False, sos=False):
         word = "Emergency" if en else "防災"
         items.append(f'<a class="s sos" href="{_esc(bosai)}">{_SOS_ICON}{word}</a>')
     label = "Miura A-tei sites" if en else "三浦A邸のサイト"
-    home_label = "Miura A-tei: stay guide top" if en else "三浦A邸 滞在ガイドのトップ"
+    home_label = "Miura A-tei: house guide top" if en else "三浦A邸 家の案内のトップ"
     return (f'<nav class="sn{" has-sos" if sos else ""}" aria-label="{label}"><div class="sn-in">'
             f'<a class="home" href="{_esc(home)}" aria-label="{home_label}"><img src="{_esc(root)}img/brand/logo.png" alt="" width="28" height="28">'
             f'<span class="t">{"Miura A-tei" if en else "三浦A邸"}</span></a>{"".join(items)}</div></nav>')
@@ -138,5 +138,5 @@ def bottomnav(current, lang="ja"):
         cls = ' class="sos"' if slug == "bosai" else ""
         cur = ' aria-current="page"' if slug == current else ""
         out.append(f'<a href="{slug}.html"{cls}{cur}><svg viewBox="0 0 24 24" aria-hidden="true">{_ICONS[slug]}</svg>{en_l if en else ja}</a>')
-    label = "Stay guide menu" if en else "滞在ガイドのメニュー"
+    label = "House guide menu" if en else "家の案内のメニュー"
     return f'<nav class="bn" aria-label="{label}">' + "".join(out) + "</nav>"

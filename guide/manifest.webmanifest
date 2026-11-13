@@ -1,6 +1,6 @@
 {
- "name": "三浦A邸 ガイドブック",
- "short_name": "A邸ガイド",
+ "name": "三浦A邸 お店・名所",
+ "short_name": "お店・名所",
  "start_url": "./",
  "display": "browser",
  "background_color": "#FFFFFF",
