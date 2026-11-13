@@ -302,6 +302,7 @@ page = Template('''<title>最近の三浦</title>
 body{font-family:var(--gothic);background:var(--bg);color:var(--ink);line-height:1.75;font-size:15px;font-feature-settings:"palt";-webkit-font-smoothing:antialiased;overflow-x:hidden}
 main{max-width:1240px;margin:0 auto;padding:14px 16px 48px}
 @media (min-width:720px){ main{padding-inline:28px} }
+@media (min-width:720px){ .sn-in{padding-inline:28px} }
 a{color:inherit}
 button{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--sea);outline-offset:2px}
@@ -437,7 +438,7 @@ $ui_css
 <main>
 <img class="motif" src="img/brand/header-maguro.jpg" alt="跳ねるマグロと波、富士山と朝日の絵" width="1500" height="500">
 <header class="masthead">
-  <h1 class="daiji"><small><img src="img/brand/logo.png" alt="" width="40" height="40">三浦A邸 近況ボード</small>最近の三浦</h1>
+  <h1 class="daiji"><small>三浦A邸 近況ボード</small>最近の三浦</h1>
   <div class="issue"><span class="no">第$issue号</span><br>$ymd（$wd）</div>
   <p class="mh-lead">城ヶ島・三崎・三浦海岸・油壺・小網代 ── この町で起きたこと、はじまったこと、季節のこと。記事をタップすると詳しく読めます。</p>
 </header>
@@ -536,7 +537,7 @@ i = page.index("<main>")
 full = ('<!DOCTYPE html>\n<html lang="ja">\n<head>\n<meta charset="utf-8">\n'
         '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
         '<meta name="description" content="城ヶ島・三崎・三浦海岸——この町で起きたこと、はじまったこと、季節のこと。">\n'
-        + page[:i] + '</head>\n<body>\n' + sitenav("board", "") + '\n' + page[i:] + '</body>\n</html>\n')
+        + page[:i] + '</head>\n<body>\n' + sitenav("board", "", is_top=True, sos=True) + '\n' + page[i:] + '</body>\n</html>\n')
 (HERE / "index.html").write_text(full, encoding="utf-8")
 print(f"index.html 第{issue_no}号: {len(soon)} soon, {len(recent)} recent, {len(upcoming)} upcoming, {len(videos)} videos, next DF {df_line}")
 

@@ -75,9 +75,9 @@ def langswitch(slug):
     ja_href = ja_href or (page or "./")
     en_href = en_href or (page or "./")
     cur = ' aria-current="page"'
-    return (f'<nav class="lang" aria-label="Language / 言語">'
-            f'<a href="{esc(ja_href)}" hreflang="ja" lang="ja"{cur if LANG == "ja" else ""}>JP</a>'
-            f'<a href="{esc(en_href)}" hreflang="en" lang="en"{cur if LANG == "en" else ""}>EN</a></nav>')
+    return (f'<nav class="lang" aria-label="{"Language" if LANG == "en" else "言語"}">'
+            f'<a href="{esc(ja_href)}" hreflang="ja" lang="ja" aria-label="日本語"{cur if LANG == "ja" else ""}>JP</a>'
+            f'<a href="{esc(en_href)}" hreflang="en" lang="en" aria-label="English"{cur if LANG == "en" else ""}>EN</a></nav>')
 
 LANG_JS = """<script>(function(){try{var L=document.documentElement.lang;
 document.querySelectorAll('.lang a').forEach(function(a){a.addEventListener('click',function(){a.href=a.href.split('#')[0]+location.hash;try{localStorage.setItem('lang',a.hreflang)}catch(e){}})});
@@ -250,9 +250,13 @@ CSS = """
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--gothic);line-height:1.7}
 .wrap{max-width:720px;margin:0 auto;padding:0 16px 56px}
+:root{--sn-w:720px}
 header{padding:40px 0 22px;position:relative}
 header::after{content:"";position:absolute;left:0;bottom:0;width:120px;height:9px;background:linear-gradient(var(--sea),var(--sea)) 0 0/100% 3px no-repeat,linear-gradient(var(--tuna),var(--tuna)) 0 6px/60% 3px no-repeat}
-.brand{display:flex;align-items:center;gap:10px}.brand img{width:44px;height:44px;flex:none}
+.brand{display:flex;align-items:center;gap:10px;min-height:44px}.brand img{width:44px;height:44px;flex:none}
+.crumb{display:flex;align-items:center;gap:6px;min-width:0;min-height:44px;font-size:13px;color:var(--mute)}
+.crumb a{display:flex;align-items:center;min-height:44px;color:var(--sea);font-weight:700;text-decoration:none;flex:none}
+.crumb span[aria-current]{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .motif{display:block;width:100%;max-width:100%;height:auto;margin:0 0 12px;border-radius:10px}
 header.top{padding-top:8px}
 .eyebrow{font-size:12px;letter-spacing:.18em;color:var(--sea);font-weight:700}
@@ -460,7 +464,7 @@ def head_html(title, slug):
     root = "../../" if LANG == "en" else "../"
     return f"""<!doctype html>
 <html lang="{LANG}"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex">
 <title>{esc(title)}</title>
 {alternates(slug)}
@@ -504,8 +508,8 @@ def build_page(slug, spec, public):
           notice = f'<div class="draft">確認中のページです。仮の文が{tmp}か所、記入待ちが{fill}か所あります。公開する前に、家守に確かめて直します。</div>'
     body = "".join(render_block(b) for b in spec["blocks"])
     page = f"""{head_html(spec["title"] + t("suffix"), slug)}<body>{sitenav("stay", root(), lang=LANG)}<div class="wrap page">
-<div class="topbar"><a class="btn btn-tertiary back" href="index.html">{t("back")}</a>{langswitch(slug)}</div>
-<header><div class="brand"><img src="{root()}img/brand/logo.png" alt="" width="44" height="44"><div class="eyebrow">MIURA · STAY GUIDE</div></div><h1>{esc(spec["title"])}</h1>
+<div class="topbar"><nav class="crumb" aria-label="{"You are here" if LANG == "en" else "現在地"}"><a href="index.html">{"Stay guide" if LANG == "en" else "滞在ガイド"}</a><span aria-hidden="true">›</span><span aria-current="page">{esc(spec["title"])}</span></nav>{langswitch(slug)}</div>
+<header><div class="eyebrow">MIURA A-TEI · STAY GUIDE</div><h1>{esc(spec["title"])}</h1>
 <p class="lede">{esc(spec["lede"])}</p></header>
 {notice}
 {body}
@@ -542,10 +546,9 @@ def build_lang(public=False):
         parts.append(f'<section id="{sid}"><h2>{esc(title)}</h2>' + (f'<p class="sub">{esc(sub)}</p>' if sub else "")
                      + '<div class="grid">' + "".join(card(n, d, h, x, first=(i == 0), jname=j) for i, (n, d, h, x, j) in enumerate(cs)) + "</div></section>")
     credit = t("credit") if DEMO else ""
-    page = f"""{head_html(t("site"), "index")}<body>{sitenav("stay", root(), lang=LANG)}<div class="wrap">
-<div class="topbar">{langswitch("index")}</div>
+    page = f"""{head_html(t("site"), "index")}<body>{sitenav("stay", root(), lang=LANG, is_top=True)}<div class="wrap">
 <header class="top"><img class="motif" src="{root()}img/brand/header-maguro.jpg" alt="{t("motif_alt")}" width="1500" height="500">
-<div class="brand"><img src="{root()}img/brand/logo.png" alt="" width="44" height="44"><div class="eyebrow">MIURA · STAY GUIDE</div></div><h1>{t("site")}</h1>
+<div class="brand"><div class="eyebrow">MIURA A-TEI · STAY GUIDE</div>{langswitch("index")}</div><h1>{t("site")}</h1>
 <p class="lede">{t("lede")}</p>
 {hero}{quick}{steps}</header>
 {dummy}

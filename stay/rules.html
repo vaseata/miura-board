@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="ja"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex">
 <title>家のルール｜三浦A邸 滞在ガイド</title>
 <link rel="alternate" hreflang="ja" href="https://vaseata.github.io/miura-board/stay/rules.html"><link rel="alternate" hreflang="en" href="https://vaseata.github.io/miura-board/stay/en/rules.html"><link rel="alternate" hreflang="x-default" href="https://vaseata.github.io/miura-board/stay/rules.html">
@@ -13,9 +13,13 @@
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--gothic);line-height:1.7}
 .wrap{max-width:720px;margin:0 auto;padding:0 16px 56px}
+:root{--sn-w:720px}
 header{padding:40px 0 22px;position:relative}
 header::after{content:"";position:absolute;left:0;bottom:0;width:120px;height:9px;background:linear-gradient(var(--sea),var(--sea)) 0 0/100% 3px no-repeat,linear-gradient(var(--tuna),var(--tuna)) 0 6px/60% 3px no-repeat}
-.brand{display:flex;align-items:center;gap:10px}.brand img{width:44px;height:44px;flex:none}
+.brand{display:flex;align-items:center;gap:10px;min-height:44px}.brand img{width:44px;height:44px;flex:none}
+.crumb{display:flex;align-items:center;gap:6px;min-width:0;min-height:44px;font-size:13px;color:var(--mute)}
+.crumb a{display:flex;align-items:center;min-height:44px;color:var(--sea);font-weight:700;text-decoration:none;flex:none}
+.crumb span[aria-current]{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .motif{display:block;width:100%;max-width:100%;height:auto;margin:0 0 12px;border-radius:10px}
 header.top{padding-top:8px}
 .eyebrow{font-size:12px;letter-spacing:.18em;color:var(--sea);font-weight:700}
@@ -106,15 +110,23 @@ html[lang="en"] h1{font-size:30px}
 
 /* ── 操作の部品（ui_parts.py・設計図どおり） ── */
 :focus-visible{outline:2px solid var(--sea);outline-offset:2px}
-/* サイトの切り替え */
+/* サイトの切り替え（2026-11-14 討議で直した版） */
 .sn{position:relative;z-index:30;background:var(--bg);border-bottom:1px solid var(--hair)}
-.sn-in{display:flex;align-items:center;gap:2px;max-width:1240px;margin:0 auto;padding:0 12px;overflow-x:auto;scrollbar-width:none}
+.sn-in{display:flex;align-items:center;gap:0;max-width:var(--sn-w,1240px);margin:0 auto;padding:0 max(16px,env(safe-area-inset-right)) 0 max(16px,env(safe-area-inset-left));overflow-x:auto;scrollbar-width:none}
 .sn-in::-webkit-scrollbar{display:none}
 .sn .home{display:flex;align-items:center;gap:6px;min-height:44px;margin-right:auto;padding:0 6px 0 0;color:var(--ink);font:800 14px/1 var(--mincho);text-decoration:none;white-space:nowrap;flex:none}
 .sn .home img{width:28px;height:28px;display:block;background:#fff;border-radius:6px}
-.sn a.s{display:flex;align-items:center;min-height:44px;padding:0 9px;color:var(--mute);font:700 13px/1 var(--gothic);letter-spacing:0;text-decoration:none;white-space:nowrap;border-bottom:3px solid transparent;flex:none}
-.sn a.s[aria-current="true"]{color:var(--ink);border-bottom-color:var(--sea)}
-@media (max-width:400px){.sn .home .t{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)} .sn a.s{padding:0 8px}}
+.sn a.s{display:flex;align-items:center;gap:4px;min-height:44px;padding:0 9px;color:var(--ink);font:400 14px/1 var(--gothic);letter-spacing:0;text-decoration:none;white-space:nowrap;border-bottom:3px solid transparent;flex:none}
+.sn a.s[aria-current]{font-weight:700;border-bottom-color:var(--sea)}
+.sn a.s small{font-size:11px;color:var(--ink);font-weight:400}
+.sn a.sos{min-width:44px;justify-content:center;color:var(--tuna);font-weight:700}
+.sn a.sos svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.sn a:focus-visible{outline-offset:-3px}
+@media (max-width:400px){.sn .home .t{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)} .sn a.s{padding:0 6px} .sn.has-sos a.s{font-size:13px;padding:0 4px} .sn.has-sos a.sos{padding:0 2px 0 6px;gap:2px}}
+@media (max-width:359px){.sn a.s{font-size:13px;padding:0 6px}.sn-in{mask-image:linear-gradient(90deg,#000 calc(100% - 16px),transparent);-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 16px),transparent)}}
+.sn.has-sos .sn-in{flex-wrap:wrap}
+@media (max-width:359px){.sn.has-sos .sn-in{mask-image:none;-webkit-mask-image:none}}
+@media print{.sn,.bn,.lang{display:none!important}body{padding-bottom:0!important}}
 /* ボタン（行動） */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:0 18px;border-radius:12px;border:1.5px solid transparent;font:700 15px/1.3 var(--gothic);letter-spacing:0;text-align:center;text-decoration:none;cursor:pointer;transition:transform 120ms,background-color 120ms}
 .btn:active{transform:scale(.97)}
@@ -136,7 +148,7 @@ html[lang="en"] h1{font-size:30px}
 .seg button::after{content:"";position:absolute;inset:-4px -1px}
 .seg button[aria-checked="true"]{background:var(--bg);color:var(--ink);font-weight:700;box-shadow:0 0 0 1px var(--hair)}
 /* 下のバー（滞在ガイド） */
-.bn{position:fixed;left:0;right:0;bottom:0;z-index:40;display:grid;grid-template-columns:repeat(4,1fr);background:var(--bg);border-top:1px solid var(--hair);padding-bottom:env(safe-area-inset-bottom)}
+.bn{position:fixed;left:0;right:0;bottom:0;z-index:40;display:grid;grid-template-columns:repeat(4,1fr);background:var(--bg);border-top:1px solid var(--hair);padding:0 env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
 .bn a{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:56px;color:var(--mute);font:700 11px/1.2 var(--gothic);text-decoration:none}
 .bn svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .bn a[aria-current="page"]{color:var(--sea)}
@@ -169,9 +181,9 @@ html[lang="en"] h1{font-size:30px}
 .car-dots button::after{content:"";position:absolute;inset:0 -2px}
 @media (min-width:720px){.car{margin:18px 0 0}.car-s img{border-radius:14px}.car-s figcaption{padding:10px 2px 0}}
 @media (prefers-reduced-motion:reduce){.car-track{scroll-behavior:auto}.car-dots button::before{transition:none}}
-</style></head><body><nav class="sn" aria-label="三浦A邸のサイト"><div class="sn-in"><a class="home" href="../stay/"><img src="../img/brand/logo.png" alt="" width="28" height="28"><span class="t">三浦A邸</span></a><a class="s" href="../stay/" aria-current="true">滞在ガイド</a><a class="s" href="../guide/">ガイドブック</a><a class="s" href="../">最近の三浦</a></div></nav><div class="wrap page">
-<div class="topbar"><a class="btn btn-tertiary back" href="index.html">← 滞在ガイドのトップ</a><nav class="lang" aria-label="Language / 言語"><a href="rules.html" hreflang="ja" lang="ja" aria-current="page">JP</a><a href="en/rules.html" hreflang="en" lang="en">EN</a></nav></div>
-<header><div class="brand"><img src="../img/brand/logo.png" alt="" width="44" height="44"><div class="eyebrow">MIURA · STAY GUIDE</div></div><h1>家のルール</h1>
+</style></head><body><nav class="sn" aria-label="三浦A邸のサイト"><div class="sn-in"><a class="home" href="../stay/" aria-label="三浦A邸 滞在ガイドのトップ"><img src="../img/brand/logo.png" alt="" width="28" height="28"><span class="t">三浦A邸</span></a><a class="s" href="../stay/" aria-current="true">滞在ガイド</a><a class="s" href="../guide/">ガイドブック</a><a class="s" href="../">最近の三浦</a></div></nav><div class="wrap page">
+<div class="topbar"><nav class="crumb" aria-label="現在地"><a href="index.html">滞在ガイド</a><span aria-hidden="true">›</span><span aria-current="page">家のルール</span></nav><nav class="lang" aria-label="言語"><a href="rules.html" hreflang="ja" lang="ja" aria-label="日本語" aria-current="page">JP</a><a href="en/rules.html" hreflang="en" lang="en" aria-label="English">EN</a></nav></div>
+<header><div class="eyebrow">MIURA A-TEI · STAY GUIDE</div><h1>家のルール</h1>
 <p class="lede">みんなが気持ちよく過ごすためのお願いです。理由も書きました。</p></header>
 <div class="slim"><b>試作版</b>：「記入待ち」と「仮」の札がある所は家守に確かめてから直します。「撮影予定」の枠には、写真を順に入れていきます。</div>
 <nav class="toc"><a href="#s1">静かにする時間</a><a href="#s2">共用部の使い方</a><a href="#s3">友人を招くとき</a><a href="#s4">火の元・たばこ</a><a href="#s5">ペット</a><a href="#s6">壊してしまったとき・古い家なので</a><a href="#s7">泊まりかた</a></nav><h2 id="s1">静かにする時間</h2><figure class="ph"><div class="shoot"><svg class="cam" viewBox="0 0 48 40" aria-hidden="true"><rect x="3" y="9" width="42" height="28" rx="6"/><circle cx="24" cy="23" r="8"/><path d="M16 9l3-5h10l3 5"/></svg><span class="lbl">撮影予定</span><span class="what">夜の廊下（足音が響きます）</span></div><figcaption>夜の廊下（足音が響きます）</figcaption></figure><p><b>夜10時〜朝8時</b>は、生活音に気をつけてください。古い日本家屋なので、隣の部屋の音は聞こえます。201号室は、襖1枚の仕切りです。</p><h2 id="s2">共用部の使い方</h2><div class="phrow"><figure><div class="shoot"><svg class="cam" viewBox="0 0 48 40" aria-hidden="true"><rect x="3" y="9" width="42" height="28" rx="6"/><circle cx="24" cy="23" r="8"/><path d="M16 9l3-5h10l3 5"/></svg><span class="lbl">撮影予定</span><span class="what">居間</span></div><figcaption>居間</figcaption></figure><figure><img src="img/toilet.jpg" alt="トイレ" loading="lazy"><figcaption>トイレ</figcaption></figure><figure><img src="img/senmen.jpg" alt="洗面台" loading="lazy"><figcaption>洗面台</figcaption></figure></div><ul><li>居間とキッチンでの飲食は、かまいません。お酒も、周りに気を配って、楽しんでください。</li><li>使ったあとは、元の状態に戻してください。次の人が、気持ちよく使えます。</li><li>私物は、個室に置いてください。共用部に、長い時間、置きっぱなしにしないでください。貴重品は、ご自分で管理してください。</li><li>共用部のものは、個室へ持ち込まないでください。みんなで使うものだからです。</li></ul><h2 id="s3">友人を招くとき</h2><p><b>事前に、家守の承諾が必要です。</b> 9時〜21時で、会員か家守が一緒にいるときだけです。お風呂とシャワーは、使えません。</p><h2 id="s4">火の元・たばこ</h2><figure class="ph"><div class="shoot"><svg class="cam" viewBox="0 0 48 40" aria-hidden="true"><rect x="3" y="9" width="42" height="28" rx="6"/><circle cx="24" cy="23" r="8"/><path d="M16 9l3-5h10l3 5"/></svg><span class="lbl">撮影予定</span><span class="what">ガスコンロ（使ったら火を確かめる）</span></div><figcaption>ガスコンロ（使ったら火を確かめる）</figcaption></figure><ul><li>決まった場所以外では、火を使わないでください。持ち込みのコンロ、バーベキュー、焚き火、花火、暖房器具は、使えません。使えるのは、備え付けのコンロと暖房器具だけです。</li><li><b>家の中は、すべて禁煙です。</b><span class="tmp">仮</span>　たばこ（電子たばこ・加熱式を含む）は、決まった場所以外では吸えません。ニコチンやタールを含まない製品も、ご遠慮ください。</li></ul><h2 id="s5">ペット</h2><p>ペットは、原則として、連れてこられません。</p><h2 id="s6">壊してしまったとき・古い家なので</h2><ul><li>食器を割る、障子を破るなど、壊したり汚したりしたときは、<b>すぐに家守に伝えてください。</b> 掃除や修理の費用は、その本人の負担になります。心配な人は、少額短期保険を調べておくと安心です。</li><li>電球や消耗品が切れたときは、家守に連絡してください。</li><li>家の外にあるコンセントは、使えません。電気自動車・電動バイク・電動自転車の充電もできません。</li><li>古い日本家屋なので、バリアフリーではありません。</li></ul><h2 id="s7">泊まりかた</h2><ul><li>日中だけの利用や、外泊は、ご遠慮ください。やむを得ない外泊は、家守に連絡してください。</li><li>ほかの滞在者と話すときは、あいさつをして、相手が嫌がることを言わないようにしてください。親しくなる前に、連絡先や今後の予定を聞いたり、しつこく食事に誘ったりするのは、控えてください。</li></ul><p class="note">ADDress公式のルールに、三浦A邸の運用を合わせています。ルールを守らないときは、運営が注意します。</p>

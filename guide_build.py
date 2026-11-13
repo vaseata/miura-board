@@ -199,6 +199,7 @@ def build():
 body{font-family:var(--gothic);background:var(--bg);color:var(--ink);line-height:1.75;font-size:15.5px;font-feature-settings:"palt";-webkit-font-smoothing:antialiased;overflow-x:hidden}
 main{max-width:1240px;margin:0 auto;padding:12px 16px 56px}
 @media (min-width:720px){ main{padding-inline:28px} }
+@media (min-width:720px){ .sn-in{padding-inline:28px} }
 a{color:inherit} button{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--sea);outline-offset:2px}
 /* 題字 */
@@ -286,7 +287,7 @@ $sitenav
 <main>
 <img class="motif" src="../img/brand/header-maguro.jpg" alt="跳ねるマグロと波、富士山と朝日の絵" width="1500" height="500">
 <header class="masthead">
-  <h1 class="daiji"><small><img src="../img/brand/logo.png" alt="" width="40" height="40">MIURA A-TEI · GUIDE</small>三浦A邸<br>ガイドブック</h1>
+  <h1 class="daiji"><small>MIURA A-TEI · GUIDE</small>三浦A邸<br>ガイドブック</h1>
   <p class="mh-lead">三崎・城ヶ島・三浦海岸で、食べる・見る・体験する・買う。A邸からの徒歩時間つき。<br>$ymd 現在。毎朝自動で更新しています。</p>
 </header>
 
@@ -379,7 +380,7 @@ $sitenav
                  df=df_card, season=season_html, events=events_html,
                  season_empty='' if (season_html or events_html) else '<p class="empty">いまは季節の項目がありません。</p>',
                  total=len(published), tabs="".join(f'<button type="button" class="fchip" data-cat="{esc(c)}" aria-pressed="false">{esc(c)}<span class="n">{counts[c]}</span></button>' for c in CATS),
-                 spots=spots_html or '<p class="empty">掲載中の場所はまだありません。</p>', credits=credits, cats_json=json.dumps(CATS, ensure_ascii=False), ui_css=UI_CSS, sitenav=sitenav("guide", "../"))
+                 spots=spots_html or '<p class="empty">掲載中の場所はまだありません。</p>', credits=credits, cats_json=json.dumps(CATS, ensure_ascii=False), ui_css=UI_CSS, sitenav=sitenav("guide", "../", is_top=True, sos=True))
     (OUT / "index.html").write_text(page, encoding="utf-8")
 
     # ---- review.html（候補の確認用・noindex）
