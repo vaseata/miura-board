@@ -56,6 +56,7 @@ h1 span{display:inline-block}
 .chip::after{content:"";position:absolute;inset:-4px 0}
 .chip[aria-pressed=true]{background:var(--sea-tint);border-color:var(--sea);color:var(--sea)}
 .chip[aria-pressed=true]::before{content:"✓ "}
+.fnote{margin:0;font-size:12.5px;line-height:1.6;color:var(--mute)}
 
 /* 地図カード */
 .mapcard{margin-top:16px;border:1px solid var(--hair);border-radius:var(--r);background:#fff;overflow:hidden;display:flex;flex-direction:column}
@@ -170,7 +171,9 @@ h2 small{font-family:var(--font);font-size:13px;font-weight:500;color:var(--mute
 
 <div class="filters">
   <div class="seg" id="cats" role="group" aria-label="%%T_BYCAT%%"></div>
+  <div class="seg" id="sorts" role="group"></div>
   <div class="chips" id="scs" role="group" aria-label="%%T_BYSCENE%%"></div>
+  <p class="fnote" id="fnote" hidden></p>
 </div>
 
 <section class="mapcard" id="card" aria-label="%%T_MAPLABEL%%">
@@ -214,7 +217,7 @@ h2 small{font-family:var(--font);font-size:13px;font-weight:500;color:var(--mute
 var D=%%DATA%%, ST=%%STRUCT%%, HOME=%%HOME%%, KEEPER="%%KEEPER%%", EXAG=%%EXAG%%;
 var CATS=%%T_CATS%%, T=%%T_JS%%;
 var COL={"食べる":"#B4501A","買う":"#0A5A8C","困ったとき":"#4F6070"};
-var st={cat:"all",sc:""};
+var st={cat:"all",sc:"",sort:"rec",open:false,today:false};
 function $(s){return document.querySelector(s)}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function hs(n,m){m=m||5;var o="";for(var i=1;i<=m;i++)o+=i<=n?"❤️":"♡";return o}
@@ -393,12 +396,12 @@ function circle(c,m){var pts=[],k=m/111320;for(var i=0;i<=40;i++){var a=i/40*2*M
 function say(n,t){$("#capn").textContent=n;$("#capt").textContent=t||"";$("#cap").hidden=false;clearTimeout(say.t);say.t=setTimeout(function(){if(ti<0)$("#cap").hidden=true},5000)}
 function meOff(){if(watch!==null)navigator.geolocation.clearWatch(watch);watch=null;me=null;firstFix=false;
   if(meMk){meMk.remove();meMk=null}if(map&&ready)map.getSource("me").setData({type:"FeatureCollection",features:[]});
-  $("#tme").setAttribute("aria-pressed",false);$("#tme span").textContent=T.locate;render()}
+  $("#tme").setAttribute("aria-pressed",false);$("#tme span").textContent=T.locate;if(st.sort==="near")st.sort="rec";chips();render()}
 function meOn(){
   if(!navigator.geolocation){say(T.locate,T.locFail);return}
   $("#tme").setAttribute("aria-pressed",true);$("#tme span").textContent=T.locOff;say(T.locate,T.locating);
   watch=navigator.geolocation.watchPosition(function(p){
-    var c=[p.coords.longitude,p.coords.latitude],was=!!me;me=c;
+    var c=[p.coords.longitude,p.coords.latitude],was=!!me;me=c;if(!was&&st.sort==="rec"){st.sort="near";chips()}
     if(!meMk){var el=document.createElement("div");el.className="me";el.setAttribute("aria-label",T.meHere);meMk=new maplibregl.Marker({element:el}).setLngLat(c).addTo(map)}else meMk.setLngLat(c);
     if(ready)map.getSource("me").setData({type:"FeatureCollection",features:[{type:"Feature",properties:{k:"acc"},geometry:{type:"Polygon",coordinates:[circle(c,Math.min(p.coords.accuracy||30,300))]}}]});
     if(!firstFix){firstFix=true;
@@ -409,11 +412,21 @@ function meOn(){
     {enableHighAccuracy:true,maximumAge:5000,timeout:20000})}
 function walkMin(d){return Math.max(1,Math.ceil(d*1300/80))}  /* 直線×1.3、分速80m。目安 */
 function distTxt(d){var m=d*1000;return T.fromHere+" "+(m<1000?Math.round(m/10)*10+" m":(Math.round(m/100)/10)+" km")+"・"+fmt(T.walk,walkMin(d))}
-function sortKey(){return me?"near":"list"}
+function sortKey(){return st.sort+(me?"+me":"")}
 function updDist(){if(!me)return;document.querySelectorAll(".item").forEach(function(el){var d=D.filter(function(x){return x.id===el.dataset.id})[0];var s=el.querySelector(".dist");if(d&&s&&d.lat)s.textContent=distTxt(km(me,[d.lon,d.lat]))})}
 
-function visible(){var r=D.filter(function(d){return (st.cat==="all"||d.cat===st.cat)&&(!st.sc||(d.w||[]).indexOf(st.sc)>=0)});
-  if(me)r=r.slice().sort(function(a,b){return (a.lat?km(me,[a.lon,a.lat]):1e9)-(b.lat?km(me,[b.lon,b.lat]):1e9)});return r}
+function stat(d){return window.shopStatus?shopStatus(d.sc,d.cl,d.cl!==null):null}
+/* 絞り込み：ジャンル・シーン・今やっている（営業時間が読めて今が営業中）・今日やっている（定休日が分かっていて今日が休みでない） */
+function visible(){var r=D.filter(function(d){if(!((st.cat==="all"||d.cat===st.cat)&&(!st.sc||(d.w||[]).indexOf(st.sc)>=0)))return false;
+    var s=(st.open||st.today)?stat(d):null;
+    if(st.open&&!(s&&s.s==="open"))return false;
+    if(st.today&&!(s&&d.cl!==null&&s.s!=="off"))return false;return true});
+  var k=function(d){return D.indexOf(d)};
+  /* 並べ替え：おすすめ（家守の並び）／❤️の多い順／予算の安い順（分からないお店は後ろ）／近い順（現在地が要る） */
+  if(st.sort==="heart")r.sort(function(a,b){return (b.r||0)-(a.r||0)||k(a)-k(b)});
+  else if(st.sort==="price")r.sort(function(a,b){return (a.pv==null?1e9:a.pv)-(b.pv==null?1e9:b.pv)||(b.r||0)-(a.r||0)||k(a)-k(b)});
+  else if(st.sort==="near"&&me)r.sort(function(a,b){return (a.lat?km(me,[a.lon,a.lat]):1e9)-(b.lat?km(me,[b.lon,b.lat]):1e9)});
+  return r}
 function col(d){return COL[d.cat]||"#4F6070"}
 function popHtml(d,n){return '<b>'+n+'. '+esc(d.name)+'</b><br><small style="color:var(--mute)">'+esc(T.catName[d.cat]||"")+(me&&d.lat?"・"+esc(distTxt(km(me,[d.lon,d.lat]))):"")+'</small>'+(d.r?'<br>'+hs(d.r,d.rm):'')+(d.c?'<br><span class="pq">'+esc(d.c)+'</span>':'')+(d.note?'<br>'+esc(d.note):'')}
 function shut(){if(pp){pp.remove();pp=null}}
@@ -486,12 +499,16 @@ function render(first){
      +(d.r?'<div class="hearts" aria-label="'+esc(T.rating)+' '+d.r+'/'+d.rm+'">'+hs(d.r,d.rm)+'</div>':'')
      +(d.c?'<p class="quote"><b>'+esc(T.quote)+'</b>'+esc(d.c)+'</p>':'')
      +(d.note?'<p class="note">'+esc(d.note)+'</p>':'')
+     +(d.price?'<p class="meta"><b>'+esc(T.price)+'</b> '+esc(d.price)+'</p>':'')
      +'<p class="meta">'+esc([d.hours,d.closed].filter(Boolean).join(T.sep))+'</p>'
      +'<p class="acts">'+(d.lat?'<a href="https://www.google.com/maps/search/?api=1&amp;query='+d.lat+','+d.lon+'" target="_blank" rel="noopener">'+esc(T.gmap)+'</a>':'')+(d.url?'<a href="'+esc(d.url)+'" target="_blank" rel="noopener">'+esc(T.info)+'</a>':'')+'</p>'
      +'</div></article>'});
-  $("#list").innerHTML=rows.length?html:'<div class="empty">'+esc(T.empty)+'</div>';
-  $("#lc").textContent=rows.length+T.count+(me?"・"+T.nearSort:"");
-  if(map){shut();if(!(first&&INTRO)&&!me)fit(first);place(true)}
+  $("#list").innerHTML=rows.length?html:'<div class="empty">'+esc(st.open?T.emptyOpen:T.empty)+'</div>';
+  $("#lc").textContent=rows.length+T.count+"・"+T.sort[st.sort==="near"&&!me?"rec":st.sort];
+  var fn=[];if(st.sort==="price")fn.push(fmt(T.noPrice,D.filter(function(d){return d.pv!=null}).length));
+  if(st.open||st.today)fn.push(fmt(T.noHours,D.filter(function(d){return st.open?!d.sc:d.cl===null}).length));
+  $("#fnote").textContent=fn.join(" ");$("#fnote").hidden=!fn.length;
+  if(map){shut();if(!(first&&INTRO)&&!(me&&st.sort==="near"))fit(first);place(true)}
   document.querySelectorAll(".item").forEach(function(el){el.onclick=function(e){if(e.target.closest("a")||!map)return;
     var i=-1;rows.forEach(function(d,k){if(d.id===el.dataset.id)i=k});var d=rows[i];
     if(d&&d.lat&&d.lon){window.scrollTo({top:$("#card").getBoundingClientRect().top+window.scrollY-12});focus(d,i+1)}}});
@@ -501,8 +518,13 @@ function chips(){
   CATS.forEach(function(x){var n=x[0]==="all"?D.length:D.filter(function(d){return d.cat===x[0]}).length;if(x[0]!=="all"&&!n)return;
     var b=document.createElement("button");b.type="button";b.setAttribute("aria-pressed",st.cat===x[0]);b.innerHTML=esc(x[1])+'<small>'+n+'</small>';
     b.onclick=function(){st.cat=x[0];chips();render()};c.appendChild(b)});
+  var so=$("#sorts");so.innerHTML="";so.setAttribute("aria-label",T.sortlbl);
+  ["rec","heart","price","near"].forEach(function(k){var b=document.createElement("button");b.type="button";b.setAttribute("aria-pressed",st.sort===k);b.textContent=T.sort[k];
+    b.onclick=function(){st.sort=k;chips();if(k==="near"&&!me&&map&&watch===null){meOn();return}render()};so.appendChild(b)});
+  var s=$("#scs");s.innerHTML="";
+  [["open",T.fOpen],["today",T.fToday]].forEach(function(f){var b=document.createElement("button");b.type="button";b.className="chip";b.setAttribute("aria-pressed",st[f[0]]);b.textContent=f[1];
+    b.onclick=function(){st[f[0]]=!st[f[0]];if(f[0]==="open"&&st.open)st.today=false;if(f[0]==="today"&&st.today)st.open=false;chips();render()};s.appendChild(b)});
   var sc=[];D.forEach(function(d){(d.w||[]).forEach(function(w){if(sc.indexOf(w)<0)sc.push(w)})});
-  var s=$("#scs");s.innerHTML="";s.hidden=!sc.length;
   sc.forEach(function(w){var b=document.createElement("button");b.type="button";b.className="chip";b.setAttribute("aria-pressed",st.sc===w);b.textContent=w;
     b.onclick=function(){st.sc=(st.sc===w?"":w);chips();render()};s.appendChild(b)});
 }
@@ -579,5 +601,6 @@ if(map){
 }
 var ti=-1;
 chips();render(true);
+setInterval(function(){if(st.open||st.today)render()},5*60e3);  /* 「今やっている」は時間がたつと変わる */
 })();
 </script>%%LANGJS%%</body></html>

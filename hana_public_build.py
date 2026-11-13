@@ -5,7 +5,7 @@
   guide/map3d.html / map3d-preview.html … 同じお店を地形の3D地図にのせた版（hana_public3d.tpl.html。MapLibre＋地理院の標高タイル。
                                           建物は OpenFreeMap のベクトルタイル、橋・灯台・防波堤は structures.json）
 ◎にできるのはヤヌキだけ。埋め込み: <iframe src=".../guide/map.html?embed=1"> """
-import json, pathlib, sys
+import json, pathlib, re, sys
 import shop_hours
 
 HERE = pathlib.Path(__file__).parent
@@ -57,6 +57,10 @@ TXT = {
                   "tour": "ひとめぐり", "tourStop": "止める", "tourStart": "ここから出発します", "home": "最初に戻る", "backHome": "{n}へ戻る",
                   "big": "大きく見る", "close": "とじる", "drag": "ドラッグで回す", "dragTitle": "オンにすると、ふつうのドラッグで向きとかたむきが変わります",
                   "padlbl": "地図の向きとかたむき", "tilt": "かたむける", "up": "起こす（真上から見る）", "left": "左に回す", "right": "右に回す",
+                  "sortlbl": "並べ替え", "sort": {"rec": "おすすめ", "heart": "❤️順", "price": "安い順", "near": "近い順"},
+                  "emptyOpen": "いま営業中のお店はありません（営業時間が分かるお店の中で）。「今日やっている」で探してみてください。", "fOpen": "今やっている", "fToday": "今日やっている", "price": "予算",
+                  "noPrice": "予算が分かっているのは{n}軒だけです。分からないお店は後ろに並びます。",
+                  "noHours": "営業時間が分からないお店（{n}軒）は入っていません。",
                   "cl": "軒", "clAria": "{n}軒のお店。押すと広がります", "same": "{n}軒が同じ場所にあります", "homeHere": "ここが宿です",
                   "nogl": "この端末では 3D の地図を表示できませんでした。", "flatlink": "平面の地図で見る",
                   "tourStops": [["海南神社", "三浦の総鎮守"], ["三崎港・うらり", "うらりマルシェ（さかな館・やさい館）"], ["城ヶ島大橋", "長さ575m。海面から16〜23.5mの高さ"],
@@ -87,6 +91,10 @@ TXT = {
                   "tour": "Fly-through", "tourStop": "Stop", "tourStart": "Starting here", "home": "Reset view", "backHome": "Back to {n}",
                   "big": "Full screen", "close": "Close", "drag": "Drag to rotate", "dragTitle": "When on, dragging changes the direction and tilt",
                   "padlbl": "Map direction and tilt", "tilt": "Tilt", "up": "Look straight down", "left": "Rotate left", "right": "Rotate right",
+                  "sortlbl": "Sort", "sort": {"rec": "Picks", "heart": "❤️ most", "price": "Cheapest", "near": "Nearest"},
+                  "emptyOpen": "No shops are open right now (among those with known hours). Try “Open today”.", "fOpen": "Open now", "fToday": "Open today", "price": "Budget",
+                  "noPrice": "Only {n} shops have a known budget. The rest are listed after them.",
+                  "noHours": "Shops with unknown hours ({n}) are not included.",
                   "cl": "", "clAria": "{n} shops here. Tap to expand", "same": "{n} shops at the same spot", "homeHere": "This is the house",
                   "nogl": "This device can't show the 3D map.", "flatlink": "Open the flat map",
                   "tourStops": [["Kainan Shrine", "Miura's main guardian shrine"], ["Misaki Port / Urari", "Urari market (fish & vegetables)"], ["Jogashima Bridge", "575 m long, 16–23.5 m above the sea"],
@@ -105,6 +113,11 @@ document.querySelectorAll('.lang a').forEach(function(a){a.addEventListener('cli
 var p=null;try{p=localStorage.getItem('lang')}catch(e){}
 var r=document.referrer,same=false;try{same=!!r&&new URL(r).origin===location.origin}catch(e){}
 if(p&&p!==L&&!same&&!/[?&]embed=1/.test(location.search)){var a=document.querySelector('.lang a[hreflang="'+p+'"]');if(a)location.replace(a.href.split('#')[0]+location.search+location.hash)}}catch(e){}})();</script>"""
+
+def price_value(p):
+    """予算の文から、並べ替えに使う一番安い金額（円）を取る。「1,000〜1,999円」→1000。読めなければ None"""
+    m = re.search(r"(\d[\d,]*)\s*(?:〜|~|円)", p or "")
+    return int(m.group(1).replace(",", "")) if m else None
 
 def rows(doc, include_draft, lang="ja"):
     out = []
@@ -132,6 +145,7 @@ def rows(doc, include_draft, lang="ja"):
             "color": COLOR.get(s["category"], "#555"), "fg": FG.get(s["category"], "#fff"),
             "r": h.get("rating") or 0, "rm": h.get("rating_max") or 5, "w": h.get("when") or [],
             "draft": s.get("status") != "◎",
+            "price": tr.get("price") or s.get("price") or "", "pv": price_value(s.get("price")),
             "sc": shop_hours.parse(s.get("hours"), closed), "cl": closed if isinstance(closed, list) else None,
             "img": (("../../" if E else "../") + IMAGES[s["image"]]["file"]) if s.get("image") in IMAGES else "",
         })
