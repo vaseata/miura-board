@@ -200,6 +200,13 @@
    "license": "出典記事の画像",
    "source": "https://www.townnews.co.jp/0501/2026/11/11/861745.html",
    "caption": "チャリティーライブのポスターを持つ実行委員（タウンニュース）"
+  },
+  "misakipresso": {
+   "file": "img/misakipresso.jpg",
+   "credit": "三浦A邸",
+   "license": "三浦A邸撮影",
+   "source": "",
+   "caption": "ミサキプレッソの店内"
   }
  }
 }
