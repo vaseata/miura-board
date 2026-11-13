@@ -181,6 +181,16 @@ a{color:inherit} button{font:inherit;color:inherit}
 .ost[data-s="off"]{color:var(--mute);font-weight:400}
 .ost[data-s="off"]::before,.ost[data-s="closed"]::before,.ost[data-s="unknown"]::before{background:none;border:1.5px solid currentColor;width:6px;height:6px}
 
+/* 三崎を知る（2026-11-14） */
+.know{margin:26px 0 0}
+.know .kg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.know a{display:flex;flex-direction:column;min-width:0;border:1px solid var(--hair);border-radius:12px;overflow:hidden;text-decoration:none;color:var(--ink);background:var(--bg)}
+.know a:hover{border-color:var(--sea)}
+.know img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
+.know .kx{display:flex;flex-direction:column;gap:2px;padding:8px 10px 10px}
+.know b{font-family:var(--mincho);font-weight:800;font-size:16px;line-height:1.35}
+.know small{font-size:11.5px;color:var(--mute);line-height:1.5}
+@media (max-width:420px){.know .kg{gap:8px}.know b{font-size:14.5px}.know small{display:none}}
 /* 奥付 */
 .okuzuke{margin-top:44px;border-top:3px double var(--rule);padding-top:12px;font-size:11.5px;line-height:1.9;color:var(--mute)}
 .okuzuke a{color:var(--sea)}
@@ -197,6 +207,7 @@ a{color:inherit} button{font:inherit;color:inherit}
 </header>
 
 <a class="hana" href="../guide/map-preview.html"><img src="../img/brand/hana-map.jpg" alt="" width="800" height="397" loading="lazy"><span class="hx"><span class="hk">家守のおすすめ</span><b>おすすめマップ</b><span class="hs">三崎・城ヶ島の、ごはんと買い物のお店。今日やっているかも分かります</span><span class="hgo">地図をひらく →</span><span class="hcr">地図 © OpenStreetMap contributors</span></span></a>
+<section class="know" aria-labelledby="know-h"><h2 class="men" id="know-h">三崎を知る<span class="latin">Know Misaki</span></h2><div class="kg"><a href="../guide/hito/"><img src="../img/hakushuhi.jpg" alt="" loading="lazy" width="480" height="360"><span class="kx"><b>三崎の人</b><small>白秋など、ゆかりの人</small></span></a><a href="../history/"><img src="../img/misaki_harbor.jpg" alt="" loading="lazy" width="480" height="360"><span class="kx"><b>歴史さんぽ</b><small>時代ごとに3D地図で</small></span></a><a href="../guide/hae/"><img src="../img/jogashima_bridge_sunset.jpg" alt="" loading="lazy" width="480" height="360"><span class="kx"><b>映えスポット</b><small>季節の花とダイヤモンド富士</small></span></a></div></section>
 <section class="sec" id="season">
   <h2 class="men">今の季節<span class="latin">11月 · November</span></h2>
   <div class="grid"><a class="art ev" href="../index.html"><div class="thumb"><img src="../img/misaki_harbor.jpg" alt="" loading="lazy" width="480" height="300"></div><div class="ran"><span class="cat">イベント</span><span class="area">三浦市</span><span class="st now">開催中</span></div><h3>10/3〜12/31 三崎マグロ茜身スタンプラリー</h3><p class="dt">10/3(土)〜12/31(木)</p><p class="lede">年末まで、マグロの茜身（血合い）のスタンプラリーをやっています。スマホだけで、ふつうに食事や買い物をしても押せるそうです</p></a><a class="art ev" href="../index.html"><div class="thumb"><img src="../img/jogashima_lighthouse.jpg" alt="" loading="lazy" width="480" height="300"></div><div class="ran"><span class="cat">イベント</span><span class="area">城ヶ島</span><span class="st now">開催中</span></div><h3>11/29まで 城ヶ島の白秋記念館で白秋特別展</h3><p class="dt">11/1(日)〜11/29(日)</p><p class="lede">いま城ヶ島の白秋記念館で、白秋が自分で描いた挿絵の展示をやっているそうです。月・金曜はお休みなので気をつけてください</p></a><a class="art ev" href="../index.html"><div class="thumb"><img src="../img/welovemiura_2026.jpg" alt="" loading="lazy" width="480" height="300"></div><div class="ran"><span class="cat">イベント</span><span class="area">三崎</span><span class="st soon">1日後</span></div><h3>11/15 うらりで台風復興チャリティーライブ</h3><p class="dt">11/15(日)</p><p class="lede">11/15の日曜、うらりの展望デッキで台風の復興チャリティーライブがあります。観覧は無料で、最後にみんなでゴスペルを歌うそうですよ</p></a><a class="art ev" href="../index.html"><div class="thumb"><img src="../img/miura_beach.jpg" alt="" loading="lazy" width="480" height="300"></div><div class="ran"><span class="cat">イベント</span><span class="area">三浦海岸</span><span class="st soon">7日後</span></div><h3>11/21 三浦海岸の地引網大会（改めて開催）</h3><p class="dt">11/21(土)</p><p class="lede">10/24に雨で流れた地引網、11/21の土曜にやり直すそうです。申込制で11/16までなので、その頃来るなら一緒に引けますよ</p></a><a class="art ev" href="../index.html"><div class="thumb"><img src="../img/hatsuse_wagyu_2026.jpg" alt="" loading="lazy" width="480" height="300"></div><div class="ran"><span class="cat">イベント</span><span class="area">三浦市</span><span class="st soon">7日後</span></div><h3>11/21 初声高の収穫祭、自校育ちの和牛を販売</h3><p class="dt">11/21(土)</p><p class="lede">初声高の畜産部が育てたA5の和牛が、11/21の収穫祭で買えるそうです。カレーは200食だけだとか</p></a><a class="art ev" href="../index.html"><div class="thumb"><img src="../img/misaki_harbor.jpg" alt="" loading="lazy" width="480" height="300"></div><div class="ran"><span class="cat">定番</span><span class="st soon">45日後</span></div><h3>三崎朝市 年末特別セール</h3><p class="dt">12/29(火)</p><p class="lede">年末は朝市が特別体制です</p></a></div>
@@ -215,7 +226,7 @@ a{color:inherit} button{font:inherit;color:inherit}
 
 <footer class="okuzuke">
 出典確認＝公式や観光協会の案内を開いて確かめたもの／要確認＝一次でない・未確認。営業時間・定休は変わることがあります（各項目の「確認」日を参照）。<br>
-徒歩時間は A邸からの直線距離×1.3÷80m/分 の目安。写真：Wikimedia Commons（jogashima_lighthouse CC0 · jogashima_bridge_sunset CC BY 3.0 · jogashima_harbor CC0 · misaki_harbor CC0 · misaki_shitamachi CC BY-SA 4.0 · miura_beach CC0 · koajiro_forest CC BY-SA 4.0）、公式サイト、出典記事の og:image。<br>
+徒歩時間は A邸からの直線距離×1.3÷80m/分 の目安。写真：Wikimedia Commons（jogashima_lighthouse CC0 · jogashima_bridge_sunset CC BY 3.0 · jogashima_harbor CC0 · misaki_harbor CC0 · misaki_shitamachi CC BY-SA 4.0 · miura_beach CC0 · koajiro_forest CC BY-SA 4.0 · miurakaigan_kawazu CC BY-SA 4.0 · kurosakinohana CC BY-SA 3.0 · umanose CC BY-SA 4.0 · hakushuhi CC BY 3.0）、公式サイト、出典記事の og:image。<br>
 <a href="../index.html">最近の三浦</a> · Since 2026.10 · By Yanuki
 </footer>
 </main>

@@ -1,0 +1,353 @@
+{
+ "_note": "三崎の映えスポット（guide/hae/）の台帳。yomu_build.py が読む。出典は開いたものだけ。_en は英語版。months は例年の見ごろの月（無ければ月の表に出さない）。image は places.json のキー（2026-11-14）",
+ "diamond_fuji": {
+  "head": "年に2回、富士山の頂に夕日が沈みます",
+  "head_en": "Twice a year, the sun sets right on the summit of Mt. Fuji",
+  "text": "毎年5月1日ごろと8月11日ごろの日没、城ヶ島大橋の中ほどから見えます（日は年によって前後）。富士山まで約85km、西北西の方角。橋は海から約23mの高さで、両側の漁港と海の向こうの富士山が見えます。",
+  "text_en": "Seen at sunset around May 1 and around August 11 each year from the middle of Jogashima Bridge (dates shift a little by year). Mt. Fuji is about 85 km away to the west-northwest. The bridge is about 23 m above the sea, with fishing ports on both sides and Fuji beyond the water.",
+  "confidence": "🟡",
+  "sources": [
+   {
+    "url": "https://fujisantotomoni.jp/spot/城ヶ島大橋",
+    "title": "城ヶ島大橋 - 富士山撮影ポイント | 富士山とともに",
+    "opened": "2026-11-14"
+   },
+   {
+    "url": "https://miura-info.ne.jp/sightseeing/nature-3/",
+    "title": "城ケ島大橋 | みうら観光ガイド（三浦市観光協会 公式WEB）",
+    "opened": "2026-11-14"
+   }
+  ]
+ },
+ "spots": [
+  {
+   "id": "jogashima_suisen",
+   "lat": 35.1327325,
+   "lon": 139.62335,
+   "coord": "OpenStreetMap way 395998646（城ヶ島公園）via Nominatim",
+   "confidence": "🟢",
+   "sources": [
+    {
+     "url": "https://www.kanagawa-kankou.or.jp/features/flower-guide07",
+     "title": "約30万株の八重咲水仙が香る城ヶ島【花のコラム】（観光かながわNOW）",
+     "opened": "2026-11-14"
+    },
+    {
+     "url": "https://www.pref.kanagawa.jp/docs/wk7/cnt/f11539/p35617.html",
+     "title": "城ケ島公園 - 神奈川県ホームページ",
+     "opened": "2026-11-14"
+    },
+    {
+     "url": "https://kanagawa-kankou.or.jp/spot/6264",
+     "title": "城ヶ島ハイキングコース（観光かながわNOW）",
+     "opened": "2026-11-14"
+    }
+   ],
+   "kind": "花",
+   "kind_en": "Flowers",
+   "name": "城ヶ島の八重咲水仙",
+   "name_en": "Double daffodils of Jogashima",
+   "short": "城ヶ島の水仙",
+   "short_en": "Jogashima daffodils",
+   "area": "城ヶ島",
+   "area_en": "Jogashima",
+   "months": [
+    1,
+    2
+   ],
+   "when_note": "1月中旬〜2月中旬。2月に水仙まつり",
+   "when_note_en": "mid-January to mid-February; daffodil festival in February",
+   "what": "県立城ケ島公園と、公園から城ヶ島灯台へつづく「水仙ロード」に、約30万株の八重咲水仙。公園の入口から東の端の安房埼灯台へ向かう道ぞいにも咲きます。",
+   "what_en": "About 300,000 double daffodils fill Jogashima Park and the “Daffodil Road” from the park to Jogashima Lighthouse. They also line the path from the park entrance to Awasaki Lighthouse at the eastern tip.",
+   "time_of_day": "見ごろは気候で前後します",
+   "time_of_day_en": "Timing shifts with the weather"
+  },
+  {
+   "id": "miurakaigan_kawazu",
+   "lat": null,
+   "lon": null,
+   "coord": null,
+   "confidence": "🟢",
+   "sources": [
+    {
+     "url": "https://miura-info.ne.jp/23rd-sakura-festival/",
+     "title": "第23回三浦海岸桜まつり | みうら観光ガイド（三浦市観光協会 公式WEB）",
+     "opened": "2026-11-14"
+    },
+    {
+     "url": "https://kanagawa-kankou.or.jp/spot/7369",
+     "title": "三浦海岸桜まつり【三浦市】（観光かながわNOW）",
+     "opened": "2026-11-14"
+    }
+   ],
+   "kind": "花",
+   "kind_en": "Flowers",
+   "name": "三浦海岸の河津桜と菜の花",
+   "name_en": "Kawazu cherry and rapeseed blossoms, Miura Kaigan",
+   "short": "三浦海岸の河津桜",
+   "short_en": "Miura Kaigan cherries",
+   "area": "三浦海岸",
+   "area_en": "Miura Kaigan",
+   "months": [
+    2,
+    3
+   ],
+   "when_note": "桜まつりは2027年2月5日〜3月3日（第23回）",
+   "when_note_en": "Cherry festival: Feb 5 – Mar 3, 2027",
+   "what": "京急の三浦海岸駅から小松ヶ池公園まで、線路ぞい約1kmに約1,000本の河津桜。同じころに菜の花が咲きならびます。",
+   "what_en": "About 1,000 Kawazu cherry trees line the Keikyu tracks for about 1 km from Miurakaigan Station to Komatsugaike Park, with rapeseed blossoms in bloom at the same time.",
+   "time_of_day": "駐車場が少なく道が混むので、電車がおすすめです",
+   "time_of_day_en": "Parking is scarce and roads get busy, so come by train",
+   "image": "miurakaigan_kawazu"
+  },
+  {
+   "id": "komatsugaike",
+   "lat": 35.1836137,
+   "lon": 139.6425792,
+   "coord": "OpenStreetMap way 398987878（小松ケ池公園）via Nominatim",
+   "confidence": "🟢",
+   "sources": [
+    {
+     "url": "https://miura-info.ne.jp/sightseeing/nature-9/",
+     "title": "小松ヶ池公園 | みうら観光ガイド（三浦市観光協会 公式WEB）",
+     "opened": "2026-11-14"
+    }
+   ],
+   "kind": "花",
+   "kind_en": "Flowers",
+   "name": "小松ヶ池公園の河津桜",
+   "name_en": "Komatsugaike Park cherries",
+   "short": "小松ヶ池公園",
+   "short_en": "Komatsugaike Park",
+   "area": "三浦海岸",
+   "area_en": "Miura Kaigan",
+   "months": [
+    2,
+    3
+   ],
+   "when_note": "2026年9月の台風で園路の一部が壊れ、一時通行止め（観光協会の告知）",
+   "when_note_en": "Part of the path was damaged by a typhoon in Sept 2026 and temporarily closed",
+   "what": "早咲きの河津桜の公園。2月〜3月は桜まつりでにぎわいます。三浦海岸駅から歩いて18分ほど。",
+   "what_en": "A park of early-blooming Kawazu cherries, busy with the cherry festival in February and March. About 18 minutes’ walk from Miurakaigan Station."
+  },
+  {
+   "id": "jogashima_umiu",
+   "lat": null,
+   "lon": null,
+   "coord": null,
+   "confidence": "🟢",
+   "sources": [
+    {
+     "url": "https://miura-info.ne.jp/sightseeing/nature-2/",
+     "title": "神奈川県立城ケ島公園 | みうら観光ガイド（三浦市観光協会 公式WEB）",
+     "opened": "2026-11-14"
+    },
+    {
+     "url": "https://www.pref.kanagawa.jp/docs/wk7/cnt/f11539/p35617.html",
+     "title": "城ケ島公園 - 神奈川県ホームページ",
+     "opened": "2026-11-14"
+    },
+    {
+     "url": "https://kanagawa-kankou.or.jp/spot/6264",
+     "title": "城ヶ島ハイキングコース（観光かながわNOW）",
+     "opened": "2026-11-14"
+    },
+    {
+     "url": "https://ja.wikipedia.org/wiki/城ヶ島",
+     "title": "城ヶ島 - Wikipedia",
+     "opened": "2026-11-14"
+    }
+   ],
+   "kind": "生きもの",
+   "kind_en": "Wildlife",
+   "name": "城ヶ島のウミウ",
+   "name_en": "Cormorants of Jogashima",
+   "short": "城ヶ島のウミウ",
+   "short_en": "Jogashima cormorants",
+   "area": "城ヶ島",
+   "area_en": "Jogashima",
+   "months": [
+    11,
+    12,
+    1,
+    2,
+    3,
+    4
+   ],
+   "what": "冬になると、ウミウ・ヒメウ・クロサギが城ヶ島に渡ってきます。島の南東、赤羽根崎の東の崖が生息地で、県の天然記念物です。崖には近づけないので、遠くから眺めます。",
+   "what_en": "In winter, Japanese cormorants, pelagic cormorants and Pacific reef herons come to Jogashima. Their roost on the cliffs east of Akabanezaki is a prefectural natural monument; the cliffs can’t be approached, so watch from a distance."
+  },
+  {
+   "id": "jogashima_ohashi",
+   "lat": 35.138022,
+   "lon": 139.622629,
+   "coord": "三浦市観光協会ページの地図座標（https://miura-info.ne.jp/sightseeing/nature-3/）",
+   "confidence": "🟢",
+   "sources": [
+    {
+     "url": "https://miura-info.ne.jp/sightseeing/nature-3/",
+     "title": "城ケ島大橋 | みうら観光ガイド（三浦市観光協会 公式WEB）",
+     "opened": "2026-11-14"
+    }
+   ],
+   "kind": "景色",
+   "kind_en": "View",
+   "name": "城ヶ島大橋",
+   "name_en": "Jogashima Bridge",
+   "short": "城ヶ島大橋",
+   "short_en": "Jogashima Bridge",
+   "area": "三崎〜城ヶ島",
+   "area_en": "Misaki–Jogashima",
+   "months": [],
+   "image": "jogashima_bridge_sunset",
+   "what": "長さ575mの橋を、歩いて渡れます。まわりにさえぎるものがなく、東に房総半島、南に伊豆大島、西に富士山。ダイヤモンド富士もこの橋から見えます。",
+   "what_en": "You can walk across this 575 m bridge. Nothing blocks the view: the Boso Peninsula to the east, Izu Oshima to the south and Mt. Fuji to the west. Diamond Fuji is seen from here too.",
+   "time_of_day": "夕暮れ、夕日に染まる橋が美しい（観光協会）",
+   "time_of_day_en": "Beautiful in the evening glow"
+  },
+  {
+   "id": "jogashima_lighthouse",
+   "lat": 35.1350778,
+   "lon": 139.6111556,
+   "coord": "https://ja.wikipedia.org/wiki/城ヶ島灯台",
+   "confidence": "🟢",
+   "sources": [
+    {
+     "url": "https://miura-info.ne.jp/sightseeing/nature-4/",
+     "title": "城ヶ島灯台 | みうら観光ガイド（三浦市観光協会 公式WEB）",
+     "opened": "2026-11-14"
+    },
+    {
+     "url": "https://kanagawa-kankou.or.jp/spot/6264",
+     "title": "城ヶ島ハイキングコース（観光かながわNOW）",
+     "opened": "2026-11-14"
+    }
+   ],
+   "kind": "景色",
+   "kind_en": "View",
+   "name": "城ヶ島灯台",
+   "name_en": "Jogashima Lighthouse",
+   "short": "城ヶ島灯台",
+   "short_en": "Jogashima Lighthouse",
+   "area": "城ヶ島（西）",
+   "area_en": "Jogashima (west)",
+   "months": [],
+   "what": "1870年、フランス人技師ヴェルニーの設計で灯った、日本で5番目の西洋式灯台。崖の上の白い塔からの眺めがよく、ふもとにはお土産屋と海鮮のお店。城ヶ島バス停から歩いて5分ほど。",
+   "what_en": "Japan’s fifth Western-style lighthouse, first lit in 1870 to a design by the French engineer Verny. Great views from the white tower on the cliff, with souvenir shops and seafood restaurants below. About 5 minutes’ walk from the Jogashima bus stop."
+  },
+  {
+   "id": "awasaki_lighthouse",
+   "lat": 35.1302008,
+   "lon": 139.6275671,
+   "coord": "OpenStreetMap node 12364319660（安房崎灯台）via Nominatim。同名の旧位置らしい node 1211621023（35.1291260,139.6300588）もあるので要確認",
+   "confidence": "🟢",
+   "sources": [
+    {
+     "url": "https://miura-info.ne.jp/sightseeing/nature-5/",
+     "title": "安房埼灯台 | みうら観光ガイド（三浦市観光協会 公式WEB）",
+     "opened": "2026-11-14"
+    }
+   ],
+   "kind": "景色",
+   "kind_en": "View",
+   "name": "安房埼灯台（大根の灯台）",
+   "name_en": "Awasaki Lighthouse (the radish lighthouse)",
+   "short": "安房埼灯台",
+   "short_en": "Awasaki Lighthouse",
+   "area": "城ヶ島（東の端）",
+   "area_en": "Jogashima (east tip)",
+   "months": [],
+   "what": "三浦大根を逆さにした形の灯台。下に向かって緑のグラデーションになっています。2020年3月に今の場所に建ちました。白秋碑前バス停から歩いて10分ほど。",
+   "what_en": "A lighthouse shaped like an upside-down Miura radish, shading to green at the bottom. It was built on this spot in March 2020. About 10 minutes’ walk from the Hakushuhi-mae bus stop."
+  },
+  {
+   "id": "umanose_domon",
+   "lat": 35.1314702,
+   "lon": 139.6183347,
+   "coord": "OpenStreetMap node 4200325799 via Nominatim",
+   "confidence": "🟢",
+   "sources": [
+    {
+     "url": "https://miura-info.ne.jp/sightseeing/nature-7/",
+     "title": "馬の背洞門 | みうら観光ガイド（三浦市観光協会 公式WEB）",
+     "opened": "2026-11-14"
+    },
+    {
+     "url": "https://ja.wikipedia.org/wiki/城ヶ島",
+     "title": "城ヶ島 - Wikipedia",
+     "opened": "2026-11-14"
+    }
+   ],
+   "kind": "景色",
+   "kind_en": "View",
+   "name": "馬の背洞門",
+   "name_en": "Umanose rock arch",
+   "short": "馬の背洞門",
+   "short_en": "Umanose arch",
+   "area": "城ヶ島（南）",
+   "area_en": "Jogashima (south)",
+   "months": [],
+   "what": "長い年月をかけて波がけずった、岩の門。上は崩れるおそれがあるので通れません。足もとが急なので、歩きやすい靴で。白秋碑前バス停から歩いて15分ほど。",
+   "what_en": "A rock arch carved by waves over many years. The top is closed because it may collapse. The path is steep, so wear good shoes. About 15 minutes’ walk from the Hakushuhi-mae bus stop.",
+   "image": "umanose"
+  },
+  {
+   "id": "kurosakinohana",
+   "lat": 35.1829948,
+   "lon": 139.6151296,
+   "coord": "OpenStreetMap node 4435583889 via Nominatim（表示住所は初声町入江。観光協会の住所は初声町下宮田）",
+   "confidence": "🟢",
+   "sources": [
+    {
+     "url": "https://miura-info.ne.jp/sightseeing/nature-15/",
+     "title": "黒崎の鼻 | みうら観光ガイド（三浦市観光協会 公式WEB）",
+     "opened": "2026-11-14"
+    }
+   ],
+   "kind": "景色",
+   "kind_en": "View",
+   "name": "黒崎の鼻",
+   "name_en": "Kurosaki-no-Hana",
+   "short": "黒崎の鼻",
+   "short_en": "Kurosaki-no-Hana",
+   "area": "初声",
+   "area_en": "Hasse",
+   "months": [],
+   "what": "背の高い草の小道をぬけると、急に海がひらけます。遠くに富士山、建物の見えない景色。小さな入り江で磯遊びもできます。駐車場・トイレはありません。バス「宮田」から歩いて18分ほど。",
+   "what_en": "A path through tall grass suddenly opens onto the sea, with Mt. Fuji in the distance and no buildings in sight. You can explore the rock pools in a small cove. No parking or toilets. About 18 minutes’ walk from the Miyata bus stop.",
+   "image": "kurosakinohana"
+  },
+  {
+   "id": "jogashima_park_seasons",
+   "lat": 35.1327325,
+   "lon": 139.62335,
+   "coord": "OpenStreetMap way 395998646 via Nominatim",
+   "confidence": "🟢",
+   "sources": [
+    {
+     "url": "https://miura-info.ne.jp/sightseeing/nature-2/",
+     "title": "神奈川県立城ケ島公園 | みうら観光ガイド（三浦市観光協会 公式WEB）",
+     "opened": "2026-11-14"
+    },
+    {
+     "url": "https://www.pref.kanagawa.jp/docs/wk7/cnt/f11539/p35617.html",
+     "title": "城ケ島公園 - 神奈川県ホームページ",
+     "opened": "2026-11-14"
+    }
+   ],
+   "kind": "花・景色",
+   "kind_en": "Flowers & view",
+   "name": "県立城ケ島公園",
+   "name_en": "Jogashima Park",
+   "short": "城ケ島公園",
+   "short_en": "Jogashima Park",
+   "area": "城ヶ島（東）",
+   "area_en": "Jogashima (east)",
+   "months": [],
+   "when_note": "夏はアジサイ、秋はハチジョウススキ、冬は八重水仙",
+   "when_note_en": "Hydrangeas in summer, Hachijo pampas grass in autumn, daffodils in winter",
+   "what": "島の東の台地の公園。南側の崖の上の遊歩道から、海と富士山が見えます。",
+   "what_en": "A park on the island’s eastern plateau. The clifftop path on the south side looks out over the sea to Mt. Fuji."
+  }
+ ]
+}

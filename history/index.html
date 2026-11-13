@@ -4,6 +4,7 @@
 <meta name="color-scheme" content="light">
 <meta name="description" content="三浦の歴史のゆかりの地を、時代ごとに3Dの地図でたどります。弥生のムラ、頼朝の御所、三浦一族の最期、灯台、城ヶ島の雨、マグロの港まで。">
 <title>三浦 歴史さんぽ（3Dマップ）</title>
+<link rel="alternate" hreflang="ja" href="https://vaseata.github.io/miura-board/history/"><link rel="alternate" hreflang="en" href="https://vaseata.github.io/miura-board/history/en/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;700&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap">
@@ -123,9 +124,14 @@ h2.all{display:flex;align-items:baseline;gap:10px;margin:36px 0 0;font-size:15px
 .foot{margin-top:28px;font-size:12.5px;color:var(--ink-2);line-height:1.75}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 @media (min-width:720px){.wrap{padding-top:40px}.item{padding:18px 18px}}
+.hnav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 14px}
+.hnav .back{display:inline-flex;align-items:center;min-height:44px;font-weight:700;text-decoration:none}
+.lang{display:inline-grid;grid-template-columns:1fr 1fr;gap:2px;padding:3px;background:var(--soft);border:1px solid var(--line);border-radius:999px;flex:none}
+.lang a{display:flex;align-items:center;justify-content:center;min-width:52px;min-height:38px;border-radius:999px;color:var(--ink-2);font:400 14px/1 var(--font);text-decoration:none}
+.lang a[aria-current="page"]{background:var(--bg);color:var(--ink);font-weight:700;box-shadow:0 0 0 1px var(--line)}
 </style></head><body>
 <div class="wrap">
-
+<nav class="hnav" aria-label="移動"><a class="back" href="../guide/">← お店・名所</a><span class="lang"><a href="./" hreflang="ja" lang="ja" aria-current="page">JP</a><a href="en/" hreflang="en" lang="en">EN</a></span></nav>
 <header class="hero">
   <p class="eyebrow">三浦A邸</p>
   <h1><span>三浦 歴史さんぽ</span></h1>
@@ -160,7 +166,7 @@ h2.all{display:flex;align-items:baseline;gap:10px;margin:36px 0 0;font-size:15px
 
 <div id="list" aria-live="polite"></div>
 
-<p class="foot">書いてあることは、出典を開いて確かめたものだけです。各項目の下に出典があります。🟢 は三浦市・三浦市観光協会のページで確かめたもの、🟡 は Wikipedia など一次でない出典によるもの。「伝承」の札は、言い伝えをふくむ話です。ピンの位置は OpenStreetMap と Wikipedia の座標によるもので、数十mずれていることがあります。社寺や研究施設は、公開の時間や立ち入れる範囲がそれぞれ決まっています。<br>地図・建物・構造物の形は © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors（タイルは <a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a> © OpenMapTiles）。写真と標高は <a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">国土地理院（地理院タイル）</a>。<br><a href="../">最近の三浦（近況ボード）</a> ・ <a href="../guide/">ガイドブック</a></p>
+<p class="foot">書いてあることは、出典を開いて確かめたものだけです。各項目の下に出典があります。🟢 は三浦市・三浦市観光協会のページで確かめたもの、🟡 は Wikipedia など一次でない出典によるもの。「伝承」の札は、言い伝えをふくむ話です。ピンの位置は OpenStreetMap と Wikipedia の座標によるもので、数十mずれていることがあります。社寺や研究施設は、公開の時間や立ち入れる範囲がそれぞれ決まっています。<br>地図・建物・構造物の形は © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors（タイルは <a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a> © OpenMapTiles）。写真と標高は <a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">国土地理院（地理院タイル）</a>。<br><a href="../">最近の三浦</a> ・ <a href="../guide/">お店・名所</a> ・ <a href="../guide/hito/">三崎の人</a> ・ <a href="../guide/hae/">映えスポット</a></p>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.min.js"></script>

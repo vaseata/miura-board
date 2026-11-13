@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="三崎・城ヶ島・三浦海岸の季節の花と映えスポット。城ヶ島大橋のダイヤモンド富士の時期も。">
+<link rel="alternate" hreflang="ja" href="https://vaseata.github.io/miura-board/guide/hae/"><link rel="alternate" hreflang="en" href="https://vaseata.github.io/miura-board/guide/hae/en/">
+<meta name="theme-color" content="#0A5A8C">
+<title>三崎の映えスポット｜三浦A邸</title>
+<link rel="icon" href="../../img/brand/logo.png">
+<link rel="apple-touch-icon" href="../../img/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>:root{ color-scheme:light;
+  --bg:#FFFFFF; --ink:#14202B; --ink2:#3E4C58; --mute:#4F6070; --rule:#14202B; --hair:#D9E1E8; --tint:#F2F6F9;
+  --sea:#0A5A8C; --sea-tint:#E6F0F6; --tuna:#B8243A; --kon:#2E4C9E; --on:#FFFFFF;
+  --mincho:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
+  --gothic:"Zen Kaku Gothic New","Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--gothic);background:var(--bg);color:var(--ink);line-height:1.75;font-size:15.5px;font-feature-settings:"palt";-webkit-font-smoothing:antialiased;overflow-x:hidden}
+main{max-width:1040px;margin:0 auto;padding:12px max(16px,env(safe-area-inset-right)) 56px max(16px,env(safe-area-inset-left))}
+@media (min-width:720px){ main{padding-inline:28px} .sn-in{padding-inline:28px} }
+a{color:var(--sea)} button{font:inherit;color:inherit}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 10px}
+.topbar .back{display:inline-flex;align-items:center;min-height:44px;font-weight:700;text-decoration:none}
+.masthead{padding:4px 0 12px;border-bottom:4px solid var(--sea);position:relative}
+.masthead::after{content:"";position:absolute;left:0;right:0;bottom:-8px;border-bottom:1px solid var(--sea)}
+.daiji{font-family:var(--mincho);font-weight:800;font-size:clamp(28px,7vw,48px);line-height:1.2;letter-spacing:.1em}
+.daiji small{display:block;font-family:var(--gothic);font-weight:700;font-size:11px;letter-spacing:.3em;color:var(--kon);margin-bottom:6px}
+.mh-lead{font-size:14px;color:var(--ink2);margin-top:10px;line-height:1.85;max-width:40em}
+.men{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 12px;font-family:var(--mincho);font-weight:800;font-size:19px;letter-spacing:.16em;margin:34px 0 12px;padding-bottom:6px;border-bottom:2px solid var(--rule)}
+.men .latin{font-family:var(--gothic);font-weight:500;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--mute)}
+.sub{font-size:13px;color:var(--ink2);margin:-4px 0 12px}
+/* ダイヤモンド富士 */
+.df{display:grid;gap:10px;border:1.5px solid var(--sea);border-radius:14px;padding:14px 16px;background:var(--sea-tint)}
+.df .k{font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--sea)}
+.df h3{font-family:var(--mincho);font-weight:800;font-size:22px;line-height:1.35}
+.df .dates{display:flex;flex-wrap:wrap;gap:8px}
+.df .d{display:flex;flex-direction:column;min-width:140px;padding:8px 12px;border-radius:12px;background:var(--bg);border:1px solid var(--hair)}
+.df .d b{font-size:16px;font-variant-numeric:tabular-nums}
+.df .d span{font-size:12px;color:var(--mute)}
+.df .d.next{border-color:var(--sea);box-shadow:0 0 0 1px var(--sea)}
+.df .d.next span{color:var(--sea);font-weight:700}
+.df p{font-size:14px;line-height:1.8}
+/* 月の表 */
+.cal{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--hair);border-radius:12px}
+.cal table{border-collapse:separate;border-spacing:0;width:100%;min-width:340px;font-size:12.5px;table-layout:fixed}
+.cal col.c0{width:120px}
+.cal th,.cal td{padding:6px 0;text-align:center;border-bottom:1px solid var(--hair)}
+.cal tr:last-child td,.cal tr:last-child th{border-bottom:0}
+.cal thead th{font-weight:700;color:var(--mute);font-size:11px;font-variant-numeric:tabular-nums}
+.cal th.nm{position:sticky;left:0;z-index:1;background:var(--bg);text-align:left;padding:6px 6px 6px 8px;font-weight:700;font-size:12px;line-height:1.35}
+.cal th.nm a{color:var(--ink);text-decoration:none}
+.cal td i{display:block;height:14px;margin:0 1px;border-radius:3px}
+.cal td.on i{background:var(--sea)}
+.cal .now{background:var(--sea-tint)}
+.cal thead th.now{color:var(--sea)}
+.legend{font-size:12px;color:var(--mute);margin-top:6px}
+/* カード */
+.grid{display:grid;grid-template-columns:1fr;gap:22px}
+@media (min-width:640px){ .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 22px} }
+@media (min-width:960px){ .grid.three{grid-template-columns:repeat(3,minmax(0,1fr))} }
+.card{display:flex;flex-direction:column;gap:6px;min-width:0;padding-top:10px;border-top:1px solid var(--rule);scroll-margin-top:12px}
+.thumb{aspect-ratio:16/10;overflow:hidden;background:var(--tint);border-radius:4px}
+.thumb img{display:block;width:100%;height:100%;object-fit:cover}
+.ran{display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;font-size:11.5px;line-height:1.5}
+.cat{display:inline-block;font-weight:700;letter-spacing:.1em;padding:1px 7px;background:var(--sea);color:var(--on)}
+.area{color:var(--mute);letter-spacing:.06em}
+.st{margin-left:auto;font-weight:700;color:var(--sea);white-space:nowrap}
+.card h3{font-family:var(--mincho);font-weight:800;font-size:19px;line-height:1.45;text-wrap:balance}
+.card h3 small{display:block;font-family:var(--gothic);font-weight:500;font-size:12px;color:var(--mute);letter-spacing:.04em}
+.card p{font-size:14.5px;line-height:1.85;color:var(--ink)}
+.card .when{font-size:13px;color:var(--ink2)}
+.card .when b{color:var(--sea);margin-right:6px}
+.card .trace{border-left:4px solid var(--sea);background:var(--sea-tint);padding:8px 12px;font-size:14px}
+.card .trace b{display:block;font-size:10.5px;letter-spacing:.2em;color:var(--sea)}
+.links{display:flex;flex-wrap:wrap;gap:4px 14px}
+.src{font-size:11.5px !important;color:var(--mute) !important;line-height:1.8 !important}
+.src a{color:var(--mute);margin-right:4px}
+.src .cf{font-weight:700;margin-right:6px}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.note{font-size:13px;color:var(--ink2);border:1px dashed var(--hair);border-radius:12px;padding:10px 14px;margin-top:14px}
+.okuzuke{margin-top:44px;border-top:3px double var(--rule);padding-top:12px;font-size:11.5px;line-height:1.9;color:var(--mute)}
+.okuzuke a{color:var(--sea)}
+
+/* ── 操作の部品（ui_parts.py・設計図どおり） ── */
+:focus-visible{outline:2px solid var(--sea);outline-offset:2px}
+/* サイトの切り替え（2026-11-14 討議で直した版） */
+.sn{position:relative;z-index:30;background:var(--bg);border-bottom:1px solid var(--hair)}
+.sn-in{display:flex;align-items:center;gap:0;max-width:var(--sn-w,1240px);margin:0 auto;padding:0 max(16px,env(safe-area-inset-right)) 0 max(16px,env(safe-area-inset-left));overflow-x:auto;scrollbar-width:none}
+.sn-in::-webkit-scrollbar{display:none}
+.sn .home{display:flex;align-items:center;gap:6px;min-height:44px;margin-right:auto;padding:0 6px 0 0;color:var(--ink);font:800 14px/1 var(--mincho);text-decoration:none;white-space:nowrap;flex:none}
+.sn .home img{width:28px;height:28px;display:block;background:#fff;border-radius:6px}
+.sn a.s{display:flex;align-items:center;gap:4px;min-height:44px;padding:0 9px;color:var(--ink);font:400 14px/1 var(--gothic);letter-spacing:0;text-decoration:none;white-space:nowrap;border-bottom:3px solid transparent;flex:none}
+.sn a.s[aria-current]{font-weight:700;border-bottom-color:var(--sea)}
+.sn a.s small{font-size:11px;color:var(--ink);font-weight:400}
+.sn a.sos{min-width:44px;justify-content:center;color:var(--tuna);font-weight:700}
+.sn a.sos svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.sn a:focus-visible{outline-offset:-3px}
+@media (max-width:400px){.sn .home .t{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)} .sn a.s{padding:0 6px} .sn.has-sos a.s{font-size:13px;padding:0 4px} .sn.has-sos a.sos{padding:0 2px 0 6px;gap:2px}}
+@media (max-width:359px){.sn a.s{font-size:13px;padding:0 6px}.sn-in{mask-image:linear-gradient(90deg,#000 calc(100% - 16px),transparent);-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 16px),transparent)}}
+.sn.has-sos .sn-in{flex-wrap:wrap}
+@media (max-width:359px){.sn.has-sos .sn-in{mask-image:none;-webkit-mask-image:none}}
+@media print{.sn,.bn,.lang{display:none!important}body{padding-bottom:0!important}}
+/* 家守のおすすめマップの入口（2026-11-14 ヤヌキ依頼「目立つ場所に」） */
+.hana{display:grid;grid-template-columns:1fr;margin:16px 0 0;border:1.5px solid var(--sea);border-radius:14px;overflow:hidden;background:var(--bg);color:var(--ink);text-decoration:none}
+.hana img{display:block;width:100%;height:auto;aspect-ratio:2/1;object-fit:cover}
+.hana .hx{padding:12px 16px 14px}
+.hana .hk{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--sea)}
+.hana b{display:block;font-family:var(--mincho);font-size:20px;line-height:1.35;margin:2px 0}
+.hana .hs{display:block;font-size:13px;color:var(--mute)}
+.hana .hgo{display:inline-flex;align-items:center;min-height:44px;margin-top:6px;padding:0 18px;border-radius:12px;background:var(--sea);color:#fff;font-weight:700;font-size:15px}
+.hana .hcr{display:block;font-size:10px;color:var(--mute);margin-top:6px}
+@media (min-width:600px){.hana{grid-template-columns:1.1fr 1fr;align-items:center}.hana img{height:100%;aspect-ratio:auto;min-height:200px}}
+/* ボタン（行動） */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:0 18px;border-radius:12px;border:1.5px solid transparent;font:700 15px/1.3 var(--gothic);letter-spacing:0;text-align:center;text-decoration:none;cursor:pointer;transition:transform 120ms,background-color 120ms}
+.btn:active{transform:scale(.97)}
+.btn-primary{min-height:48px;background:var(--sea);color:var(--on,#fff)}
+.btn-primary:active{filter:brightness(.88)}
+.btn-secondary{background:var(--sea-tint);color:var(--sea)}
+.btn-tertiary{min-height:44px;padding:0 4px;background:none;color:var(--sea);justify-content:flex-start}
+.btn-emergency{min-height:48px;background:var(--bg);color:var(--tuna);border-color:var(--tuna)}
+.btn[hidden],.fchip[hidden]{display:none}
+/* 絞り込みの札（複数選べる） */
+.fchip{position:relative;display:inline-flex;align-items:center;gap:4px;height:36px;margin:4px 0;padding:0 14px;border-radius:999px;border:1px solid var(--hair);background:var(--bg);color:var(--ink);font:400 14px/1 var(--gothic);letter-spacing:0;white-space:nowrap;cursor:pointer;transition:background-color 180ms,border-color 180ms;flex:none}
+.fchip::after{content:"";position:absolute;inset:-4px 0}
+.fchip[aria-pressed="true"],.fchip[aria-checked="true"]{background:var(--sea-tint);border-color:var(--sea);color:var(--sea);font-weight:700}
+.fchip[aria-pressed="true"]::before,.fchip[aria-checked="true"]::before{content:"✓"}
+.fchip .n{font-weight:400;font-size:11px;opacity:.8;margin-left:2px}
+/* 切り替え（1つだけ選ぶ・4つまで） */
+.seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:2px;padding:3px;background:var(--tint);border:1px solid var(--hair);border-radius:999px}
+.seg button{position:relative;min-height:38px;border:0;border-radius:999px;background:none;color:var(--mute);font:400 14px/1 var(--gothic);letter-spacing:0;cursor:pointer;transition:background-color 180ms}
+.seg button::after{content:"";position:absolute;inset:-4px -1px}
+.seg button[aria-checked="true"]{background:var(--bg);color:var(--ink);font-weight:700;box-shadow:0 0 0 1px var(--hair)}
+/* 下のバー（滞在ガイド） */
+.bn{position:fixed;left:0;right:0;bottom:0;z-index:40;display:grid;grid-template-columns:repeat(4,1fr);background:var(--bg);border-top:1px solid var(--hair);padding:0 env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+.bn a{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:56px;color:var(--mute);font:700 11px/1.2 var(--gothic);text-decoration:none}
+.bn svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.bn a[aria-current="page"]{color:var(--sea)}
+.bn a[aria-current="page"]::before{content:"";position:absolute;top:-1px;left:22%;right:22%;height:3px;border-radius:0 0 3px 3px;background:var(--sea)}
+.bn a.sos{color:var(--tuna)}
+.bn a.sos[aria-current="page"]::before{background:var(--tuna)}
+@media (min-width:720px){.bn{left:50%;right:auto;width:560px;transform:translateX(-50%);border:1px solid var(--hair);border-bottom:0;border-radius:12px 12px 0 0}}
+@media (prefers-reduced-motion:reduce){.btn,.fchip,.seg button{transition:none}.btn:active{transform:none}}
+.lang{display:inline-grid;grid-template-columns:1fr 1fr;gap:2px;padding:3px;background:var(--tint);border:1px solid var(--hair);border-radius:999px;flex:none}
+.lang a{display:flex;align-items:center;justify-content:center;min-width:52px;min-height:38px;border-radius:999px;color:var(--mute);font:400 14px/1 var(--gothic);letter-spacing:.04em;text-decoration:none}
+.lang a[aria-current="page"]{background:var(--bg);color:var(--ink);font-weight:700;box-shadow:0 0 0 1px var(--hair)}
+.topbar{display:flex;justify-content:flex-end;margin:0 0 8px}
+.topbar{justify-content:space-between}</style>
+</head>
+<body>
+<nav class="sn has-sos" aria-label="三浦A邸のサイト"><div class="sn-in"><a class="home" href="../../stay/" aria-label="三浦A邸 家の案内のトップ"><img src="../../img/brand/logo.png" alt="" width="28" height="28"><span class="t">三浦A邸</span></a><a class="s" href="../../stay/">家の案内</a><a class="s" href="../../guide/" aria-current="true">お店・名所</a><a class="s" href="../../">最近の三浦</a><a class="s sos" href="../../stay/bosai.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17v.01"/></svg>防災</a></div></nav>
+<main>
+<div class="topbar"><a class="back" href="../">← お店・名所</a><nav class="lang" aria-label="Language / 言語"><a href="./" hreflang="ja" lang="ja" aria-current="page">JP</a><a href="en/" hreflang="en" lang="en">EN</a></nav></div>
+<header class="masthead">
+  <h1 class="daiji"><small>MIURA A-TEI · PHOTO SPOTS</small>三崎の<br>映えスポット</h1>
+  <p class="mh-lead">三崎・城ヶ島・三浦海岸で、季節の花と、写真に残したい景色。いつ・どこへ行けばいいかを月ごとに。城ヶ島大橋のダイヤモンド富士も、いつでも見られるようにしています。</p>
+</header>
+<section aria-labelledby="df-h">
+<h2 class="men" id="df-h">ダイヤモンド富士<span class="latin">Diamond Fuji · twice a year</span></h2>
+<div class="df">
+  <span class="k">城ヶ島大橋から・日没</span>
+  <h3>年に2回、富士山の頂に夕日が沈みます</h3>
+  <div class="dates"><div class="d next"><b>5月1日（土）ごろ</b><span>あと168日</span></div><div class="d"><b>8月11日（水）ごろ</b><span>あと270日</span></div></div>
+  <p>毎年5月1日ごろと8月11日ごろの日没、城ヶ島大橋の中ほどから見えます（日は年によって前後）。富士山まで約85km、西北西の方角。橋は海から約23mの高さで、両側の漁港と海の向こうの富士山が見えます。</p>
+  <p class="src">出典：<a href="https://fujisantotomoni.jp/spot/城ヶ島大橋" target="_blank" rel="noopener">城ヶ島大橋 - 富士山撮影ポイント | 富士山とともに</a> / <a href="https://miura-info.ne.jp/sightseeing/nature-3/" target="_blank" rel="noopener">城ケ島大橋 | みうら観光ガイド（三浦市観光協会 公式WEB）</a></p>
+</div>
+</section><section aria-labelledby="cal-h">
+<h2 class="men" id="cal-h">見ごろの月<span class="latin">Season calendar</span></h2>
+<p class="sub">青い所が例年の見ごろ。色のついた列が今月です。年によって前後します。</p>
+<div class="cal"><table><colgroup><col class="c0"><col span="12"></colgroup><thead><tr><th class="nm" scope="col"><span class="vh">場所</span></th><th scope="col">1</th><th scope="col">2</th><th scope="col">3</th><th scope="col">4</th><th scope="col">5</th><th scope="col">6</th><th scope="col">7</th><th scope="col">8</th><th scope="col">9</th><th scope="col">10</th><th scope="col" class="now">11</th><th scope="col">12</th></tr></thead><tbody><tr><th class="nm" scope="row"><a href="#jogashima_suisen">城ヶ島の水仙</a></th><td class="on"><i></i></td><td class="on"><i></i></td><td class=""><i></i></td><td class=""><i></i></td><td class=""><i></i></td><td class=""><i></i></td><td class=""><i></i></td><td class=""><i></i></td><td class=""><i></i></td><td class=""><i></i></td><td class=" now"><i></i></td><td class=""><i></i></td></tr><tr><th class="nm" scope="row"><a href="#jogashima_umiu">城ヶ島のウミウ</a></th><td class="on"><i></i></td><td class="on"><i></i></td><td class="on"><i></i></td><td class="on"><i></i></td><td class=""><i></i></td><td class=""><i></i></td><td class=""><i></i></td><td class=""><i></i></td><td class=""><i></i></td><td class=""><i></i></td><td class="on now"><i></i></td><td class="on"><i></i></td></tr><tr><th class="nm" scope="row"><a href="#komatsugaike">小松ヶ池公園</a></th><td class=""><i></i></td><td class="on"><i></i></td><td class="on"><i></i></td><td class=""><i></i></td><td class=""><i></i></td><td class=""><i></i></td><td class=""><i></i></td><td class=""><i></i></td><td class=""><i></i></td><td class=""><i></i></td><td class=" now"><i></i></td><td class=""><i></i></td></tr><tr><th class="nm" scope="row"><a href="#miurakaigan_kawazu">三浦海岸の河津桜</a></th><td class=""><i></i></td><td class="on"><i></i></td><td class="on"><i></i></td><td class=""><i></i></td><td class=""><i></i></td><td class=""><i></i></td><td class=""><i></i></td><td class=""><i></i></td><td class=""><i></i></td><td class=""><i></i></td><td class=" now"><i></i></td><td class=""><i></i></td></tr><tr><th class="nm" scope="row"><a href="#df-h">ダイヤモンド富士</a></th><td class=""><i></i></td><td class=""><i></i></td><td class=""><i></i></td><td class=""><i></i></td><td class="on"><i></i></td><td class=""><i></i></td><td class=""><i></i></td><td class="on"><i></i></td><td class=""><i></i></td><td class=""><i></i></td><td class=" now"><i></i></td><td class=""><i></i></td></tr></tbody></table></div>
+</section><section aria-labelledby="sp-h">
+<h2 class="men" id="sp-h">場所<span class="latin">Photo spots</span></h2>
+<div class="grid three"><article class="card" id="jogashima_umiu">
+<div class="ran"><span class="cat">生きもの</span><span class="area">城ヶ島</span><span class="st">今が見ごろ</span></div>
+<h3>城ヶ島のウミウ</h3>
+<p class="when"><b>見ごろ</b>11月〜4月</p>
+<p>冬になると、ウミウ・ヒメウ・クロサギが城ヶ島に渡ってきます。島の南東、赤羽根崎の東の崖が生息地で、県の天然記念物です。崖には近づけないので、遠くから眺めます。</p>
+
+<div class="links"></div>
+<p class="src"><span class="cf">出典確認</span><a href="https://miura-info.ne.jp/sightseeing/nature-2/" target="_blank" rel="noopener">神奈川県立城ケ島公園 | みうら観光ガイド（三浦市観光協会 公式WEB）</a> / <a href="https://www.pref.kanagawa.jp/docs/wk7/cnt/f11539/p35617.html" target="_blank" rel="noopener">城ケ島公園 - 神奈川県ホームページ</a> / <a href="https://kanagawa-kankou.or.jp/spot/6264" target="_blank" rel="noopener">城ヶ島ハイキングコース（観光かながわNOW）</a> / <a href="https://ja.wikipedia.org/wiki/城ヶ島" target="_blank" rel="noopener">城ヶ島 - Wikipedia</a></p>
+</article><article class="card" id="jogashima_ohashi"><div class="thumb"><img src="../../img/jogashima_bridge_sunset.jpg" alt="" loading="lazy" width="480" height="300"></div>
+<div class="ran"><span class="cat">景色</span><span class="area">三崎〜城ヶ島</span></div>
+<h3>城ヶ島大橋</h3>
+
+<p>長さ575mの橋を、歩いて渡れます。まわりにさえぎるものがなく、東に房総半島、南に伊豆大島、西に富士山。ダイヤモンド富士もこの橋から見えます。</p>
+<p class="when"><b>ひとこと</b>夕暮れ、夕日に染まる橋が美しい（観光協会）</p>
+<div class="links"><a href="https://www.google.com/maps/search/?api=1&query=35.138022,139.622629" target="_blank" rel="noopener">Googleマップで開く</a></div>
+<p class="src"><span class="cf">出典確認</span><a href="https://miura-info.ne.jp/sightseeing/nature-3/" target="_blank" rel="noopener">城ケ島大橋 | みうら観光ガイド（三浦市観光協会 公式WEB）</a></p>
+</article><article class="card" id="jogashima_lighthouse">
+<div class="ran"><span class="cat">景色</span><span class="area">城ヶ島（西）</span></div>
+<h3>城ヶ島灯台</h3>
+
+<p>1870年、フランス人技師ヴェルニーの設計で灯った、日本で5番目の西洋式灯台。崖の上の白い塔からの眺めがよく、ふもとにはお土産屋と海鮮のお店。城ヶ島バス停から歩いて5分ほど。</p>
+
+<div class="links"><a href="https://www.google.com/maps/search/?api=1&query=35.1350778,139.6111556" target="_blank" rel="noopener">Googleマップで開く</a></div>
+<p class="src"><span class="cf">出典確認</span><a href="https://miura-info.ne.jp/sightseeing/nature-4/" target="_blank" rel="noopener">城ヶ島灯台 | みうら観光ガイド（三浦市観光協会 公式WEB）</a> / <a href="https://kanagawa-kankou.or.jp/spot/6264" target="_blank" rel="noopener">城ヶ島ハイキングコース（観光かながわNOW）</a></p>
+</article><article class="card" id="awasaki_lighthouse">
+<div class="ran"><span class="cat">景色</span><span class="area">城ヶ島（東の端）</span></div>
+<h3>安房埼灯台（大根の灯台）</h3>
+
+<p>三浦大根を逆さにした形の灯台。下に向かって緑のグラデーションになっています。2020年3月に今の場所に建ちました。白秋碑前バス停から歩いて10分ほど。</p>
+
+<div class="links"><a href="https://www.google.com/maps/search/?api=1&query=35.1302008,139.6275671" target="_blank" rel="noopener">Googleマップで開く</a></div>
+<p class="src"><span class="cf">出典確認</span><a href="https://miura-info.ne.jp/sightseeing/nature-5/" target="_blank" rel="noopener">安房埼灯台 | みうら観光ガイド（三浦市観光協会 公式WEB）</a></p>
+</article><article class="card" id="umanose_domon"><div class="thumb"><img src="../../img/umanose.jpg" alt="" loading="lazy" width="480" height="300"></div>
+<div class="ran"><span class="cat">景色</span><span class="area">城ヶ島（南）</span></div>
+<h3>馬の背洞門</h3>
+
+<p>長い年月をかけて波がけずった、岩の門。上は崩れるおそれがあるので通れません。足もとが急なので、歩きやすい靴で。白秋碑前バス停から歩いて15分ほど。</p>
+
+<div class="links"><a href="https://www.google.com/maps/search/?api=1&query=35.1314702,139.6183347" target="_blank" rel="noopener">Googleマップで開く</a></div>
+<p class="src"><span class="cf">出典確認</span><a href="https://miura-info.ne.jp/sightseeing/nature-7/" target="_blank" rel="noopener">馬の背洞門 | みうら観光ガイド（三浦市観光協会 公式WEB）</a> / <a href="https://ja.wikipedia.org/wiki/城ヶ島" target="_blank" rel="noopener">城ヶ島 - Wikipedia</a></p>
+</article><article class="card" id="kurosakinohana"><div class="thumb"><img src="../../img/kurosakinohana.jpg" alt="" loading="lazy" width="480" height="300"></div>
+<div class="ran"><span class="cat">景色</span><span class="area">初声</span></div>
+<h3>黒崎の鼻</h3>
+
+<p>背の高い草の小道をぬけると、急に海がひらけます。遠くに富士山、建物の見えない景色。小さな入り江で磯遊びもできます。駐車場・トイレはありません。バス「宮田」から歩いて18分ほど。</p>
+
+<div class="links"><a href="https://www.google.com/maps/search/?api=1&query=35.1829948,139.6151296" target="_blank" rel="noopener">Googleマップで開く</a></div>
+<p class="src"><span class="cf">出典確認</span><a href="https://miura-info.ne.jp/sightseeing/nature-15/" target="_blank" rel="noopener">黒崎の鼻 | みうら観光ガイド（三浦市観光協会 公式WEB）</a></p>
+</article><article class="card" id="jogashima_park_seasons">
+<div class="ran"><span class="cat">花・景色</span><span class="area">城ヶ島（東）</span></div>
+<h3>県立城ケ島公園</h3>
+<p class="when"><b>季節</b>夏はアジサイ、秋はハチジョウススキ、冬は八重水仙</p>
+<p>島の東の台地の公園。南側の崖の上の遊歩道から、海と富士山が見えます。</p>
+
+<div class="links"><a href="https://www.google.com/maps/search/?api=1&query=35.1327325,139.62335" target="_blank" rel="noopener">Googleマップで開く</a></div>
+<p class="src"><span class="cf">出典確認</span><a href="https://miura-info.ne.jp/sightseeing/nature-2/" target="_blank" rel="noopener">神奈川県立城ケ島公園 | みうら観光ガイド（三浦市観光協会 公式WEB）</a> / <a href="https://www.pref.kanagawa.jp/docs/wk7/cnt/f11539/p35617.html" target="_blank" rel="noopener">城ケ島公園 - 神奈川県ホームページ</a></p>
+</article><article class="card" id="jogashima_suisen">
+<div class="ran"><span class="cat">花</span><span class="area">城ヶ島</span></div>
+<h3>城ヶ島の八重咲水仙</h3>
+<p class="when"><b>見ごろ</b>1月〜2月　1月中旬〜2月中旬。2月に水仙まつり</p>
+<p>県立城ケ島公園と、公園から城ヶ島灯台へつづく「水仙ロード」に、約30万株の八重咲水仙。公園の入口から東の端の安房埼灯台へ向かう道ぞいにも咲きます。</p>
+<p class="when"><b>ひとこと</b>見ごろは気候で前後します</p>
+<div class="links"><a href="https://www.google.com/maps/search/?api=1&query=35.1327325,139.62335" target="_blank" rel="noopener">Googleマップで開く</a></div>
+<p class="src"><span class="cf">出典確認</span><a href="https://www.kanagawa-kankou.or.jp/features/flower-guide07" target="_blank" rel="noopener">約30万株の八重咲水仙が香る城ヶ島【花のコラム】（観光かながわNOW）</a> / <a href="https://www.pref.kanagawa.jp/docs/wk7/cnt/f11539/p35617.html" target="_blank" rel="noopener">城ケ島公園 - 神奈川県ホームページ</a> / <a href="https://kanagawa-kankou.or.jp/spot/6264" target="_blank" rel="noopener">城ヶ島ハイキングコース（観光かながわNOW）</a></p>
+</article><article class="card" id="miurakaigan_kawazu"><div class="thumb"><img src="../../img/miurakaigan_kawazu.jpg" alt="" loading="lazy" width="480" height="300"></div>
+<div class="ran"><span class="cat">花</span><span class="area">三浦海岸</span></div>
+<h3>三浦海岸の河津桜と菜の花</h3>
+<p class="when"><b>見ごろ</b>2月〜3月　桜まつりは2027年2月5日〜3月3日（第23回）</p>
+<p>京急の三浦海岸駅から小松ヶ池公園まで、線路ぞい約1kmに約1,000本の河津桜。同じころに菜の花が咲きならびます。</p>
+<p class="when"><b>ひとこと</b>駐車場が少なく道が混むので、電車がおすすめです</p>
+<div class="links"></div>
+<p class="src"><span class="cf">出典確認</span><a href="https://miura-info.ne.jp/23rd-sakura-festival/" target="_blank" rel="noopener">第23回三浦海岸桜まつり | みうら観光ガイド（三浦市観光協会 公式WEB）</a> / <a href="https://kanagawa-kankou.or.jp/spot/7369" target="_blank" rel="noopener">三浦海岸桜まつり【三浦市】（観光かながわNOW）</a></p>
+</article><article class="card" id="komatsugaike">
+<div class="ran"><span class="cat">花</span><span class="area">三浦海岸</span></div>
+<h3>小松ヶ池公園の河津桜</h3>
+<p class="when"><b>見ごろ</b>2月〜3月　2026年9月の台風で園路の一部が壊れ、一時通行止め（観光協会の告知）</p>
+<p>早咲きの河津桜の公園。2月〜3月は桜まつりでにぎわいます。三浦海岸駅から歩いて18分ほど。</p>
+
+<div class="links"><a href="https://www.google.com/maps/search/?api=1&query=35.1836137,139.6425792" target="_blank" rel="noopener">Googleマップで開く</a></div>
+<p class="src"><span class="cf">出典確認</span><a href="https://miura-info.ne.jp/sightseeing/nature-9/" target="_blank" rel="noopener">小松ヶ池公園 | みうら観光ガイド（三浦市観光協会 公式WEB）</a></p>
+</article></div>
+</section>
+<footer class="okuzuke">出典確認＝公式や観光協会のページで確かめたもの／要確認＝一次でない出典。花の時期は年によって前後します。写真：Wikimedia Commons（<a href="https://commons.wikimedia.org/wiki/File:Keikyu-Kurihama-Line_Kawazu-cherry-blossoms.jpg" target="_blank" rel="noopener">京急線ぞいの河津桜</a> MaedaAkihiko (CC BY-SA 4.0)、<a href="https://commons.wikimedia.org/wiki/File:夕日と城ヶ島大橋.JPG" target="_blank" rel="noopener">夕日と城ヶ島大橋</a> kauhoshi (CC BY 3.0)、<a href="https://commons.wikimedia.org/wiki/File:Umanose-Domon_Jogashima_Island.jpg" target="_blank" rel="noopener">馬の背洞門</a> Osumi Akari (CC BY-SA 4.0)、<a href="https://commons.wikimedia.org/wiki/File:Kurosaki_no_hana.JPG" target="_blank" rel="noopener">黒崎の鼻</a> ubic (CC BY-SA 3.0)）。<br><a href="../../history/">歴史さんぽ</a> · <a href="../hito/">三崎の人</a> · By Yanuki</footer>
+</main>
+<script>(function(){try{var L=document.documentElement.lang;
+document.querySelectorAll('.lang a').forEach(function(a){a.addEventListener('click',function(){a.href=a.href.split('#')[0]+location.hash;try{localStorage.setItem('lang',a.hreflang)}catch(e){}})});
+var p=null;try{p=localStorage.getItem('lang')}catch(e){}
+var r=document.referrer,same=false;try{same=!!r&&new URL(r).origin===location.origin}catch(e){}
+if(p&&p!==L&&!same){var a=document.querySelector('.lang a[hreflang="'+p+'"]');if(a)location.replace(a.href.split('#')[0]+location.hash)}}catch(e){}})();</script>
+</body>
+</html>

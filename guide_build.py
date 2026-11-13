@@ -82,6 +82,18 @@ TXT_EN = dict(desc="A guide for guests of Miura A-tei: places to eat, see, do, a
               t_season="This season", t_places="Places", t_all="All", t_none="Nothing matches these filters. ", t_reset="Clear all filters",
               t_detail="Details", t_close="Close", js_open="'Open today'", js_near="'Within 15 min walk'", js_count="' places'")
 
+KNOW = [  # 三崎を知る（2026-11-14 ヤヌキ判断）：(道, 写真, 日本語の名前, ひとこと, 英語の名前, 英語のひとこと)
+    ("guide/hito/", "img/hakushuhi.jpg", "三崎の人", "白秋など、ゆかりの人", "People", "Hakushu and others"),
+    ("history/", "img/misaki_harbor.jpg", "歴史さんぽ", "時代ごとに3D地図で", "History walk", "By era, on a 3D map"),
+    ("guide/hae/", "img/jogashima_bridge_sunset.jpg", "映えスポット", "季節の花とダイヤモンド富士", "Photo spots", "Flowers & Diamond Fuji"),
+]
+def know_html(R, E):
+    cards = "".join(
+        f'<a href="{R}{p}{"en/" if E else ""}"><img src="{R}{im}" alt="" loading="lazy" width="480" height="360"><span class="kx"><b>{en_n if E else ja}</b><small>{en_s if E else s}</small></span></a>'
+        for p, im, ja, s, en_n, en_s in KNOW)
+    return (f'<section class="know" aria-labelledby="know-h"><h2 class="men" id="know-h">{"Get to know Misaki" if E else "三崎を知る"}'
+            f'<span class="latin">Know Misaki</span></h2><div class="kg">{cards}</div></section>')
+
 def build():
     global LANG
     for LANG in ("ja", "en"):
@@ -373,6 +385,16 @@ a{color:inherit} button{font:inherit;color:inherit}
 $ui_css
 $lang_css
 $status_css
+/* 三崎を知る（2026-11-14） */
+.know{margin:26px 0 0}
+.know .kg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.know a{display:flex;flex-direction:column;min-width:0;border:1px solid var(--hair);border-radius:12px;overflow:hidden;text-decoration:none;color:var(--ink);background:var(--bg)}
+.know a:hover{border-color:var(--sea)}
+.know img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
+.know .kx{display:flex;flex-direction:column;gap:2px;padding:8px 10px 10px}
+.know b{font-family:var(--mincho);font-weight:800;font-size:16px;line-height:1.35}
+.know small{font-size:11.5px;color:var(--mute);line-height:1.5}
+@media (max-width:420px){.know .kg{gap:8px}.know b{font-size:14.5px}.know small{display:none}}
 /* 奥付 */
 .okuzuke{margin-top:44px;border-top:3px double var(--rule);padding-top:12px;font-size:11.5px;line-height:1.9;color:var(--mute)}
 .okuzuke a{color:var(--sea)}
@@ -389,6 +411,7 @@ $sitenav
 </header>
 
 $hana
+$know
 <section class="sec" id="season">
   <h2 class="men">$t_season<span class="latin">$month</span></h2>
   <div class="grid">$df$season$events</div>
@@ -480,7 +503,7 @@ $lang_js
                  season_empty='' if (season_html or events_html) else f'<p class="empty">{"Nothing seasonal right now." if E else "いまは季節の項目がありません。"}</p>',
                  total=len(published), tabs="".join(f'<button type="button" class="fchip" data-cat="{esc(c)}" aria-pressed="false">{esc(catname(c))}<span class="n">{counts[c]}</span></button>' for c in CATS),
                  spots=spots_html or f'<p class="empty">{"No places are listed yet." if E else "掲載中の場所はまだありません。"}</p>', credits=credits, cats_json=json.dumps(CATS, ensure_ascii=False), ui_css=UI_CSS,
-                 hana=hana_banner(R, lang=LANG), status_css=shop_hours.STATUS_CSS, open_js=shop_hours.OPEN_JS, sitenav=sitenav("guide", R, lang=LANG, is_top=True, sos=True),
+                 hana=hana_banner(R, lang=LANG), know=know_html(R, E), status_css=shop_hours.STATUS_CSS, open_js=shop_hours.OPEN_JS, sitenav=sitenav("guide", R, lang=LANG, is_top=True, sos=True),
                  lang_css=LANG_CSS, lang_js=LANG_JS, langswitch=langswitch(LANG),
                  alternates=f'<link rel="alternate" hreflang="ja" href="{SITE}"><link rel="alternate" hreflang="en" href="{SITE}en/"><link rel="alternate" hreflang="x-default" href="{SITE}">',
                  **(TXT_EN if E else TXT_JA),

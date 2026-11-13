@@ -42,6 +42,10 @@ def fix(href):
         return href
     if href == "../index.html":               # 最近の三浦（英語版は見出しだけ英語）
         return "../../en/"
+    if href == "../history/":                 # 歴史さんぽの英語版（2026-11-14）
+        return "../../history/en/"
+    if href.startswith("../guide/hito/") or href.startswith("../guide/hae/"):
+        return "../../" + href[len("../"):] + "en/"
     if href.startswith("../guide/"):          # ガイドブックとおすすめマップ（2D）は英語版がある
         return "../../guide/en/" + href[len("../guide/"):]
     return "../" + href if href.startswith("../") else href
@@ -174,6 +178,8 @@ SECTIONS = [
         ("お店・名所", "食べる・見る・体験する。今日やっているお店も", "../guide/", False),
         ("最近の三浦", "イベントや交通の近況", "../index.html", False),
         ("歴史さんぽ", "ゆかりの地を時代ごとに3D地図で", "../history/", False),
+        ("三崎の人", "白秋など、三崎ゆかりの人", "../guide/hito/", False),
+        ("映えスポット", "季節の花と景色、ダイヤモンド富士", "../guide/hae/", False),
     ]),
     ("困ったとき・出発", "", [
         ("地震・津波・体調が悪いとき", "揺れたら・津波・119と#7119", "bosai.html", False),
@@ -208,7 +214,9 @@ SECTIONS_EN = [
         ("The house manager's recommended map", "The house manager's favorite places to eat and shop"),
         ("Eat & See", "Eat, see, do. Shops open today"),
         ("Miura News", "Events and traffic news. Headlines in English"),
-        ("History walk", "Historic places by era on a 3D map. In Japanese"),
+        ("History walk", "Historic places by era on a 3D map"),
+        ("People of Misaki", "Hakushu and others linked to Misaki"),
+        ("Photo spots", "Seasonal flowers, views and Diamond Fuji"),
     ]),
     ("Help & leaving", "", [
         ("Earthquake, tsunami & feeling sick", "When it shakes, tsunami, 119 and #7119"),

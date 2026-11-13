@@ -207,6 +207,34 @@
    "license": "三浦A邸撮影",
    "source": "",
    "caption": "ミサキプレッソの店内"
+  },
+  "miurakaigan_kawazu": {
+   "file": "img/miurakaigan_kawazu.jpg",
+   "credit": "MaedaAkihiko",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Keikyu-Kurihama-Line_Kawazu-cherry-blossoms.jpg",
+   "caption": "京急線ぞいの河津桜"
+  },
+  "kurosakinohana": {
+   "file": "img/kurosakinohana.jpg",
+   "credit": "ubic",
+   "license": "CC BY-SA 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Kurosaki_no_hana.JPG",
+   "caption": "黒崎の鼻"
+  },
+  "umanose": {
+   "file": "img/umanose.jpg",
+   "credit": "Osumi Akari",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Umanose-Domon_Jogashima_Island.jpg",
+   "caption": "馬の背洞門"
+  },
+  "hakushuhi": {
+   "file": "img/hakushuhi.jpg",
+   "credit": "kauhoshi",
+   "license": "CC BY 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:%E5%9F%8E%E3%83%B6%E5%B3%B6%E5%A4%A7%E6%A9%8B%E3%81%A8%E7%99%BD%E7%A7%8B%E7%A2%91.jpg",
+   "caption": "白秋碑と城ヶ島大橋"
   }
  }
 }

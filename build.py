@@ -649,3 +649,9 @@ try:
     import guide_build; guide_build.build()
 except Exception as e:
     print("guide_build failed:", e)
+
+# ---- 三崎を知る（映えスポット・三崎の人）も一緒に生成（ダイヤモンド富士の「あと何日」を毎朝更新するため。2026-11-14）
+try:
+    import yomu_build; yomu_build.main()
+except Exception as e:
+    print("yomu_build failed:", e)

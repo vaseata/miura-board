@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="description" content="Explore historic sites of Miura on a 3D map, era by era: a Yayoi village, Yoritomo's villas, the fall of the Miura clan, lighthouses, “Rain on Jogashima” and the tuna port.">
+<title>Miura History Walk (3D map)</title>
+<link rel="alternate" hreflang="ja" href="https://vaseata.github.io/miura-board/history/"><link rel="alternate" hreflang="en" href="https://vaseata.github.io/miura-board/history/en/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;700&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.min.css">
+<style>/* 三浦 歴史さんぽ：歴史のゆかりの地を、時代ごとの色のピンで 3D の地図にのせる。
+   地図の仕組みは おすすめマップ 3D版（hana_public3d.tpl.html）と同じ（MapLibre GL JS＋地理院の標高タイル）。
+   だれでも見られるページなので、A邸の位置は出さない。 */
+:root{
+  --ink:#1f2933; --ink-2:#5b6770; --accent:#0A5A8C; --tuna:#B8243A; --soft:#F3F6F8; --soft-2:#E6EEF3;
+  --line:#DCE3E8; --bg:#FFFFFF; --card:#FFFFFF;
+  --font:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",sans-serif;
+  --serif:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
+  --r:14px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:500 16px/1.75 var(--font);-webkit-text-size-adjust:100%}
+body.big{overflow:hidden}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 40px}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid #7FB3D5;outline-offset:2px}
+button{font:inherit;color:inherit}
+
+.hero{padding:0 0 4px}
+.eyebrow{margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--accent)}
+h1{margin:0;font:700 clamp(27px,7vw,36px)/1.3 var(--serif);letter-spacing:.04em}
+h1 span{display:inline-block}
+.lede{margin:10px 0 0;font-size:15px;line-height:1.85;color:var(--ink-2);max-width:36em}
+
+/* 時代の帯：押すとその時代だけにする。丸は地図のピンと同じ色 */
+.filters{margin-top:20px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:flex;align-items:center;gap:7px;min-height:42px;padding:0 14px;border:1px solid var(--line);border-radius:99px;background:#fff;font-weight:700;font-size:14.5px;cursor:pointer}
+.chip i{width:12px;height:12px;border-radius:50%;flex:none}
+.chip[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
+.chip[aria-pressed=true] i{box-shadow:0 0 0 2px #fff}
+.chip small{font-weight:500;opacity:.75}
+
+.mapcard{margin-top:16px;border:1px solid var(--line);border-radius:var(--r);background:#fff;overflow:hidden;display:flex;flex-direction:column}
+#map{height:clamp(360px,62vh,580px);background:#F6F3EC}
+.tools{display:flex;flex-wrap:wrap;gap:8px;padding:10px 12px;border-top:1px solid var(--line)}
+.tool{min-height:42px;min-width:42px;padding:0 14px;border:1px solid var(--line);border-radius:99px;background:#fff;font-weight:700;font-size:14px;cursor:pointer}
+.tool[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:#fff}
+.tool.go{border-color:var(--tuna);color:var(--tuna)}
+.tool.go[aria-pressed=true]{background:var(--tuna);color:#fff}
+.tool.end{margin-left:auto}
+.mapfoot{border-top:1px solid var(--line);padding:10px 16px;font-size:12.5px;color:var(--ink-2);line-height:1.6}
+.mapcard.big{position:fixed;inset:0;z-index:1000;margin:0;border:0;border-radius:0}
+.mapcard.big .mapwrap{flex:1;min-height:0}
+.mapcard.big #map{height:100%}
+.mapcard.big .mapfoot{display:none}
+.mapcard.big .tools{padding-bottom:calc(10px + env(safe-area-inset-bottom,0px))}
+.nogl{display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;color:var(--ink-2);font-size:14.5px}
+
+.mapwrap{position:relative}
+.pad{position:absolute;left:10px;bottom:10px;z-index:5;display:grid;grid-template-columns:repeat(3,38px);grid-template-rows:repeat(3,38px);gap:2px}
+.pad button{display:flex;align-items:center;justify-content:center;color:var(--ink);border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.94);font-size:17px;line-height:1;padding:0;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.18);touch-action:manipulation;-webkit-user-select:none;user-select:none}
+.pad button:active{background:var(--soft-2)}
+.pad .u{grid-area:1/2}.pad .l{grid-area:2/1}.pad .r{grid-area:2/3}.pad .d{grid-area:3/2}
+/* 「時代をたどる」の字幕：年・名前・ひとこと */
+.cap{position:absolute;left:10px;top:10px;z-index:5;max-width:calc(100% - 70px);padding:9px 14px 10px;border-radius:12px;background:rgba(255,255,255,.96);box-shadow:0 2px 8px rgba(0,0,0,.2);pointer-events:none;line-height:1.5;border-left:5px solid var(--accent)}
+.cap[hidden]{display:none}
+.cap em{display:block;font-style:normal;font-size:12px;font-weight:700;letter-spacing:.06em}
+.cap b{display:block;font:700 17px/1.4 var(--serif)}
+.cap span{display:block;font-size:12.5px;color:var(--ink-2)}
+#map.rot .maplibregl-canvas-container{cursor:grab}
+#map.rot .maplibregl-canvas-container:active{cursor:grabbing}
+
+/* ピン：position は必ず absolute（地図部品がピンを左上基準で動かす） */
+.pin{position:absolute;left:0;top:0;width:30px;height:37px;padding:0;border:0;background:none;cursor:pointer;font:700 13.5px/1 var(--font);transition:opacity .6s}
+.pin::before{content:"";position:absolute;left:50%;bottom:-3px;width:16px;height:6px;margin-left:-8px;border-radius:50%;background:rgba(0,0,0,.3);filter:blur(1.5px)}
+.pin i{position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2px solid #fff;box-shadow:-1px 2px 4px rgba(0,0,0,.4)}
+.pin span{position:absolute;left:0;top:0;width:30px;height:30px;display:flex;align-items:center;justify-content:center;color:#fff}
+.pin b{display:none;position:absolute;left:100%;top:4px;margin-left:3px;max-width:11em;padding:0 8px;border-radius:99px;background:rgba(255,255,255,.96);color:var(--ink);font:700 11.5px/22px var(--font);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:0 1px 3px rgba(0,0,0,.28)}
+.pin.lab b{display:block}
+.pin.on{z-index:4}
+.pin.on i{box-shadow:0 0 0 3px rgba(255,255,255,.95),0 0 0 6px rgba(31,41,51,.55)}
+#map.intro .pin{opacity:0!important;pointer-events:none}
+.pin.cl{width:38px;height:46px;font-size:15px}
+.pin.cl i,.pin.cl span{width:38px;height:38px}
+.pin.cl i{background:#fff;border-color:var(--ink)}
+.pin.cl span{color:var(--ink)}
+.pin.cl small{font-size:9px;margin-left:1px;margin-top:3px}
+.maplibregl-popup{max-width:min(280px,72vw)!important}
+.maplibregl-popup-content{border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.18);padding:12px 30px 12px 14px;font:500 14px/1.6 var(--font);color:var(--ink)}
+.maplibregl-popup-close-button{width:32px;height:32px;font-size:20px;color:var(--ink-2)}
+.pw{display:block;font-size:11.5px;font-weight:700;letter-spacing:.04em}
+.pn{display:block;font:700 16px/1.4 var(--serif)}
+.ph{display:block;margin-top:4px;font-size:13.5px;line-height:1.6}
+.pm{margin-top:8px;min-height:36px;padding:4px 14px;border:1px solid var(--line);border-radius:99px;background:#fff;font-size:13px;font-weight:700;cursor:pointer}
+.pl{display:grid;gap:6px;margin-top:6px}
+.pl button{min-height:36px;padding:4px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;text-align:left;font-size:13.5px;font-weight:700;cursor:pointer}
+.maplibregl-ctrl-attrib{font-size:10px}
+.maplibregl-cooperative-gesture-screen{font-family:var(--font);font-size:15px;padding:16px}
+
+/* 読みもの：時代の見出し → 場所のカード */
+.era{margin:40px 0 14px;padding-top:18px;border-top:3px solid var(--ec,var(--ink))}
+.era p.r{margin:0;font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--ec)}
+.era h2{margin:2px 0 0;font:700 25px/1.35 var(--serif);letter-spacing:.04em}
+.era p.l{margin:8px 0 0;font-size:15px;line-height:1.85;color:var(--ink-2)}
+h2.all{display:flex;align-items:baseline;gap:10px;margin:36px 0 0;font-size:15px;font-weight:700;color:var(--ink-2)}
+.item{display:grid;grid-template-columns:34px minmax(0,1fr);gap:0 12px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 14px;margin:0 0 12px;cursor:pointer;scroll-margin-top:12px;transition:box-shadow .3s,border-color .3s}
+.item.hit{border-color:var(--ec);box-shadow:0 0 0 3px color-mix(in srgb,var(--ec) 25%,transparent)}
+.item .n{width:34px;height:34px;border-radius:50%;font-weight:700;font-size:14.5px;display:flex;align-items:center;justify-content:center;color:#fff;background:var(--ec)}
+.item .w{margin:0;font-size:12.5px;font-weight:700;letter-spacing:.04em;color:var(--ec)}
+.item h3{margin:0;font:700 19px/1.4 var(--serif);letter-spacing:.02em}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.tag{font-size:12px;font-weight:700;color:var(--ink-2);background:var(--soft);border-radius:99px;padding:0 10px;line-height:22px}
+.tag.lg{color:#7a5a00;background:#FFF3C4}
+.hl{margin:10px 0 0;padding:9px 12px;background:var(--soft);border-left:3px solid var(--ec);border-radius:4px 10px 10px 4px;font:700 15.5px/1.65 var(--serif)}
+.note{margin:10px 0 0;font-size:15px;line-height:1.85}
+.see{margin:10px 0 0;font-size:13.5px;line-height:1.65}
+.see b{display:inline-block;margin-right:8px;padding:0 8px;border-radius:6px;background:var(--soft-2);font-size:11.5px;line-height:20px;letter-spacing:.06em;vertical-align:1px}
+.meta{margin:8px 0 0;font-size:12px;line-height:1.7;color:var(--ink-2)}
+.meta a{color:var(--ink-2)}
+.empty{padding:28px 16px;text-align:center;color:var(--ink-2);background:var(--soft);border-radius:var(--r)}
+.foot{margin-top:28px;font-size:12.5px;color:var(--ink-2);line-height:1.75}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media (min-width:720px){.wrap{padding-top:40px}.item{padding:18px 18px}}
+.hnav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 14px}
+.hnav .back{display:inline-flex;align-items:center;min-height:44px;font-weight:700;text-decoration:none}
+.lang{display:inline-grid;grid-template-columns:1fr 1fr;gap:2px;padding:3px;background:var(--soft);border:1px solid var(--line);border-radius:999px;flex:none}
+.lang a{display:flex;align-items:center;justify-content:center;min-width:52px;min-height:38px;border-radius:999px;color:var(--ink-2);font:400 14px/1 var(--font);text-decoration:none}
+.lang a[aria-current="page"]{background:var(--bg);color:var(--ink);font-weight:700;box-shadow:0 0 0 1px var(--line)}
+</style></head><body>
+<div class="wrap">
+<nav class="hnav" aria-label="Navigation"><a class="back" href="../../guide/en/">← Eat &amp; See</a><span class="lang"><a href="../" hreflang="ja" lang="ja">JP</a><a href="./" hreflang="en" lang="en" aria-current="page">EN</a></span></nav>
+<header class="hero">
+  <p class="eyebrow">MIURA A-TEI</p>
+  <h1><span>Miura History Walk</span></h1>
+  <p class="lede">A Yayoi village, Yoritomo's three villas, the last stand of the Miura clan, beacons and lighthouses, “Rain on Jogashima” and the tuna port. 29 historic places in Miura, numbered from oldest to newest, on a map where the land rises in 3D. Pin colours show the era. Place names on the map are partly in Japanese.</p>
+</header>
+
+<div class="filters">
+  <div class="chips" id="eras" role="group" aria-label="Filter by era"></div>
+</div>
+
+<section class="mapcard" id="card" aria-label="Map of historic places">
+  <div class="mapwrap">
+    <div id="map" role="application" aria-label="Map"></div>
+    <div class="cap" id="cap" role="status" aria-live="polite" hidden><em id="capw"></em><b id="capn"></b><span id="capt"></span></div>
+    <div class="pad" id="pad" role="group" aria-label="Map direction and tilt">
+      <button type="button" class="u" data-p="10" aria-label="Tilt" title="Tilt">▲</button>
+      <button type="button" class="l" data-b="-20" aria-label="Rotate left" title="Rotate left"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.6-5.9"/><path d="M4 4v5h5"/></svg></button>
+      <button type="button" class="r" data-b="20" aria-label="Rotate right" title="Rotate right"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transform:scaleX(-1)"><path d="M4 12a8 8 0 1 0 2.6-5.9"/><path d="M4 4v5h5"/></svg></button>
+      <button type="button" class="d" data-p="-10" aria-label="Look straight down" title="Look straight down">▼</button>
+    </div>
+  </div>
+  <div class="tools" id="tools" role="group" aria-label="Map controls">
+    <button type="button" class="tool go" id="ttr" aria-pressed="false">Tour the eras</button>
+    <button type="button" class="tool" id="t3d" aria-pressed="true">3D</button>
+    <button type="button" class="tool" id="tph" aria-pressed="false">Photo</button>
+    <button type="button" class="tool" id="tdr" aria-pressed="false" title="When on, dragging rotates and tilts the map">Drag to rotate</button>
+    <button type="button" class="tool" id="thm">Reset view</button>
+    <button type="button" class="tool end" id="tbg" aria-pressed="false">Full screen</button>
+  </div>
+  <div class="mapfoot">“Tour the eras” flies over the places from the Yayoi period to Showa, oldest first (touch the map to stop). Numbers match the stories below. White pins with a number group nearby places (tap to spread them). Use the arrow buttons at the lower left to rotate and tilt. Land and building heights are true to scale. Buildings without recorded heights are shown at 5 m.</div>
+</section>
+
+<div id="list" aria-live="polite"></div>
+
+<p class="foot">Everything here was checked against the sources listed under each item (mostly in Japanese). 🟢 = checked on a Miura City or Miura Tourism Association page; 🟡 = from a secondary source such as Wikipedia. “Legend” marks stories that include tradition. Pin positions come from OpenStreetMap and Wikipedia and may be off by tens of metres. Temples, shrines and research facilities have their own opening hours and access rules. Translated from the Japanese; if they differ, the Japanese version is correct.<br>Map, buildings and structures © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors (tiles: <a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a> © OpenMapTiles). Photos and elevation: <a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">GSI Japan (GSI tiles)</a>.<br><a href="../../en/">Miura news</a> · <a href="../../guide/en/">Eat &amp; See</a> · <a href="../../guide/hito/en/">People of Misaki</a> · <a href="../../guide/hae/en/">Photo spots</a></p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.min.js"></script>
+<script>
+(function(){
+var D=[{"id": "moroiso", "name": "Moroiso raised coast", "era": "taiko", "when": "thousands of years ago–", "area": "Moroiso", "lat": 35.15144, "lon": 139.62297, "headline": "Rows of shell holes in the cliff record great earthquakes", "story": "Holes bored by rock-boring shellfish that live at the waterline line the cliff in several bands. Each band is thought to mark a time the land was lifted by an earthquake, and the site became a national natural monument in 1928. Seismologist Imamura Akitsune matched the upper bands to the 1923 Great Kanto Earthquake and the 1703 Genroku earthquake, but later studies suggest the lower bands most likely formed 6,000–5,000 years ago.", "see": "The bands of shell holes in the cliff", "confidence": "🟡", "sources": [{"url": "https://ja.wikipedia.org/wiki/諸磯の隆起海岸", "title": "Wikipedia「諸磯の隆起海岸」"}, {"url": "https://www.city.miura.kanagawa.jp/kanko_bunka_sports/rekishi_bunkazai/2/6285.html", "title": "三浦市「三浦の歴史」"}], "no": 1}, {"id": "akasaka", "name": "Akasaka site", "era": "taiko", "when": "Middle–Late Yayoi period", "area": "Hasse", "lat": 35.17444, "lon": 139.63411, "headline": "A large Yayoi village stood just south of Misakiguchi Station", "story": "The remains of a settlement spread over a plateau about 50 m high, some 350 m south of Misakiguchi Station. More than 130 pit dwellings have been found, including one huge building of 15.0 m × 12.2 m. Bronze bracelets, iron fish hooks, glass beads, charred rice and turban and abalone shells suggest it was a base for fishing and sea trade. The core area became a national historic site in 2011.", "see": "Finds are shown in the Akasaka Yayoi room at the Hasse Civic Center", "confidence": "🟡", "tour": true, "cam": {"z": 15.6, "b": 20, "p": 60}, "sources": [{"url": "https://ja.wikipedia.org/wiki/赤坂遺跡", "title": "Wikipedia「赤坂遺跡」"}, {"url": "https://www.city.miura.kanagawa.jp/kanko_bunka_sports/rekishi_bunkazai/2/6285.html", "title": "三浦市「三浦の歴史」"}], "no": 2}, {"id": "bishamon", "name": "Bishamon cave", "era": "taiko", "when": "Yayoi period–", "area": "Bishamon", "lat": 35.13994, "lon": 139.65491, "headline": "In a wave-cut cave, people fished and read the future", "story": "About 40 sea caves carved by waves are known on the Miura Peninsula, around 30 of them in Miura City. Bishamon Cave (a prefectural historic site) and Ourayama Cave yielded many tools of bone, antler and shell, and bones used for divination. Many human bones were also found, showing the caves were finally used as graves.", "see": "The seaside cliffs at Bishamon", "confidence": "🟢", "sources": [{"url": "https://www.city.miura.kanagawa.jp/kanko_bunka_sports/rekishi_bunkazai/2/6285.html", "title": "三浦市「三浦の歴史」"}], "no": 3}, {"id": "kainan", "name": "Kainan Shrine", "era": "kamakura", "when": "982", "area": "Misaki", "lat": 35.14277, "lon": 139.61885, "headline": "A noble from the capital, washed ashore in a storm, became Miura's god", "story": "Legend says that in 864 Fujiwara no Sukemitsu, on his way to Kyushu, was swept to Miura by a storm and welcomed by the local chief. After his death people built a shrine to him, and in 982 a hall was built on the present site. The great ginkgo in the grounds (about 800 years old) is said to have been planted by Minamoto no Yoritomo. Every 15 January girls perform the Chakkirako dance here; it was inscribed by UNESCO as Intangible Cultural Heritage in 2009 and is now one of the “Furyu-odori” dances.", "see": "The great ginkgo said to be planted by Yoritomo; the sacred bridge over the Mitarashi pond (finials given by Mukai Tadakatsu in 1640)", "legend": true, "confidence": "🟢", "tour": true, "cam": {"z": 17.2, "b": -30, "p": 62}, "sources": [{"url": "https://miura-info.ne.jp/sightseeing/history-3/", "title": "三浦市観光協会「海南神社」"}, {"url": "https://miura-info.ne.jp/%e9%8e%8c%e5%80%89%e6%ae%bf%e3%81%a813%e4%ba%ba%e3%81%ae%e9%87%8d%e8%87%a3%e3%81%9f%e3%81%a1-%e3%82%86%e3%81%8b%e3%82%8a%e3%81%ae%e5%9c%b0/", "title": "三浦市観光協会「鎌倉殿と13人の重臣たち ゆかりの地」"}, {"url": "https://ja.wikipedia.org/wiki/海南神社", "title": "Wikipedia「海南神社」"}, {"url": "https://ja.wikipedia.org/wiki/チャッキラコ", "title": "Wikipedia「チャッキラコ」"}], "no": 4}, {"id": "kentoji", "name": "Kentoji Temple (the Peach Palace)", "era": "kamakura", "when": "1190s", "area": "Shiraishi", "lat": 35.14442, "lon": 139.61531, "headline": "Yoritomo had three villas in Misaki: peach, cherry and camellia", "story": "Minamoto no Yoritomo is said to have built three villas in scenic Misaki: the Peach, Cherry and Camellia Palaces. This is the site of the Peach Palace. The temple is said to have been founded in the early Edo period by Mukai Masatsuna, Misaki's naval commissioner (sources give 1613 or 1628), and the graveyard holds the Mukai family's stones. The main Yakushi Buddha was the principal image of a temple that the monk Gyoki is said to have built on Jogashima in the Nara period. Kitahara Hakushu's poem stone was set up in 1941 and is said to be the only one whose unveiling he attended himself.", "see": "Hakushu's poem stone; stone towers of the Mukai family", "legend": true, "confidence": "🟢", "tour": true, "cam": {"z": 16.6, "b": 40, "p": 62}, "sources": [{"url": "https://miura-info.ne.jp/sightseeing/history-4/", "title": "三浦市観光協会「見桃寺」"}, {"url": "https://miura-info.ne.jp/%e9%8e%8c%e5%80%89%e6%ae%bf%e3%81%a813%e4%ba%ba%e3%81%ae%e9%87%8d%e8%87%a3%e3%81%9f%e3%81%a1-%e3%82%86%e3%81%8b%e3%82%8a%e3%81%ae%e5%9c%b0/", "title": "三浦市観光協会「鎌倉殿と13人の重臣たち ゆかりの地」"}, {"url": "https://www.city.miura.kanagawa.jp/kanko_bunka_sports/rekishi_bunkazai/2/6285.html", "title": "三浦市「三浦の歴史」"}, {"url": "https://ja.wikipedia.org/wiki/城ヶ島", "title": "Wikipedia「城ヶ島」"}], "no": 5}, {"id": "honzuiji", "name": "Honzuiji Temple (the Cherry Palace)", "era": "kamakura", "when": "1190s", "area": "Misaki", "lat": 35.14243, "lon": 139.62065, "headline": "Cherry-blossom parties that took in the trees across the water on Jogashima", "story": "This is said to be the site of Yoritomo's Cherry Palace. Many cherry trees were planted, and feasts were often held to view them together with the cherries on Jogashima across the water; the second and third shoguns, Yoriie and Sanetomo, also came. The temple moved here in 1719. A bell inscribed 1344 (a prefectural cultural property) and a gate built in 1821 remain.", "see": "The temple gate and the hilltop grounds", "legend": true, "confidence": "🟢", "sources": [{"url": "https://miura-info.ne.jp/%e9%8e%8c%e5%80%89%e6%ae%bf%e3%81%a813%e4%ba%ba%e3%81%ae%e9%87%8d%e8%87%a3%e3%81%9f%e3%81%a1-%e3%82%86%e3%81%8b%e3%82%8a%e3%81%ae%e5%9c%b0/", "title": "三浦市観光協会「鎌倉殿と13人の重臣たち ゆかりの地」"}], "no": 6}, {"id": "daichinji", "name": "Daichinji Temple (the Camellia Palace)", "era": "kamakura", "when": "1190s", "area": "Mukogasaki", "lat": 35.14048, "lon": 139.62305, "headline": "After Yoritomo's death, a woman became a nun and lived here for over 30 years", "story": "This is said to be the site of Yoritomo's Camellia Palace, whose garden was once buried in camellia blossoms. The consort who lived here is said to have become a nun named Myogoni after Yoritomo died, and spent more than 30 years here. In the early Taisho era Kitahara Hakushu, who lived in a nearby Western-style house, often came here on walks.", "see": "A quiet temple near the foot of Jogashima Bridge", "legend": true, "confidence": "🟢", "sources": [{"url": "https://miura-info.ne.jp/%e9%8e%8c%e5%80%89%e6%ae%bf%e3%81%a813%e4%ba%ba%e3%81%ae%e9%87%8d%e8%87%a3%e3%81%9f%e3%81%a1-%e3%82%86%e3%81%8b%e3%82%8a%e3%81%ae%e5%9c%b0/", "title": "三浦市観光協会「鎌倉殿と13人の重臣たち ゆかりの地」"}], "no": 7}, {"id": "konenji", "name": "Konenji Temple", "era": "kamakura", "when": "1190", "area": "Misaki", "lat": 35.14221, "lon": 139.6198, "headline": "Wada Yoshimori honoured the dragon god who saved him at sea", "story": "This temple is said to have been founded by Wada Yoshimori in 1190. In 1180, after joining Yoritomo's uprising and losing, Yoshimori fled by sea from Kinugasa Castle. Believing a dragon god had saved him, he is said to have enshrined an eight-armed Benzaiten holding weapons. Eight dragons are painted on the ceiling of the main hall.", "see": "The dragons on the main hall ceiling", "legend": true, "confidence": "🟢", "sources": [{"url": "https://miura-info.ne.jp/%e9%8e%8c%e5%80%89%e6%ae%bf%e3%81%a813%e4%ba%ba%e3%81%ae%e9%87%8d%e8%87%a3%e3%81%9f%e3%81%a1-%e3%82%86%e3%81%8b%e3%82%8a%e3%81%ae%e5%9c%b0/", "title": "三浦市観光協会「鎌倉殿と13人の重臣たち ゆかりの地」"}], "no": 8}, {"id": "fukujuji", "name": "Fukujuji Temple and the grave of Miura Yoshimura", "era": "kamakura", "when": "1200", "area": "Kaneda", "lat": 35.15686, "lon": 139.66428, "headline": "Resting place of the clan head at the height of Miura power", "story": "This temple is said to have been built by Miura Yoshimura in 1200. Yoshimura allied with Hojo Yoshitoki, and in the Wada Battle of 1213 he switched from the side of his cousin Wada Yoshimori to the Hojo. The temple keeps a saddle, armour and short sword said to be his. His grave fell into the sea below the cliff in the 1923 Great Kanto Earthquake, but local people rebuilt it.", "see": "Yoshimura's grave is in front of the Iwaura bus stop; the temple is a 3-minute walk south", "confidence": "🟢", "sources": [{"url": "https://miura-info.ne.jp/%e9%8e%8c%e5%80%89%e6%ae%bf%e3%81%a813%e4%ba%ba%e3%81%ae%e9%87%8d%e8%87%a3%e3%81%9f%e3%81%a1-%e3%82%86%e3%81%8b%e3%82%8a%e3%81%ae%e5%9c%b0/", "title": "三浦市観光協会「鎌倉殿と13人の重臣たち ゆかりの地」"}, {"url": "https://ja.wikipedia.org/wiki/福寿寺_(三浦市)", "title": "Wikipedia「福寿寺 (三浦市)」"}, {"url": "https://www.city.miura.kanagawa.jp/kanko_bunka_sports/rekishi_bunkazai/2/6285.html", "title": "三浦市「三浦の歴史」"}], "no": 9}, {"id": "shirahata", "name": "Shinmei Shirahata Shrine (home of Wada Yoshimori)", "era": "kamakura", "when": "1213 (Wada Battle)", "area": "Hasse, Wada", "lat": 35.19444, "lon": 139.62943, "headline": "The name “Hasse” is said to come from Yoshimori's victory dance", "story": "Wada, this village, was the home base of Wada Yoshimori, the first head of the Kamakura shogunate's samurai office. In 1213 he rose against the Hojo and died with his clan in Kamakura. The shrine is said to have been built by villagers 50 years later, in 1263, in his memory. The town name Hasse is also said to come from a dance Yoshimori performed at a feast with the villagers after returning victorious.", "see": "Nearby: Wada Castle site and the Wada Yoshimori home monument (1921)", "legend": true, "confidence": "🟡", "sources": [{"url": "https://miura-info.ne.jp/%e9%8e%8c%e5%80%89%e6%ae%bf%e3%81%a813%e4%ba%ba%e3%81%ae%e9%87%8d%e8%87%a3%e3%81%9f%e3%81%a1-%e3%82%86%e3%81%8b%e3%82%8a%e3%81%ae%e5%9c%b0/", "title": "三浦市観光協会「鎌倉殿と13人の重臣たち ゆかりの地」"}, {"url": "https://www.city.miura.kanagawa.jp/kanko_bunka_sports/rekishi_bunkazai/2/6285.html", "title": "三浦市「三浦の歴史」"}], "no": 10}, {"id": "raifukuji", "name": "Raifukuji Temple", "era": "kamakura", "when": "moved to Wada in 1217", "area": "Kamimiyada", "lat": 35.1934, "lon": 139.6457, "headline": "After the clan fell, the temple moved from Kamakura to Yoshimori's home", "story": "Wada Yoshimori founded this temple at Nagoe in Kamakura. In 1217, after the clan was wiped out in the Wada Battle, it moved to Wada, the family's home; it came to its present site in 1670. A statue of Yoshimori in court dress is kept here. There are also graves of Choshu and Hikone samurai who guarded the sea from a nearby camp at the end of the Edo period.", "see": "About 15 minutes' walk from Miurakaigan Station", "confidence": "🟡", "sources": [{"url": "https://ja.wikipedia.org/wiki/来福寺_(三浦市)", "title": "Wikipedia「来福寺 (三浦市)」"}], "no": 11}, {"id": "hikibashi", "name": "Hikibashi", "era": "sengoku", "when": "around 1513", "area": "Hikibashi", "lat": 35.16745, "lon": 139.64034, "headline": "The bus stop is named after a bridge pulled up in the face of the enemy", "story": "Arai Castle had sea cliffs on three sides, and its only land entrance was this bridge about 3 km to the north. Pull the bridge up and there was no way in. Hojo Soun's army could not cross after the bridge was pulled, giving the Miura side time. The bridge's name survives as the place name.", "see": "The Hikibashi bus stop; 5 minutes' walk to the entrance of Koajiro Forest", "legend": true, "confidence": "🟢", "sources": [{"url": "https://miura-info.ne.jp/%e9%8e%8c%e5%80%89%e6%ae%bf%e3%81%a813%e4%ba%ba%e3%81%ae%e9%87%8d%e8%87%a3%e3%81%9f%e3%81%a1-%e3%82%86%e3%81%8b%e3%82%8a%e3%81%ae%e5%9c%b0/", "title": "三浦市観光協会「鎌倉殿と13人の重臣たち ゆかりの地」"}], "no": 12}, {"id": "arai", "name": "Arai Castle site", "era": "sengoku", "when": "1516", "area": "Aburatsubo", "lat": 35.16005, "lon": 139.61356, "headline": "After a three-year siege, the Miura clan fell here", "story": "A castle on a 26 m-high headland between Koajiro Bay and Aburatsubo Bay. Miura Yoshiatsu (Dosun) and his son Yoshioki held out for three years against Hojo Soun's great army, but the castle fell on 11 July 1516, ending some 450 years of the Miura clan. The main enclosure is now the grounds of the University of Tokyo's marine station. A 1992 excavation found a mass of human bones at the bottom of a 5.9 m-deep pit, reported as possibly a burial of those killed in the battle.", "see": "Dry moats and earthworks around the station; the Arai Castle monument", "confidence": "🟢", "tour": true, "cam": {"z": 15.8, "b": -40, "p": 64}, "sources": [{"url": "https://ja.wikipedia.org/wiki/新井城", "title": "Wikipedia「新井城」"}, {"url": "https://www.city.miura.kanagawa.jp/kanko_bunka_sports/rekishi_bunkazai/2/6285.html", "title": "三浦市「三浦の歴史」"}, {"url": "https://ja.wikipedia.org/wiki/三浦義同", "title": "Wikipedia「三浦義同」"}], "no": 13}, {"id": "aburatsubo", "name": "Aburatsubo Bay", "era": "sengoku", "when": "1516", "area": "Aburatsubo", "lat": 35.16021, "lon": 139.6172, "headline": "“Aburatsubo” (oil pot) is said to come from the sea's colour the day the castle fell", "story": "One theory says that on the day Arai Castle fell, the sea was stained with the blood of those who died fighting or threw themselves into the bay, looking as if oil had been spilled, and so it was called Aburatsubo. Another says the inlet's surface is as calm as spilled oil. Today it is a still inlet lined with yachts.", "see": "The walking path looking down on the inlet", "legend": true, "confidence": "🟢", "sources": [{"url": "https://miura-info.ne.jp/%e9%8e%8c%e5%80%89%e6%ae%bf%e3%81%a813%e4%ba%ba%e3%81%ae%e9%87%8d%e8%87%a3%e3%81%9f%e3%81%a1-%e3%82%86%e3%81%8b%e3%82%8a%e3%81%ae%e5%9c%b0/", "title": "三浦市観光協会「鎌倉殿と13人の重臣たち ゆかりの地」"}, {"url": "https://ja.wikipedia.org/wiki/油壺", "title": "Wikipedia「油壺」"}], "no": 14}, {"id": "dosun", "name": "Grave of Miura Dosun", "era": "sengoku", "when": "1516", "area": "Aburatsubo", "lat": 35.16284, "lon": 139.61321, "headline": "“Victor and vanquished alike, once broken, are the same clay”", "story": "The grave of Miura Yoshiatsu (Dosun), father of the last Miura lord. According to the war chronicle Hojo Godaiki, Dosun left a poem saying that both those who strike and those struck are like clay cups, which once broken return to earth, and then took his own life. The same book says samurai who later visited the castle ruins got off their horses at the moat and bowed, calling Dosun and his son honourable warriors. Every year on the last Sunday of May the Dosun Festival (memorial service and kasagake horseback archery) is held.", "see": "Along the Aburatsubo hiking course", "legend": true, "confidence": "🟡", "sources": [{"url": "https://ja.wikipedia.org/wiki/三浦義同", "title": "Wikipedia「三浦義同」"}, {"url": "https://ja.wikipedia.org/wiki/油壺", "title": "Wikipedia「油壺」"}], "no": 15}, {"id": "misakijo", "name": "Misaki Castle site", "era": "sengoku", "when": "Warring States period", "area": "Shiroyama", "lat": 35.144, "lon": 139.62136, "headline": "The area around City Hall was a castle of the Hojo navy", "story": "The castle stood on the height overlooking Misaki port, around today's Miura City Hall and the former Misaki Junior High School. Hojo Soun, who destroyed the Miura clan, rebuilt it as a defence against the Satomi clan of Awa across the sea; for a time the Satomi captured it. With its fine view near Jogashima, Hojo lords seem to have come here to rest; Hojo Ujiyasu visited in 1565. It was abandoned after Toyotomi Hideyoshi's Odawara campaign.", "see": "Earthworks and a sign near the city gym parking lot", "confidence": "🟡", "sources": [{"url": "https://ja.wikipedia.org/wiki/三崎城", "title": "Wikipedia「三崎城」"}], "no": 16}, {"id": "shirahige", "name": "Shirahige Shrine", "era": "sengoku", "when": "Tenbun era (1532–55)", "area": "Koajiro", "lat": 35.1623, "lon": 139.62762, "headline": "The stone that rings when you tap it was an anchor weight", "story": "Koajiro inlet has long been known as a harbour where ships waited for wind, and as Misaki's refuge port. The shrine is said to have begun in the Tenbun era when a glowing sacred object caught in a fisherman's night net was enshrined; it is a god of safe voyages and good catches. The “Kankan stone” to the left of the hall rings like metal when struck. It was an anchor weight, said to have been offered by a boatman from Settsu (around Osaka) after the god asked for it.", "see": "The Kankan stone (ringing stone)", "legend": true, "confidence": "🟢", "sources": [{"url": "https://miura-info.ne.jp/sightseeing/history-5/", "title": "三浦市観光協会「白髭神社」"}], "no": 17}, {"id": "misakiko", "name": "Misaki Port (Edo-era sea checkpoint)", "era": "edo", "when": "1624", "area": "Misaki", "lat": 35.14091, "lon": 139.61637, "headline": "Ships bound for Edo were inspected at Misaki", "story": "When Tokugawa Ieyasu entered the Kanto region, he based his navy at Misaki under naval commissioners such as Mukai Masatsuna. Once the country was at peace, Misaki became the place to inspect ships between Edo and the Kamigata region, and in 1624 Masatsuna's son Mukai Tadakatsu became Misaki magistrate. The port thrived as a harbour for ships waiting for wind and for collecting Sagami Bay fish to send to Edo.", "see": "From the quay in front of Urari you can see how Jogashima shelters the port", "confidence": "🟢", "tour": true, "cam": {"z": 15.6, "b": 150, "p": 62}, "sources": [{"url": "https://www.city.miura.kanagawa.jp/kanko_bunka_sports/rekishi_bunkazai/2/6285.html", "title": "三浦市「三浦の歴史」"}, {"url": "https://ja.wikipedia.org/wiki/三崎漁港", "title": "Wikipedia「三崎漁港」"}], "no": 18}, {"id": "awasaki", "name": "Awasaki (beacon and cannons)", "era": "edo", "when": "1648", "area": "Jogashima", "lat": 35.1302, "lon": 139.62757, "headline": "Jogashima's lighthouse began as a beacon on the island's eastern tip", "story": "In 1648 the Misaki magistrate set up a beacon on this cape, considered the start of Jogashima's lighthouse. Thirty years later, in 1678, the fire moved to the western tip of the island. As foreign ships increased at the end of the Edo period, Jogashima guarded the entrance to Edo Bay. In 1808 the Uraga magistrate built a battery on the island, and from 1810 the Aizu domain, ordered to defend the coast, set up a lookout and held cannon drills on this cape. The present Awasaki lighthouse dates from 1962.", "see": "The lighthouse on the rocks beyond Jogashima Park, with the Boso Peninsula straight ahead", "confidence": "🟡", "sources": [{"url": "https://ja.wikipedia.org/wiki/城ヶ島灯台", "title": "Wikipedia「城ヶ島灯台」"}, {"url": "https://ja.wikipedia.org/wiki/城ヶ島", "title": "Wikipedia「城ヶ島」"}], "no": 19}, {"id": "jinya", "name": "Coastal defence camp site", "era": "edo", "when": "1847", "area": "Kamimiyada", "lat": 35.18694, "lon": 139.65342, "headline": "The young Kido Takayoshi and Ito Hirobumi are said to have served here", "story": "As foreign ships came more often, a camp was set up at Kamimiyada in 1847 as the base for guarding the mouth of Edo Bay. It was run first by the Hikone domain, then by Choshu, Kumamoto and Sakura. Choshu was popular for starting local industry, and when it was replaced by Kumamoto, a petition asked it to stay. The later statesmen Kido Takayoshi and Ito Hirobumi are said to have served at this camp.", "see": "A sign near Miurakaigan Station", "confidence": "🟢", "sources": [{"url": "https://www.city.miura.kanagawa.jp/kanko_bunka_sports/rekishi_bunkazai/2/6285.html", "title": "三浦市「三浦の歴史」"}], "no": 20}, {"id": "jogashima_todai", "name": "Jogashima Lighthouse", "era": "meiji", "when": "1870", "area": "Jogashima", "lat": 35.13508, "lon": 139.61113, "headline": "Japan's fifth Western-style lighthouse", "story": "A Western-style lighthouse planned by the shogunate at foreign request, on the site of the Edo-period beacon. Designed by the French engineer Verny of the Yokosuka Ironworks, it was first lit on 8 September 1870, the fifth in Japan after Kannonzaki, Nojimazaki, Shinagawa and Kashinozaki. The original brick tower fell in the 1923 Great Kanto Earthquake; today's white tower is the second, rebuilt afterwards.", "see": "The white tower on the cliff at the island's western tip", "confidence": "🟡", "tour": true, "cam": {"z": 16.6, "b": 50, "p": 66}, "sources": [{"url": "https://ja.wikipedia.org/wiki/城ヶ島灯台", "title": "Wikipedia「城ヶ島灯台」"}], "no": 21}, {"id": "tsurugisaki", "name": "Tsurugisaki Lighthouse", "era": "meiji", "when": "1871", "area": "Matsuwa", "lat": 35.14028, "lon": 139.67722, "headline": "One of eight lighthouses the shogunate promised foreign powers", "story": "In 1866 the shogunate agreed in a treaty with the US, Britain, France and the Netherlands to build lighthouses at eight places, Tsurugisaki among them. Designed by the Briton Brunton, called the father of Japanese lighthouses, it was lit on 1 March 1871 as Japan's seventh Western-style lighthouse. The first stone tower fell in the Great Kanto Earthquake; the present octagonal tower was rebuilt in 1925. The line from here to Sunosaki on the Boso side marks the boundary between Tokyo Bay and the Pacific.", "see": "The white octagonal tower at the cape, facing the Boso Peninsula", "confidence": "🟡", "tour": true, "cam": {"z": 15.8, "b": -60, "p": 64}, "sources": [{"url": "https://ja.wikipedia.org/wiki/剱埼灯台", "title": "Wikipedia「剱埼灯台」"}], "no": 22}, {"id": "rinkai", "name": "University of Tokyo Misaki Marine Biological Station", "era": "meiji", "when": "1886", "area": "Aburatsubo", "lat": 35.15946, "lon": 139.61317, "headline": "Japan's first marine biological station was born in Misaki", "story": "In 1886 zoologist Mitsukuri Kakichi built a wooden laboratory on the site of the shogunate's ship office at Irifune in Misaki. It moved to Aburatsubo in 1897, and research continues today. More than 500 species of animals are said to live in the nearby sea. The grounds sit on the main enclosure of Arai Castle, where the Miura clan fell.", "see": "The marine education exhibition room with specimens is open only on public open days", "confidence": "🟡", "sources": [{"url": "https://ja.wikipedia.org/wiki/東京大学大学院理学系研究科附属臨海実験所", "title": "Wikipedia「東京大学大学院理学系研究科附属臨海実験所」"}, {"url": "https://ja.wikipedia.org/wiki/新井城", "title": "Wikipedia「新井城」"}], "no": 23}, {"id": "hakushu", "name": "Hakushu monument (Rain on Jogashima)", "era": "meiji", "when": "1913", "area": "Jogashima", "lat": 35.13667, "lon": 139.62179, "headline": "One song made Jogashima known across Japan", "story": "In 1913 the poet Kitahara Hakushu lived at Mukogasaki in Misaki, across from Jogashima. That year he was asked to write “Rain on Jogashima” (Jogashima no Ame). It premiered on 30 October at the Yurakuza in Tokyo, and as the record sold, Jogashima became a dream island for young people. A monument was wanted while Hakushu was alive, but because the island was a fortress zone it was only built after the war, in 1949. Hakushu's own handwriting is carved on a sail-shaped stone.", "see": "The Hakushu monument garden under Jogashima Bridge, and the Hakushu Memorial Hall", "confidence": "🟡", "tour": true, "cam": {"z": 16.6, "b": -20, "p": 64}, "sources": [{"url": "https://ja.wikipedia.org/wiki/城ヶ島", "title": "Wikipedia「城ヶ島」"}], "no": 24}, {"id": "umanose", "name": "Umanose rock arch", "era": "meiji", "when": "1923", "area": "Jogashima", "lat": 35.13123, "lon": 139.61833, "headline": "Before the Great Kanto Earthquake, small boats could pass through this hole", "story": "A spectacles-shaped rock gate carved by waves. Before 1923 small boats could pass under it. The Great Kanto Earthquake lifted the land, and now you can walk up to it. The same uplift exposed rocks in Jogashima's beach sand, and the bathing beach lost its crowds.", "see": "South side of the island, beyond Akabanezaki. Climbing on the rock is not allowed", "confidence": "🟡", "sources": [{"url": "https://ja.wikipedia.org/wiki/城ヶ島", "title": "Wikipedia「城ヶ島」"}], "no": 25}, {"id": "hodai", "name": "Jogashima battery site (Jogashima Park)", "era": "showa", "when": "1927–1945", "area": "Jogashima", "lat": 35.13083, "lon": 139.62611, "headline": "There was a time when Jogashima was erased from postcards", "story": "After the Great Kanto Earthquake, a battery was built on the island's eastern plateau as one of the forts guarding Tokyo Bay (begun 1924, completed 1927). Its guns were secondary guns from the battleship Aki, scrapped under disarmament treaties. People in Misaki were reportedly warned just for gazing at Jogashima, and the 1928 commemorative postcard of Misaki fishing port leaves the island out. The guns were removed after the war, and in 1958 the site became Kanagawa Prefectural Jogashima Park. The present observation deck stands where the battery's observation post was.", "see": "The park's observation deck: Boso, Izu Oshima and Mt. Fuji", "confidence": "🟡", "tour": true, "cam": {"z": 16.2, "b": -70, "p": 64}, "sources": [{"url": "https://ja.wikipedia.org/wiki/城ヶ島", "title": "Wikipedia「城ヶ島」"}, {"url": "https://www.city.miura.kanagawa.jp/kanko_bunka_sports/rekishi_bunkazai/2/6285.html", "title": "三浦市「三浦の歴史」"}], "no": 26}, {"id": "ichiba", "name": "Misaki fish market (the tuna port)", "era": "showa", "when": "around 1946–54", "area": "Misaki", "lat": 35.14141, "lon": 139.61419, "headline": "For some years after the war, Misaki was Japan's top tuna port", "story": "Misaki's town-run fish market opened in 1922. It became a major tuna base before the war, and from 1946 to around 1954 it was Japan's largest tuna port. Later, as ships grew larger and landed their catch at foreign ports on distant seas, Yaizu and Shimizu overtook it. In 1960 it was designated one of only 13 “Special Class 3” fishing ports in Japan. The present market moved here in 1994.", "see": "The large building just west of Urari", "confidence": "🟡", "sources": [{"url": "https://ja.wikipedia.org/wiki/三崎漁港", "title": "Wikipedia「三崎漁港」"}], "no": 27}, {"id": "ohashi", "name": "Jogashima Bridge", "era": "showa", "when": "1960", "area": "Jogashima", "lat": 35.13842, "lon": 139.62293, "headline": "With the bridge, visitors to the island rose fivefold in a year", "story": "Until then the only way to Jogashima was a ferry from Misaki. Work began in 1957 and the bridge opened in April 1960. It is 575 m long and 16–23.5 m above the sea, so large tuna boats can pass beneath. It was the first bridge in Japan to use steel box girders with steel decks. Visitors to the island grew from about 270,000 in 1956 to about 1.47 million in 1960, the year it opened. It has been toll-free since April 2020, and in 2023 it was recognised as civil engineering heritage by the Japan Society of Civil Engineers.", "see": "From the bridge's footpath: the port, Mt. Fuji and Boso", "confidence": "🟡", "tour": true, "cam": {"z": 15.6, "b": 100, "p": 68}, "sources": [{"url": "https://ja.wikipedia.org/wiki/城ヶ島大橋", "title": "Wikipedia「城ヶ島大橋」"}, {"url": "https://ja.wikipedia.org/wiki/城ヶ島", "title": "Wikipedia「城ヶ島」"}], "no": 28}, {"id": "marine", "name": "Former Aburatsubo Marine Park", "era": "showa", "when": "1968–2021", "area": "Aburatsubo", "lat": 35.16147, "lon": 139.61256, "headline": "The aquarium's Seven Lucky Gods moved to Kainan Shrine after 53 years", "story": "An aquarium run by Keikyu, opened in April 1968. It was popular as a “circus aquarium” where fish performed tricks. As the building aged it closed on 30 September 2021, and its roughly 400 species and 4,000 animals went to other facilities. The “Animal Seven Lucky Gods” from inside were taken in by Kainan Shrine in Misaki.", "see": "The building is closed. Arai Castle site and Dosun's grave are nearby", "confidence": "🟡", "sources": [{"url": "https://ja.wikipedia.org/wiki/京急油壺マリンパーク", "title": "Wikipedia「京急油壺マリンパーク」"}, {"url": "https://ja.wikipedia.org/wiki/海南神社", "title": "Wikipedia「海南神社」"}], "no": 29}], ERAS=[{"key": "taiko", "name": "Prehistory", "range": "up to the Kofun period", "color": "#8A5A00", "lede": "Miura's cliffs record land pushed up by great earthquakes. On the plateau stood a large Yayoi village, and in sea caves people fished and practised divination."}, {"key": "kamakura", "name": "Ancient & Kamakura", "range": "Heian–Kamakura periods", "color": "#B8243A", "lede": "Misaki, a short boat ride from Kamakura, was Minamoto no Yoritomo's favourite retreat. This peninsula was also home to the Miura clan and Wada Yoshimori, who supported the shogunate."}, {"key": "sengoku", "name": "Warring States", "range": "Muromachi–Sengoku periods", "color": "#5B3A8C", "lede": "In 1516, after a three-year siege by Hojo Soun, the Miura clan fell at Arai Castle after some 450 years. The place name Aburatsubo comes from a legend of that day."}, {"key": "edo", "name": "Edo", "range": "Edo period", "color": "#0A5A8C", "lede": "At the mouth of Edo Bay, Misaki became the shogunate's sea checkpoint, with an office to inspect ships, a beacon to light the night sea, and camps to guard against foreign ships."}, {"key": "meiji", "name": "Meiji & Taisho", "range": "Meiji–Taisho periods", "color": "#2E7D6B", "lede": "With the opening of Japan came Western-style lighthouses and Japan's first marine biological station. Kitahara Hakushu wrote “Rain on Jogashima”, and the Great Kanto Earthquake reshaped the coast."}, {"key": "showa", "name": "Showa to today", "range": "Showa–Reiwa", "color": "#4A5560", "lede": "Jogashima became a fortress island and was erased from maps and postcards. After the war Misaki became Japan's top tuna port. A bridge came in 1960, and the island became a sightseeing spot."}], ST={"type":"FeatureCollection","source":"© OpenStreetMap contributors (ODbL)・Overpass API","features":[{"type":"Feature","properties":{"kind":"lighthouse","name":"城ヶ島灯台","h":11.5,"b":0,"c":"#ffffff","osm":"node/1211621029"},"geometry":{"type":"Polygon","coordinates":[[[139.611155,35.135079],[139.611151,35.13509],[139.611141,35.135099],[139.611128,35.135102],[139.611114,35.135099],[139.611104,35.13509],[139.6111,35.135079],[139.611104,35.135068],[139.611114,35.13506],[139.611128,35.135057],[139.611141,35.13506],[139.611151,35.135068],[139.611155,35.135079]]]}},{"type":"Feature","properties":{"kind":"lighthouse","name":"安房埼灯台","h":16,"b":0,"c":"#ffffff","osm":"node/12364319660"},"geometry":{"type":"Polygon","coordinates":[[[139.627595,35.130201],[139.627591,35.130212],[139.627581,35.13022],[139.627567,35.130223],[139.627553,35.13022],[139.627543,35.130212],[139.62754,35.130201],[139.627543,35.13019],[139.627553,35.130181],[139.627567,35.130178],[139.627581,35.130181],[139.627591,35.13019],[139.627595,35.130201]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/130990872"},"geometry":{"type":"Polygon","coordinates":[[[139.607444,35.138652],[139.607245,35.139463],[139.607016,35.13942],[139.607042,35.139302],[139.606877,35.139214],[139.607049,35.138424],[139.609131,35.137607],[139.609242,35.137784],[139.609344,35.13775],[139.609428,35.137913],[139.607481,35.138575],[139.607444,35.138652]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/160351380"},"geometry":{"type":"Polygon","coordinates":[[[139.606658,35.146373],[139.605935,35.146861],[139.605914,35.146841],[139.605848,35.14684],[139.606493,35.147494],[139.606499,35.147487],[139.607717,35.148708],[139.607633,35.14877],[139.605759,35.14689],[139.606602,35.146312],[139.606658,35.146373]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/160351382"},"geometry":{"type":"Polygon","coordinates":[[[139.612831,35.147954],[139.612713,35.147915],[139.612355,35.14727],[139.612056,35.146764],[139.611992,35.146741],[139.611911,35.146597],[139.611928,35.146431],[139.612116,35.146433],[139.612155,35.146631],[139.612487,35.147185],[139.612882,35.147853],[139.612887,35.147924],[139.612831,35.147954]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/160351383"},"geometry":{"type":"Polygon","coordinates":[[[139.611172,35.159247],[139.611168,35.159188],[139.611201,35.159187],[139.611204,35.159245],[139.611172,35.159247]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/160351384"},"geometry":{"type":"Polygon","coordinates":[[[139.610725,35.159348],[139.610724,35.159337],[139.610985,35.159307],[139.611208,35.159251],[139.611211,35.159261],[139.610984,35.15932],[139.610725,35.159348]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/160351385"},"geometry":{"type":"Polygon","coordinates":[[[139.609949,35.156107],[139.60995,35.156044],[139.609987,35.156014],[139.6101,35.156056],[139.610211,35.156107],[139.610294,35.156161],[139.610312,35.156208],[139.610279,35.156216],[139.610118,35.156167],[139.609949,35.156107]]]}},{"type":"Feature","properties":{"kind":"pier","name":"","h":2,"b":0,"c":"#c9c3b7","osm":"way/172137869"},"geometry":{"type":"Polygon","coordinates":[[[139.638128,35.140192],[139.638219,35.140217],[139.638223,35.140262],[139.63806,35.140423],[139.63801,35.140475],[139.638025,35.140681],[139.638044,35.140869],[139.638007,35.140895],[139.637958,35.140878],[139.637921,35.14084],[139.637898,35.140589],[139.637901,35.140427],[139.637978,35.140357],[139.638051,35.140251],[139.638128,35.140192]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/172137873"},"geometry":{"type":"Polygon","coordinates":[[[139.638163,35.13894],[139.638363,35.138987],[139.638499,35.139119],[139.638317,35.139323],[139.638216,35.139248],[139.637669,35.139813],[139.637762,35.139881],[139.637569,35.140128],[139.637486,35.140024],[139.637354,35.139964],[139.637329,35.139842],[139.637647,35.139556],[139.637883,35.139277],[139.637955,35.139141],[139.638062,35.139087],[139.638163,35.13894]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/172137879"},"geometry":{"type":"Polygon","coordinates":[[[139.612347,35.137627],[139.612434,35.137616],[139.612445,35.137664],[139.612432,35.137665],[139.61258,35.138205],[139.612305,35.139024],[139.612242,35.139006],[139.612516,35.138198],[139.612416,35.137842],[139.612362,35.137855],[139.612284,35.137822],[139.612301,35.137768],[139.612385,35.137727],[139.612375,35.137675],[139.612358,35.137678],[139.612347,35.137627]]]}},{"type":"Feature","properties":{"kind":"pier","name":"","h":2,"b":0,"c":"#c9c3b7","osm":"way/172137890"},"geometry":{"type":"Polygon","coordinates":[[[139.639159,35.140976],[139.63954,35.141038],[139.639537,35.14105],[139.639574,35.141055],[139.639576,35.141045],[139.639772,35.141089],[139.640236,35.140663],[139.640123,35.140577],[139.640133,35.140567],[139.640077,35.140521],[139.64007,35.140528],[139.639978,35.140458],[139.640148,35.140301],[139.640038,35.140216],[139.640044,35.140208],[139.639987,35.140165],[139.639981,35.140171],[139.639784,35.140018],[139.639792,35.14001],[139.639734,35.139967],[139.639729,35.139974],[139.639629,35.139901],[139.639667,35.139872],[139.639652,35.139857],[139.639267,35.140204],[139.639283,35.140216],[139.639616,35.139916],[139.63986,35.140104],[139.639393,35.140526],[139.63941,35.140539],[139.639874,35.14012],[139.640112,35.140302],[139.639651,35.140729],[139.639671,35.140744],[139.639963,35.140469],[139.640204,35.14066],[139.639768,35.141063],[139.63958,35.141031],[139.639582,35.141022],[139.639546,35.141016],[139.639545,35.141023],[139.639161,35.140954],[139.639159,35.140976]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/172137893"},"geometry":{"type":"Polygon","coordinates":[[[139.639776,35.139724],[139.639597,35.139589],[139.63957,35.139615],[139.639747,35.139751],[139.639757,35.139742],[139.639588,35.139614],[139.639597,35.139606],[139.639766,35.139733],[139.639776,35.139724]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/172137894"},"geometry":{"type":"Polygon","coordinates":[[[139.638831,35.140188],[139.639572,35.139504],[139.639622,35.139541],[139.63948,35.139674],[139.639503,35.139693],[139.639041,35.140117],[139.639021,35.140101],[139.638881,35.140229],[139.638831,35.140188]]]}},{"type":"Feature","properties":{"kind":"pier","name":"","h":2,"b":0,"c":"#c9c3b7","osm":"way/420038646"},"geometry":{"type":"Polygon","coordinates":[[[139.613004,35.137531],[139.612951,35.137392],[139.612909,35.137403],[139.612962,35.137542],[139.613004,35.137531]]]}},{"type":"Feature","properties":{"kind":"pier","name":"","h":2,"b":0,"c":"#c9c3b7","osm":"way/420038646"},"geometry":{"type":"Polygon","coordinates":[[[139.612951,35.137392],[139.612912,35.13729],[139.61287,35.137301],[139.612909,35.137403],[139.612951,35.137392]]]}},{"type":"Feature","properties":{"kind":"pier","name":"","h":2,"b":0,"c":"#c9c3b7","osm":"way/638500458"},"geometry":{"type":"Polygon","coordinates":[[[139.622386,35.142784],[139.622756,35.142992],[139.622958,35.143051],[139.623262,35.143071],[139.623563,35.143082],[139.623635,35.143061],[139.623857,35.142841],[139.623912,35.142844],[139.623901,35.142865],[139.623833,35.142933],[139.623821,35.142926],[139.62374,35.143005],[139.623752,35.143012],[139.623685,35.143076],[139.623641,35.143102],[139.623593,35.143116],[139.623546,35.143119],[139.623311,35.143104],[139.623311,35.143091],[139.623215,35.143087],[139.623214,35.143099],[139.622942,35.143084],[139.622888,35.143068],[139.622893,35.143058],[139.622794,35.143029],[139.622788,35.14304],[139.622742,35.143026],[139.622348,35.142805],[139.622365,35.142794],[139.622386,35.142784]]]}},{"type":"Feature","properties":{"kind":"bridge","name":"城ヶ島大橋","h":23.5,"b":21.0,"c":"#c5cbd1","osm":"way/766104762"},"geometry":{"type":"Polygon","coordinates":[[[139.623699,35.140392],[139.621603,35.135501],[139.62172,35.135467],[139.623815,35.140358],[139.623797,35.140364],[139.623699,35.140392]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/1157813172"},"geometry":{"type":"Polygon","coordinates":[[[139.616977,35.136609],[139.617035,35.136823],[139.617086,35.136811],[139.616985,35.13646],[139.616936,35.136469],[139.616977,35.136609]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/1157813173"},"geometry":{"type":"Polygon","coordinates":[[[139.617786,35.136693],[139.617964,35.136585],[139.618108,35.136427],[139.61825,35.136272],[139.618211,35.13625],[139.618076,35.136406],[139.617929,35.136564],[139.61776,35.136664],[139.617786,35.136693]]]}},{"type":"Feature","properties":{"kind":"pier","name":"","h":2,"b":0,"c":"#c9c3b7","osm":"way/1157813174"},"geometry":{"type":"Polygon","coordinates":[[[139.620897,35.13681],[139.621109,35.136423],[139.621068,35.136408],[139.620856,35.136796],[139.620897,35.13681]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/1157813175"},"geometry":{"type":"Polygon","coordinates":[[[139.627158,35.133961],[139.627968,35.134578],[139.628005,35.134545],[139.627195,35.133928],[139.627158,35.133961]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/1157813176"},"geometry":{"type":"Polygon","coordinates":[[[139.62404,35.136351],[139.623807,35.135667],[139.623754,35.135679],[139.623987,35.136363],[139.62404,35.136351]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/1157813177"},"geometry":{"type":"Polygon","coordinates":[[[139.626222,35.132057],[139.626154,35.131962],[139.626107,35.131985],[139.626174,35.13208],[139.626222,35.132057]]]}},{"type":"Feature","properties":{"kind":"breakwater","name":"","h":3,"b":0,"c":"#b4b9be","osm":"way/1157813178"},"geometry":{"type":"Polygon","coordinates":[[[139.626097,35.131885],[139.625985,35.131725],[139.625937,35.131748],[139.626049,35.131907],[139.626097,35.131885]]]}},{"type":"Feature","properties":{"kind":"groyne","name":"","h":2,"b":0,"c":"#b4b9be","osm":"way/1157813187"},"geometry":{"type":"Polygon","coordinates":[[[139.62104,35.136829],[139.621174,35.136449],[139.621142,35.136441],[139.621008,35.136822],[139.62104,35.136829]]]}}]}, EXAG=1;
+var EC={};ERAS.forEach(function(e){EC[e.key]=e});
+var st={era:"all"};
+function $(s){return document.querySelector(s)}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+var calm=window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches;
+
+var map=null,pins=[],marks=[],pp=null,sig="",flat=false,ready=false,cur="";
+/* 開いたとき：三浦半島の上空から、三浦市の全体へ舞い降りる（動きを減らす設定の端末ではしない） */
+var INTRO=!calm,landing=false;
+var GSI="cyberjapandata.gsi.go.jp/xyz/";
+
+/* 標高：地理院の標高タイル（dem_png）を、MapLibre が読める Terrarium 形式に直して渡す。海・タイルなし・0m未満は 0m */
+function demTile(p,ac){
+  return fetch(p.url.replace("gsidem://","https://"),{signal:ac.signal})
+    .then(function(r){return r.ok?r.blob():null})
+    .then(function(b){return b?createImageBitmap(b):null})
+    .then(function(bm){
+      var c=document.createElement("canvas");c.width=c.height=256;
+      var x=c.getContext("2d"),im;
+      if(bm){x.drawImage(bm,0,0);im=x.getImageData(0,0,256,256)}else im=x.createImageData(256,256);
+      var d=im.data;
+      for(var i=0;i<d.length;i+=4){
+        var v=d[i]*65536+d[i+1]*256+d[i+2],h=(!bm||v===8388608)?0:(v<8388608?v:v-16777216)*0.01;
+        if(h<0)h=0;
+        var t=h+32768,f=Math.floor(t);
+        d[i]=f>>8;d[i+1]=f&255;d[i+2]=Math.floor((t-f)*256);d[i+3]=255}
+      x.putImageData(im,0,0);
+      return new Promise(function(ok){c.toBlob(ok,"image/png")})})
+    .then(function(b){return b.arrayBuffer()})
+    .then(function(buf){return {data:buf}})}
+/* 写真：海だけのタイルは地理院に無い（404）ので、海の色の1枚を返す */
+var seaBuf=null;
+function seaTile(){
+  if(!seaBuf)seaBuf=new Promise(function(ok){var c=document.createElement("canvas");c.width=c.height=256;var x=c.getContext("2d");x.fillStyle="#263f52";x.fillRect(0,0,256,256);c.toBlob(ok,"image/png")}).then(function(b){return b.arrayBuffer()});
+  return seaBuf.then(function(b){return b.slice(0)})}
+function photoTile(p,ac){
+  return fetch(p.url.replace("gsiphoto://","https://"),{signal:ac.signal})
+    .then(function(r){return r.ok?r.arrayBuffer():seaTile()})
+    .then(function(buf){return {data:buf}})}
+
+function dem(){return {type:"raster-dem",tiles:["gsidem://"+GSI+"dem_png/{z}/{x}/{y}.png"],tileSize:256,maxzoom:14,encoding:"terrarium"}}
+var C={land:"#F6F3EC",farm:"#EFEDDC",grass:"#E0EAD2",wood:"#CDDDBF",sand:"#F1E6C8",rock:"#E4DFD4",water:"#86B6D4",
+  road:"#FFFFFF",roadCase:"#E3DDD0",path:"#D8D0C1",bld:"#FFFFFF",text:"#46525E",seaText:"#1F5F8B"};
+var NAME=["coalesce",["get","name:en"],["get","name"]],FONT=["Noto Sans Regular"];
+function w(a,b,c){return ["interpolate",["exponential",1.5],["zoom"],12,a,16,b,20,c]}
+function road(id,cls,color,width,extra){return Object.assign({id:id,type:"line",source:"ofm","source-layer":"transportation",
+  filter:["all",["==",["geometry-type"],"LineString"],["in",["get","class"],["literal",cls]],["!=",["get","brunnel"],"bridge"]],
+  layout:{"line-cap":"round","line-join":"round"},paint:{"line-color":color,"line-width":width}},extra||{})}
+var MAIN=["motorway","trunk","primary","secondary","tertiary"],MINOR=["minor","service","track"];
+var BASE=["lc","park","water","pier","rd_bridge","rd_path","rd_minor_c","rd_main_c","rd_minor","rd_main","shade"];
+var STYLE={version:8,glyphs:"https://tiles.openfreemap.org/fonts/{fontstack}/{range}.pbf",
+  sources:{
+    photo:{type:"raster",tiles:["gsiphoto://"+GSI+"seamlessphoto/{z}/{x}/{y}.jpg"],tileSize:256,minzoom:2,maxzoom:18,attribution:"Photo & elevation: GSI Japan"},
+    ofm:{type:"vector",url:"https://tiles.openfreemap.org/planet",attribution:"Map: OpenFreeMap © OpenMapTiles © OpenStreetMap"},
+    st:{type:"geojson",data:ST},
+    dem:dem(),shade:dem()},
+  layers:[
+    {id:"land",type:"background",paint:{"background-color":C.land}},
+    {id:"lc",type:"fill",source:"ofm","source-layer":"landcover",
+      paint:{"fill-color":["match",["get","class"],"farmland",C.farm,"grass",C.grass,"wood",C.wood,"sand",C.sand,"rock",C.rock,"wetland",C.grass,C.land],"fill-opacity":.9}},
+    {id:"park",type:"fill",source:"ofm","source-layer":"park",paint:{"fill-color":C.grass,"fill-opacity":.7}},
+    {id:"water",type:"fill",source:"ofm","source-layer":"water",paint:{"fill-color":C.water}},
+    {id:"pier",type:"fill",source:"ofm","source-layer":"transportation",filter:["all",["==",["geometry-type"],"Polygon"],["==",["get","class"],"pier"]],paint:{"fill-color":C.land}},
+    {id:"rd_bridge",type:"line",source:"ofm","source-layer":"transportation",filter:["all",["==",["geometry-type"],"LineString"],["==",["get","brunnel"],"bridge"],["in",["get","class"],["literal",MAIN.concat(MINOR)]]],
+      layout:{"line-cap":"butt"},paint:{"line-color":"rgba(40,60,80,.18)","line-width":w(1,5,22)}},
+    road("rd_path",["path"],C.path,w(.4,1,3),{minzoom:14,paint:{"line-color":C.path,"line-width":w(.4,1,3),"line-dasharray":[2,2]}}),
+    road("rd_minor_c",MINOR,C.roadCase,w(.8,4,20),{minzoom:13}),
+    road("rd_main_c",MAIN,C.roadCase,w(2,7.5,30)),
+    road("rd_minor",MINOR,C.road,w(.3,2.6,16),{minzoom:13}),
+    road("rd_main",MAIN,C.road,w(1.2,5.5,26)),
+    {id:"photo",type:"raster",source:"photo",layout:{visibility:"none"}},
+    {id:"shade",type:"hillshade",source:"shade",paint:{"hillshade-exaggeration":.32,"hillshade-shadow-color":"#4f6257","hillshade-highlight-color":"#ffffff","hillshade-accent-color":"#6d7b70"}},
+    {id:"bld2d",type:"fill",source:"ofm","source-layer":"building",minzoom:13,layout:{visibility:"none"},paint:{"fill-color":"#E9E4DA","fill-outline-color":"#D6CFC2"}},
+    {id:"bld",type:"fill-extrusion",source:"ofm","source-layer":"building",minzoom:13,filter:["!=",["get","hide_3d"],true],
+      paint:{"fill-extrusion-color":C.bld,"fill-extrusion-height":["*",EXAG,["coalesce",["get","render_height"],5]],"fill-extrusion-base":["*",EXAG,["coalesce",["get","render_min_height"],0]],"fill-extrusion-opacity":.94}},
+    {id:"st",type:"fill-extrusion",source:"st",
+      paint:{"fill-extrusion-color":["get","c"],"fill-extrusion-height":["*",EXAG,["get","h"]],"fill-extrusion-base":["*",EXAG,["get","b"]],"fill-extrusion-opacity":.95}},
+    {id:"lb_sea",type:"symbol",source:"ofm","source-layer":"water_name",filter:["==",["geometry-type"],"Point"],
+      layout:{"text-field":NAME,"text-font":["Noto Sans Italic"],"text-size":13,"text-letter-spacing":.12},
+      paint:{"text-color":C.seaText,"text-halo-color":"rgba(255,255,255,.75)","text-halo-width":1.2}},
+    {id:"lb_sea_l",type:"symbol",source:"ofm","source-layer":"water_name",filter:["==",["geometry-type"],"LineString"],
+      layout:{"text-field":NAME,"text-font":["Noto Sans Italic"],"text-size":13,"text-letter-spacing":.12,"symbol-placement":"line"},
+      paint:{"text-color":C.seaText,"text-halo-color":"rgba(255,255,255,.75)","text-halo-width":1.2}},
+    {id:"lb_place",type:"symbol",source:"ofm","source-layer":"place",filter:["in",["get","class"],["literal",["city","town","village","hamlet","suburb","quarter","neighbourhood","island"]]],
+      layout:{"text-field":NAME,"text-font":FONT,"text-size":["match",["get","class"],["city","town","island"],13,11],"text-letter-spacing":.06,"text-padding":14},
+      paint:{"text-color":C.text,"text-halo-color":"rgba(255,255,255,.9)","text-halo-width":1.4,"text-opacity":["match",["get","class"],["city","town","island"],.9,.7]}}],
+  terrain:{source:"dem",exaggeration:EXAG},
+  sky:{"sky-color":"#9CC6E2","horizon-color":"#EAF2F6","fog-color":"#EAF2F6","sky-horizon-blend":.6,"horizon-fog-blend":.6,"fog-ground-blend":.2}};
+
+function visible(){return D.filter(function(d){return st.era==="all"||d.era===st.era})}
+function bounds(rows){var b=new maplibregl.LngLatBounds();rows.forEach(function(d){b.extend([d.lon,d.lat])});return b}
+var PADS={top:56,bottom:40,left:40,right:40};
+
+try{
+  maplibregl.addProtocol("gsidem",demTile);
+  maplibregl.addProtocol("gsiphoto",photoTile);
+  map=new maplibregl.Map({container:"map",style:STYLE,center:[139.64,35.2],zoom:INTRO?9.6:12,pitch:INTRO?0:55,bearing:INTRO?-35:0,maxPitch:75,maxZoom:19.5,minZoom:9,
+    cooperativeGestures:true,attributionControl:{compact:true},
+    locale:{"CooperativeGesturesHandler.WindowsHelpText":"Hold Ctrl and scroll to zoom","CooperativeGesturesHandler.MacHelpText":"Hold ⌘ and scroll to zoom","CooperativeGesturesHandler.MobileHelpText":"Use two fingers to move the map",
+      "NavigationControl.ZoomIn":"Zoom in","NavigationControl.ZoomOut":"Zoom out","NavigationControl.ResetBearing":"Reset north"}});
+  map.addControl(new maplibregl.NavigationControl({visualizePitch:true}),"top-right");
+  map.on("moveend",function(){place(false)});
+  map.once("style.load",function(){ready=true});
+  if(INTRO){
+    $("#map").classList.add("intro");
+    var landed=function(){landing=false;$("#map").classList.remove("intro");place(true)};
+    map.once("load",function(){setTimeout(function(){
+      if(!$("#map").classList.contains("intro"))return;
+      landing=true;
+      map.fitBounds(bounds(D),{padding:PADS,pitch:55,bearing:0,linear:true,duration:5200,essential:true,easing:function(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}});
+      map.once("moveend",landed)},400)});
+    setTimeout(function(){if($("#map").classList.contains("intro")&&!landing){landed();fit(true)}},12000);  /* 読み込みが終わらないときは、ふつうの表示にする */
+  }
+}catch(e){
+  map=null;
+  $("#map").className="nogl";$("#map").innerHTML='<p>This device could not show the 3D map.<br>The stories below can still be read.</p>';
+  $("#tools").hidden=true;$("#pad").hidden=true;
+}
+function go(o){if(!map)return;if(calm)map.jumpTo(o);else map.easeTo(Object.assign({duration:700},o))}
+
+function shut(){if(pp){pp.remove();pp=null}}
+function off(h){var u=[0,-h-4],d=[0,8];return {bottom:u,"bottom-left":u,"bottom-right":u,top:d,"top-left":d,"top-right":d,left:[18,-h/2],right:[-18,-h/2]}}
+function mark(id){cur=id||"";marks.forEach(function(k){k.el.classList.toggle("on",!!k.id&&k.id===cur)})}
+function show(d,n){
+  shut();
+  var e=EC[d.era],w=document.createElement("div");
+  w.innerHTML='<span class="pw" style="color:'+e.color+'">'+esc(e.name)+'　'+esc(d.when)+'</span><span class="pn">'+n+'. '+esc(d.name)+'</span><span class="ph">'+esc(d.headline)+'</span>';
+  var b=document.createElement("button");b.type="button";b.className="pm";b.textContent="Read more";
+  b.onclick=function(){read(d.id)};w.appendChild(b);
+  pp=new maplibregl.Popup({offset:off(37),focusAfterOpen:false}).setLngLat([d.lon,d.lat]).setDOMContent(w).addTo(map);
+  pp.on("close",function(){mark("")});mark(d.id)}
+/* 「くわしく読む」：全画面なら閉じて、読みもののカードまで送る */
+function read(id){
+  if($("#card").classList.contains("big"))$("#tbg").click();
+  var el=document.querySelector('.item[data-id="'+id+'"]');if(!el)return;
+  el.scrollIntoView({block:"start"});el.classList.add("hit");setTimeout(function(){el.classList.remove("hit")},2200)}
+function focus(d,n){go({center:[d.lon,d.lat],zoom:Math.max(map.getZoom(),15.5)});show(d,n)}
+
+/* ピン：画面上で近いものは白いピンにまとめる。押すと広がる。広がりきらないときは名前の一覧を出す */
+function place(force){
+  if(!map)return;
+  var rows=visible(),gs=[],R=map.getZoom()>=15?24:32;
+  rows.forEach(function(d,i){
+    var p=map.project([d.lon,d.lat]),g=null;
+    for(var k=0;k<gs.length;k++){var dx=gs[k].x-p.x,dy=gs[k].y-p.y;if(dx*dx+dy*dy<R*R){g=gs[k];break}}
+    if(g)g.m.push({d:d,n:d.no});else gs.push({x:p.x,y:p.y,m:[{d:d,n:d.no}]})});
+  var s=gs.map(function(g){return g.m.map(function(m){return m.d.id}).join("+")}).join("|");
+  if(!force&&s===sig){labels();return}
+  sig=s;pins.forEach(function(m){m.remove()});pins=[];marks=[];
+  gs.forEach(function(g){
+    var el=document.createElement("button");el.type="button";
+    if(g.m.length===1){var d=g.m[0].d,n=g.m[0].n;
+      el.className="pin";el.innerHTML="<i></i><span></span><b></b>";el.firstChild.style.background=EC[d.era].color;el.children[1].textContent=n;el.lastChild.textContent=d.name;el.setAttribute("aria-label",n+" "+d.name+"（"+d.when+"）");
+      marks.push({el:el,ll:[d.lon,d.lat],h:37,b:el.lastChild,id:d.id});
+      el.onclick=function(e){e.stopPropagation();go({center:[d.lon,d.lat]});show(d,n)};
+      pins.push(new maplibregl.Marker({element:el,anchor:"bottom",opacityWhenCovered:"1"}).setLngLat([d.lon,d.lat]).addTo(map));
+    }else{
+      var b=bounds(g.m.map(function(m){return m.d}));
+      el.className="pin cl";el.innerHTML="<i></i><span></span>";el.lastChild.innerHTML=g.m.length+"<small> places</small>";el.setAttribute("aria-label",g.m.length+" places. Tap to spread");
+      var bc=b.getCenter();marks.push({el:el,ll:[bc.lng,bc.lat],h:46,b:null});
+      el.onclick=function(e){e.stopPropagation();
+        if(map.getZoom()<17.5){shut();map.fitBounds(b,{padding:80,maxZoom:18,bearing:map.getBearing(),pitch:map.getPitch(),duration:calm?0:700});return}
+        var w=document.createElement("div");w.innerHTML="<b>"+g.m.length+" places are close together</b>";
+        var l=document.createElement("div");l.className="pl";
+        g.m.forEach(function(m){var x=document.createElement("button");x.type="button";x.textContent=m.n+". "+m.d.name;x.onclick=function(){show(m.d,m.n)};l.appendChild(x)});
+        w.appendChild(l);shut();pp=new maplibregl.Popup({offset:off(46),focusAfterOpen:false}).setLngLat(b.getCenter()).setDOMContent(w).addTo(map)};
+      pins.push(new maplibregl.Marker({element:el,anchor:"bottom",opacityWhenCovered:"1"}).setLngLat(b.getCenter()).addTo(map));
+    }});
+  mark(cur);labels();
+}
+/* 名前の札：拡大したときだけ出す。ほかのピンや札と重なるものは出さない */
+function labels(){
+  if(!map)return;
+  var on=map.getZoom()>=14.2,used=[];
+  marks.forEach(function(k){var p=map.project(k.ll);k.x=p.x;k.y=p.y;used.push([p.x-17,p.y-k.h,p.x+17,p.y])});
+  marks.forEach(function(k){if(!k.b)return;
+    if(!on){k.el.classList.remove("lab");return}
+    k.el.classList.add("lab");
+    var r=[k.x+17,k.y-k.h+2,k.x+22+k.b.offsetWidth,k.y-k.h+28],hit=false;
+    for(var i=0;i<used.length;i++){var u=used[i];if(r[0]<u[2]&&r[2]>u[0]&&r[1]<u[3]&&r[3]>u[1]){hit=true;break}}
+    if(hit)k.el.classList.remove("lab");else used.push(r)});
+}
+function fit(first,anim){
+  if(!map)return;
+  var pts=visible();if(!pts.length)return;
+  map.fitBounds(bounds(pts),{padding:PADS,maxZoom:15.5,bearing:first?0:map.getBearing(),pitch:first?(flat?0:55):map.getPitch(),duration:((first&&!anim)||calm)?0:700});
+}
+
+function card(d){
+  var e=EC[d.era];
+  return '<article class="item" data-id="'+d.id+'" style="--ec:'+e.color+'"><div class="n">'+d.no+'</div><div>'
+    +'<p class="w">'+esc(d.when)+'</p><h3>'+esc(d.name)+'</h3>'
+    +'<div class="tags"><span class="tag">'+esc(d.area)+'</span>'+(d.legend?'<span class="tag lg">Legend</span>':'')+'</div>'
+    +'<p class="hl">'+esc(d.headline)+'</p>'
+    +'<p class="note">'+esc(d.story)+'</p>'
+    +(d.see?'<p class="see"><b>On site </b>'+esc(d.see)+'</p>':'')
+    +'<p class="meta">'+d.confidence+' Sources (Japanese): '+d.sources.map(function(s){return '<a href="'+esc(s.url)+'" target="_blank" rel="noopener">'+esc(s.title)+'</a>'}).join(", ")+'</p>'
+    +'</div></article>'}
+function render(first){
+  var rows=visible(),html="",last="";
+  rows.forEach(function(d){
+    if(d.era!==last){last=d.era;var e=EC[d.era];
+      html+='<section class="era" style="--ec:'+e.color+'"><p class="r">'+esc(e.range)+'</p><h2>'+esc(e.name)+'</h2><p class="l">'+esc(e.lede)+'</p></section>'}
+    html+=card(d)});
+  $("#list").innerHTML=rows.length?html:'<div class="empty">No places for this era yet.</div>';
+  if(map){shut();if(!(first&&INTRO))fit(first,!first);place(true)}
+  document.querySelectorAll(".item").forEach(function(el){el.onclick=function(e){if(e.target.closest("a")||!map)return;
+    var d=null;rows.forEach(function(x){if(x.id===el.dataset.id)d=x});
+    if(d){window.scrollTo({top:$("#card").getBoundingClientRect().top+window.scrollY-12});focus(d,d.no)}}});
+}
+function chips(){
+  var c=$("#eras");c.innerHTML="";
+  [{key:"all",name:"All"}].concat(ERAS).forEach(function(x){
+    var n=x.key==="all"?D.length:D.filter(function(d){return d.era===x.key}).length;if(!n)return;
+    var b=document.createElement("button");b.type="button";b.className="chip";b.setAttribute("aria-pressed",st.era===x.key);
+    b.innerHTML=(x.color?'<i style="background:'+x.color+'"></i>':'')+esc(x.name)+'<small>'+n+'</small>';
+    b.onclick=function(){if(typeof tstop==="function")tstop();st.era=x.key;chips();render()};c.appendChild(b)});
+}
+
+var tstop=null;
+if(map){
+  var photo=false;
+  function vis(l,on){map.setLayoutProperty(l,"visibility",on?"visible":"none")}
+  function mode(){vis("photo",photo);BASE.forEach(function(l){vis(l,!photo)});vis("bld2d",!photo&&flat);vis("bld",!flat);vis("st",!flat)}
+  $("#t3d").onclick=function(){if(!ready)return;var on=this.getAttribute("aria-pressed")!=="true";this.setAttribute("aria-pressed",on);flat=!on;
+    map.setTerrain(on?{source:"dem",exaggeration:EXAG}:null);mode();go({pitch:on?55:0,bearing:on?map.getBearing():0})};
+  $("#tph").onclick=function(){if(!ready)return;var on=this.getAttribute("aria-pressed")!=="true";this.setAttribute("aria-pressed",on);
+    photo=on;mode()};
+  function nudge(b){var o={duration:250,easing:function(t){return t}};
+    if(b.dataset.b)o.bearing=map.getBearing()+(+b.dataset.b);
+    if(b.dataset.p)o.pitch=Math.max(0,Math.min(75,map.getPitch()+(+b.dataset.p)));
+    if(calm)map.jumpTo(o);else map.easeTo(o)}
+  [].forEach.call(document.querySelectorAll("#pad button"),function(b){var t=null;
+    function stop(){if(t){clearInterval(t);t=null}}
+    b.addEventListener("pointerdown",function(e){e.preventDefault();stop();nudge(b);t=setInterval(function(){nudge(b)},260)});
+    ["pointerup","pointerleave","pointercancel"].forEach(function(k){b.addEventListener(k,stop)});
+    b.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();nudge(b)}});
+    b.addEventListener("contextmenu",function(e){e.preventDefault()})});
+  var rot=false,dr=null,cc=map.getCanvasContainer();
+  function isBig(){return $("#card").classList.contains("big")}
+  function syncRot(){$("#map").classList.toggle("rot",rot);if(rot)map.dragPan.disable();else map.dragPan.enable();cc.style.touchAction=(rot&&isBig())?"none":""}
+  $("#tdr").onclick=function(){rot=this.getAttribute("aria-pressed")!=="true";this.setAttribute("aria-pressed",rot);syncRot()};
+  cc.addEventListener("pointerdown",function(e){
+    if(!rot||e.button!==0||e.ctrlKey||(e.pointerType==="touch"&&!isBig())||!e.isPrimary)return;
+    if(e.target.closest&&e.target.closest(".pin,.maplibregl-popup"))return;
+    dr={x:e.clientX,y:e.clientY,b:map.getBearing(),p:map.getPitch(),id:e.pointerId};map.stop();try{cc.setPointerCapture(e.pointerId)}catch(_){}});
+  cc.addEventListener("pointermove",function(e){if(!dr||e.pointerId!==dr.id)return;
+    map.jumpTo({bearing:dr.b+(e.clientX-dr.x)*.5,pitch:Math.max(0,Math.min(75,dr.p-(e.clientY-dr.y)*.4))})});
+  ["pointerup","pointercancel"].forEach(function(k){cc.addEventListener(k,function(e){if(dr&&e.pointerId===dr.id)dr=null})});
+  $("#thm").onclick=function(){shut();fit(true,true)};
+  $("#tbg").onclick=function(){var on=this.getAttribute("aria-pressed")!=="true";this.setAttribute("aria-pressed",on);this.textContent=on?"Close":"Full screen";
+    $("#card").classList.toggle("big",on);document.body.classList.toggle("big",on);
+    if(on)map.cooperativeGestures.disable();else map.cooperativeGestures.enable();
+    syncRot();map.resize()};
+  /* 「時代をたどる」：tour の印がある場所を、古い順に飛ぶ。時代で絞っているときは、その時代の場所ぜんぶ。地図やボタンにさわると止まる */
+  var tq=[],ti=-1,TOUR=[];
+  tstop=function(){if(ti<0)return;ti=-1;tq.forEach(clearTimeout);tq=[];map.stop();$("#cap").hidden=true;mark("");$("#ttr").setAttribute("aria-pressed",false);$("#ttr").textContent="Tour the eras"};
+  function tstep(i){
+    if(i>=TOUR.length){tstop();fit(true,true);return}
+    ti=i;var d=TOUR[i],e=EC[d.era],c=d.cam||{},b=c.b==null?0:c.b,o={center:[d.lon,d.lat],zoom:c.z||16,bearing:b,pitch:flat?0:(c.p||62)};
+    $("#cap").style.borderLeftColor=e.color;$("#capw").style.color=e.color;
+    $("#capw").textContent=e.name+"　"+d.when;$("#capn").textContent=d.no+". "+d.name;$("#capt").textContent=d.headline;shut();mark(d.id);
+    if(calm){map.jumpTo(o);tq.push(setTimeout(function(){tstep(i+1)},5000));return}
+    map.flyTo(Object.assign({duration:3800,essential:true},o));
+    tq.push(setTimeout(function(){map.easeTo({bearing:b+35,duration:4200,easing:function(t){return t}})},3900));
+    tq.push(setTimeout(function(){tstep(i+1)},8200))}
+  $("#ttr").onclick=function(){if(ti>=0){tstop();return}
+    TOUR=st.era==="all"?D.filter(function(d){return d.tour}):visible();
+    this.setAttribute("aria-pressed",true);this.textContent="Stop";$("#cap").hidden=false;tstep(0)};
+  $("#card").addEventListener("pointerdown",function(){if(landing)map.stop()},true);
+  $("#card").addEventListener("pointerdown",function(e){if(ti>=0&&!(e.target.closest&&e.target.closest("#ttr")))tstop()},true);
+  cc.addEventListener("wheel",function(){tstop()},{passive:true});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&$("#card").classList.contains("big"))$("#tbg").click()});
+}
+chips();render(true);
+})();
+</script></body></html>

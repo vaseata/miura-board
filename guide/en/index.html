@@ -181,6 +181,16 @@ a{color:inherit} button{font:inherit;color:inherit}
 .ost[data-s="off"]{color:var(--mute);font-weight:400}
 .ost[data-s="off"]::before,.ost[data-s="closed"]::before,.ost[data-s="unknown"]::before{background:none;border:1.5px solid currentColor;width:6px;height:6px}
 
+/* 三崎を知る（2026-11-14） */
+.know{margin:26px 0 0}
+.know .kg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.know a{display:flex;flex-direction:column;min-width:0;border:1px solid var(--hair);border-radius:12px;overflow:hidden;text-decoration:none;color:var(--ink);background:var(--bg)}
+.know a:hover{border-color:var(--sea)}
+.know img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
+.know .kx{display:flex;flex-direction:column;gap:2px;padding:8px 10px 10px}
+.know b{font-family:var(--mincho);font-weight:800;font-size:16px;line-height:1.35}
+.know small{font-size:11.5px;color:var(--mute);line-height:1.5}
+@media (max-width:420px){.know .kg{gap:8px}.know b{font-size:14.5px}.know small{display:none}}
 /* 奥付 */
 .okuzuke{margin-top:44px;border-top:3px double var(--rule);padding-top:12px;font-size:11.5px;line-height:1.9;color:var(--mute)}
 .okuzuke a{color:var(--sea)}
@@ -197,6 +207,7 @@ a{color:inherit} button{font:inherit;color:inherit}
 </header>
 
 <a class="hana" href="../../guide/en/map-preview.html"><img src="../../img/brand/hana-map.jpg" alt="" width="800" height="397" loading="lazy"><span class="hx"><span class="hk">HOUSE MANAGER'S PICKS</span><b>Recommended food & shops map</b><span class="hs">Places to eat and shop nearby, with today's opening status</span><span class="hgo">Open the map →</span><span class="hcr">地図 © OpenStreetMap contributors</span></span></a>
+<section class="know" aria-labelledby="know-h"><h2 class="men" id="know-h">Get to know Misaki<span class="latin">Know Misaki</span></h2><div class="kg"><a href="../../guide/hito/en/"><img src="../../img/hakushuhi.jpg" alt="" loading="lazy" width="480" height="360"><span class="kx"><b>People</b><small>Hakushu and others</small></span></a><a href="../../history/en/"><img src="../../img/misaki_harbor.jpg" alt="" loading="lazy" width="480" height="360"><span class="kx"><b>History walk</b><small>By era, on a 3D map</small></span></a><a href="../../guide/hae/en/"><img src="../../img/jogashima_bridge_sunset.jpg" alt="" loading="lazy" width="480" height="360"><span class="kx"><b>Photo spots</b><small>Flowers & Diamond Fuji</small></span></a></div></section>
 <section class="sec" id="season">
   <h2 class="men">This season<span class="latin">November</span></h2>
   <div class="grid"><a class="art ev" href="../../en/"><div class="thumb"><img src="../../img/misaki_harbor.jpg" alt="" loading="lazy" width="480" height="300"></div><div class="ran"><span class="cat">Event</span><span class="area">Miura City</span><span class="st now">On now</span></div><h3>10/3–12/31 Misaki tuna “akanemi” stamp rally</h3><p class="dt">10/3 (Sat) – 12/31 (Thu)</p><p class="lede" lang="ja">年末まで、マグロの茜身（血合い）のスタンプラリーをやっています。スマホだけで、ふつうに食事や買い物をしても押せるそうです</p></a><a class="art ev" href="../../en/"><div class="thumb"><img src="../../img/jogashima_lighthouse.jpg" alt="" loading="lazy" width="480" height="300"></div><div class="ran"><span class="cat">Event</span><span class="area">Jogashima</span><span class="st now">On now</span></div><h3>Until 11/29 Hakushu special exhibition at Jogashima&#x27;s Hakushu Memorial Hall</h3><p class="dt">11/1 (Sun) – 11/29 (Sun)</p><p class="lede" lang="ja">いま城ヶ島の白秋記念館で、白秋が自分で描いた挿絵の展示をやっているそうです。月・金曜はお休みなので気をつけてください</p></a><a class="art ev" href="../../en/"><div class="thumb"><img src="../../img/welovemiura_2026.jpg" alt="" loading="lazy" width="480" height="300"></div><div class="ran"><span class="cat">Event</span><span class="area">Misaki</span><span class="st soon">tomorrow</span></div><h3>11/15 Typhoon recovery charity concert at Urari</h3><p class="dt">11/15 (Sun)</p><p class="lede" lang="ja">11/15の日曜、うらりの展望デッキで台風の復興チャリティーライブがあります。観覧は無料で、最後にみんなでゴスペルを歌うそうですよ</p></a><a class="art ev" href="../../en/"><div class="thumb"><img src="../../img/miura_beach.jpg" alt="" loading="lazy" width="480" height="300"></div><div class="ran"><span class="cat">Event</span><span class="area">Miura Kaigan</span><span class="st soon">in 7 days</span></div><h3>11/21 Miura Kaigan beach-seine contest (rescheduled)</h3><p class="dt">11/21 (Sat)</p><p class="lede" lang="ja">10/24に雨で流れた地引網、11/21の土曜にやり直すそうです。申込制で11/16までなので、その頃来るなら一緒に引けますよ</p></a><a class="art ev" href="../../en/"><div class="thumb"><img src="../../img/hatsuse_wagyu_2026.jpg" alt="" loading="lazy" width="480" height="300"></div><div class="ran"><span class="cat">Event</span><span class="area">Miura City</span><span class="st soon">in 7 days</span></div><h3>11/21 Hasse High harvest festival sells its own home-raised wagyu</h3><p class="dt">11/21 (Sat)</p><p class="lede" lang="ja">初声高の畜産部が育てたA5の和牛が、11/21の収穫祭で買えるそうです。カレーは200食だけだとか</p></a><a class="art ev" href="../../en/"><div class="thumb"><img src="../../img/misaki_harbor.jpg" alt="" loading="lazy" width="480" height="300"></div><div class="ran"><span class="cat">Annual</span><span class="st soon">in 45 days</span></div><h3>Misaki Morning Market year-end sale (12/29–30)</h3><p class="dt">12/29 (Tue)</p><p class="lede" lang="ja">年末は朝市が特別体制です</p></a></div>
@@ -215,7 +226,7 @@ a{color:inherit} button{font:inherit;color:inherit}
 
 <footer class="okuzuke">
 Source checked = confirmed on an official or tourist-association page / To be confirmed = not a primary source or not yet checked. Hours and days off can change (see the “Checked” date on each item). Translated from the Japanese; if they differ, the Japanese version is correct.<br>
-Walking times are estimates: straight-line distance from A-tei × 1.3 ÷ 80 m/min. Photos: Wikimedia Commons (jogashima_lighthouse CC0 · jogashima_bridge_sunset CC BY 3.0 · jogashima_harbor CC0 · misaki_harbor CC0 · misaki_shitamachi CC BY-SA 4.0 · miura_beach CC0 · koajiro_forest CC BY-SA 4.0), official sites, og:image of source articles.<br>
+Walking times are estimates: straight-line distance from A-tei × 1.3 ÷ 80 m/min. Photos: Wikimedia Commons (jogashima_lighthouse CC0 · jogashima_bridge_sunset CC BY 3.0 · jogashima_harbor CC0 · misaki_harbor CC0 · misaki_shitamachi CC BY-SA 4.0 · miura_beach CC0 · koajiro_forest CC BY-SA 4.0 · miurakaigan_kawazu CC BY-SA 4.0 · kurosakinohana CC BY-SA 3.0 · umanose CC BY-SA 4.0 · hakushuhi CC BY 3.0), official sites, og:image of source articles.<br>
 <a href="../../en/">Miura News</a> · Since 2026.10 · By Yanuki
 </footer>
 </main>

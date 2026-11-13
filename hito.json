@@ -1,0 +1,102 @@
+{
+ "_note": "三崎の人（guide/hito/）の台帳。yomu_build.py が読む。kind: past＝故人（出典で載せる）／living＝存命（本人の許しが出てヤヌキが ◎ にするまで公開しない。書くのは公開記事にある仕事の話だけ）。2026-11-14。本人の了解がまだの存命の人の候補は hito_kouho.local.json（.gitignore・公開しない）に置く",
+ "people": [
+  {
+   "id": "kitahara_hakushu",
+   "kind": "past",
+   "status": "◎",
+   "tag": "詩人",
+   "tag_en": "Poet",
+   "area": "三崎・城ヶ島",
+   "area_en": "Misaki & Jogashima",
+   "name": "北原白秋",
+   "name_en": "Kitahara Hakushu",
+   "reading": "きたはら はくしゅう",
+   "years": "1885–1942",
+   "role": "詩人・歌人",
+   "role_en": "poet",
+   "facts": "1913年（大正2年）に三崎へ移り住み、9か月ほど暮らしました。住まいは、向ヶ崎の異人館とも、見桃寺の仮住まいとも伝わります。この三崎で書いたのが「城ヶ島の雨」（作曲・梁田貞）。歌がはやって、城ヶ島は行楽地として名を知られるようになりました。",
+   "facts_en": "In 1913 he moved to Misaki and lived here for about nine months, said to have stayed in a Western-style house at Mukogasaki and in temporary lodgings at Kentoji Temple. Here he wrote “Rain on Jogashima” (music by Yanada Tadashi). The song became a hit and made Jogashima famous as a place to visit.",
+   "traces": "城ヶ島大橋の下の白秋碑苑に「城ヶ島の雨」の詩碑（1949年・白秋の筆跡）。すぐ近くに白秋記念館（10:00〜16:00、月・金と年末年始は休館）。白石町の見桃寺には白秋自筆の歌碑。",
+   "traces_en": "The “Rain on Jogashima” poem stone (1949, in his handwriting) in the Hakushu monument garden under Jogashima Bridge; the Hakushu Memorial Hall nearby (10:00–16:00, closed Mon, Fri and over New Year); and a poem stone in his own hand at Kentoji Temple in Shiraishi.",
+   "history": "hakushu",
+   "image": "hakushuhi",
+   "confidence": "🟢",
+   "sources": [
+    {
+     "url": "https://miura-info.ne.jp/sightseeing/history-4/",
+     "title": "【三浦七福神第４番】見桃寺（桃林布袋尊）| みうら観光ガイド（三浦市観光協会 公式WEB）",
+     "opened": "2026-11-14"
+    },
+    {
+     "url": "https://www.pref.kanagawa.jp/docs/d2t/kanko/historicsite.html",
+     "title": "三浦半島観光情報～史跡＆名所～ - 神奈川県ホームページ",
+     "opened": "2026-11-14"
+    },
+    {
+     "url": "https://ja.wikipedia.org/wiki/北原白秋",
+     "title": "北原白秋 - Wikipedia",
+     "opened": "2026-11-14"
+    },
+    {
+     "url": "https://ja.wikipedia.org/wiki/城ヶ島",
+     "title": "城ヶ島 - Wikipedia",
+     "opened": "2026-11-14"
+    }
+   ]
+  },
+  {
+   "id": "yanada_tadashi",
+   "kind": "past",
+   "status": "◎",
+   "tag": "作曲家",
+   "tag_en": "Composer",
+   "area": "城ヶ島の雨",
+   "area_en": "Rain on Jogashima",
+   "name": "梁田貞",
+   "name_en": "Yanada Tadashi",
+   "reading": "やなだ ただし",
+   "years": "1885–1959",
+   "role": "作曲家・教育者",
+   "role_en": "composer and teacher",
+   "facts": "札幌生まれ。東京音楽学校で学び、東京府立第一中学校で長く教えました。白秋の詩に曲をつけた「城ヶ島の雨」のほか、「どんぐりころころ」の作曲者です。",
+   "facts_en": "Born in Sapporo, he studied at the Tokyo Music School and taught for many years at Tokyo’s First Prefectural Middle School. He set Hakushu’s “Rain on Jogashima” to music and also composed the children’s song “Donguri Korokoro”.",
+   "confidence": "🟡",
+   "sources": [
+    {
+     "url": "https://ja.wikipedia.org/wiki/梁田貞",
+     "title": "梁田貞 - Wikipedia",
+     "opened": "2026-11-14"
+    }
+   ]
+  },
+  {
+   "id": "miura_dosun",
+   "kind": "past",
+   "status": "◎",
+   "tag": "武将",
+   "tag_en": "Warlord",
+   "area": "油壺",
+   "area_en": "Aburatsubo",
+   "name": "三浦道寸（義同）",
+   "name_en": "Miura Dosun (Yoshiatsu)",
+   "reading": "みうら どうすん",
+   "years": "?–1516",
+   "role": "三浦氏最後の当主の父",
+   "role_en": "father of the last Miura lord",
+   "facts": "1516年、油壺の新井城が北条早雲の軍に攻め落とされ、子の義意とともに討ち死にしたとされます。これで約450年つづいた三浦氏は滅びました。軍記物『北条五代記』に辞世の歌が伝わります。",
+   "facts_en": "In 1516 Arai Castle at Aburatsubo fell to Hojo Soun’s army, and he is said to have died there with his son Yoshioki, ending the Miura clan after some 450 years. The war chronicle Hojo Godaiki records his farewell poem.",
+   "traces": "油壺に道寸の墓。新井城址もすぐ近く。",
+   "traces_en": "His grave at Aburatsubo, close to the Arai Castle site.",
+   "history": "dosun",
+   "confidence": "🟡",
+   "sources": [
+    {
+     "url": "https://ja.wikipedia.org/wiki/三浦義同",
+     "title": "三浦義同 - Wikipedia",
+     "opened": "2026-11-14"
+    }
+   ]
+  }
+ ]
+}

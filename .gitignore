@@ -16,3 +16,6 @@ m/.token-arrival
 m/.arrival.hash
 arrival.src.html
 private_photos/
+
+# 三崎の人の候補（存命・本人の了解待ち。公開しない）
+hito_kouho.local.json
