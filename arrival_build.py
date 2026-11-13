@@ -20,13 +20,15 @@ JST = dt.timezone(dt.timedelta(hours=9))
 HASH = ROOT / 'm' / '.arrival.hash'
 esc = lambda s: html.escape(str(s), quote=True)
 
-def photo(key, cap):
+def photo(key, cap, lang='ja'):
     f = PRIV / f'{key}.jpg'
     if f.exists():
+        if lang == 'en':   # 英語側は日本語側の画像を JS で写す（暗号文に同じ写真を2回入れない）
+            return f'<figure class="ph"><img data-copy="{key}" alt="{esc(cap)}"><figcaption>{esc(cap)}</figcaption></figure>'
         b = base64.b64encode(f.read_bytes()).decode()
-        return f'<figure class="ph"><img src="data:image/jpeg;base64,{b}" alt="{esc(cap)}"><figcaption>{esc(cap)}</figcaption></figure>'
+        return f'<figure class="ph"><img data-key="{key}" src="data:image/jpeg;base64,{b}" alt="{esc(cap)}"><figcaption>{esc(cap)}</figcaption></figure>'
     return (f'<figure class="ph"><div class="shoot"><svg class="cam" viewBox="0 0 48 40" aria-hidden="true"><rect x="3" y="9" width="42" height="28" rx="6"/>'
-            f'<circle cx="24" cy="23" r="8"/><path d="M16 9l3-5h10l3 5"/></svg><span class="lbl">撮影予定</span><span class="what">{esc(cap)}</span></div></figure>')
+            f'<circle cx="24" cy="23" r="8"/><path d="M16 9l3-5h10l3 5"/></svg><span class="lbl">{"PHOTO COMING SOON" if lang == "en" else "撮影予定"}</span><span class="what">{esc(cap)}</span></div></figure>')
 
 def d_of(x):
     s = x.get('dateTime') or x.get('date')
@@ -58,51 +60,36 @@ def rooms(today):
     return rows, data.get('書いた', '')
 
 WD = '月火水木金土日'
-def md(d): return f'{d.month}/{d.day}（{WD[d.weekday()]}）'
+WD_EN = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+def md(d, lang='ja'):
+    return f'{d.month}/{d.day} ({WD_EN[d.weekday()]})' if lang == 'en' else f'{d.month}/{d.day}（{WD[d.weekday()]}）'
 
-def build():
-    today = dt.datetime.now(JST).date()
-    rows, written = rooms(today)
-    if rows:
-        trs = [(r, f'<tr><th>{r}</th><td class="st {"ok" if t == "空き" else "in"}">{t}{("（〜" + md(e) + "朝）") if e else ""}</td>'
-                     f'<td class="st {"ok" if n == "空き" else "in"}">{n}</td></tr>') for r, t, e, n in rows]
-        trs.append((RESIDENT[0], f'<tr><th>{RESIDENT[0]}</th><td class="st res" colspan="2">住人の部屋（{RESIDENT[1]}住んでいます）</td></tr>'))
-        tr = ''.join(h for _r, h in sorted(trs))
-        rooms_html = (f'<table class="rooms"><tr><th>部屋</th><th>今夜 {md(today)}</th><th>明晩</th></tr>{tr}</table>'
-                      f'<p class="res-note">{RESIDENT[0]}号室には、{RESIDENT[1]}住人が住んでいます。分からないことがあったら、声をかけてください。</p>'
-                      f'<p class="note">予約の記録から自動で作っています（{esc(written)} 時点）。直前の予約・取り消しは入っていないことがあります。泊まっている人の名前は載せていません。</p>')
-    else:
-        rooms_html = '<p class="note">いまは部屋の空きを表示できません。</p>'
-    body = f'''<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow"><title>到着カード｜三浦A邸</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@800&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap">
-<style>
-:root{{color-scheme:light;--bg:#fff;--ink:#14202B;--mute:#4F6070;--hair:#D9E1E8;--tint:#F2F6F9;--sea:#0A5A8C;--sea-tint:#E6F0F6;--tuna:#B8243A;--kon:#2E4C9E}}
-*{{box-sizing:border-box}}
-body{{margin:0;background:var(--bg);color:var(--ink);font-family:"Zen Kaku Gothic New","Hiragino Sans",sans-serif;font-size:16px;line-height:1.7}}
-main{{max-width:720px;margin:0 auto;padding:16px 16px 56px}}
-.hd{{display:block;width:100%;height:auto;border-radius:10px}}
-.brand{{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--sea)}}.brand img{{width:40px;height:40px}}
-h1{{font-family:"Shippori Mincho",serif;font-weight:800;font-size:30px;margin:4px 0 2px;line-height:1.25}}
-.lede{{color:var(--mute);margin:0 0 6px}}
-.two{{width:120px;height:9px;background:linear-gradient(var(--sea),var(--sea)) 0 0/100% 3px no-repeat,linear-gradient(var(--tuna),var(--tuna)) 0 6px/60% 3px no-repeat;margin:12px 0 4px}}
-h2{{font-family:"Shippori Mincho",serif;font-size:20px;border-left:4px solid var(--sea);padding-left:10px;margin:30px 0 8px}}
-.rooms{{width:100%;border-collapse:collapse;font-size:15px}}.rooms th,.rooms td{{border:1px solid var(--hair);padding:8px 10px;text-align:left}}.rooms tr:first-child th{{background:var(--tint);font-size:13px}}
-.st.ok{{color:var(--mute)}}.st.in{{color:var(--kon);font-weight:700}}.st.res{{color:var(--sea);font-weight:700}}
-.res-note{{margin:10px 0 0;padding:10px 14px;border-radius:10px;background:var(--sea-tint);color:var(--ink);font-size:15px}}
-.note{{font-size:13px;color:var(--mute);margin:6px 0}}
-.ph{{margin:12px 0}}.ph img{{display:block;width:100%;border-radius:12px}}.ph figcaption{{font-size:12px;color:var(--mute);margin-top:4px}}
-.shoot{{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;aspect-ratio:4/3;border:1.5px dashed var(--hair);border-radius:12px;background:var(--sea-tint);color:var(--kon)}}
-.cam{{width:44px;fill:none;stroke:var(--kon);stroke-width:2.5;opacity:.75}}.lbl{{font-size:11px;font-weight:700;letter-spacing:.12em}}.what{{font-size:13px;color:var(--mute)}}
-.alert{{border:2px solid var(--tuna);border-radius:10px;padding:12px 14px;color:var(--tuna);font-weight:700}}
-h3{{font-family:"Shippori Mincho",serif;font-size:18px;margin:22px 0 6px;padding-top:12px;border-top:1px dashed var(--hair)}}h3 small{{display:block;font-family:"Zen Kaku Gothic New",sans-serif;font-size:12px;font-weight:700;color:var(--sea);letter-spacing:.06em}}
-.stops{{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}}.stops a{{padding:6px 14px;border-radius:999px;background:var(--sea-tint);color:var(--sea);font-weight:700;font-size:14px;text-decoration:none}}
-ol{{padding-left:1.3em}}li{{margin:6px 0}}
-.fill{{display:inline-block;font-size:12px;color:var(--tuna);background:#FBEAEC;border:1px dashed var(--tuna);border-radius:4px;padding:0 6px}}
-a{{color:var(--sea)}}
-</style></head><body><main>
-<img class="hd" src="../../img/brand/header-maguro.jpg" alt="" width="1500" height="500">
-<div class="brand"><img src="../../img/brand/logo.png" alt="" width="40" height="40">MIURA A-TEI · 宿泊者向け</div>
+# 部屋の状態の言葉（台帳から作る値 → 英語）
+ST_EN = {'空き': 'Free', '使用中': 'In use', '今日から': 'From today'}
+
+def rooms_block(rows, written, today, lang):
+    en = lang == 'en'
+    if not rows:
+        return '<p class="note">Room status is not available right now.</p>' if en else '<p class="note">いまは部屋の空きを表示できません。</p>'
+    def st(x): return ST_EN[x] if en else x
+    def until(e):
+        if not e: return ''
+        return f' (until {md(e, lang)} morning)' if en else f'（〜{md(e)}朝）'
+    trs = [(r, f'<tr><th>{r}</th><td class="st {"ok" if t == "空き" else "in"}">{st(t)}{until(e)}</td>'
+                f'<td class="st {"ok" if n == "空き" else "in"}">{st(n)}</td></tr>') for r, t, e, n in rows]
+    res_cell = (f'Resident’s room (lived in since April 2026)' if en else f'住人の部屋（{RESIDENT[1]}住んでいます）')
+    trs.append((RESIDENT[0], f'<tr><th>{RESIDENT[0]}</th><td class="st res" colspan="2">{res_cell}</td></tr>'))
+    tr = ''.join(h for _r, h in sorted(trs))
+    if en:
+        return (f'<table class="rooms"><tr><th>Room</th><th>Tonight {md(today, lang)}</th><th>Tomorrow night</th></tr>{tr}</table>'
+                f'<p class="res-note">A resident has lived in Room {RESIDENT[0]} since April 2026. If you have questions, feel free to ask them.</p>'
+                f'<p class="note">Made automatically from the booking records (as of {esc(written)}). Last-minute bookings or cancellations may not be shown. Guests’ names are not shown.</p>')
+    return (f'<table class="rooms"><tr><th>部屋</th><th>今夜 {md(today)}</th><th>明晩</th></tr>{tr}</table>'
+            f'<p class="res-note">{RESIDENT[0]}号室には、{RESIDENT[1]}住人が住んでいます。分からないことがあったら、声をかけてください。</p>'
+            f'<p class="note">予約の記録から自動で作っています（{esc(written)} 時点）。直前の予約・取り消しは入っていないことがあります。泊まっている人の名前は載せていません。</p>')
+
+def body_ja(rooms_html):
+    return f'''<div class="L" lang="ja" data-l="ja">
 <h1>到着カード</h1>
 <p class="lede">はじめて来る方へ。建物の見分け方と、今夜の部屋の様子です。</p>
 <div class="two"></div>
@@ -143,7 +130,106 @@ a{{color:var(--sea)}}
 <li>チャイムは鳴らさず、そのままお入りください。</li>
 <li>リネン・トイレ・お風呂の場所は、<a href="{BASE}stay/tochaku.html#mazu">滞在ガイドの「着いたら、まず」</a>にあります。</li></ol>
 <p class="note">このページの URL と合言葉は、ほかの人に教えないでください。</p>
-</main></body></html>'''
+</div>'''
+
+def body_en(rooms_html):
+    return f'''<div class="L" lang="en" data-l="en">
+<h1>Arrival card</h1>
+<p class="lede">For first-time guests: how to find the building, and the rooms tonight.</p>
+<div class="two"></div>
+
+<h2>Rooms tonight</h2>
+<p>Your room number is in the “Room number” section of the email you receive the day before your stay.</p>
+{rooms_html}
+
+<h2>How to find the building</h2>
+<div class="alert">The house next door has the same address. Miura A-tei is the ivory-colored building. The nameplate at the entrance has the ADDress mark.</div>
+{photo('gaikan', 'Outside of Miura A-tei', 'en')}
+{photo('hyosatsu', 'Nameplate and ADDress plate at the entrance', 'en')}
+
+<h2>From the bus stop to the house</h2>
+<p>Buses from Misakiguchi Station have three stops you can use. The closest and easiest is “Hinode” (日の出).</p>
+<nav class="stops"><a href="#hinode-en">Hinode 日の出</a><a href="#higashioka-en">Misaki Higashioka 三崎東岡</a><a href="#misakiko-en">Misaki-ko 三崎港</a></nav>
+
+<h3 id="hinode-en">From “Hinode” 日の出<small>Recommended · almost flat</small></h3>
+<p><span class="fill">Pending: route and walking time from the bus stop to the house</span></p>
+{photo('michi1', 'Getting off at the “Hinode” bus stop', 'en')}
+{photo('michi2', 'The corner where you turn', 'en')}
+{photo('michi3', 'The street in front of the house', 'en')}
+
+<h3 id="higashioka-en">From “Misaki Higashioka” 三崎東岡<small>About 7 min walk · downhill</small></h3>
+<p>The road to the house is a gentle downhill slope. When you take the bus back from this stop, you walk uphill, which is a bit hard with a lot of luggage.</p>
+<p><span class="fill">Pending: route from the bus stop to the house</span></p>
+{photo('higashioka1', 'Getting off at the “Misaki Higashioka” bus stop', 'en')}
+{photo('higashioka2', 'Start of the slope', 'en')}
+
+<h3 id="misakiko-en">From “Misaki-ko” 三崎港<small>Far from the house</small></h3>
+<p>The route if you stayed on to Misaki-ko (the last stop). Also useful if you visit the harbor shops first.</p>
+<p><span class="fill">Pending: route and walking time from the bus stop to the house</span></p>
+{photo('misakiko1', 'Getting off at the “Misaki-ko” bus stop', 'en')}
+{photo('misakiko2', 'The corner where you turn', 'en')}
+
+<h2>Going in</h2>
+<ol><li>There is a key box at the entrance. The code is on the “Entry information” page in the email from the day before.</li>
+<li>Don’t ring the bell; just come in.</li>
+<li>Where the linens, toilet, and bath are: <a href="{BASE}stay/en/tochaku.html#mazu">“First things on arrival” in the Stay Guide</a>.</li></ol>
+<p class="note">Please do not share this page’s URL or the passphrase with anyone else.</p>
+</div>'''
+
+def build():
+    today = dt.datetime.now(JST).date()
+    rows, written = rooms(today)
+    ja = body_ja(rooms_block(rows, written, today, 'ja'))
+    en = body_en(rooms_block(rows, written, today, 'en'))
+    body = f'''<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>到着カード / Arrival card｜三浦A邸</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@800&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap">
+<style>
+:root{{color-scheme:light;--bg:#fff;--ink:#14202B;--mute:#4F6070;--hair:#D9E1E8;--tint:#F2F6F9;--sea:#0A5A8C;--sea-tint:#E6F0F6;--tuna:#B8243A;--kon:#2E4C9E}}
+*{{box-sizing:border-box}}
+body{{margin:0;background:var(--bg);color:var(--ink);font-family:"Zen Kaku Gothic New","Hiragino Sans",sans-serif;font-size:16px;line-height:1.7}}
+main{{max-width:720px;margin:0 auto;padding:16px 16px 56px}}
+.hd{{display:block;width:100%;height:auto;border-radius:10px}}
+.top{{display:flex;align-items:center;gap:8px;margin-top:12px}}
+.brand{{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--sea)}}.brand img{{width:40px;height:40px}}
+.seg{{display:inline-grid;grid-template-columns:1fr 1fr;gap:2px;padding:3px;margin-left:auto;background:var(--tint);border:1px solid var(--hair);border-radius:999px;flex:none}}
+.seg button{{min-width:52px;min-height:38px;border:0;border-radius:999px;background:none;color:var(--mute);font:400 14px/1 "Zen Kaku Gothic New",sans-serif;letter-spacing:.04em;cursor:pointer}}
+.seg button[aria-checked="true"]{{background:var(--bg);color:var(--ink);font-weight:700;box-shadow:0 0 0 1px var(--hair)}}
+:focus-visible{{outline:2px solid var(--sea);outline-offset:2px}}
+.L[hidden]{{display:none}}
+h1{{font-family:"Shippori Mincho",serif;font-weight:800;font-size:30px;margin:4px 0 2px;line-height:1.25}}
+.lede{{color:var(--mute);margin:0 0 6px}}
+.two{{width:120px;height:9px;background:linear-gradient(var(--sea),var(--sea)) 0 0/100% 3px no-repeat,linear-gradient(var(--tuna),var(--tuna)) 0 6px/60% 3px no-repeat;margin:12px 0 4px}}
+h2{{font-family:"Shippori Mincho",serif;font-size:20px;border-left:4px solid var(--sea);padding-left:10px;margin:30px 0 8px}}
+.rooms{{width:100%;border-collapse:collapse;font-size:15px}}.rooms th,.rooms td{{border:1px solid var(--hair);padding:8px 10px;text-align:left}}.rooms tr:first-child th{{background:var(--tint);font-size:13px}}
+.st.ok{{color:var(--mute)}}.st.in{{color:var(--kon);font-weight:700}}.st.res{{color:var(--sea);font-weight:700}}
+.res-note{{margin:10px 0 0;padding:10px 14px;border-radius:10px;background:var(--sea-tint);color:var(--ink);font-size:15px}}
+.note{{font-size:13px;color:var(--mute);margin:6px 0}}
+.ph{{margin:12px 0}}.ph img{{display:block;width:100%;border-radius:12px}}.ph figcaption{{font-size:12px;color:var(--mute);margin-top:4px}}
+.shoot{{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;aspect-ratio:4/3;border:1.5px dashed var(--hair);border-radius:12px;background:var(--sea-tint);color:var(--kon)}}
+.cam{{width:44px;fill:none;stroke:var(--kon);stroke-width:2.5;opacity:.75}}.lbl{{font-size:11px;font-weight:700;letter-spacing:.12em}}.what{{font-size:13px;color:var(--mute)}}
+.alert{{border:2px solid var(--tuna);border-radius:10px;padding:12px 14px;color:var(--tuna);font-weight:700}}
+h3{{font-family:"Shippori Mincho",serif;font-size:18px;margin:22px 0 6px;padding-top:12px;border-top:1px dashed var(--hair)}}h3 small{{display:block;font-family:"Zen Kaku Gothic New",sans-serif;font-size:12px;font-weight:700;color:var(--sea);letter-spacing:.06em}}
+.stops{{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}}.stops a{{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border-radius:999px;background:var(--sea-tint);color:var(--sea);font-weight:700;font-size:14px;text-decoration:none}}
+ol{{padding-left:1.3em}}li{{margin:6px 0}}
+.fill{{display:inline-block;font-size:12px;color:var(--tuna);background:#FBEAEC;border:1px dashed var(--tuna);border-radius:4px;padding:0 6px}}
+a{{color:var(--sea)}}
+</style></head><body><main>
+<img class="hd" src="../../img/brand/header-maguro.jpg" alt="" width="1500" height="500">
+<div class="top"><div class="brand"><img src="../../img/brand/logo.png" alt="" width="40" height="40">MIURA A-TEI</div>
+<div class="seg" role="radiogroup" aria-label="Language / 言語"><button type="button" role="radio" aria-checked="true" data-l="ja" lang="ja">JP</button><button type="button" role="radio" aria-checked="false" data-l="en" lang="en">EN</button></div></div>
+{ja}
+{en}
+</main>
+<script>(function(){{
+var bs=[].slice.call(document.querySelectorAll('.seg button')),ls=[].slice.call(document.querySelectorAll('.L'));
+function set(l,save){{ls.forEach(function(d){{d.hidden=d.getAttribute('data-l')!==l}});bs.forEach(function(b){{b.setAttribute('aria-checked',b.getAttribute('data-l')===l)}});
+document.documentElement.lang=l;if(save){{try{{localStorage.setItem('lang',l)}}catch(e){{}}}}}}
+[].forEach.call(document.querySelectorAll('img[data-copy]'),function(i){{var o=document.querySelector('img[data-key="'+i.getAttribute('data-copy')+'"]');if(o)i.src=o.src}});
+bs.forEach(function(b){{b.onclick=function(){{set(b.getAttribute('data-l'),true)}}}});
+var p=null;try{{p=localStorage.getItem('lang')}}catch(e){{}}
+set(location.hash==='#en'?'en':(location.hash==='#ja'?'ja':(p==='en'?'en':'ja')),false);
+}})();</script></body></html>'''
     return body.encode()
 
 if __name__ == '__main__':
@@ -154,6 +240,6 @@ if __name__ == '__main__':
     if not ('--force' in sys.argv) and out.exists() and HASH.exists() and HASH.read_text() == h:
         print('変わっていないので、そのまま:', f'{BASE}m/{token_for(".token-arrival")}/')
         sys.exit(0)
-    url = lock(plain, '.token-arrival', '到着カード')
+    url = lock(plain, '.token-arrival', '到着カード / Arrival card')
     HASH.write_text(h)
     print('書きました:', url)

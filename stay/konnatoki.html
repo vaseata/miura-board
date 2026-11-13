@@ -3,6 +3,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex">
 <title>こんなとき｜三浦A邸 滞在ガイド</title>
+<link rel="alternate" hreflang="ja" href="https://vaseata.github.io/miura-board/stay/konnatoki.html"><link rel="alternate" hreflang="en" href="https://vaseata.github.io/miura-board/stay/en/konnatoki.html"><link rel="alternate" hreflang="x-default" href="https://vaseata.github.io/miura-board/stay/konnatoki.html">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;800&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
 <link rel="icon" href="../img/brand/logo.png"><link rel="apple-touch-icon" href="../img/brand/logo.png">
@@ -95,6 +96,13 @@ body{padding-bottom:calc(72px + env(safe-area-inset-bottom))}
 .eight b{font-size:15px}.eight span{font-size:13px;color:var(--mute)}.eight a{font-size:13px;font-weight:700;color:var(--sea);text-decoration:none;justify-self:start}
 .eight .soon{font-size:12px;color:var(--mute)}
 .draft{margin:16px 0 0;padding:10px 14px;border:1px dashed #E0C050;background:#FFF9E0;color:#5a4400;border-radius:8px;font-size:13px}
+.topbar{display:flex;align-items:center;gap:8px;padding-top:8px}
+.lang{display:inline-grid;grid-template-columns:1fr 1fr;gap:2px;padding:3px;margin-left:auto;background:var(--tint);border:1px solid var(--hair);border-radius:999px;flex:none}
+.lang a{display:flex;align-items:center;justify-content:center;min-width:52px;min-height:38px;border-radius:999px;color:var(--mute);font:400 14px/1 var(--gothic);letter-spacing:.04em;text-decoration:none}
+.lang a[aria-current="page"]{background:var(--bg);color:var(--ink);font-weight:700;box-shadow:0 0 0 1px var(--hair)}
+.topbar .back{margin:0}
+html[lang="en"] .card.soon b::after{content:"Coming soon"}
+html[lang="en"] h1{font-size:30px}
 
 /* ── 操作の部品（ui_parts.py・設計図どおり） ── */
 :focus-visible{outline:2px solid var(--sea);outline-offset:2px}
@@ -138,10 +146,14 @@ body{padding-bottom:calc(72px + env(safe-area-inset-bottom))}
 @media (min-width:720px){.bn{left:50%;right:auto;width:560px;transform:translateX(-50%);border:1px solid var(--hair);border-bottom:0;border-radius:12px 12px 0 0}}
 @media (prefers-reduced-motion:reduce){.btn,.fchip,.seg button{transition:none}.btn:active{transform:none}}
 </style></head><body><nav class="sn" aria-label="三浦A邸のサイト"><div class="sn-in"><a class="home" href="../stay/"><img src="../img/brand/logo.png" alt="" width="28" height="28"><span class="t">三浦A邸</span></a><a class="s" href="../stay/" aria-current="true">滞在ガイド</a><a class="s" href="../guide/">ガイドブック</a><a class="s" href="../">最近の三浦</a></div></nav><div class="wrap page">
-<a class="btn btn-tertiary back" href="index.html">← 滞在ガイドのトップ</a>
+<div class="topbar"><a class="btn btn-tertiary back" href="index.html">← 滞在ガイドのトップ</a><nav class="lang" aria-label="Language / 言語"><a href="konnatoki.html" hreflang="ja" lang="ja" aria-current="page">JP</a><a href="en/konnatoki.html" hreflang="en" lang="en">EN</a></nav></div>
 <header><div class="brand"><img src="../img/brand/logo.png" alt="" width="44" height="44"><div class="eyebrow">MIURA · STAY GUIDE</div></div><h1>こんなとき</h1>
 <p class="lede">困ったときの、逆引きです。まず、このページと、各部屋の「マナーの紙」を見てください。</p></header>
 <div class="slim"><b>試作版</b>：「記入待ち」と「仮」の札がある所は家守に確かめてから直します。「撮影予定」の枠には、写真を順に入れていきます。</div>
 <nav class="toc"><a href="#renraku">連絡の順番</a><a href="#kagi">鍵が開かないとき</a><a href="#s3">お湯が出ないとき</a><a href="#s4">ブレーカーが落ちたとき</a><a href="#s5">Wi-Fiがつながらないとき</a><a href="#s6">ものを壊した・汚したとき</a><a href="#s7">忘れ物をしたとき</a><a href="#s8">地震・津波のとき</a></nav><h2 id="renraku">連絡の順番</h2><ol><li>このサイトと、各部屋に置いてある <b>ADDress公式のマナーの紙</b>を見る</li><li>館内で<b>住人</b>に会えたら、声をかけて聞いてもOK</li><li>留守のときは、<b>家守に電話</b>するか、三浦A邸の<b>オープンチャット</b>で聞く（家守の連絡先は、前日のメールに書いてあります）</li><li>家守に連絡がつかないときは、<b>ADDressの会員サポート</b>に連絡する（連絡先は、前日のメールに書いてあります）</li></ol><div class="alert-box">命に関わるときは、すぐに 119。体調やけがは、「地震・津波・体調が悪いとき」のページを見てください。</div><div class="links"><a href="bosai.html">地震・津波・体調が悪いとき →</a></div><p class="note">ここから下は、急がない困りごとです（鍵・お湯・ブレーカー・Wi-Fi・壊したとき・忘れ物）。</p><h2 id="kagi">鍵（暗証番号）が開かないとき</h2><ol><li>前日のメールの「入室情報」のページで、暗証番号を、もういちど確かめる。ページには、見られる期間があるので、期限も確かめる。</li><li>それでも開かないときは、オープンチャットで聞く。</li><li>つながらないときは、家守に、メールに書いてある連絡先で連絡する。</li><li>家守にも連絡がつかないときは、ADDressの会員サポートに連絡する。</li></ol><h2 id="s3">お湯が出ないとき</h2><figure class="ph"><div class="shoot"><svg class="cam" viewBox="0 0 48 40" aria-hidden="true"><rect x="3" y="9" width="42" height="28" rx="6"/><circle cx="24" cy="23" r="8"/><path d="M16 9l3-5h10l3 5"/></svg><span class="lbl">撮影予定</span><span class="what">給湯器とガスの元栓</span></div><figcaption>給湯器とガスの元栓</figcaption></figure><p>まず、給湯器のスイッチ（電源）が入っているかを確かめてください。　直らないときは、オープンチャットか家守に連絡してください。<span class="fill">記入待ち：給湯器とガスの元栓の場所</span></p><h2 id="s4">ブレーカーが落ちたとき</h2><figure class="ph"><div class="shoot"><svg class="cam" viewBox="0 0 48 40" aria-hidden="true"><rect x="3" y="9" width="42" height="28" rx="6"/><circle cx="24" cy="23" r="8"/><path d="M16 9l3-5h10l3 5"/></svg><span class="lbl">撮影予定</span><span class="what">ブレーカーの場所</span></div><figcaption>ブレーカーの場所</figcaption></figure><p>同時に使っている電気製品を減らしてから、ブレーカーを上げてください。<span class="tmp">仮</span>　直らないときは、オープンチャットか家守に連絡してください。台所を向いて右側の壁の上にあります。</p><h2 id="s5">Wi-Fiがつながらないとき</h2><p>名前とパスワードは、前日のメールに書いてあります。それでもつながらないときは、オープンチャットで聞いてください。</p><h2 id="s6">ものを壊した・汚したとき</h2><p>すぐに、家守に連絡してください。家守に連絡がつかないときは、ADDressの会員サポートへ。費用は、壊した人の負担になります。</p><h2 id="s7">忘れ物をしたとき</h2><div class="links"><a href="shuppatsu.html">出発のチェックリスト（忘れ物） →</a></div><h2 id="s8">地震・津波のとき</h2><div class="links"><a href="bosai.html">地震・津波・体調が悪いとき →</a></div>
 <footer>三浦A邸（ADDress）。住所・鍵の番号・Wi-Fiのパスワードは、予約前日のメールにあります。</footer>
-</div><nav class="bn" aria-label="滞在ガイドのメニュー"><a href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>トップ</a><a href="tochaku.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V4h10l4 4v13"/><path d="M9 12h6M9 16h4"/></svg>到着</a><a href="konnatoki.html" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.5V14"/><path d="M12 17.5v.01"/></svg>困ったとき</a><a href="bosai.html" class="sos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17v.01"/></svg>防災</a></nav></body></html>
+</div><nav class="bn" aria-label="滞在ガイドのメニュー"><a href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>トップ</a><a href="tochaku.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V4h10l4 4v13"/><path d="M9 12h6M9 16h4"/></svg>到着</a><a href="konnatoki.html" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.5V14"/><path d="M12 17.5v.01"/></svg>困ったとき</a><a href="bosai.html" class="sos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17v.01"/></svg>防災</a></nav><script>(function(){try{var L=document.documentElement.lang;
+document.querySelectorAll('.lang a').forEach(function(a){a.addEventListener('click',function(){a.href=a.href.split('#')[0]+location.hash;try{localStorage.setItem('lang',a.hreflang)}catch(e){}})});
+var p=null;try{p=localStorage.getItem('lang')}catch(e){}
+var r=document.referrer,same=false;try{same=!!r&&new URL(r).origin===location.origin}catch(e){}
+if(p&&p!==L&&!same){var a=document.querySelector('.lang a[hreflang="'+p+'"]');if(a)location.replace(a.href.split('#')[0]+location.hash)}}catch(e){}})();</script></body></html>

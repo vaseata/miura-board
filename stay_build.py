@@ -5,10 +5,13 @@
 - リンク先がまだ無いカードは href を None にすると「準備中」で出る"""
 import html, pathlib, re, shutil, sys, urllib.parse
 from stay_pages import PAGES
+from stay_pages_en import PAGES_EN
 from ui_parts import UI_CSS, sitenav, bottomnav
 
 HERE = pathlib.Path(__file__).parent
 OUT = HERE / "stay"
+SITE = "https://vaseata.github.io/miura-board/stay/"
+LANG = "ja"          # build() が "ja" → "en" の順に切り替える。英語版は stay/en/（2026-11-14 2か国語化）
 PHOTOS = HERE / "stay-react" / "public" / "photos"   # 位置情報を消した写真（公開前に、使ってよいかヤヌキが確認する）
 PROTO = "--proto" in sys.argv            # ラピッドプロトタイプ：記入待ちをダミー文で埋める（公開しない）
 if PROTO:
@@ -27,8 +30,65 @@ CARD_IMG_BY_NAME = {"防災マップ（3D）": "hazard", "おうちを探検（3
                     "三浦のガイドブック": "guide", "最近の三浦": "news", "歴史さんぽ": "history"}
 
 def photo_src(key):
-    """写真があれば img/<key>.jpg を返し、無ければ None。"""
-    return f"img/{key}.jpg" if (PHOTOS / f"{key}.jpg").exists() else None
+    """写真があれば img/<key>.jpg を返し、無ければ None。英語版（stay/en/）からは ../img/。"""
+    if not (PHOTOS / f"{key}.jpg").exists():
+        return None
+    return f"{'../' if LANG == 'en' else ''}img/{key}.jpg"
+
+def fix(href):
+    """英語版は1段深いので、../ で始まるリンクを1段上げる。stay の中のページ（bosai.html など）は英語版どうしでつなぐ。"""
+    if not href or LANG != "en" or href.startswith(("http", "#", "data:")):
+        return href
+    return "../" + href if href.startswith("../") else href
+
+# 画面の言葉（日本語・英語）
+L = {
+    "ja": {"soon": "準備中", "shoot": "撮影予定", "tmp": "仮", "fill": "記入待ち：", "go": "見る →", "more": "くわしく見る →",
+           "back": "← 滞在ガイドのトップ", "suffix": "｜三浦A邸 滞在ガイド", "site": "三浦A邸 滞在ガイド",
+           "foot": "三浦A邸（ADDress）。住所・鍵の番号・Wi-Fiのパスワードは、予約前日のメールにあります。",
+           "credit": "<br>三浦の景色の写真：Wikimedia Commons（Aspere 撮影・CC0）",
+           "demo_note": '<div class="slim"><b>試作版</b>：「記入待ち」と「仮」の札がある所は家守に確かめてから直します。「撮影予定」の枠には、写真を順に入れていきます。</div>',
+           "demo_top": ('<div class="draft"><b>試作版（2026年11月）</b>です。住人有志が作っている、三浦A邸の非公式の案内です。'
+                        '「記入待ち」「仮」の札がある所は、家守に確かめてから入れます。公式のルールは、ADDress のヘルプと家守の案内が優先です。'
+                        '<br>気づいたこと・「あったらいいな」は、作った人に一言ください。</div>'),
+           "lede": "来る前・着いたとき・滞在中・帰るときに、ここを開いてください。",
+           "motif_alt": "跳ねるマグロと波、富士山と朝日の絵", "hero_alt": "三浦A邸の廊下", "steps_label": "章"},
+    "en": {"soon": "Coming soon", "shoot": "PHOTO COMING SOON", "tmp": "To be confirmed", "fill": "Pending: ", "go": "Open →", "more": "More →",
+           "back": "← Stay guide home", "suffix": " | Miura A-tei Stay Guide", "site": "Miura A-tei Stay Guide",
+           "foot": "Miura A-tei (ADDress). The address, key-box code, and Wi-Fi password are in the email you receive the day before your stay.",
+           "credit": "<br>Photos of Miura scenery: Wikimedia Commons (by Aspere, CC0)",
+           "demo_note": '<div class="slim"><b>Draft</b>: items tagged “Pending” or “To be confirmed” will be fixed after checking with the host. Photos will be added to the “Photo coming soon” frames.</div>',
+           "demo_top": ('<div class="draft"><b>Draft version (November 2026).</b> An unofficial guide to Miura A-tei, made by residents. '
+                        'Items tagged “Pending” or “To be confirmed” will be filled in after checking with the house host (yamori). '
+                        'Official rules in ADDress Help and the host’s instructions come first. This is a translation of the Japanese version; if they differ, the Japanese version is correct.'
+                        '<br>Ideas or corrections? Please tell the people who made it.</div>'),
+           "lede": "Open this page before you come, when you arrive, during your stay, and when you leave.",
+           "motif_alt": "Drawing of a leaping tuna, waves, Mt. Fuji and the rising sun", "hero_alt": "Hallway of Miura A-tei", "steps_label": "Sections"},
+}
+def t(k): return L[LANG][k]
+
+def langswitch(slug):
+    """JP / EN の切り替え（設計図の segmented の形。中身はリンク）。選んだ言語は localStorage 'lang' に覚える。"""
+    page = "" if slug == "index" else f"{slug}.html"
+    ja_href, en_href = (f"../{page}", "") if LANG == "en" else ("", f"en/{page}")
+    ja_href = ja_href or (page or "./")
+    en_href = en_href or (page or "./")
+    cur = ' aria-current="page"'
+    return (f'<nav class="lang" aria-label="Language / 言語">'
+            f'<a href="{esc(ja_href)}" hreflang="ja" lang="ja"{cur if LANG == "ja" else ""}>JP</a>'
+            f'<a href="{esc(en_href)}" hreflang="en" lang="en"{cur if LANG == "en" else ""}>EN</a></nav>')
+
+LANG_JS = """<script>(function(){try{var L=document.documentElement.lang;
+document.querySelectorAll('.lang a').forEach(function(a){a.addEventListener('click',function(){a.href=a.href.split('#')[0]+location.hash;try{localStorage.setItem('lang',a.hreflang)}catch(e){}})});
+var p=null;try{p=localStorage.getItem('lang')}catch(e){}
+var r=document.referrer,same=false;try{same=!!r&&new URL(r).origin===location.origin}catch(e){}
+if(p&&p!==L&&!same){var a=document.querySelector('.lang a[hreflang="'+p+'"]');if(a)location.replace(a.href.split('#')[0]+location.hash)}}catch(e){}})();</script>"""
+
+def alternates(slug):
+    page = "" if slug == "index" else f"{slug}.html"
+    return (f'<link rel="alternate" hreflang="ja" href="{SITE}{page}">'
+            f'<link rel="alternate" hreflang="en" href="{SITE}en/{page}">'
+            f'<link rel="alternate" hreflang="x-default" href="{SITE}{page}">')
 
 def dummy_img(label):
     """ダミー画像（SVG）。写真が無い場所に置く。"""
@@ -121,6 +181,68 @@ SECTIONS = [
 SECTION_ID = {"到着前": "mae", "到着したら": "toochaku", "滞在中": "taizai", "困ったとき・出発": "komatta"}
 STEPS = [("mae", "到着前", "来る前に"), ("toochaku", "着いたら", "家の中"), ("taizai", "滞在中", "三浦を楽しむ"), ("komatta", "困った・出発", "いざというとき")]
 
+# 英語版のトップ。並び・リンクは上の日本語と1対1（写真の選び方は日本語のカード名で引く）
+QUICK_EN = ["Emergency & evacuation", "Help", "Who to contact", "Key", "Garbage", "Bath"]
+SECTIONS_EN = [
+    ("Before you come", "Good to read before you arrive", [
+        ("Getting here", "Bus (Hinode stop is close and flat), train, car. Arrival time"),
+        ("Parking (cars & bikes)", "This house has no parking. Book before you come"),
+        ("What to bring & seasons", "What to bring, seasonal events, cold and mosquitoes"),
+        ("Hazard map (3D)", "Evacuation sites; tsunami, storm surge, landslides. Passphrase (guests only). In Japanese"),
+    ]),
+    ("When you arrive", "First, look around the house", [
+        ("From the entrance to inside", "Plate, key box, shoes. No need to ring the bell"),
+        ("Explore the house (3D)", "From the entrance to each room. In Japanese"),
+        ("Facilities & Wi-Fi", "Rooms, kitchen, heating and cooling, Wi-Fi"),
+        ("Bath, toilet & laundry", "Hot water, laundry, nearby public bath"),
+        ("Garbage", "Sorting, collection days and place"),
+    ]),
+    ("During your stay", "Enjoy Miura", [
+        ("House rules", "Night, fire, noise — with the reasons"),
+        ("Visitors, nights away & mail", "Inviting friends / nights away / early or late / parcels"),
+        ("Hana's recommended map", "The host's favorite places. 2D and 3D. In Japanese"),
+        ("Miura Guidebook", "Eat, see, do. Shops open today. In Japanese"),
+        ("Miura News", "Events and traffic news. In Japanese"),
+        ("History walk", "Historic places by era on a 3D map. In Japanese"),
+    ]),
+    ("Help & leaving", "", [
+        ("Earthquake, tsunami & feeling sick", "When it shakes, tsunami, 119 and #7119"),
+        ("If something happens", "Who to contact / key / hot water / breaker / broken items / things left behind"),
+        ("Check-out checklist", "Time, what to do, things left behind"),
+        ("FAQ", "Key, Wi-Fi, garbage, laundry, and more"),
+    ]),
+]
+STEPS_EN = [("Before", "you come"), ("Arrival", "in the house"), ("Stay", "enjoy Miura"), ("Help", "leaving")]
+
+def check_en():
+    """英訳が日本語の正本と同じ形か確かめる（ブロックの種類・id・写真・リンク・札の数）。ずれていたら止める。"""
+    def shape(b):
+        k = b[0]
+        if k == "h2": return (k, b[2] if len(b) > 2 else None)
+        if k == "photo": return (k, b[1])
+        if k == "photos": return (k, tuple(x[0] for x in b[1]))
+        if k == "links": return (k, tuple(u for _l, u in b[1]))
+        if k == "faq": return (k, tuple(x[2] for x in b[1]))
+        if k == "eight": return (k, tuple(x[2] for x in b[1]))
+        if k == "toc": return (k, tuple(i for i, _l in b[1]))
+        if k in ("ul", "ol"): return (k, len(b[1]))
+        if k == "table": return (k, len(b[1]), len(b[2]))
+        return (k,)
+    errs = []
+    if PAGES.keys() != PAGES_EN.keys():
+        errs.append(f"ページの並びが違う: {set(PAGES) ^ set(PAGES_EN)}")
+    for slug in PAGES:
+        ja, en = PAGES[slug]["blocks"], PAGES_EN.get(slug, {}).get("blocks", [])
+        if [shape(b) for b in ja] != [shape(b) for b in en]:
+            errs.append(f"{slug}: ブロックの形が違う")
+        for mark in ("{仮}", "{記入:"):
+            if repr(ja).count(mark) != repr(en).count(mark):
+                errs.append(f"{slug}: {mark} の数が違う（日 {repr(ja).count(mark)}・英 {repr(en).count(mark)}）")
+    if [len(c) for _t, _s, c in SECTIONS] != [len(c) for _t, _s, c in SECTIONS_EN] or len(QUICK) != len(QUICK_EN):
+        errs.append("トップのカードの数が違う")
+    if errs:
+        sys.exit("英訳（stay_pages_en.py）が日本語とずれています:\n  " + "\n  ".join(errs))
+
 CSS = """
 :root{color-scheme:light;--bg:#fff;--ink:#14202B;--mute:#4F6070;--hair:#D9E1E8;--tint:#F2F6F9;--sea:#0A5A8C;--sea-tint:#E6F0F6;--tuna:#B8243A;--kon:#2E4C9E;
 --mincho:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;--gothic:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif}
@@ -210,9 +332,14 @@ body{padding-bottom:calc(72px + env(safe-area-inset-bottom))}
 .eight b{font-size:15px}.eight span{font-size:13px;color:var(--mute)}.eight a{font-size:13px;font-weight:700;color:var(--sea);text-decoration:none;justify-self:start}
 .eight .soon{font-size:12px;color:var(--mute)}
 .draft{margin:16px 0 0;padding:10px 14px;border:1px dashed #E0C050;background:#FFF9E0;color:#5a4400;border-radius:8px;font-size:13px}
+.topbar{display:flex;align-items:center;gap:8px;padding-top:8px}
+.lang{display:inline-grid;grid-template-columns:1fr 1fr;gap:2px;padding:3px;margin-left:auto;background:var(--tint);border:1px solid var(--hair);border-radius:999px;flex:none}
+.lang a{display:flex;align-items:center;justify-content:center;min-width:52px;min-height:38px;border-radius:999px;color:var(--mute);font:400 14px/1 var(--gothic);letter-spacing:.04em;text-decoration:none}
+.lang a[aria-current="page"]{background:var(--bg);color:var(--ink);font-weight:700;box-shadow:0 0 0 1px var(--hair)}
+.topbar .back{margin:0}
+html[lang="en"] .card.soon b::after{content:"Coming soon"}
+html[lang="en"] h1{font-size:30px}
 """ + UI_CSS
-
-CREDIT = ("<br>三浦の景色の写真：Wikimedia Commons（Aspere 撮影・CC0）" if DEMO else "")
 
 CAM = ('<svg class="cam" viewBox="0 0 48 40" aria-hidden="true"><rect x="3" y="9" width="42" height="28" rx="6"/>'
        '<circle cx="24" cy="23" r="8"/><path d="M16 9l3-5h10l3 5"/></svg>')
@@ -221,14 +348,16 @@ def shoot(cap, small=False):
     """撮影予定の枠（写真が届くまでの置き場）。"""
     if small:
         return f'<div class="shoot sm">{CAM}</div>'
-    return f'<div class="shoot">{CAM}<span class="lbl">撮影予定</span><span class="what">{esc(cap)}</span></div>'
+    return f'<div class="shoot">{CAM}<span class="lbl">{t("shoot")}</span><span class="what">{esc(cap)}</span></div>'
 
 def esc(s): return html.escape(str(s), quote=True)
 
-def card(name, desc, href, ext, first=False):
-    key = CARD_IMG.get(href or "") or CARD_IMG_BY_NAME.get(name)
-    if DEMO and name in DEMO_IMG:
-        key, src = None, DEMO_IMG[name]
+def card(name, desc, href, ext, first=False, jname=None):
+    jname = jname or name
+    key = CARD_IMG.get(href or "") or CARD_IMG_BY_NAME.get(jname)
+    href = fix(href)
+    if DEMO and jname in DEMO_IMG:
+        key, src = None, fix(DEMO_IMG[jname])
         tgt = ' target="_blank" rel="noopener"' if ext else ""
         cls = "card im big" if first else "card im"
         return (f'<a class="{cls}" href="{esc(href)}"{tgt}><img src="{src}" alt="" loading="lazy">'
@@ -255,17 +384,17 @@ def chip(name, href, alert):
     if alert and href:
         return f'<a class="btn btn-emergency" href="{esc(href)}">{esc(name)}</a>'
     cls = "chip" + ("" if href else " soon")
-    label = esc(name) + ("" if href else "（準備中）")
+    label = esc(name) + ("" if href else f"（{t('soon')}）")
     return f'<a class="{cls}" href="{esc(href)}">{label}</a>' if href else f'<span class="{cls}">{label}</span>'
 
 def inline(text):
     t = esc(text)
     t = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", t)
     t = t.replace("\n", "<br><small>")+("</small>" if "\n" in t else "")
-    t = t.replace("{仮}", '<span class="tmp">仮</span>')
+    t = t.replace("{仮}", f'<span class="tmp">{L[LANG]["tmp"]}</span>')
     if PROTO:
         t = re.sub(r"\{記入:(.+?)\}", lambda m: '<span class="dummy">ダミー</span>' + DUMMY.get(m.group(1), m.group(1) + "が、ここに入ります。"), t)
-    t = re.sub(r"\{記入:(.+?)\}", r'<span class="fill">記入待ち：\1</span>', t)
+    t = re.sub(r"\{記入:(.+?)\}", lambda m: f'<span class="fill">{L[LANG]["fill"]}{m.group(1)}</span>', t)
     return t
 
 def count_marks(blocks):
@@ -290,10 +419,11 @@ def render_block(b):
     if kind == "eight":
         lis = []
         for title, ans, href in b[1]:
-            href = ARRIVAL if href == "ARRIVAL" else href
+            href = (ARRIVAL + ("#en" if LANG == "en" else "")) if href == "ARRIVAL" and ARRIVAL else (None if href == "ARRIVAL" else href)
+            href = fix(href)
             ext = href and href.startswith("http")
             tgt = ' target="_blank" rel="noopener"' if ext else ""
-            go = f'<a href="{esc(href)}"{tgt}>見る →</a>' if href else '<span class="soon">準備中</span>'
+            go = f'<a href="{esc(href)}"{tgt}>{t("go")}</a>' if href else f'<span class="soon">{t("soon")}</span>'
             lis.append(f'<li><b>{esc(title)}</b><span>{inline(ans)}</span>{go}</li>')
         return '<ol class="eight">' + "".join(lis) + "</ol>"
     if kind == "photo":
@@ -318,25 +448,27 @@ def render_block(b):
         out = []
         for item in b[1]:
             q, ans, link = item
-            more = f'<p class="more"><a href="{esc(link)}">くわしく見る →</a></p>' if link else ""
+            more = f'<p class="more"><a href="{esc(fix(link))}">{t("more")}</a></p>' if link else ""
             out.append(f'<details class="qa"><summary>{inline(q)}</summary><p>{inline(ans)}</p>{more}</details>')
         return "".join(out)
     if kind == "links":
-        return '<div class="links">' + "".join(f'<a href="{esc(u)}" target="_blank" rel="noopener">{esc(l)} ↗</a>' if u.startswith("http") else f'<a href="{esc(u)}">{esc(l)} →</a>' for l, u in b[1]) + "</div>"
+        return '<div class="links">' + "".join(f'<a href="{esc(u)}" target="_blank" rel="noopener">{esc(l)} ↗</a>' if u.startswith("http") else f'<a href="{esc(fix(u))}">{esc(l)} →</a>' for l, u in b[1]) + "</div>"
     raise ValueError(kind)
 
-def head_html(title):
+def head_html(title, slug):
+    root = "../../" if LANG == "en" else "../"
     return f"""<!doctype html>
-<html lang="ja"><head><meta charset="utf-8">
+<html lang="{LANG}"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex">
 <title>{esc(title)}</title>
+{alternates(slug)}
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;800&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
-<link rel="icon" href="../img/brand/logo.png"><link rel="apple-touch-icon" href="../img/brand/logo.png">
+<link rel="icon" href="{root}img/brand/logo.png"><link rel="apple-touch-icon" href="{root}img/brand/logo.png">
 <style>{CSS}</style></head>"""
 
-SITENAV = sitenav("stay", "../")
+def root(): return "../../" if LANG == "en" else "../"
 
 def with_auto_toc(blocks):
     """h2が4つ以上あり、目次ブロックが無いページには、自動で目次を付ける（h2にidも振る）。"""
@@ -364,76 +496,87 @@ def build_page(slug, spec, public):
     notice = ""
     if (tmp or fill) and not public:
         if DEMO:
-            notice = '<div class="slim"><b>試作版</b>：「記入待ち」と「仮」の札がある所は家守に確かめてから直します。「撮影予定」の枠には、写真を順に入れていきます。</div>'
+            notice = t("demo_note")
         elif PROTO:
             notice = '<div class="draft"><b>ラピッドプロトタイプ。</b>「ダミー」の札の文は、作り話です。実際の内容ではありません。</div>'
         else:
           notice = f'<div class="draft">確認中のページです。仮の文が{tmp}か所、記入待ちが{fill}か所あります。公開する前に、家守に確かめて直します。</div>'
     body = "".join(render_block(b) for b in spec["blocks"])
-    page = f"""{head_html(spec["title"] + "｜三浦A邸 滞在ガイド")}<body>{SITENAV}<div class="wrap page">
-<a class="btn btn-tertiary back" href="index.html">← 滞在ガイドのトップ</a>
-<header><div class="brand"><img src="../img/brand/logo.png" alt="" width="44" height="44"><div class="eyebrow">MIURA · STAY GUIDE</div></div><h1>{esc(spec["title"])}</h1>
+    page = f"""{head_html(spec["title"] + t("suffix"), slug)}<body>{sitenav("stay", root(), lang=LANG)}<div class="wrap page">
+<div class="topbar"><a class="btn btn-tertiary back" href="index.html">{t("back")}</a>{langswitch(slug)}</div>
+<header><div class="brand"><img src="{root()}img/brand/logo.png" alt="" width="44" height="44"><div class="eyebrow">MIURA · STAY GUIDE</div></div><h1>{esc(spec["title"])}</h1>
 <p class="lede">{esc(spec["lede"])}</p></header>
 {notice}
 {body}
-<footer>三浦A邸（ADDress）。住所・鍵の番号・Wi-Fiのパスワードは、予約前日のメールにあります。</footer>
-</div>{bottomnav(slug)}</body></html>"""
-    (OUT / f"{slug}.html").write_text(page, encoding="utf-8")
+<footer>{t("foot")}</footer>
+</div>{bottomnav(slug, lang=LANG)}{LANG_JS}</body></html>"""
+    (OUTL / f"{slug}.html").write_text(page, encoding="utf-8")
     return tmp, fill
 
-def build(public=False):
+def build_lang(public=False):
     if PROTO:
         dummy = '<div class="slim"><b>プロトタイプ</b>：「ダミー」の札は作り話です。防災や場所の情報を、信じないでください。</div>'
     else:
         dummy = ""
     if DEMO:
-        dummy = ('<div class="draft"><b>試作版（2026年11月）</b>です。住人有志が作っている、三浦A邸の非公式の案内です。'
-                 '「記入待ち」「仮」の札がある所は、家守に確かめてから入れます。公式のルールは、ADDress のヘルプと家守の案内が優先です。'
-                 '<br>気づいたこと・「あったらいいな」は、作った人に一言ください。</div>')
+        dummy = t("demo_top")
     dummy = dummy if (PROTO or public or DEMO) else '<div class="draft">これは、構造を確認するための<b>ダミーのサイト</b>です。「仮」の札のある文は仮の内容、「記入待ち」は、あとで入れる情報です。正確な情報は、これから追加します。</div>'
     hs = photo_src("hero")
-    hero = (f'<div class="hero"><img src="{hs}" alt="三浦A邸の廊下"></div>' if hs else
+    hero = (f'<div class="hero"><img src="{hs}" alt="{t("hero_alt")}"></div>' if hs else
             (f'<div class="hero"><img src="{dummy_img("トップの写真")}" alt="ダミー画像"></div>' if PROTO else ""))
-    steps = '<nav class="steps">' + "".join(f'<a href="#{i}">{esc(n)}<small>{esc(s)}</small></a>' for i, n, s in STEPS) + "</nav>"
-    quick = ('<div class="sos2">' + "".join(chip(*q) for q in QUICK if q[2]) + "</div>"
-             + '<div class="quick">' + "".join(chip(*q) for q in QUICK if not q[2]) + "</div>")
-    steps = steps.replace('<nav class="steps">', '<nav class="steps" aria-label="章">')
+    en = LANG == "en"
+    steps_t = [(i, *STEPS_EN[k]) for k, (i, _n, _s) in enumerate(STEPS)] if en else STEPS
+    steps = f'<nav class="steps" aria-label="{t("steps_label")}">' + "".join(f'<a href="#{i}">{esc(n)}<small>{esc(s)}</small></a>' for i, n, s in steps_t) + "</nav>"
+    quick_t = [(QUICK_EN[k] if en else q[0], q[1], q[2]) for k, q in enumerate(QUICK)]
+    quick = ('<div class="sos2">' + "".join(chip(*q) for q in quick_t if q[2]) + "</div>"
+             + '<div class="quick">' + "".join(chip(*q) for q in quick_t if not q[2]) + "</div>")
     parts = []
-    for title, sub, cards in SECTIONS:
+    for k, (title, sub, cards) in enumerate(SECTIONS):
         sid = SECTION_ID.get(title, "")
+        if en:
+            title, sub, names = SECTIONS_EN[k]
+            cs = [(names[j][0], names[j][1], c[2], c[3], c[0]) for j, c in enumerate(cards)]
+        else:
+            cs = [(c[0], c[1], c[2], c[3], c[0]) for c in cards]
         parts.append(f'<section id="{sid}"><h2>{esc(title)}</h2>' + (f'<p class="sub">{esc(sub)}</p>' if sub else "")
-                     + '<div class="grid">' + "".join(card(*c, first=(i == 0)) for i, c in enumerate(cards)) + "</div></section>")
-    page = f"""<!doctype html>
-<html lang="ja"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex">
-<title>三浦A邸 滞在ガイド</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;800&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
-<link rel="icon" href="../img/brand/logo.png"><link rel="apple-touch-icon" href="../img/brand/logo.png">
-<style>{CSS}</style></head><body>{SITENAV}<div class="wrap">
-<header class="top"><img class="motif" src="../img/brand/header-maguro.jpg" alt="跳ねるマグロと波、富士山と朝日の絵" width="1500" height="500">
-<div class="brand"><img src="../img/brand/logo.png" alt="" width="44" height="44"><div class="eyebrow">MIURA · STAY GUIDE</div></div><h1>三浦A邸 滞在ガイド</h1>
-<p class="lede">来る前・着いたとき・滞在中・帰るときに、ここを開いてください。</p>
+                     + '<div class="grid">' + "".join(card(n, d, h, x, first=(i == 0), jname=j) for i, (n, d, h, x, j) in enumerate(cs)) + "</div></section>")
+    credit = t("credit") if DEMO else ""
+    page = f"""{head_html(t("site"), "index")}<body>{sitenav("stay", root(), lang=LANG)}<div class="wrap">
+<div class="topbar">{langswitch("index")}</div>
+<header class="top"><img class="motif" src="{root()}img/brand/header-maguro.jpg" alt="{t("motif_alt")}" width="1500" height="500">
+<div class="brand"><img src="{root()}img/brand/logo.png" alt="" width="44" height="44"><div class="eyebrow">MIURA · STAY GUIDE</div></div><h1>{t("site")}</h1>
+<p class="lede">{t("lede")}</p>
 {hero}{quick}{steps}</header>
 {dummy}
 {"".join(parts)}
-<footer>三浦A邸（ADDress）。住所・鍵の番号・Wi-Fiのパスワードは、予約前日のメールにあります。{CREDIT}</footer>
-</div>{bottomnav("index")}</body></html>"""
+<footer>{t("foot")}{credit}</footer>
+</div>{bottomnav("index", lang=LANG)}{LANG_JS}</body></html>"""
+    OUTL.mkdir(exist_ok=True)
+    (OUTL / "index.html").write_text(page, encoding="utf-8")
+    pre = "stay/en/" if en else "stay/"
+    print(f"{pre}index.html を書きました")
+    left = 0
+    for slug, spec in (PAGES_EN if en else PAGES).items():
+        tmp, fill = build_page(slug, spec, public)
+        left += tmp + fill
+        print(f"{pre}{slug}.html を書きました（仮 {tmp}・記入待ち {fill}）")
+    return left
+
+def build(public=False):
+    global LANG, OUTL
+    check_en()
     OUT.mkdir(exist_ok=True)
     (OUT / "img").mkdir(exist_ok=True)
     if PHOTOS.exists():
         for f in PHOTOS.glob("*.jpg"):
             shutil.copy(f, OUT / "img" / f.name)
-    (OUT / "index.html").write_text(page, encoding="utf-8")
-    print("stay/index.html を書きました")
     left = 0
-    for slug, spec in PAGES.items():
-        tmp, fill = build_page(slug, spec, public)
-        left += tmp + fill
-        print(f"stay/{slug}.html を書きました（仮 {tmp}・記入待ち {fill}）")
+    for LANG, OUTL in (("ja", OUT), ("en", OUT / "en")):
+        left += build_lang(public)
+    LANG = "ja"
     if public and left:
         sys.exit(f"公開できません：仮・記入待ちが{left}か所残っています")
+
 
 if __name__ == "__main__":
     build(public="--public" in sys.argv)

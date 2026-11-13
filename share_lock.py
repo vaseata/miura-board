@@ -69,11 +69,12 @@ input:focus-visible,button:focus-visible{outline:2px solid var(--sea);outline-of
 #e{color:var(--tuna);min-height:1.5em;font-weight:700}
 </style></head><body><main>
 <img class="hd" src="../../img/brand/header-maguro.jpg" alt="" width="1500" height="500">
-<div class="brand"><img src="../../img/brand/logo.png" alt="" width="40" height="40">MIURA A-TEI · 宿泊者向け</div>
+<div class="brand"><img src="../../img/brand/logo.png" alt="" width="40" height="40">MIURA A-TEI · 宿泊者向け / FOR GUESTS</div>
 <h1>@TITLE@</h1>
 <p>A邸に泊まる方に、合言葉をお伝えしています。ひらがなで入れてください。一度入れると、この端末では次から自動で開きます。</p>
-<form id="f"><input id="p" type="text" inputmode="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="合言葉（ひらがな）" aria-label="合言葉" required>
-<button>ひらく</button><p id="e" role="alert"></p></form>
+<p lang="en">For guests staying at A-tei. Enter the passphrase you were given, in hiragana (Japanese keyboard). Once entered, this device opens the page automatically next time.</p>
+<form id="f"><input id="p" type="text" inputmode="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="合言葉（ひらがな）/ Passphrase" aria-label="合言葉 / Passphrase" required>
+<button>ひらく / Open</button><p id="e" role="alert"></p></form>
 </main>
 <script>
 const D={salt:"@SALT@",iv:"@IV@",ct:"@CT@",n:@N@};
@@ -87,9 +88,9 @@ async function open_(pw){
 }
 const e=document.getElementById('e');
 async function go(pw,quiet){
-  e.textContent=quiet?'':'確認しています…';
+  e.textContent=quiet?'':'確認しています… / Checking…';
   try{await open_(pw);try{localStorage.setItem('hz',pw)}catch(_){}}
-  catch(_){ if(!quiet)e.textContent='合言葉が違うようです';try{localStorage.removeItem('hz')}catch(_){} }
+  catch(_){ if(!quiet)e.textContent='合言葉が違うようです / Wrong passphrase';try{localStorage.removeItem('hz')}catch(_){} }
 }
 document.getElementById('f').onsubmit=ev=>{ev.preventDefault();go(document.getElementById('p').value.trim(),false)};
 try{const s=localStorage.getItem('hz');if(s)go(s,true)}catch(_){}
