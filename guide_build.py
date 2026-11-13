@@ -192,10 +192,8 @@ def build():
   --mincho:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
   --gothic:"Zen Kaku Gothic New","Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
 }
-.motif{display:block;width:100%;max-width:520px;height:auto;margin:0 0 -4px auto}
+.motif{display:block;width:100%;max-width:820px;height:auto;margin:0 0 10px;border-radius:10px;background:#fff}
 .daiji small img{width:40px;height:40px;vertical-align:middle;margin:0 8px 0 0;letter-spacing:0}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .motif,:root:not([data-theme="light"]) .daiji small img{filter:brightness(1.7) saturate(.85)}}
-:root[data-theme="dark"] .motif,:root[data-theme="dark"] .daiji small img{filter:brightness(1.7) saturate(.85)}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--gothic);background:var(--bg);color:var(--ink);line-height:1.75;font-size:15.5px;font-feature-settings:"palt";-webkit-font-smoothing:antialiased;overflow-x:hidden}
 main{max-width:1240px;margin:0 auto;padding:12px 16px 56px}
@@ -294,7 +292,7 @@ a{color:inherit} button{font:inherit;color:inherit}
 </head>
 <body>
 <main>
-<img class="motif" src="../img/brand/asahi-nami.png" alt="" width="1200" height="400">
+<img class="motif" src="../img/brand/header-maguro.jpg" alt="跳ねるマグロと波、富士山と朝日の絵" width="1500" height="500">
 <header class="masthead">
   <h1 class="daiji"><small><img src="../img/brand/logo.png" alt="" width="40" height="40">MIURA A-TEI · GUIDE</small>三浦A邸<br>ガイドブック</h1>
   <p class="mh-lead">三崎・城ヶ島・三浦海岸で、食べる・見る・体験する・買う。A邸からの徒歩時間つき。<br>$ymd 現在。毎朝自動で更新しています。</p>
