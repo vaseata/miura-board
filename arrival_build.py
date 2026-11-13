@@ -15,6 +15,7 @@ from share_lock import lock, token_for, ROOT, BASE
 LEDGER = Path('/Users/yanudon/claude/mameden-trio/apps/miura-watcher/data/宿泊者.json')
 PRIV = ROOT / 'private_photos'
 GUEST_ROOMS = ['101', '201', '203']        # 会員さんが泊まる部屋（台帳の題の先頭の番号）
+RESIDENT = ('202', '2026年4月から')        # 固定の住人の部屋（2026-11-14 ヤヌキ指示。名前は出さない）
 JST = dt.timezone(dt.timedelta(hours=9))
 HASH = ROOT / 'm' / '.arrival.hash'
 esc = lambda s: html.escape(str(s), quote=True)
@@ -63,9 +64,12 @@ def build():
     today = dt.datetime.now(JST).date()
     rows, written = rooms(today)
     if rows:
-        tr = ''.join(f'<tr><th>{r}</th><td class="st {"ok" if t == "空き" else "in"}">{t}{("（〜" + md(e) + "朝）") if e else ""}</td>'
-                     f'<td class="st {"ok" if n == "空き" else "in"}">{n}</td></tr>' for r, t, e, n in rows)
+        trs = [(r, f'<tr><th>{r}</th><td class="st {"ok" if t == "空き" else "in"}">{t}{("（〜" + md(e) + "朝）") if e else ""}</td>'
+                     f'<td class="st {"ok" if n == "空き" else "in"}">{n}</td></tr>') for r, t, e, n in rows]
+        trs.append((RESIDENT[0], f'<tr><th>{RESIDENT[0]}</th><td class="st res" colspan="2">住人の部屋（{RESIDENT[1]}住んでいます）</td></tr>'))
+        tr = ''.join(h for _r, h in sorted(trs))
         rooms_html = (f'<table class="rooms"><tr><th>部屋</th><th>今夜 {md(today)}</th><th>明晩</th></tr>{tr}</table>'
+                      f'<p class="res-note">{RESIDENT[0]}号室には、{RESIDENT[1]}住人が住んでいます。分からないことがあったら、声をかけてください。</p>'
                       f'<p class="note">予約の記録から自動で作っています（{esc(written)} 時点）。直前の予約・取り消しは入っていないことがあります。泊まっている人の名前は載せていません。</p>')
     else:
         rooms_html = '<p class="note">いまは部屋の空きを表示できません。</p>'
@@ -84,7 +88,8 @@ h1{{font-family:"Shippori Mincho",serif;font-weight:800;font-size:30px;margin:4p
 .two{{width:120px;height:9px;background:linear-gradient(var(--sea),var(--sea)) 0 0/100% 3px no-repeat,linear-gradient(var(--tuna),var(--tuna)) 0 6px/60% 3px no-repeat;margin:12px 0 4px}}
 h2{{font-family:"Shippori Mincho",serif;font-size:20px;border-left:4px solid var(--sea);padding-left:10px;margin:30px 0 8px}}
 .rooms{{width:100%;border-collapse:collapse;font-size:15px}}.rooms th,.rooms td{{border:1px solid var(--hair);padding:8px 10px;text-align:left}}.rooms tr:first-child th{{background:var(--tint);font-size:13px}}
-.st.ok{{color:var(--mute)}}.st.in{{color:var(--kon);font-weight:700}}
+.st.ok{{color:var(--mute)}}.st.in{{color:var(--kon);font-weight:700}}.st.res{{color:var(--sea);font-weight:700}}
+.res-note{{margin:10px 0 0;padding:10px 14px;border-radius:10px;background:var(--sea-tint);color:var(--ink);font-size:15px}}
 .note{{font-size:13px;color:var(--mute);margin:6px 0}}
 .ph{{margin:12px 0}}.ph img{{display:block;width:100%;border-radius:12px}}.ph figcaption{{font-size:12px;color:var(--mute);margin-top:4px}}
 .shoot{{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;aspect-ratio:4/3;border:1.5px dashed var(--hair);border-radius:12px;background:var(--sea-tint);color:var(--kon)}}
