@@ -119,6 +119,16 @@ def price_value(p):
     m = re.search(r"(\d[\d,]*)\s*(?:〜|~|円)", p or "")
     return int(m.group(1).replace(",", "")) if m else None
 
+def price_en(p):
+    """予算の文を英語に（決まった言い方だけ置き換える。円は ¥ に）"""
+    if not p: return p
+    for a, b in (("口コミ集計", "reviews"), ("ドーナツ", "doughnut"), ("コーヒー", "coffee"), ("（例）", " (examples)"), ("1人", "per person "),
+                 ("（Googleマップの利用者報告）", " (Google Maps reviews)"), ("昼夜とも約", "about "), ("昼 ", "lunch "), ("夜 ", "dinner "),
+                 ("（", " ("), ("）", ")"), ("／", " / "), ("・", ", "), ("〜", "–"), ("約", "about ")):
+        p = p.replace(a, b)
+    p = re.sub(r"(?<![\d,])–([\d,]+)円", r"up to \1 yen", p)   # 「〜3,000円」→ up to 3,000 yen
+    return re.sub(r"([\d,–]+)円", r"\1 yen", p)
+
 def rows(doc, include_draft, lang="ja"):
     out = []
     for s in doc["spots"]:
@@ -145,7 +155,7 @@ def rows(doc, include_draft, lang="ja"):
             "color": COLOR.get(s["category"], "#555"), "fg": FG.get(s["category"], "#fff"),
             "r": h.get("rating") or 0, "rm": h.get("rating_max") or 5, "w": h.get("when") or [],
             "draft": s.get("status") != "◎",
-            "price": tr.get("price") or s.get("price") or "", "pv": price_value(s.get("price")),
+            "price": tr.get("price") or (price_en(s.get("price")) if E else s.get("price")) or "", "pv": price_value(s.get("price")),
             "sc": shop_hours.parse(s.get("hours"), closed), "cl": closed if isinstance(closed, list) else None,
             "img": (("../../" if E else "../") + IMAGES[s["image"]]["file"]) if s.get("image") in IMAGES else "",
         })
