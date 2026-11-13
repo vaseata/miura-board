@@ -1,0 +1,25 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//miura-board//JA
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:miura-board-98@vaseata.github.io
+DTSTAMP:20261113T220250Z
+DTSTART;VALUE=DATE:20270205
+DTEND;VALUE=DATE:20270304
+SUMMARY:第23回三浦海岸桜まつり
+LOCATION:京急三浦海岸駅〜小松ヶ池公園の線路沿い（三浦
+ 市南下浦町）
+DESCRIPTION:「第23回三浦海岸桜まつり」は2027年2/5(金)〜3/3(
+ 水)（開花状況で変更あり）。京急三浦海岸駅から小松
+ ヶ池公園までの線路沿い約1kmに河津桜約1\,000本、菜の
+ 花も同時に咲く。駐車場が少ないため電車での来場を
+ 案内。開花情報は期間中、観光協会のSNSで発信（みう
+ ら観光ガイド 11/13）\n※開花状況により会期変更あり。
+ 開花情報は三浦市観光協会のSNS\n出典: https://miura-info.ne.
+ jp/23rd-sakura-festival/\n最近の三浦: https://vaseata.github.io/miura
+ -board/
+URL:https://vaseata.github.io/miura-board/
+END:VEVENT
+END:VCALENDAR
