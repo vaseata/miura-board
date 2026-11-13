@@ -6,6 +6,7 @@
       "approx": true,
       "category": "季節",
       "fact": "城ヶ島大橋からのダイヤモンド富士（日没）。年により前後",
+      "headline_en": "Diamond Fuji from Jogashima Bridge (sunset)",
       "talk": "夕方まで居るなら橋の上へ。西北西85kmの富士に日が沈みます",
       "confidence": "🟡",
       "source": {
@@ -24,6 +25,7 @@
       "approx": true,
       "category": "季節",
       "fact": "城ヶ島大橋からのダイヤモンド富士（日没）。年により前後",
+      "headline_en": "Diamond Fuji from Jogashima Bridge (sunset)",
       "talk": "お盆前の夕方。橋の歩道から",
       "confidence": "🟡",
       "source": {
@@ -42,6 +44,7 @@
       "approx": true,
       "category": "イベント",
       "fact": "みうら夜市（三崎下町商店街）。10月最初の土日",
+      "headline_en": "Miura Night Market (Misaki Shitamachi)",
       "talk": "下町の通りが屋台で埋まります",
       "confidence": "🟡",
       "source": {
@@ -62,6 +65,7 @@
       "approx": true,
       "category": "季節",
       "fact": "三浦みかん狩り 開園（10月中旬〜11月下旬）",
+      "headline_en": "Miura mandarin picking opens",
       "talk": "帰りに寄れます。園によって開園日が違うので要確認",
       "confidence": "🟡",
       "source": {
@@ -80,6 +84,7 @@
       "approx": true,
       "category": "イベント",
       "fact": "三崎港町まつり＋三崎・城ヶ島花火大会（10月下旬〜11月上旬の日曜）",
+      "headline_en": "Misaki Port Town Festival + Misaki–Jogashima Fireworks",
       "talk": "マグロ尽くしの日。花火は20分ほどですが港と島どちらからも見えます",
       "confidence": "🟡",
       "source": {
@@ -100,6 +105,7 @@
       "approx": false,
       "category": "イベント",
       "fact": "面神楽奉納舞（海南神社 神楽殿）11/6・7。日本神話を題材にした仮面黙劇。「恵比寿の舞」は海の守護神が大鯛を釣り上げる演目",
+      "headline_en": "Men-kagura masked dances at Kainan Shrine (11/6–7)",
       "talk": "三崎の古い神楽。夜、神楽殿で見られます",
       "confidence": "🟢",
       "source": {
@@ -118,6 +124,7 @@
       "approx": false,
       "category": "イベント",
       "fact": "三崎朝市 年末特別セール（12/29・30）",
+      "headline_en": "Misaki Morning Market year-end sale (12/29–30)",
       "talk": "年末は朝市が特別体制です",
       "confidence": "🟡",
       "source": {
@@ -144,6 +151,7 @@
       ],
       "image": "misaki_shitamachi",
       "fact": "海南神社 夏例大祭（海の日前の土日・2日間）。江戸時代から続く祭りで、行道獅子を先頭に神輿と山車が下町一帯を巡行。木遣り師の木遣り唄つき（市指定重要無形民俗文化財）",
+      "headline_en": "Kainan Shrine Summer Grand Festival",
       "talk": "三崎の神輿と木遣りの本場はこの祭り。10月のパレードはここから生まれた行事です",
       "confidence": "🟢",
       "source": {
@@ -165,6 +173,7 @@
       ],
       "image": "miura_beach",
       "fact": "横須賀・三浦みちくさマラソン（例年5月末）。三浦海岸発着で三浦半島をまるごと走る 約72km／63km／42km、各300名、エイド15箇所で横須賀・三浦の特産品。2026年は5/30、エントリーは1/8〜3/20だった",
+      "headline_en": "Yokosuka–Miura Michikusa Marathon",
       "talk": "三浦国際市民マラソンの「次」に語られる大会。ハーフの先にこれがあります",
       "confidence": "🟡",
       "source": {

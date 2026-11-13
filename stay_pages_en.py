@@ -109,8 +109,8 @@ PAGES_EN = {
                 ["Winter (year-end)", "The Misaki Morning Market holds a **year-end special sale** on December 29–30. It is the busiest day of the year. Over the New Year holidays, check shop opening days before you go."],
                 ["Winter (cold)", "In winter, the hallway and kitchen feel cold. Slippers and a jacket help."],
             ]),
-            ("note", "Event dates change every year. The latest information is on “Miura News” (in Japanese)."),
-            ("links", [("Miura News (news board, in Japanese)", "../index.html"), ("Eat & See", "../guide/")]),
+            ("note", "Event dates change every year. The latest information is on “Miura News” (headlines in English, articles in Japanese)."),
+            ("links", [("Miura News (headlines in English)", "../index.html"), ("Eat & See", "../guide/")]),
             ("h2", "All year"),
             ("ul", [
                 "Many nearby shops are **closed on Tuesdays and Wednesdays**. Wednesday has the fewest open shops.",
@@ -311,7 +311,7 @@ PAGES_EN = {
             ("note", "Source: ADDress official help, “Equipment and facilities” (parking section, checked on 2026-11-08)."),
             ("h2", "Festival days", "matsuri"),
             ("p", "On festival days, such as the summer festival of Kainan Shrine, there are road closures. You may not be able to park, so please check in advance."),
-            ("links", [("Miura News (events and traffic, in Japanese)", "../index.html")]),
+            ("links", [("Miura News (events and traffic; headlines in English)", "../index.html")]),
         ],
     },
     "raihou": {

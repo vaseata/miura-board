@@ -78,7 +78,7 @@ UI_CSS = """
 SITES = [  # (key, 日本語版の道, 英語版の道 or None, 日本語の名前, 英語の名前)
     ("stay", "stay/", "stay/en/", "家の案内", "House"),
     ("guide", "guide/", "guide/en/", "お店・名所", "Eat & See"),   # 英語版 2026-11-14
-    ("board", "", None, "最近の三浦", "Miura news"),
+    ("board", "", "en/", "最近の三浦", "Miura news"),   # 英語版（見出しだけ英語）2026-11-14
 ]
 _SOS_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17v.01"/></svg>'
 

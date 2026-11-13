@@ -12,14 +12,34 @@ cal = json.load(open(HERE / "calendar.json"))["events"]
 places = json.load(open(HERE / "places.json"))["images"]
 videos = json.load(open(HERE / "videos.json"))["videos"] if (HERE / "videos.json").exists() else []
 
+LANG = "ja"   # 最後に "en" でも書く（英語版 en/index.html・見出しだけ英語。2026-11-14 ヤヌキ判断）
+def E(): return LANG == "en"
+WD_EN = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+CAT_EN = {"イベント": "Event", "交通": "Transport", "出来事": "News", "季節": "Season", "店": "Shop"}
+_sp_en = json.load(open(HERE / "spots_en.json")) if (HERE / "spots_en.json").exists() else {"areas": {}}
+AREA_EN = dict(_sp_en.get("areas", {}), **{"横須賀": "Yokosuka"})
+def cat_t(c): return CAT_EN.get(c, c) if E() else c
+def area_t(a): return AREA_EN.get(a, a) if E() else a
+def R(): return "../" if E() else ""        # 英語版は1段深い
+def JL(): return ' lang="ja"' if E() else ""  # 英語版でも本文は日本語のまま
+
 def d(s): return datetime.date.fromisoformat(s)
 def esc(s): return html.escape(str(s), quote=True)
 WD = "月火水木金土日"
 def jdate(dt, approx=False):
+    if E():
+        s = f"{dt.month}/{dt.day} ({WD_EN[dt.weekday()]})"
+        return "around " + s if approx else s
     s = f"{dt.month}/{dt.day}({WD[dt.weekday()]})"
     return s + "頃" if approx else s
 def days_ago(dt):
     n = (TODAY - dt).days
+    if E():
+        if n < 0: return "tomorrow" if n == -1 else f"in {-n} days"
+        if n == 0: return "today"
+        if n < 30: return "yesterday" if n == 1 else f"{n} days ago"
+        if n < 365: return f"{n//30} month{'s' if n//30 > 1 else ''} ago"
+        return "1 year ago"
     if n < 0: return f"{-n}日後"
     if n == 0: return "今日"
     if n < 30: return f"{n}日前"
@@ -49,13 +69,14 @@ for e in cal:
             if dt >= TODAY and (nxt_df is None or dt < nxt_df[0]): nxt_df = (dt, e)
 
 CONF = {"🟢": "出典確認", "🟡": "要確認", "🗣": "伝聞"}
-def conf(c): return CONF.get(c, c)
+CONF_EN = {"🟢": "Source checked", "🟡": "To be confirmed", "🗣": "Hearsay"}
+def conf(c): return CONF_EN.get(c, c) if E() else CONF.get(c, c)
 
 def img_html(key, cls="photo"):
     p = places.get(key or "")
     if not p: return ""
     cr = "" if p["source"].startswith("https://commons") else ""
-    return f'<figure class="{cls}"><img src="{esc(p["file"])}" alt="" loading="lazy" width="480" height="300"><figcaption>{esc(p.get("caption", ""))}</figcaption></figure>'
+    return f'<figure class="{cls}"><img src="{R()}{esc(p["file"])}" alt="" loading="lazy" width="480" height="300"><figcaption>{esc(p.get("caption", ""))}</figcaption></figure>'
 
 def sources_html(srcs):
     return "／".join(f'<a href="{esc(s["url"])}" target="_blank" rel="noopener">{esc(s["title"])}</a>' if s.get("url") else f'<span>{esc(s["title"])}</span>' for s in srcs)
@@ -122,6 +143,9 @@ def gcal_url(ev):
     return "https://calendar.google.com/calendar/render?" + urllib.parse.urlencode(q, quote_via=urllib.parse.quote, safe="/:")
 
 def when_text(ev):
+    if E():
+        days = jdate(ev["start"]) + (f" – {jdate(ev['end'])}" if ev["ndays"] > 1 else "")
+        return days + (f" {ev['t0']:%H:%M}–{ev['t1']:%H:%M}" if "t0" in ev else " (all day)")
     days = jdate(ev["start"]) + (f"〜{jdate(ev['end'])}" if ev["ndays"] > 1 else "")
     return days + (f" {ev['t0']:%H:%M}〜{ev['t1']:%H:%M}" if "t0" in ev else "（終日）")
 
@@ -136,19 +160,21 @@ def entry_event(x, ev):
 def want_html(x):
     ev = cal_event(x)
     if not ev: return ""
-    write_ics(ev)
+    if not E(): write_ics(ev)          # カレンダーのファイル（中身は日本語）は日本語版のときに1回だけ書く
     en = entry_event(x, ev)
     en_html = ""
+    T = (dict(entry="Entry opens", ios="Add to iPhone Calendar", g="Add to Google Calendar", want="Want to go", off="Remove “Want to go”")
+         if E() else dict(entry="エントリー開始日", ios="iPhone のカレンダーに追加", g="Google カレンダーに追加", want="行ってみたい", off="行ってみたいを外す"))
     if en:
-        write_ics(en)
-        en_html = f'<p class="want-what">エントリー開始日 {jdate(en["start"])}</p><a class="want-link btn btn-secondary" href="ics/{en["id"]}.ics">iPhone のカレンダーに追加</a><a class="want-link btn btn-secondary" href="{esc(gcal_url(en))}" target="_blank" rel="noopener">Google カレンダーに追加</a>'
+        if not E(): write_ics(en)
+        en_html = f'<p class="want-what">{T["entry"]} {jdate(en["start"])}</p><a class="want-link btn btn-secondary" href="{R()}ics/{en["id"]}.ics">{T["ios"]}</a><a class="want-link btn btn-secondary" href="{esc(gcal_url(en))}" target="_blank" rel="noopener">{T["g"]}</a>'
     return f'''<div class="want" data-id="{ev['id']}">
-    <button type="button" class="btn btn-secondary want-btn" aria-expanded="false">行ってみたい</button>
+    <button type="button" class="btn btn-secondary want-btn" aria-expanded="false">{T["want"]}</button>
     <div class="want-to" hidden>
-      <p class="want-what">{esc(ev["title"])}<br>{esc(when_text(ev))}<br>{esc(ev["place"])}</p>
-      <a class="want-link btn btn-primary" href="ics/{ev['id']}.ics">iPhone のカレンダーに追加</a><a class="want-link btn btn-secondary" href="{esc(gcal_url(ev))}" target="_blank" rel="noopener">Google カレンダーに追加</a>
+      <p class="want-what"><span{JL()}>{esc(ev["title"])}</span><br>{esc(when_text(ev))}<br><span{JL()}>{esc(ev["place"])}</span></p>
+      <a class="want-link btn btn-primary" href="{R()}ics/{ev['id']}.ics">{T["ios"]}</a><a class="want-link btn btn-secondary" href="{esc(gcal_url(ev))}" target="_blank" rel="noopener">{T["g"]}</a>
       {en_html}
-      <button type="button" class="btn btn-tertiary want-off" hidden>行ってみたいを外す</button>
+      <button type="button" class="btn btn-tertiary want-off" hidden>{T["off"]}</button>
     </div>
   </div>'''
 
@@ -157,6 +183,7 @@ for f in ICS_DIR.glob("*.ics"): f.unlink()
 
 def countdown(x):
     n = (d(x["date"]) - TODAY).days
+    if E(): return f"{n} day{'s' if n > 1 else ''} to go" if n > 0 else ("today" if n == 0 else "ended")
     if n > 0: return f"あと{n}日"
     if n == 0: return "今日"
     return "終了"
@@ -165,6 +192,12 @@ def entry_html(x):
     e = x.get("entry")
     if not e: return ""
     o, c = d(e["open"]), d(e["close"])
+    if E():
+        if TODAY < o: line = f'<b>Entry opens in {(o-TODAY).days} days</b> ({jdate(o)} – {jdate(c)})'
+        elif TODAY <= c: line = f'<b>Entry open · closes in {(c-TODAY).days} days</b> (until {jdate(c)})'
+        else: line = f'Entry closed ({jdate(c)})'
+        extra = "".join(f'<span lang="ja">{esc(v)}</span>' for v in (e.get("how"), e.get("note")) if v)
+        return f'<p class="entry">{line}{extra}</p>'
     if TODAY < o: line = f'<b>エントリー開始まで あと{(o-TODAY).days}日</b>（{jdate(o)}〜{jdate(c)}）'
     elif TODAY <= c: line = f'<b>エントリー受付中 締切まで あと{(c-TODAY).days}日</b>（〜{jdate(c)}）'
     else: line = f'エントリー締切済（{jdate(c)}）'
@@ -174,10 +207,11 @@ def entry_html(x):
 def prep_html(x):
     rs = x.get("research") or []
     if not rs and not x.get("open_questions"): return ""
-    rows = "".join(f'<dt>{esc(r["h"])}</dt><dd>{esc(r["t"])}<span class="src"><span class="cf">{conf(r.get("confidence","🟡"))}</span>{sources_html(r.get("sources", []))}</span></dd>' for r in rs)
+    rows = "".join(f'<dt{JL()}>{esc(r["h"])}</dt><dd><span{JL()}>{esc(r["t"])}</span><span class="src"><span class="cf">{conf(r.get("confidence","🟡"))}</span>{sources_html(r.get("sources", []))}</span></dd>' for r in rs)
     oq = x.get("open_questions") or []
-    oq_html = f'<div class="oq"><span class="tl">まだ分からないこと</span><ul>{"".join(f"<li>{esc(q)}</li>" for q in oq)}</ul></div>' if oq else ""
+    oq_html = f'<div class="oq"><span class="tl">{"Still unknown" if E() else "まだ分からないこと"}</span><ul{JL()}>{"".join(f"<li>{esc(q)}</li>" for q in oq)}</ul></div>' if oq else ""
     opened = max((s["opened"] for r in rs for s in r.get("sources", [])), default="")
+    if E(): return f'''<section class="prep"><h4>Notes<small>as of {esc(opened)} · in Japanese</small></h4><dl>{rows}</dl>{oq_html}</section>'''
     return f'''<section class="prep"><h4>下調べ<small>{esc(opened)} 時点</small></h4><dl>{rows}</dl>{oq_html}</section>'''
 
 def short_head(text, n=26):
@@ -189,18 +223,23 @@ def short_head(text, n=26):
 
 def thumb_html(key, area):
     p = places.get(key or "")
-    if not p: return f'<div class="thumb noimg" aria-hidden="true"><span>{esc(area)}</span></div>'
-    return f'<div class="thumb"><img src="{esc(p["file"])}" alt="" loading="lazy" width="480" height="300"></div>'
+    if not p: return f'<div class="thumb noimg" aria-hidden="true"><span>{esc(area_t(area))}</span></div>'
+    return f'<div class="thumb"><img src="{R()}{esc(p["file"])}" alt="" loading="lazy" width="480" height="300"></div>'
 
 def figure_html(key):
     p = places.get(key or "")
     if not p: return ""
     cap = f'<figcaption>{esc(p["caption"])}</figcaption>' if p.get("caption") else ""
-    return f'<figure class="photo"><img src="{esc(p["file"])}" alt="" loading="lazy" width="480" height="300">{cap}</figure>'
+    return f'<figure class="photo"><img src="{R()}{esc(p["file"])}" alt="" loading="lazy" width="480" height="300">{cap}</figure>'
 
 def status(x):
     """カード右上の状態：開催中／あとN日／N日前"""
     start, end = d(x["date"]), d(x.get("end") or x["date"])
+    if E():
+        if start <= TODAY <= end and end > start: return '<span class="st now">On now</span>'
+        if x.get("going"): return f'<span class="st going">Going · {countdown(x)}</span>'
+        if start > TODAY: return f'<span class="st soon">{days_ago(start)}</span>'
+        return f'<span class="st ago">{days_ago(start)}</span>'
     if start <= TODAY <= end and end > start: return '<span class="st now">開催中</span>'
     if x.get("going"): return f'<span class="st going">参加予定 {countdown(x)}</span>'
     if start > TODAY: return f'<span class="st soon">{(start-TODAY).days}日後</span>'
@@ -208,23 +247,28 @@ def status(x):
 
 def card(x, lead_ok=True):
     dt = d(x["date"]); age = (TODAY - dt).days
-    end = f'〜{jdate(d(x["end"]))}' if x.get("end") else ""
+    end = ((f' – {jdate(d(x["end"]))}' if E() else f'〜{jdate(d(x["end"]))}') if x.get("end") else "")
     head = x.get("headline") or short_head(x["fact"])
+    hl = ""                       # 見出しの言語（英語版で英訳が無いときは日本語のまま lang="ja"）
+    if E():
+        if x.get("headline_en"): head = x["headline_en"]
+        else: hl = ' lang="ja"'
     going = x.get("going")
     has_prep = bool(x.get("research") or x.get("open_questions"))
-    more = '<span class="more">下調べあり</span>' if has_prep else ""
+    more = f'<span class="more">{"Notes" if E() else "下調べあり"}</span>' if has_prep else ""
     return f'''<article class="art{" going" if going else ""}" data-age="{age}" data-cat="{esc(x["category"])}" data-tags="{esc(",".join([] if x.get("cancelled") else x.get("tags", [])))}">
   {thumb_html(x.get("image"), x["area"])}
-  <div class="ran"><span class="cat">{esc(x["category"])}</span><span class="area">{esc(x["area"])}</span>{status(x)}</div>
-  <h3><button type="button" class="open">{esc(head)}</button></h3>
+  <div class="ran"><span class="cat">{esc(cat_t(x["category"]))}</span><span class="area">{esc(area_t(x["area"]))}</span>{status(x)}</div>
+  <h3{hl}><button type="button" class="open">{esc(head)}</button></h3>
   <p class="dt">{jdate(dt)}{end}{more}</p>
-  <p class="lede">{esc(x["talk"])}</p>
+  <p class="lede"{JL()}>{esc(x["talk"])}</p>
   <div class="detail" hidden>
     {figure_html(x.get("image"))}
-    <p class="d-meta"><span class="cat">{esc(x["category"])}</span>{esc(x["area"])}　{jdate(dt)}{end}</p>
-    <h2 class="d-head">{esc(head)}</h2>
-    <p class="fact">{esc(x["fact"])}</p>
-    <aside class="talk"><span class="tl">話のタネ</span>{esc(x["talk"])}</aside>
+    <p class="d-meta"><span class="cat">{esc(cat_t(x["category"]))}</span>{esc(area_t(x["area"]))}　{jdate(dt)}{end}</p>
+    <h2 class="d-head"{hl}>{esc(head)}</h2>
+    {'<p class="jp-note">The article below is in Japanese. Your browser’s translate feature can help.</p>' if E() else ""}
+    <p class="fact"{JL()}>{esc(x["fact"])}</p>
+    <aside class="talk"{JL()}><span class="tl">{"TALKING POINT" if E() else "話のタネ"}</span>{esc(x["talk"])}</aside>
     {entry_html(x)}
     {want_html(x)}
     {prep_html(x)}
@@ -234,18 +278,24 @@ def card(x, lead_ok=True):
 
 def up_card(dt, e):
     head = short_head(e["fact"])
+    hl = ""
+    if E():
+        if e.get("headline_en"): head = e["headline_en"]
+        else: hl = ' lang="ja"'
+    ann, every = ("Annual", "Every year") if E() else ("定番", "毎年の定番")
     return f'''<article class="art up" data-cat="{esc(e["category"])}" data-tags="{esc(",".join(e.get("tags", [])))}">
   {thumb_html(e.get("image"), "三浦")}
-  <div class="ran"><span class="cat">{esc(e["category"])}</span><span class="area">定番</span><span class="st soon">{(dt-TODAY).days}日後</span></div>
-  <h3><button type="button" class="open">{esc(head)}</button></h3>
+  <div class="ran"><span class="cat">{esc(cat_t(e["category"]))}</span><span class="area">{ann}</span><span class="st soon">{days_ago(dt) if E() else str((dt-TODAY).days) + "日後"}</span></div>
+  <h3{hl}><button type="button" class="open">{esc(head)}</button></h3>
   <p class="dt">{jdate(dt, e.get("approx"))}</p>
-  <p class="lede">{esc(e["talk"])}</p>
+  <p class="lede"{JL()}>{esc(e["talk"])}</p>
   <div class="detail" hidden>
     {figure_html(e.get("image"))}
-    <p class="d-meta"><span class="cat">{esc(e["category"])}</span>毎年の定番　{jdate(dt, e.get("approx"))}</p>
-    <h2 class="d-head">{esc(head)}</h2>
-    <p class="fact">{esc(e["fact"])}</p>
-    <aside class="talk"><span class="tl">話のタネ</span>{esc(e["talk"])}</aside>
+    <p class="d-meta"><span class="cat">{esc(cat_t(e["category"]))}</span>{every}　{jdate(dt, e.get("approx"))}</p>
+    <h2 class="d-head"{hl}>{esc(head)}</h2>
+    {'<p class="jp-note">The article below is in Japanese. Your browser’s translate feature can help.</p>' if E() else ""}
+    <p class="fact"{JL()}>{esc(e["fact"])}</p>
+    <aside class="talk"{JL()}><span class="tl">{"TALKING POINT" if E() else "話のタネ"}</span>{esc(e["talk"])}</aside>
     <p class="src"><span class="cf">{conf(e["confidence"])}</span><a href="{esc(e["source"]["url"])}" target="_blank" rel="noopener">{esc(e["source"]["title"])}</a></p>
   </div>
 </article>'''
@@ -253,28 +303,63 @@ def up_card(dt, e):
 def video_html(v):
     dt = d(v["published"])
     th = f'img/yt/{v["id"]}.jpg'
-    img = f'<img src="{th}" alt="" loading="lazy" width="320" height="180">' if (HERE / th).exists() else ''
-    badge = '<span class="live">生中継</span>' if v.get("live") else ""
+    img = f'<img src="{R()}{th}" alt="" loading="lazy" width="320" height="180">' if (HERE / th).exists() else ''
+    badge = f'<span class="live">{"LIVE" if E() else "生中継"}</span>' if v.get("live") else ""
     return f'''<a class="vid" href="https://www.youtube.com/watch?v={esc(v["id"])}" target="_blank" rel="noopener">
   <div class="vthumb">{img}{badge}</div>
-  <div class="vtitle">{esc(v["title"])}</div>
-  <div class="vmeta">{esc(v["channel"])}　{esc("配信中" if v.get("live") else days_ago(dt))}</div>
+  <div class="vtitle"{JL()}>{esc(v["title"])}</div>
+  <div class="vmeta">{esc(v["channel"])}　{esc(("Live now" if E() else "配信中") if v.get("live") else days_ago(dt))}</div>
 </a>'''
 
-# 「これから・開催中」と「最近のできごと」に分ける
-soon = sorted([x for x in items if d(x.get("end") or x["date"]) >= TODAY], key=lambda x: x["date"])
-recent = sorted([x for x in items if d(x.get("end") or x["date"]) < TODAY], key=lambda x: x["date"], reverse=True)
-soon_html = "".join(card(x) for x in soon)
-recent_html = "".join(card(x) for x in recent)
-up_html = "".join(up_card(dt, e) for dt, e in upcoming)
-videos_html = "".join(video_html(v) for v in videos) or '<p class="empty">まだ動画がありません</p>'
-df_line = f'{jdate(nxt_df[0], nxt_df[1].get("approx"))}（{(nxt_df[0]-TODAY).days}日後）' if nxt_df else "—"
-credits_plain = " · ".join(f"{k} {v['license']}" for k, v in places.items() if v["source"].startswith("https://commons"))
-issue_no = (TODAY - FIRST_ISSUE).days + 1
+TX_JA = dict(t_title="最近の三浦", t_motif="跳ねるマグロと波、富士山と朝日の絵", t_small="イベントと町の話題", t_h1="最近の三浦",
+             t_lead="城ヶ島・三崎・三浦海岸・油壺・小網代 ── この町で起きたこと、はじまったこと、季節のこと。記事をタップすると詳しく読めます。",
+             t_filter="記事の絞り込み", t_last="前回のご来訪", t_d31="1ヶ月前", t_d93="3ヶ月前", t_d184="半年前", t_d366="1年前",
+             t_want="行ってみたい", t_reco="おすすめ", t_soon="これから・開催中", t_recent="最近のできごと",
+             t_none="この期間に新しい記事はありません。下の「毎年の定番」を話題にどうぞ。", t_dfk="次のダイヤモンド富士",
+             t_dfn="城ヶ島大橋から。西北西85km先の富士に日が沈む。年により前後（要確認）", t_ups="毎年の定番", t_videos="映像欄",
+             t_detail="記事の詳細", t_close="閉じる", js_want="'行ってみたい'", js_reco="'おすすめ'",
+             js_nowant="'「行ってみたい」を押した記事はまだありません。'", js_noreco="'似た行事はまだ見つかっていません。'",
+             js_none="'この期間に新しい記事はありません。下の「毎年の定番」を話題にどうぞ。'",
+             t_desc="城ヶ島・三崎・三浦海岸——この町で起きたこと、はじまったこと、季節のこと。")
+TX_EN = dict(t_title="Miura News", t_motif="Drawing of a leaping tuna, waves, Mt. Fuji and the rising sun", t_small="EVENTS &amp; LOCAL NEWS", t_h1="Miura News",
+             t_lead="Jogashima, Misaki, Miura Kaigan, Aburatsubo, Koajiro — what happened, what's starting, and the seasons. Headlines are in English; tap an article to read it (in Japanese).",
+             t_filter="Filter articles", t_last="Your last visit", t_d31="1 month", t_d93="3 months", t_d184="6 months", t_d366="1 year",
+             t_want="Want to go", t_reco="Suggested", t_soon="Coming up & on now", t_recent="Recent news",
+             t_none="No new articles for this period. Try the annual events below.", t_dfk="Next Diamond Fuji",
+             t_dfn="From Jogashima Bridge: the sun sets on Mt. Fuji, 85 km to the west-northwest. The date varies by year (to be confirmed).", t_ups="Every year", t_videos="Videos",
+             t_detail="Article details", t_close="Close", js_want="'Want to go'", js_reco="'Suggested'",
+             js_nowant="'No articles marked “Want to go” yet.'", js_noreco="'No similar events found yet.'",
+             js_none="'No new articles for this period. Try the annual events below.'",
+             t_desc="Miura News: what's happening in Jogashima, Misaki, and Miura Kaigan. Headlines in English.")
+
+def langswitch():
+    ja, en = ("../", "./") if E() else ("./", "en/")
+    a = ' aria-current="page"'
+    return (f'<nav class="lang" aria-label="Language / 言語"><a href="{ja}" hreflang="ja" lang="ja"{"" if E() else a}>JP</a>'
+            f'<a href="{en}" hreflang="en" lang="en"{a if E() else ""}>EN</a></nav>')
+LANG_JS = """<script>(function(){try{var L=document.documentElement.lang;
+document.querySelectorAll('.lang a').forEach(function(a){a.addEventListener('click',function(){a.href=a.href.split('#')[0]+location.hash;try{localStorage.setItem('lang',a.hreflang)}catch(e){}})});
+var p=null;try{p=localStorage.getItem('lang')}catch(e){}
+var r=document.referrer,same=false;try{same=!!r&&new URL(r).origin===location.origin}catch(e){}
+if(p&&p!==L&&!same){var a=document.querySelector('.lang a[hreflang="'+p+'"]');if(a)location.replace(a.href.split('#')[0]+location.hash)}}catch(e){}})();</script>"""
+
+def render_board():
+    # 「これから・開催中」と「最近のできごと」に分ける
+    soon = sorted([x for x in items if d(x.get("end") or x["date"]) >= TODAY], key=lambda x: x["date"])
+    recent = sorted([x for x in items if d(x.get("end") or x["date"]) < TODAY], key=lambda x: x["date"], reverse=True)
+    soon_html = "".join(card(x) for x in soon)
+    recent_html = "".join(card(x) for x in recent)
+    up_html = "".join(up_card(dt, e) for dt, e in upcoming)
+    videos_html = "".join(video_html(v) for v in videos) or f'<p class="empty">{"No videos yet" if E() else "まだ動画がありません"}</p>'
+    if E(): df_line = f'{jdate(nxt_df[0], nxt_df[1].get("approx"))} ({days_ago(nxt_df[0])})' if nxt_df else "—"
+    else: df_line = f'{jdate(nxt_df[0], nxt_df[1].get("approx"))}（{(nxt_df[0]-TODAY).days}日後）' if nxt_df else "—"
+    X = TX_EN if E() else TX_JA
+    credits_plain = " · ".join(f"{k} {v['license']}" for k, v in places.items() if v["source"].startswith("https://commons"))
+    issue_no = (TODAY - FIRST_ISSUE).days + 1
 
 
-page = Template('''<title>最近の三浦</title>
-<link rel="icon" href="img/brand/logo.png">
+    page = Template('''<title>$t_title</title>
+<link rel="icon" href="${R}img/brand/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
@@ -434,28 +519,33 @@ button{font:inherit;color:inherit}
 .okuzuke .latin{display:block;margin-top:6px;letter-spacing:.25em;text-transform:uppercase;font-size:9.5px}
 @media (prefers-reduced-motion: reduce){ .thumb img{transition:none} }
 $ui_css
+.jp-note{font-size:12px;color:var(--mute);margin:-6px 0 8px}\nhtml[lang="en"] .men .latin{display:none}
+.topbar{display:flex;justify-content:flex-end;margin:0 0 8px}
+.lang{display:inline-grid;grid-template-columns:1fr 1fr;gap:2px;padding:3px;background:var(--tint);border:1px solid var(--hair);border-radius:999px;flex:none}
+.lang a{display:flex;align-items:center;justify-content:center;min-width:52px;min-height:38px;border-radius:999px;color:var(--mute);font:400 14px/1 var(--gothic);letter-spacing:.04em;text-decoration:none}
+.lang a[aria-current="page"]{background:var(--bg);color:var(--ink);font-weight:700;box-shadow:0 0 0 1px var(--hair)}
 </style>
 <main>
-<img class="motif" src="img/brand/header-maguro.jpg" alt="跳ねるマグロと波、富士山と朝日の絵" width="1500" height="500">
+<div class="topbar">$langswitch</div>
+<img class="motif" src="${R}img/brand/header-maguro.jpg" alt="$t_motif" width="1500" height="500">
 <header class="masthead">
-  <h1 class="daiji"><small>イベントと町の話題</small>最近の三浦</h1>
-  <div class="issue"><span class="no">第$issue号</span><br>$ymd（$wd）</div>
-  <p class="mh-lead">城ヶ島・三崎・三浦海岸・油壺・小網代 ── この町で起きたこと、はじまったこと、季節のこと。記事をタップすると詳しく読めます。</p>
+  <h1 class="daiji"><small>$t_small</small>$t_h1</h1>
+  <div class="issue"><span class="no">$t_issue</span><br>$ymd</div>
+  <p class="mh-lead">$t_lead</p>
 </header>
-<nav class="toggle" aria-label="記事の絞り込み"><span class="q" id="q-days">前回のご来訪</span><div class="seg" role="radiogroup" aria-labelledby="q-days"><button type="button" role="radio" aria-checked="false" data-days="31">1ヶ月前</button><button type="button" role="radio" aria-checked="false" data-days="93">3ヶ月前</button><button type="button" role="radio" aria-checked="false" data-days="184">半年前</button><button type="button" role="radio" aria-checked="false" data-days="366">1年前</button></div><div class="tags"><button type="button" class="fchip tag-want" data-tag="want" aria-pressed="false" hidden>行ってみたい <b class="n">0</b></button><button type="button" class="fchip tag-reco" data-tag="reco" aria-pressed="false" hidden>おすすめ <b class="n">0</b></button></div></nav>
-<section class="sec dated" id="soon"><h2 class="men">これから・開催中<span class="latin">Coming up</span></h2><div class="grid">$soon</div></section>
-<section class="sec dated" id="recent"><h2 class="men">最近のできごと<span class="latin">Recent</span></h2><div class="grid">$recent</div></section>
-<p class="empty" id="none" hidden>この期間に新しい記事はありません。下の「毎年の定番」を話題にどうぞ。</p>
-<div class="df"><span class="k">次のダイヤモンド富士</span><span class="v">$df</span><span class="n">城ヶ島大橋から。西北西85km先の富士に日が沈む。年により前後（要確認）</span></div>
-<section class="sec" id="ups"><h2 class="men">毎年の定番<span class="latin">Seasonal · 120 days</span></h2><div class="grid">$upcoming</div></section>
-<section class="sec" id="videos"><h2 class="men">映像欄<span class="latin">YouTube</span></h2><div class="vgrid">$videos</div></section>
+<nav class="toggle" aria-label="$t_filter"><span class="q" id="q-days">$t_last</span><div class="seg" role="radiogroup" aria-labelledby="q-days"><button type="button" role="radio" aria-checked="false" data-days="31">$t_d31</button><button type="button" role="radio" aria-checked="false" data-days="93">$t_d93</button><button type="button" role="radio" aria-checked="false" data-days="184">$t_d184</button><button type="button" role="radio" aria-checked="false" data-days="366">$t_d366</button></div><div class="tags"><button type="button" class="fchip tag-want" data-tag="want" aria-pressed="false" hidden>$t_want <b class="n">0</b></button><button type="button" class="fchip tag-reco" data-tag="reco" aria-pressed="false" hidden>$t_reco <b class="n">0</b></button></div></nav>
+<section class="sec dated" id="soon"><h2 class="men">$t_soon<span class="latin">Coming up</span></h2><div class="grid">$soon</div></section>
+<section class="sec dated" id="recent"><h2 class="men">$t_recent<span class="latin">Recent</span></h2><div class="grid">$recent</div></section>
+<p class="empty" id="none" hidden>$t_none</p>
+<div class="df"><span class="k">$t_dfk</span><span class="v">$df</span><span class="n">$t_dfn</span></div>
+<section class="sec" id="ups"><h2 class="men">$t_ups<span class="latin">Seasonal · 120 days</span></h2><div class="grid">$upcoming</div></section>
+<section class="sec" id="videos"><h2 class="men">$t_videos<span class="latin">YouTube</span></h2><div class="vgrid">$videos</div></section>
 <footer class="okuzuke">
-出典確認＝記事を開いて確かめたもの／要確認＝一次でない・「頃」／伝聞＝聞いた話<br>
-写真：Wikimedia Commons（$credits_plain）、出典記事の og:image、YouTube のサムネイル
+$t_foot
 <span class="latin">Since 2026.09.12 · Updated every morning · By Yanuki</span>
 </footer>
 </main>
-<dialog id="sheet" aria-label="記事の詳細"><div class="sheet-in"><div class="sheet-bar"><button type="button" class="btn btn-secondary sheet-close">閉じる</button></div><div class="sheet-body"></div></div></dialog>
+<dialog id="sheet" aria-label="$t_detail"><div class="sheet-in"><div class="sheet-bar"><button type="button" class="btn btn-secondary sheet-close">$t_close</button></div><div class="sheet-body"></div></div></dialog>
 <script>
 (function(){
   var btns=[].slice.call(document.querySelectorAll('.toggle button[data-days]'));
@@ -487,16 +577,16 @@ $ui_css
       var w=isWant(el), rc=isReco(el); if(rc)r++;
       var ok=mode==='want'?w:mode==='reco'?rc:(+el.dataset.age<=days);
       el.hidden=!ok; el.classList.remove('lead'); if(ok)shown++;
-      badge(el,'want-tag','行ってみたい',w); badge(el,'reco-tag','おすすめ',n>0&&rc);
+      badge(el,'want-tag',$js_want,w); badge(el,'reco-tag',$js_reco,n>0&&rc);
     });
-    ups.forEach(function(el){var rc=isReco(el); if(rc)r++; el.hidden=(mode==='reco')?!rc:(mode==='want'); badge(el,'reco-tag','おすすめ',n>0&&rc);});
+    ups.forEach(function(el){var rc=isReco(el); if(rc)r++; el.hidden=(mode==='reco')?!rc:(mode==='want'); badge(el,'reco-tag',$js_reco,n>0&&rc);});
     secs.forEach(function(s){
       var vis=[].filter.call(s.querySelectorAll('.art'),function(el){return !el.hidden;});
       s.hidden=vis.length===0;
       if(vis[0]&&s.classList.contains('dated'))vis[0].classList.add('lead');
     });
     none.hidden=shown>0;
-    none.textContent=mode==='want'?'「行ってみたい」を押した記事はまだありません。':mode==='reco'?'似た行事はまだ見つかっていません。':'この期間に新しい記事はありません。下の「毎年の定番」を話題にどうぞ。';
+    none.textContent=mode==='want'?$js_nowant:mode==='reco'?$js_noreco:$js_none;
     if(tagBtn){tagBtn.hidden=(n===0);tagBtn.querySelector('.n').textContent=n;tagBtn.setAttribute('aria-pressed',String(mode==='want'));}
     if(recoBtn){recoBtn.hidden=(n===0||r===0);recoBtn.querySelector('.n').textContent=r;recoBtn.setAttribute('aria-pressed',String(mode==='reco'));}
   }
@@ -529,17 +619,30 @@ $ui_css
   render();
 })();
 </script>
-''').substitute(issue=issue_no, ymd=f"{TODAY.year}年{TODAY.month}月{TODAY.day}日", wd=WD[TODAY.weekday()],
-                 soon=soon_html, recent=recent_html, df=df_line, upcoming=up_html, videos=videos_html, credits_plain=credits_plain, ui_css=UI_CSS)
-# Artifact 用（断片）と GitHub Pages 用（完全なHTML）の2本を書く
-(HERE / "artifact.html").write_text(page, encoding="utf-8")
-i = page.index("<main>")
-full = ('<!DOCTYPE html>\n<html lang="ja">\n<head>\n<meta charset="utf-8">\n'
-        '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
-        '<meta name="description" content="城ヶ島・三崎・三浦海岸——この町で起きたこと、はじまったこと、季節のこと。">\n'
-        + page[:i] + '</head>\n<body>\n' + sitenav("board", "", is_top=True, sos=True) + '\n' + page[i:] + '</body>\n</html>\n')
-(HERE / "index.html").write_text(full, encoding="utf-8")
-print(f"index.html 第{issue_no}号: {len(soon)} soon, {len(recent)} recent, {len(upcoming)} upcoming, {len(videos)} videos, next DF {df_line}")
+    ''').substitute(soon=soon_html, recent=recent_html, df=df_line, upcoming=up_html, videos=videos_html, ui_css=UI_CSS, R=R(),
+                     langswitch=langswitch(),
+                     ymd=(f"{TODAY.strftime('%A')}, {TODAY.strftime('%B')} {TODAY.day}, {TODAY.year}" if E() else f"{TODAY.year}年{TODAY.month}月{TODAY.day}日（{WD[TODAY.weekday()]}）"),
+                     t_issue=(f"No. {issue_no}" if E() else f"第{issue_no}号"),
+                     t_foot=(f"Source checked = confirmed by opening the article / To be confirmed = not a primary source, or an approximate date / Hearsay = something we heard. Headlines are translated; articles are in Japanese.<br>Photos: Wikimedia Commons ({credits_plain}), og:image of source articles, YouTube thumbnails"
+                             if E() else f"出典確認＝記事を開いて確かめたもの／要確認＝一次でない・「頃」／伝聞＝聞いた話<br>写真：Wikimedia Commons（{credits_plain}）、出典記事の og:image、YouTube のサムネイル"),
+                     **X)
+    # Artifact 用（断片・日本語だけ）と GitHub Pages 用（完全なHTML）を書く
+    if not E(): (HERE / "artifact.html").write_text(page, encoding="utf-8")
+    i = page.index("<main>")
+    alt = (f'<link rel="alternate" hreflang="ja" href="{PAGE_URL}"><link rel="alternate" hreflang="en" href="{PAGE_URL}en/">'
+           f'<link rel="alternate" hreflang="x-default" href="{PAGE_URL}">\n')
+    full = (f'<!DOCTYPE html>\n<html lang="{LANG}">\n<head>\n<meta charset="utf-8">\n'
+            '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
+            f'<meta name="description" content="{X["t_desc"]}">\n' + alt
+            + page[:i] + '</head>\n<body>\n' + sitenav("board", R(), lang=LANG, is_top=True, sos=True) + '\n' + page[i:] + LANG_JS + '</body>\n</html>\n')
+    out = HERE / "en" / "index.html" if E() else HERE / "index.html"
+    out.parent.mkdir(exist_ok=True)
+    out.write_text(full, encoding="utf-8")
+    print(f"{'en/' if E() else ''}index.html 第{issue_no}号: {len(soon)} soon, {len(recent)} recent, {len(upcoming)} upcoming, {len(videos)} videos, next DF {df_line}" + (f"（英語の見出しなし {sum(1 for x in items if not x.get('headline_en'))}件）" if E() else ""))
+
+for LANG in ("ja", "en"):
+    render_board()
+LANG = "ja"
 
 # ---- ゲスト向けガイドブック（guide/）も一緒に生成
 try:

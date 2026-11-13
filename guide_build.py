@@ -92,7 +92,7 @@ def build_lang():
     E = en()
     OUTL = OUT / "en" if E else OUT
     R = "../../" if E else "../"          # リポジトリの一番上への道
-    BOARD = R + "index.html"
+    BOARD = R + ("en/" if E else "index.html")   # 英語版の近況ボードは見出しだけ英語
     spots_doc = json.load(open(HERE / "spots.json"))
     # A邸の座標は公開しない。home.local.json（.gitignore）にだけ置く。無ければ徒歩時間は出さない
     home = dict(spots_doc.get("home") or {})
@@ -220,7 +220,7 @@ def build_lang():
         if x.get("category") != "イベント" or x.get("cancelled"): continue
         start, end = d(x["date"]), d(x.get("end") or x["date"])
         if end < TODAY or start > TODAY + datetime.timedelta(days=30): continue
-        ev.append((start, end, x.get("headline") or short_head(x["fact"]), x["area"], x["talk"], x.get("image")))
+        ev.append((start, end, (x.get("headline_en") if E and x.get("headline_en") else None) or x.get("headline") or short_head(x["fact"]), x["area"], x["talk"], x.get("image"), bool(E and x.get("headline_en"))))
     ev.sort(key=lambda t: t[0])
     ups = []
     for e in cal:
@@ -232,18 +232,18 @@ def build_lang():
                 ups.append((dt, e)); break
     ups.sort(key=lambda t: t[0])
 
-    def ev_card(start, end, head, area, talk, image):
+    def ev_card(start, end, head, area, talk, image, head_en=False):
         now = start <= TODAY <= end
         when = jdate(start) + ((f" – {jdate(end)}" if E else f"〜{jdate(end)}") if end > start else "")
         n = (start - TODAY).days
         st = (f'<span class="st now">{"On now" if E else "開催中"}</span>' if now else
               f'<span class="st soon">{indays(n) if E else str(n) + "日後"}</span>')
         jl = ' lang="ja"' if E else ""   # 出来事の文は日本語のまま（近況ボードの英語化は未定）
-        return f'''<a class="art ev" href="{BOARD}"{' hreflang="ja"' if E else ""}>{thumb(image, area)}<div class="ran"><span class="cat">{"Event" if E else "イベント"}</span><span class="area">{esc(EN_DATA["areas"].get(area, area) if E else area)}</span>{st}</div><h3{jl}>{esc(head)}</h3><p class="dt">{when}</p><p class="lede"{jl}>{esc(talk)}</p></a>'''
+        return f'''<a class="art ev" href="{BOARD}">{thumb(image, area)}<div class="ran"><span class="cat">{"Event" if E else "イベント"}</span><span class="area">{esc(EN_DATA["areas"].get(area, area) if E else area)}</span>{st}</div><h3{"" if head_en else jl}>{esc(head)}</h3><p class="dt">{when}</p><p class="lede"{jl}>{esc(talk)}</p></a>'''
     def up_card(dt, e):
         n = (dt - TODAY).days
         jl = ' lang="ja"' if E else ""
-        return f'''<a class="art ev" href="{BOARD}"{' hreflang="ja"' if E else ""}>{thumb(e.get("image"), "Annual" if E else "定番")}<div class="ran"><span class="cat">{"Annual" if E else "定番"}</span><span class="st soon">{indays(n) if E else str(n) + "日後"}</span></div><h3{jl}>{esc(short_head(e["fact"]))}</h3><p class="dt">{jdate(dt, e.get("approx"))}</p><p class="lede"{jl}>{esc(e["talk"])}</p></a>'''
+        return f'''<a class="art ev" href="{BOARD}">{thumb(e.get("image"), "Annual" if E else "定番")}<div class="ran"><span class="cat">{"Annual" if E else "定番"}</span><span class="st soon">{indays(n) if E else str(n) + "日後"}</span></div><h3{"" if (E and e.get("headline_en")) else jl}>{esc(e["headline_en"] if (E and e.get("headline_en")) else short_head(e["fact"]))}</h3><p class="dt">{jdate(dt, e.get("approx"))}</p><p class="lede"{jl}>{esc(e["talk"])}</p></a>'''
 
     season_html = "".join(spot_card(s) for s in season_spots)
     events_html = "".join(ev_card(*t) for t in ev) + "".join(up_card(dt, e) for dt, e in ups)
@@ -253,7 +253,7 @@ def build_lang():
         dt, e = nxt_df
         n = (dt - TODAY).days
         if E:
-            df_card = f'''<a class="art ev" href="{BOARD}" hreflang="ja">{thumb(e.get("image"), "Jogashima")}<div class="ran"><span class="cat">Season</span><span class="area">Jogashima Bridge</span><span class="st soon">{indays(n)}</span></div><h3>Diamond Fuji {jdate(dt, e.get("approx"))}</h3><p class="dt">At sunset, from Jogashima Bridge</p><p class="lede">The sun sets right on the summit of Mt. Fuji.</p></a>'''
+            df_card = f'''<a class="art ev" href="{BOARD}">{thumb(e.get("image"), "Jogashima")}<div class="ran"><span class="cat">Season</span><span class="area">Jogashima Bridge</span><span class="st soon">{indays(n)}</span></div><h3>Diamond Fuji {jdate(dt, e.get("approx"))}</h3><p class="dt">At sunset, from Jogashima Bridge</p><p class="lede">The sun sets right on the summit of Mt. Fuji.</p></a>'''
         else:
             df_card = f'''<a class="art ev" href="{BOARD}">{thumb(e.get("image"), "城ヶ島")}<div class="ran"><span class="cat">季節</span><span class="area">城ヶ島大橋</span><span class="st soon">{n}日後</span></div><h3>ダイヤモンド富士 {jdate(dt, e.get("approx"))}</h3><p class="dt">日没・城ヶ島大橋から</p><p class="lede">{esc(e["talk"])}</p></a>'''
     spots_html = "".join(spot_card(s) for s in published)
@@ -484,11 +484,11 @@ $lang_js
                  lang_css=LANG_CSS, lang_js=LANG_JS, langswitch=langswitch(LANG),
                  alternates=f'<link rel="alternate" hreflang="ja" href="{SITE}"><link rel="alternate" hreflang="en" href="{SITE}en/"><link rel="alternate" hreflang="x-default" href="{SITE}">',
                  **(TXT_EN if E else TXT_JA),
-                 lead=(f"Eat, see, do, and shop around Misaki, Jogashima, and Miura Kaigan — with walking times from A-tei.<br>As of {TODAY.strftime('%B')} {TODAY.day}, {TODAY.year}. Updated automatically every morning. Seasonal events are shown in Japanese."
+                 lead=(f"Eat, see, do, and shop around Misaki, Jogashima, and Miura Kaigan — with walking times from A-tei.<br>As of {TODAY.strftime('%B')} {TODAY.day}, {TODAY.year}. Updated automatically every morning. Event headlines are in English; details are in Japanese."
                        if E else f"三崎・城ヶ島・三浦海岸で、食べる・見る・体験する・買う。A邸からの徒歩時間つき。<br>{TODAY.year}年{TODAY.month}月{TODAY.day}日 現在。毎朝自動で更新しています。"),
                  foot=(f'''Source checked = confirmed on an official or tourist-association page / To be confirmed = not a primary source or not yet checked. Hours and days off can change (see the “Checked” date on each item). Translated from the Japanese; if they differ, the Japanese version is correct.<br>
 Walking times are estimates: straight-line distance from A-tei × 1.3 ÷ 80 m/min. Photos: Wikimedia Commons ({credits}), official sites, og:image of source articles.<br>
-<a href="{BOARD}" hreflang="ja">Miura news (Japanese)</a> · Since 2026.10 · By Yanuki''' if E else f'''出典確認＝公式や観光協会の案内を開いて確かめたもの／要確認＝一次でない・未確認。営業時間・定休は変わることがあります（各項目の「確認」日を参照）。<br>
+<a href="{BOARD}">Miura News</a> · Since 2026.10 · By Yanuki''' if E else f'''出典確認＝公式や観光協会の案内を開いて確かめたもの／要確認＝一次でない・未確認。営業時間・定休は変わることがあります（各項目の「確認」日を参照）。<br>
 徒歩時間は A邸からの直線距離×1.3÷80m/分 の目安。写真：Wikimedia Commons（{credits}）、公式サイト、出典記事の og:image。<br>
 <a href="{BOARD}">最近の三浦</a> · Since 2026.10 · By Yanuki'''))
     (OUTL / "index.html").write_text(page, encoding="utf-8")
