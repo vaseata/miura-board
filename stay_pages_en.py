@@ -26,6 +26,7 @@ PAGES_EN = {
                 ("If I arrive after 19:00, can I still get dinner?", "Misaki closes early, and Kurobatei's last order is 19:00. It is safest to **buy food at Misakiguchi Station before the bus**, or at the nearby convenience store (FamilyMart, 6 min walk), and eat in the kitchen.", "tochaku.html#yushoku"),
                 ("What if I can't make it by 21:00?", "As soon as you know, contact the house manager from your booking details page on ADDress. {仮}", "tochaku.html#jikan"),
                 ("Can two people stay?", "Every private room is for up to 2 people (ADDress official house page).", "setsubi.html"),
+                ("Can I stay with children?", "Yes. This is an old Japanese house and sound carries to the next room, so during quiet hours (22:00–8:00) please keep voices and footsteps down.", "rules.html"),
                 ("What should I bring?", "A towel, a bag for your valuables, slippers and a jacket in winter, and earplugs if you are sensitive to sound. See “What to bring & seasons”.", "mochimono.html"),
             ]),
             ("h2", "When you arrive", "tsuita"),
