@@ -99,7 +99,7 @@ def body_ja(rooms_html):
 {rooms_html}
 
 <h2>建物の見分け方</h2>
-<div class="alert">隣の家と、住所が同じです。三浦A邸は、アイボリー色の外観の建物です。玄関の表札に、ADDress のマークがあります。</div>
+<div class="alert">隣の家と、住所が同じです。三浦A邸は、アイボリー色の外観の建物です。玄関の表札に、ADDress のマークがあります。ADDress の公式ページでは「大家さんが営む左官屋「左菊」の看板が目印」と案内されています。</div>
 {photo('gaikan', '三浦A邸の外観')}
 {photo('hyosatsu', '玄関の表札と ADDress のプレート')}
 
@@ -144,7 +144,7 @@ def body_en(rooms_html):
 {rooms_html}
 
 <h2>How to find the building</h2>
-<div class="alert">The house next door has the same address. Miura A-tei is the ivory-colored building. The nameplate at the entrance has the ADDress mark.</div>
+<div class="alert">The house next door has the same address. Miura A-tei is the ivory-colored building. The nameplate at the entrance has the ADDress mark. The official ADDress page says to look for the sign of “左菊” (Sakiku), a plastering company run by the owner.</div>
 {photo('gaikan', 'Outside of Miura A-tei', 'en')}
 {photo('hyosatsu', 'Nameplate and ADDress plate at the entrance', 'en')}
 
