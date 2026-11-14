@@ -19,7 +19,7 @@ if PROTO:
     OUT = HERE / "stay_proto"
 DEMO = "--demo" in sys.argv              # 人に見せる試作版（2026-11-14 鍋パーティー用）：stay/ に書く。記入待ちは正直に札で出し、
                                          # 写真の無いカードは文字だけ、写真待ちの枠は隠す。外の読みものには公開済みの場所写真（CC0）を付ける
-DEMO_IMG = {"三崎の1日とこの家の楽しみ": "../img/misaki_harbor.jpg", "華さんのおすすめマップ": "../img/misaki_harbor.jpg", "お店・名所": "../img/jogashima_harbor.jpg",
+DEMO_IMG = {"三崎の1日とこの家の楽しみ": "../img/misaki_harbor.jpg", "家守のおすすめマップ": "../img/misaki_harbor.jpg", "お店・名所": "../img/jogashima_harbor.jpg",
             "最近の三浦": "../img/miura_beach.jpg", "歴史さんぽ": "../img/jogashima_lighthouse.jpg"}
 
 # トップのカードに付けるサムネイル（hrefの先頭部分 → 写真のkey）。写真が無ければダミー画像になる
@@ -27,7 +27,7 @@ CARD_IMG = {"chusha.html": "parking", "tochaku.html#ikikata": "bus", "tochaku.ht
             "setsubi.html": "kitchen", "ofuro.html": "bath", "gomi.html": "gomibako", "rules.html": "washitsu",
             "raihou.html": "genkan", "bosai.html": "koudai", "konnatoki.html": "kyuto", "shuppatsu.html": "linenbox",
             "mochimono.html": "season", "faq.html": "kitchen"}
-CARD_IMG_BY_NAME = {"防災マップ（3D）": "hazard", "おうちを探検（3D）": "tour", "華さんのおすすめマップ": "map",
+CARD_IMG_BY_NAME = {"防災マップ（3D）": "hazard", "おうちを探検（3D）": "tour", "家守のおすすめマップ": "map",
                     "お店・名所": "guide", "最近の三浦": "news", "歴史さんぽ": "history"}
 
 def photo_src(key):
@@ -150,7 +150,7 @@ ARRIVAL = (f"../m/{_tok.read_text().strip()}/" if _tok.exists() and (HERE / "m" 
 # (見出し, 一言, [(カード名, 説明, href, 新しいタブか)])
 # トップに常時出す入口（緊急と、初めての人が迷う3つ）。href が None なら「準備中」
 QUICK = [
-    ("防災・避難", "bosai.html", True),
+    ("緊急（地震・津波・体調）", "bosai.html", True),
     ("困ったとき", "konnatoki.html", True),
     ("鍵が開かない", "konnatoki.html#kagi", False),
     ("Wi-Fi", "setsubi.html#wifi", False),
@@ -181,7 +181,7 @@ SECTIONS = [
         ("家のルール", "静かな時間・火の元・共用部の使い方。理由も1行ずつ", "rules.html", False),
     ]),
     ("困ったとき・出発", "", [
-        ("地震・津波・体調が悪いとき", "揺れたら・津波・119と#7119", "bosai.html", False),
+        ("緊急のとき（地震・津波・体調）", "揺れたら・津波・119と#7119", "bosai.html", False),
         ("こんなとき（逆引き）", "連絡の順番／鍵が開かない／お湯が出ない／ブレーカー／壊した／忘れ物", "konnatoki.html", False),
         ("出発のチェックリスト", "時刻・やること・忘れ物", "shuppatsu.html", False),
         ("よくある質問", "鍵・Wi-Fi・ゴミ・洗濯など", "faq.html", False),
@@ -195,7 +195,7 @@ SECTION_ID = {"到着前": "mae", "到着したら": "toochaku", "滞在中": "t
 STEPS = [("mae", "到着前", "来る前に"), ("toochaku", "着いたら", "家の中"), ("taizai", "滞在中", "暮らす・たのしむ"), ("komatta", "困った・出発", "いざというとき")]
 
 # 英語版のトップ。並び・リンクは上の日本語と1対1（写真の選び方は日本語のカード名で引く）
-QUICK_EN = ["Emergency & evacuation", "Help", "Key box won't open", "Wi-Fi", "Bath", "Garbage", "Check-out", "Who to contact"]
+QUICK_EN = ["Emergency", "Help", "Key box won't open", "Wi-Fi", "Bath", "Garbage", "Check-out", "Who to contact"]
 SECTIONS_EN = [
     ("Before you come", "Good to read before you arrive", [
         ("Getting here", "Bus (Hinode stop is close and flat), train, car. Arrival time"),
@@ -216,7 +216,7 @@ SECTIONS_EN = [
         ("House rules", "Quiet hours, fire, shared spaces — with the reasons"),
     ]),
     ("Help & leaving", "", [
-        ("Earthquake, tsunami & feeling sick", "When it shakes, tsunami, 119 and #7119"),
+        ("Emergency (earthquake, tsunami, feeling sick)", "When it shakes, tsunami, 119 and #7119"),
         ("If something happens", "Who to contact / key / hot water / breaker / broken items / things left behind"),
         ("Check-out checklist", "Time, what to do, things left behind"),
         ("FAQ", "Key, Wi-Fi, garbage, laundry, and more"),

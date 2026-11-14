@@ -269,8 +269,8 @@ PAGES_EN = {
                 "If you can't reach the house manager, ask in the Miura A-tei **OpenChat** (a group chat on the LINE app)",
                 "If you can't reach either, contact **ADDress member support** (the “緊急連絡先” / emergency contact in the day-before email)",
             ]),
-            ("p", "**If you cannot find the day-before email**: search your mail for 「予約前日のお知らせ」, or contact the house manager from your booking details page on ADDress. For illness or injury, see “Earthquake, tsunami & feeling sick”."),
-            ("links", [("Earthquake, tsunami & feeling sick", "bosai.html")]),
+            ("p", "**If you cannot find the day-before email**: search your mail for 「予約前日のお知らせ」, or contact the house manager from your booking details page on ADDress. For illness or injury, see “Emergency (earthquake, tsunami, feeling sick)”."),
+            ("links", [("Emergency (earthquake, tsunami, feeling sick)", "bosai.html")]),
             ("note", "Below are non-urgent problems (key, hot water, breaker, Wi-Fi, breaking something, things left behind)."),
             ("h2", "The key box won't open", "kagi"),
             ("ol", [
@@ -292,7 +292,7 @@ PAGES_EN = {
             ("h2", "You left something behind"),
             ("links", [("Check-out checklist (things left behind)", "shuppatsu.html")]),
             ("h2", "Earthquake or tsunami"),
-            ("links", [("Earthquake, tsunami & feeling sick", "bosai.html")]),
+            ("links", [("Emergency (earthquake, tsunami, feeling sick)", "bosai.html")]),
         ],
     },
     "chusha": {
@@ -362,7 +362,7 @@ PAGES_EN = {
             ]),
             ("note", "Source: ADDress official help (inviting friends / daytime-only use and nights away / using shared spaces before check-in or after check-out / mail and parcels; checked on 2026-11-08)."),
             ("h2", "Meeting the house manager and regulars"),
-            ("p", "If you would like to meet the house manager or regular guests, **say “交流希望” (I'd like to meet people) in the pre-arrival email after booking**. If you don't, you can relax on your own."),
+            ("p", "If you would like to meet the house manager or regular guests, **write “交流希望” (I'd like to meet people) in the message field of your ADDress booking**. If you don't, you can relax on your own."),
         ],
     },
     "tochaku": {
@@ -440,12 +440,12 @@ PAGES_EN = {
             ("p", "Many nearby shops are **closed on Tuesdays and Wednesdays**, and Wednesday has the fewest. Some, like the kinmedai (golden-eye snapper) restaurants, close around 15:00. If you walk to Misaki Port, you will find shops that are open."),
             ("links", [("The house manager's recommended map", "../guide/map-preview.html")]),
             ("h2", "Can I meet the house manager?"),
-            ("p", "The house manager lives nearby, but may not be around every day. If you'd like to talk or visit local shops together, **send a short message when you book**. Other guests and neighbors may also help you. If you meet other members in the living room, a small nod is enough. If you'd rather not talk, it's fine to stay in your room."),
+            ("p", "The house manager lives nearby, but may not be around every day. If you'd like to talk or visit local shops together, **write “交流希望” in the message field of your ADDress booking**. Other guests and neighbors may also help you. If you meet other members in the living room, a small nod is enough. If you'd rather not talk, it's fine to stay in your room."),
             ("h2", "At night", "yoru"),
             ("p", "Nights are quiet. This is an old Japanese house, so you can hear the next room (especially Room 201, which is separated by a single fusuma door). Your phone may sound an earthquake early warning in the middle of the night. If you arrive late, please walk softly in the entrance and hallway."),
             ("h2", "If you need help"),
             ("p", "First, check this site and the “manners sheet” in each room. If you still don't know, feel free to ask a resident if you meet one in the house. If not, call the house manager or ask in the OpenChat."),
-            ("links", [("Who to contact, in order (details)", "konnatoki.html#renraku"), ("Earthquake, tsunami & feeling sick", "bosai.html")]),
+            ("links", [("Who to contact, in order (details)", "konnatoki.html#renraku"), ("Emergency (earthquake, tsunami, feeling sick)", "bosai.html")]),
         ],
     },
     "gomi": {
@@ -455,6 +455,7 @@ PAGES_EN = {
             ("h2", "First"),
             ("photo", "gomibako", "Garbage bins", "Garbage bins and where the bags are"),
             ("ul", [
+                "**Guests only need to sort garbage into the kitchen bins.** Residents or the house manager take it to the collection point.",
                 "Please sort your garbage following Miura City's rules. The kitchen bins are already divided.",
                 "As a rule, there are no bins in the private rooms. Please use the set places in the shared spaces.",
                 "When a bin is full, put in a new garbage bag.",
@@ -520,7 +521,7 @@ PAGES_EN = {
         ],
     },
     "bosai": {
-        "title": "Earthquake, tsunami & feeling sick",
+        "title": "Emergency (earthquake, tsunami, feeling sick)",
         "lede": "What to do in an emergency. Please read this once before you need it.",
         "blocks": [
             ("contacts", "emergency"),

@@ -509,7 +509,7 @@ $lang_js
                           + "".join(f'<button type="button" class="fchip" data-cat="{esc(c)}" aria-pressed="false">{esc(catname(c))}<span class="n">{counts[c]}</span></button>' for c in CATS) + '</div>') if published else "",
                  # ◎が0件のあいだは、空の一覧の代わりに、おすすめマップ（22軒）へ案内する（2026-11-14 討議で全員が指摘）
                  spots=spots_html or (f'<div class="empty-go"><p>{"This list is being checked by the house manager. For now, the map shows places to eat and shop — tap “Open today” to see what is open." if E else "このページの一覧は、家守が確かめてから順に載せます。いまは、家守のおすすめマップに、ごはんと買い物のお店があります。「今日やっている」を押すと、今日開いているお店だけ出せます。"}</p>'
-                                      f'<a class="btn btn-primary" href="map-preview.html">{"Open the map →" if E else "おすすめマップをひらく →"}</a>'
+                                      f'<a class="btn btn-primary" href="map-preview.html">{"Open the map →" if E else "家守のおすすめマップをひらく →"}</a>'
                                       f'<a class="btn btn-secondary" href="map-flat.html">{"Simple list version" if E else "軽い版（一覧と平面の地図）"}</a></div>'), credits=credits, cats_json=json.dumps(CATS, ensure_ascii=False), ui_css=UI_CSS,
                  hana=hana_banner(R, lang=LANG), know=know_html(R, E), status_css=shop_hours.STATUS_CSS, open_js=shop_hours.OPEN_JS, sitenav=sitenav("guide", R, lang=LANG, is_top=True, sos=True),
                  lang_css=LANG_CSS, lang_js=LANG_JS, langswitch=langswitch(LANG),

@@ -86,7 +86,7 @@ _SOS_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 16H3z"
 def sitenav(current, root, lang="ja", is_top=False, sos=False):
     """3サイト共通の切り替えの帯。root はページからリポジトリの一番上への道（"../" など）。
     is_top：そのサイトのトップページなら True（aria-current="page"）。
-    sos：滞在ガイドの外（ガイドブック・最近の三浦）では True。右端に赤い▲「防災」を出す（2026-11-14 討議）。"""
+    sos：滞在ガイドの外（ガイドブック・最近の三浦）では True。右端に赤い▲「緊急」を出す（2026-11-14 討議）。"""
     en = lang == "en"
     home = root + ("stay/en/" if en else "stay/")
     items = []
@@ -99,7 +99,7 @@ def sitenav(current, root, lang="ja", is_top=False, sos=False):
         items.append(f'<a class="s" href="{_esc(href)}"{hl}{cur}>{label}</a>')
     if sos:
         bosai = root + ("stay/en/bosai.html" if en else "stay/bosai.html")
-        word = "Emergency" if en else "防災"
+        word = "Emergency" if en else "緊急"
         items.append(f'<a class="s sos" href="{_esc(bosai)}">{_SOS_ICON}{word}</a>')
     label = "Miura A-tei sites" if en else "三浦A邸のサイト"
     home_label = "Miura A-tei: house guide top" if en else "三浦A邸 家の案内のトップ"
@@ -113,7 +113,7 @@ def hana_banner(root, lang="ja"):
     en = lang == "en"
     href = root + ("guide/en/map-preview.html" if en else "guide/map-preview.html")
     k, t, sub, go = (("HOUSE MANAGER'S PICKS", "Recommended food & shops map", "Places to eat and shop nearby, with today's opening status", "Open the map")
-                     if en else ("家守のおすすめ", "おすすめマップ", "三崎・城ヶ島の、ごはんと買い物のお店。今日やっているかも分かります", "地図をひらく"))
+                     if en else ("三崎・城ヶ島", "家守のおすすめマップ", "三崎・城ヶ島の、ごはんと買い物のお店。今日やっているかも分かります", "地図をひらく"))
     hl = ""
     return (f'<a class="hana" href="{_esc(href)}"{hl}><img src="{_esc(root)}img/brand/hana-map.jpg" alt="" width="800" height="397" loading="lazy">'
             f'<span class="hx"><span class="hk">{k}</span><b>{t}</b><span class="hs">{sub}</span>'
@@ -127,7 +127,7 @@ _ICONS = {
     "bosai": '<path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17v.01"/>',
 }
 _BN = [("index", "トップ", "Top"), ("tochaku", "到着", "Arrival"),
-       ("konnatoki", "困ったとき", "Help"), ("bosai", "防災", "Emergency")]
+       ("konnatoki", "困ったとき", "Help"), ("bosai", "緊急", "Emergency")]
 
 
 def bottomnav(current, lang="ja"):

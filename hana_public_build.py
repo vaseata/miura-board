@@ -34,7 +34,7 @@ EN_DATA = json.load(open(HERE / "spots_en.json", encoding="utf-8")) if (HERE / "
 WD_EN = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 SITE = "https://vaseata.github.io/miura-board/guide/"
 TXT = {
-    "ja": {"T_TITLE": "三浦A邸 おすすめマップ", "T_EYEBROW": "MIURA A-TEI · 三浦A邸", "T_H1": f"<span>{KEEPER}の</span> <span>おすすめマップ</span>",
+    "ja": {"T_TITLE": "三浦A邸 家守のおすすめマップ", "T_EYEBROW": "MIURA A-TEI · 三浦A邸", "T_H1": f"<span>{KEEPER}の</span> <span>おすすめマップ</span>",
            "T_LEDE": "三崎・城ヶ島の、ごはんと買い物のお店です。気になるお店を押すと、地図の場所と、ひとことが見られます。",
            "T_BYCAT": "ジャンルで絞り込む", "T_BYSCENE": "シーンで絞り込む", "T_MAPLABEL": "おすすめのお店の地図", "T_MAP": "地図",
            "T_MAPFOOT": "番号はリストと同じです。白い丸の数字は、重なっているお店の数です（押すと広がります）。", "T_LIST": "お店リスト",
