@@ -55,6 +55,9 @@ a{color:inherit} button{font:inherit;color:inherit}
 .chips{display:flex;gap:0 8px;flex-wrap:wrap;margin-top:4px;align-items:center}
 .chips .sep{width:1px;height:22px;background:var(--hair);margin:0 2px}
 .empty{font-size:14px;color:var(--ink2);padding:18px 0}
+.nopub .filter,.nopub #empty,.nopub #count{display:none!important}
+.empty-go{display:flex;flex-direction:column;gap:8px;padding:16px;border:1.5px solid var(--sea);border-radius:12px;background:var(--sea-tint);grid-column:1/-1}
+.empty-go p{margin:0;font-size:15px;line-height:1.7}
 /* グリッド */
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 12px}
 @media (min-width:640px){ .grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:24px 20px} }
@@ -214,13 +217,13 @@ a{color:inherit} button{font:inherit;color:inherit}
   
 </section>
 
-<section class="sec" id="spots">
+<section class="sec nopub" id="spots">
   <h2 class="men">おすすめの場所<span class="latin">Places</span><span class="count-n" id="count"></span></h2>
   <div class="filter">
-    <div class="tabs"><button type="button" class="fchip" data-cat="all" aria-pressed="true">すべて<span class="n">0</span></button><button type="button" class="fchip" data-cat="食べる" aria-pressed="false">食べる<span class="n">0</span></button><button type="button" class="fchip" data-cat="見る・歩く" aria-pressed="false">見る・歩く<span class="n">0</span></button><button type="button" class="fchip" data-cat="体験する" aria-pressed="false">体験する<span class="n">0</span></button><button type="button" class="fchip" data-cat="買う" aria-pressed="false">買う<span class="n">0</span></button><button type="button" class="fchip" data-cat="移動" aria-pressed="false">移動<span class="n">0</span></button><button type="button" class="fchip" data-cat="困ったとき" aria-pressed="false">困ったとき<span class="n">0</span></button></div>
+    
     <div class="chips" id="chips"></div>
   </div>
-  <div class="grid" id="grid"><p class="empty">掲載中の場所はまだありません。</p></div>
+  <div class="grid" id="grid"><div class="empty-go"><p>このページの一覧は、家守が確かめてから順に載せます。いまは、家守のおすすめマップに、ごはんと買い物のお店があります。「今日やっている」を押すと、今日開いているお店だけ出せます。</p><a class="btn btn-primary" href="map-preview.html">おすすめマップをひらく →</a><a class="btn btn-secondary" href="map-flat.html">軽い版（一覧と平面の地図）</a></div></div>
   <p class="empty" id="empty" hidden>この条件では見つかりません。<button type="button" class="btn btn-tertiary" id="reset">条件をすべて外す</button></p>
 </section>
 

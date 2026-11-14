@@ -1,11 +1,29 @@
 {
-  "_note": "滞在ガイドのトップのカルーセル。上から順に並ぶ。書き方は carousel.py の先頭。イベントは items.json の番号（item）を書けば、終わった翌日に自動で外れる",
-  "slides": [
-    {"src": "stay-react/public/photos/hero.jpg", "name": "hero", "kind": "三浦A邸", "title": "ようこそ、三浦A邸へ", "sub": "来る前・着いたとき・滞在中・帰るときに、このページを", "alt": "三浦A邸の廊下",
-     "kind_en": "Miura A-tei", "title_en": "Welcome to Miura A-tei", "sub_en": "Open this page before you come, when you arrive, and while you stay", "alt_en": "The hallway of Miura A-tei"},
-    {"item": 97},
-    {"item": 79},
-    {"item": 92},
-    {"item": 49}
-  ]
+ "_note": "滞在ガイドのトップのカルーセル。上から順に並ぶ。書き方は carousel.py の先頭。イベントは items.json の番号（item）を書けば、終わった翌日に自動で外れる",
+ "slides": [
+  {
+   "src": "stay-react/public/photos/hero.jpg",
+   "name": "hero",
+   "kind": "三浦A邸",
+   "title": "ようこそ、三浦A邸へ",
+   "sub": "古い木の廊下の家です。ゆっくりしていってください。",
+   "alt": "三浦A邸の廊下",
+   "kind_en": "Miura A-tei",
+   "title_en": "Welcome to Miura A-tei",
+   "sub_en": "An old house with wooden hallways. Make yourself at home.",
+   "alt_en": "The hallway of Miura A-tei"
+  },
+  {
+   "item": 97
+  },
+  {
+   "item": 79
+  },
+  {
+   "item": 92
+  },
+  {
+   "item": 49
+  }
+ ]
 }

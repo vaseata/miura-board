@@ -329,6 +329,9 @@ a{color:inherit} button{font:inherit;color:inherit}
 .chips{display:flex;gap:0 8px;flex-wrap:wrap;margin-top:4px;align-items:center}
 .chips .sep{width:1px;height:22px;background:var(--hair);margin:0 2px}
 .empty{font-size:14px;color:var(--ink2);padding:18px 0}
+.nopub .filter,.nopub #empty,.nopub #count{display:none!important}
+.empty-go{display:flex;flex-direction:column;gap:8px;padding:16px;border:1.5px solid var(--sea);border-radius:12px;background:var(--sea-tint);grid-column:1/-1}
+.empty-go p{margin:0;font-size:15px;line-height:1.7}
 /* グリッド */
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 12px}
 @media (min-width:640px){ .grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:24px 20px} }
@@ -418,10 +421,10 @@ $know
   $season_empty
 </section>
 
-<section class="sec" id="spots">
+<section class="sec$spots_cls" id="spots">
   <h2 class="men">$t_places<span class="latin">Places</span><span class="count-n" id="count"></span></h2>
   <div class="filter">
-    <div class="tabs"><button type="button" class="fchip" data-cat="all" aria-pressed="true">$t_all<span class="n">$total</span></button>$tabs</div>
+    $tabsbar
     <div class="chips" id="chips"></div>
   </div>
   <div class="grid" id="grid">$spots</div>
@@ -501,8 +504,13 @@ $lang_js
 ''').substitute(lang=LANG, R=R, board=BOARD, month=(f"{TODAY.strftime('%B')}" if E else f"{TODAY.month}月 · {TODAY.strftime('%B')}"),
                  df=df_card, season=season_html, events=events_html,
                  season_empty='' if (season_html or events_html) else f'<p class="empty">{"Nothing seasonal right now." if E else "いまは季節の項目がありません。"}</p>',
-                 total=len(published), tabs="".join(f'<button type="button" class="fchip" data-cat="{esc(c)}" aria-pressed="false">{esc(catname(c))}<span class="n">{counts[c]}</span></button>' for c in CATS),
-                 spots=spots_html or f'<p class="empty">{"No places are listed yet." if E else "掲載中の場所はまだありません。"}</p>', credits=credits, cats_json=json.dumps(CATS, ensure_ascii=False), ui_css=UI_CSS,
+                 spots_cls=("" if published else " nopub"),
+                 tabsbar=('<div class="tabs"><button type="button" class="fchip" data-cat="all" aria-pressed="true">' + ("All" if E else "すべて") + f'<span class="n">{len(published)}</span></button>'
+                          + "".join(f'<button type="button" class="fchip" data-cat="{esc(c)}" aria-pressed="false">{esc(catname(c))}<span class="n">{counts[c]}</span></button>' for c in CATS) + '</div>') if published else "",
+                 # ◎が0件のあいだは、空の一覧の代わりに、おすすめマップ（22軒）へ案内する（2026-11-14 討議で全員が指摘）
+                 spots=spots_html or (f'<div class="empty-go"><p>{"This list is being checked by the house manager. For now, the map shows places to eat and shop — tap “Open today” to see what is open." if E else "このページの一覧は、家守が確かめてから順に載せます。いまは、家守のおすすめマップに、ごはんと買い物のお店があります。「今日やっている」を押すと、今日開いているお店だけ出せます。"}</p>'
+                                      f'<a class="btn btn-primary" href="map-preview.html">{"Open the map →" if E else "おすすめマップをひらく →"}</a>'
+                                      f'<a class="btn btn-secondary" href="map-flat.html">{"Simple list version" if E else "軽い版（一覧と平面の地図）"}</a></div>'), credits=credits, cats_json=json.dumps(CATS, ensure_ascii=False), ui_css=UI_CSS,
                  hana=hana_banner(R, lang=LANG), know=know_html(R, E), status_css=shop_hours.STATUS_CSS, open_js=shop_hours.OPEN_JS, sitenav=sitenav("guide", R, lang=LANG, is_top=True, sos=True),
                  lang_css=LANG_CSS, lang_js=LANG_JS, langswitch=langswitch(LANG),
                  alternates=f'<link rel="alternate" hreflang="ja" href="{SITE}"><link rel="alternate" hreflang="en" href="{SITE}en/"><link rel="alternate" hreflang="x-default" href="{SITE}">',

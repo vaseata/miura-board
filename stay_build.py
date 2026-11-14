@@ -19,7 +19,7 @@ if PROTO:
     OUT = HERE / "stay_proto"
 DEMO = "--demo" in sys.argv              # 人に見せる試作版（2026-11-14 鍋パーティー用）：stay/ に書く。記入待ちは正直に札で出し、
                                          # 写真の無いカードは文字だけ、写真待ちの枠は隠す。外の読みものには公開済みの場所写真（CC0）を付ける
-DEMO_IMG = {"華さんのおすすめマップ": "../img/misaki_harbor.jpg", "お店・名所": "../img/jogashima_harbor.jpg",
+DEMO_IMG = {"三崎の1日とこの家の楽しみ": "../img/misaki_harbor.jpg", "華さんのおすすめマップ": "../img/misaki_harbor.jpg", "お店・名所": "../img/jogashima_harbor.jpg",
             "最近の三浦": "../img/miura_beach.jpg", "歴史さんぽ": "../img/jogashima_lighthouse.jpg"}
 
 # トップのカードに付けるサムネイル（hrefの先頭部分 → 写真のkey）。写真が無ければダミー画像になる
@@ -60,18 +60,20 @@ L = {
            "demo_top": ('<div class="draft"><b>試作版（2026年11月）</b>です。住人有志が作っている、三浦A邸の非公式の案内です。'
                         '「記入待ち」「仮」の札がある所は、家守に確かめてから入れます。公式のルールは、ADDress のヘルプと家守の案内が優先です。'
                         '<br>気づいたこと・「あったらいいな」は、作った人に一言ください。</div>'),
-           "lede": "来る前・着いたとき・滞在中・帰るときに、ここを開いてください。",
+           "lede": "ようこそ、港町の古い家へ。来る前から帰るまで、迷わないための案内です。",
+           "go_arrival": "これから来る方へ：到着ガイド →", "this_week": "今週の三崎", "more_miura": "もっと三浦を知る",
            "motif_alt": "跳ねるマグロと波、富士山と朝日の絵", "hero_alt": "三浦A邸の廊下", "steps_label": "章"},
     "en": {"soon": "Coming soon", "shoot": "PHOTO COMING SOON", "tmp": "To be confirmed", "fill": "Pending: ", "go": "Open →", "more": "More →",
            "back": "← House guide home", "suffix": " | Miura A-tei House Guide", "site": "Miura A-tei House Guide",
            "foot": "Miura A-tei (ADDress). The address, key-box code, and Wi-Fi password are in the email you receive the day before your stay.",
            "credit": "<br>Photos of Miura scenery: Wikimedia Commons (by Aspere, CC0)",
-           "demo_note": '<div class="slim"><b>Draft</b>: items tagged “Pending” or “To be confirmed” will be fixed after checking with the host. Photos will be added to the “Photo coming soon” frames.</div>',
+           "demo_note": '<div class="slim"><b>Draft</b>: items tagged “Pending” or “To be confirmed” will be fixed after checking with the house manager. Photos will be added to the “Photo coming soon” frames.</div>',
            "demo_top": ('<div class="draft"><b>Draft version (November 2026).</b> An unofficial guide to Miura A-tei, made by residents. '
-                        'Items tagged “Pending” or “To be confirmed” will be filled in after checking with the house host (yamori). '
-                        'Official rules in ADDress Help and the host’s instructions come first. This is a translation of the Japanese version; if they differ, the Japanese version is correct.'
+                        'Items tagged “Pending” or “To be confirmed” will be filled in after checking with the house manager (yamori). '
+                        'Official rules in ADDress Help and the house manager’s instructions come first. This is a translation of the Japanese version; if they differ, the Japanese version is correct.'
                         '<br>Ideas or corrections? Please tell the people who made it.</div>'),
-           "lede": "Open this page before you come, when you arrive, during your stay, and when you leave.",
+           "lede": "Welcome to an old house in a port town. Your guide from the day before you arrive to checkout.",
+           "go_arrival": "Arriving soon? Arrival guide →", "this_week": "This week in Misaki", "more_miura": "More about Miura",
            "motif_alt": "Drawing of a leaping tuna, waves, Mt. Fuji and the rising sun", "hero_alt": "Hallway of Miura A-tei", "steps_label": "Sections"},
 }
 def t(k): return L[LANG][k]
@@ -150,10 +152,12 @@ ARRIVAL = (f"../m/{_tok.read_text().strip()}/" if _tok.exists() and (HERE / "m" 
 QUICK = [
     ("防災・避難", "bosai.html", True),
     ("困ったとき", "konnatoki.html", True),
-    ("連絡の順番", "konnatoki.html#renraku", False),
-    ("鍵", "konnatoki.html#kagi", False),
-    ("ゴミ", "gomi.html", False),
+    ("鍵が開かない", "konnatoki.html#kagi", False),
+    ("Wi-Fi", "setsubi.html#wifi", False),
     ("お風呂", "ofuro.html", False),
+    ("ゴミ", "gomi.html", False),
+    ("チェックアウト", "shuppatsu.html", False),
+    ("連絡の順番", "konnatoki.html#renraku", False),
 ]
 
 # 章立ては house_faq/guide_structure_research.md の第3節（2026-10-21 決定。まず日本語のみ）
@@ -171,15 +175,10 @@ SECTIONS = [
         ("お風呂とトイレ・洗濯", "お湯の出し方・洗濯・近くの銭湯", "ofuro.html", False),
         ("ゴミ出し", "分別・出す日と場所", "gomi.html", False),
     ]),
-    ("滞在中", "三浦をたのしむ", [
-        ("家のルール", "夜・火の元・音。理由も1行ずつ", "rules.html", False),
-        ("来客・外泊・郵便", "友人を呼ぶ／外泊／早着・遅くまで／荷物が届く", "raihou.html", False),
-        ("華さんのおすすめマップ", "家守のおすすめのお店。平面と3D", "../guide/map-preview.html", False),
-        ("お店・名所", "食べる・見る・体験する。今日やっているお店も", "../guide/", False),
-        ("最近の三浦", "イベントや交通の近況", "../index.html", False),
-        ("歴史さんぽ", "ゆかりの地を時代ごとに3D地図で", "../history/", False),
-        ("三崎の人", "白秋など、三崎ゆかりの人", "../guide/hito/", False),
-        ("映えスポット", "季節の花と景色、ダイヤモンド富士", "../guide/hae/", False),
+    ("滞在中", "暮らす・たのしむ", [
+        ("三崎の1日とこの家の楽しみ", "日曜の朝市、港でマグロ、海の景色。漆喰のかまどでご飯を炊く", "tanoshimu.html", False),
+        ("交流・来客", "住人や家守と話したい人も、ひとりで過ごしたい人も。友人を呼ぶ・外泊・荷物も", "raihou.html", False),
+        ("家のルール", "静かな時間・火の元・共用部の使い方。理由も1行ずつ", "rules.html", False),
     ]),
     ("困ったとき・出発", "", [
         ("地震・津波・体調が悪いとき", "揺れたら・津波・119と#7119", "bosai.html", False),
@@ -189,11 +188,14 @@ SECTIONS = [
     ]),
 ]
 
+MORE = [("お店・名所", "../guide/"), ("最近の三浦", "../index.html"), ("歴史さんぽ", "../history/"), ("三崎の人", "../guide/hito/"), ("映えスポット", "../guide/hae/")]
+MORE_EN = ["Eat & See", "Miura News", "History walk", "People of Misaki", "Photo spots"]
+
 SECTION_ID = {"到着前": "mae", "到着したら": "toochaku", "滞在中": "taizai", "困ったとき・出発": "komatta"}
-STEPS = [("mae", "到着前", "来る前に"), ("toochaku", "着いたら", "家の中"), ("taizai", "滞在中", "三浦を楽しむ"), ("komatta", "困った・出発", "いざというとき")]
+STEPS = [("mae", "到着前", "来る前に"), ("toochaku", "着いたら", "家の中"), ("taizai", "滞在中", "暮らす・たのしむ"), ("komatta", "困った・出発", "いざというとき")]
 
 # 英語版のトップ。並び・リンクは上の日本語と1対1（写真の選び方は日本語のカード名で引く）
-QUICK_EN = ["Emergency & evacuation", "Help", "Who to contact", "Key", "Garbage", "Bath"]
+QUICK_EN = ["Emergency & evacuation", "Help", "Key box won't open", "Wi-Fi", "Bath", "Garbage", "Check-out", "Who to contact"]
 SECTIONS_EN = [
     ("Before you come", "Good to read before you arrive", [
         ("Getting here", "Bus (Hinode stop is close and flat), train, car. Arrival time"),
@@ -208,15 +210,10 @@ SECTIONS_EN = [
         ("Bath, toilet & laundry", "Hot water, laundry, nearby public bath"),
         ("Garbage", "Sorting, collection days and place"),
     ]),
-    ("During your stay", "Enjoy Miura", [
-        ("House rules", "Night, fire, noise — with the reasons"),
-        ("Visitors, nights away & mail", "Inviting friends / nights away / early or late / parcels"),
-        ("The house manager's recommended map", "The house manager's favorite places to eat and shop"),
-        ("Eat & See", "Eat, see, do. Shops open today"),
-        ("Miura News", "Events and traffic news. Headlines in English"),
-        ("History walk", "Historic places by era on a 3D map"),
-        ("People of Misaki", "Hakushu and others linked to Misaki"),
-        ("Photo spots", "Seasonal flowers, views and Diamond Fuji"),
+    ("During your stay", "Live and enjoy", [
+        ("A day in Misaki, and this house", "The Sunday market, tuna at the port, sea views. Cook rice in the plaster kamado"),
+        ("Meeting people & visitors", "Want to talk with residents or the house manager, or prefer to be alone? Also friends, nights away, parcels"),
+        ("House rules", "Quiet hours, fire, shared spaces — with the reasons"),
     ]),
     ("Help & leaving", "", [
         ("Earthquake, tsunami & feeling sick", "When it shakes, tsunami, 119 and #7119"),
@@ -225,7 +222,7 @@ SECTIONS_EN = [
         ("FAQ", "Key, Wi-Fi, garbage, laundry, and more"),
     ]),
 ]
-STEPS_EN = [("Before", "you come"), ("Arrival", "in the house"), ("Stay", "enjoy Miura"), ("Help", "leaving")]
+STEPS_EN = [("Before", "you come"), ("Arrival", "in the house"), ("Stay", "live & enjoy"), ("Help", "leaving")]
 
 def check_en():
     """英訳が日本語の正本と同じ形か確かめる（ブロックの種類・id・写真・リンク・札の数）。ずれていたら止める。"""
@@ -285,6 +282,8 @@ a.card:hover,a.card:focus-visible{border-color:var(--sea);background:var(--sea-t
 .card.soon{opacity:.6}
 .card.soon b::after{content:"準備中";margin-left:8px;font-size:11px;color:var(--tuna);border:1px solid var(--tuna);border-radius:99px;padding:1px 7px;vertical-align:2px}
 .quick{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0}
+.go-arr{display:flex;width:100%;margin:16px 0 0}
+h3.wk{font-family:var(--mincho);font-size:17px;margin:18px 0 8px}
 .chip{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--hair);background:var(--tint);font-size:14px;color:inherit;text-decoration:none}
 .sos2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:18px 0 0}
 .sos2 .btn{font-size:14px;padding:0 10px}
@@ -432,8 +431,8 @@ CONTACTS = [
     ("119", "tel:119", "消防・救急", "命に関わるとき", "Fire / ambulance", "Life-threatening", "sos"),
     ("#7119", "tel:%237119", "救急かどうか迷ったら", "神奈川県の電話相談（24時間）", "Not sure if it's an emergency", "Kanagawa phone advice, 24h", "sos2"),
     ("110", "tel:110", "警察", "事件・事故", "Police", "Crime / accident", "sos2"),
-    ("", "MAIL", "家守", "電話番号は、予約の前日のメールにあります", "House manager", "The phone number is in the email sent the day before", "house"),
-    ("", None, "オープンチャット", "{記入:三浦A邸のオープンチャットのURL}", "Open chat", "{記入:Open chat URL}", "house"),
+    ("", "MAIL", "家守", "前日のメールを開く →「家守の連絡先」に電話番号があります", "House manager", "Open the day-before email → “家守の連絡先” (house manager's contact) has the number", "house"),
+    ("", None, "オープンチャット（LINE）", "{記入:三浦A邸のオープンチャットのURL}", "OpenChat (LINE group chat)", "{記入:Open chat URL}", "house"),
     ("", None, "ADDress 会員サポート", "{記入:会員サポートの連絡先のURL}", "ADDress member support", "{記入:Support URL}", "house"),
 ]
 
@@ -442,6 +441,8 @@ def contacts_html(which):
     out = []
     for num, href, ja, jn, el, enote, kind in CONTACTS:
         if which == "emergency" and not kind.startswith("sos"):
+            continue
+        if which == "all" and kind == "sos2":     # 連絡の順番：命に関わる＝119、それ以外＝家守→オープンチャット→会員サポート（2026-11-14 討議）
             continue
         name, note = (el, enote) if en else (ja, jn)
         if href and href != "MAIL":
@@ -558,8 +559,9 @@ def build_page(slug, spec, public):
 <div class="topbar"><nav class="crumb" aria-label="{"You are here" if LANG == "en" else "現在地"}"><a href="index.html">{"House" if LANG == "en" else "家の案内"}</a><span aria-hidden="true">›</span><span aria-current="page">{esc(spec["title"])}</span></nav>{langswitch(slug)}</div>
 <header><div class="eyebrow">MIURA A-TEI · HOUSE GUIDE</div><h1>{esc(spec["title"])}</h1>
 <p class="lede">{esc(spec["lede"])}</p></header>
-{notice}
+{"" if slug in ("bosai", "konnatoki") else notice}
 {body}
+{notice if slug in ("bosai", "konnatoki") else ""}
 <footer>{t("foot")}</footer>
 </div>{bottomnav(slug, lang=LANG)}{LANG_JS}</body></html>"""
     (OUTL / f"{slug}.html").write_text(page, encoding="utf-8")
@@ -590,14 +592,20 @@ def build_lang(public=False):
             cs = [(names[j][0], names[j][1], c[2], c[3], c[0]) for j, c in enumerate(cards)]
         else:
             cs = [(c[0], c[1], c[2], c[3], c[0]) for c in cards]
-        parts.append(f'<section id="{sid}"><h2>{esc(title)}</h2>' + (f'<p class="sub">{esc(sub)}</p>' if sub else "")
-                     + '<div class="grid">' + "".join(card(n, d, h, x, first=(i == 0), jname=j) for i, (n, d, h, x, j) in enumerate(cs)) + "</div></section>")
+        extra_top = extra_bot = ""
+        if sid == "taizai":
+            extra_top = (f'<h3 class="wk">{t("this_week")}</h3>{hero}' if hero else "")
+            more = "".join(f'<a class="chip" href="{esc(fix(h))}">{esc(MORE_EN[m] if en else n)}</a>' for m, (n, h) in enumerate(MORE))
+            extra_bot = hana_banner(root(), LANG) + f'<h3 class="wk">{t("more_miura")}</h3><div class="quick">{more}</div>'
+        parts.append(f'<section id="{sid}"><h2>{esc(title)}</h2>' + (f'<p class="sub">{esc(sub)}</p>' if sub else "") + extra_top
+                     + '<div class="grid">' + "".join(card(n, d, h, x, first=(i == 0), jname=j) for i, (n, d, h, x, j) in enumerate(cs)) + "</div>" + extra_bot + "</section>")
     credit = t("credit") if DEMO else ""
     page = f"""{head_html(t("site"), "index")}<body>{sitenav("stay", root(), lang=LANG, is_top=True)}<div class="wrap">
 <header class="top"><img class="motif" src="{root()}img/brand/header-maguro.jpg" alt="{t("motif_alt")}" width="1500" height="500">
 <div class="brand"><div class="eyebrow">MIURA A-TEI · HOUSE GUIDE</div>{langswitch("index")}</div><h1>{t("site")}</h1>
 <p class="lede">{t("lede")}</p>
-{hero}{quick}{hana_banner(root(), LANG)}{steps}</header>
+<a class="btn btn-primary go-arr" href="tochaku.html">{t("go_arrival")}</a>
+{quick}{steps}</header>
 {dummy}
 {"".join(parts)}
 <footer>{t("foot")}{credit}</footer>

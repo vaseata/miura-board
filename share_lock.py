@@ -23,9 +23,7 @@ ITER = 310000
 PASS_FILE = ROOT / 'm' / '.pass'
 BASE = 'https://vaseata.github.io/miura-board/'
 
-def norm(s):
-    """合言葉の打ち方の揺れをそろえる（全角半角・空白・中黒）。ブラウザ側の norm と同じ。"""
-    return re.sub(r'[\s・]', '', unicodedata.normalize('NFKC', s))
+from kana_romaji import norm, JS_NORM   # ひらがなでもローマ字でも同じ合言葉として扱う（2026-11-14）
 
 def get_pass():
     pw = os.environ.get('SHARE_PASS')
@@ -71,15 +69,15 @@ input:focus-visible,button:focus-visible{outline:2px solid var(--sea);outline-of
 <img class="hd" src="../../img/brand/header-maguro.jpg" alt="" width="1500" height="500">
 <div class="brand"><img src="../../img/brand/logo.png" alt="" width="40" height="40">MIURA A-TEI · 宿泊者向け / FOR GUESTS</div>
 <h1>@TITLE@</h1>
-<p>A邸に泊まる方に、合言葉をお伝えしています。ひらがなで入れてください。一度入れると、この端末では次から自動で開きます。</p>
-<p lang="en">For guests staying at A-tei. Enter the passphrase you were given, in hiragana (Japanese keyboard). Once entered, this device opens the page automatically next time.</p>
-<form id="f"><input id="p" type="text" inputmode="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="合言葉（ひらがな）/ Passphrase" aria-label="合言葉 / Passphrase" required>
+<p>A邸に泊まる方に、前日の家守からの連絡で合言葉をお伝えしています。ひらがなでも、ローマ字でも入れられます。一度入れると、この端末では次から自動で開きます。</p>
+<p lang="en">For guests staying at A-tei. The house manager sends the passphrase with the day-before message. You can type it in hiragana or in Roman letters (e.g. “maguro”). Once entered, this device opens the page automatically next time.</p>
+<form id="f"><input id="p" type="text" inputmode="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="合言葉（ひらがな・ローマ字）/ Passphrase" aria-label="合言葉 / Passphrase" required>
 <button>ひらく / Open</button><p id="e" role="alert"></p></form>
 </main>
 <script>
 const D={salt:"@SALT@",iv:"@IV@",ct:"@CT@",n:@N@};
 const u=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
-const norm=s=>s.normalize('NFKC').replace(/[\s・]/g,'');
+@JSNORM@
 async function open_(pw){
   const k0=await crypto.subtle.importKey('raw',new TextEncoder().encode(norm(pw)),'PBKDF2',false,['deriveKey']);
   const k=await crypto.subtle.deriveKey({name:'PBKDF2',salt:u(D.salt),iterations:D.n,hash:'SHA-256'},k0,{name:'AES-GCM',length:256},false,['decrypt']);
@@ -105,7 +103,7 @@ def lock(plain: bytes, token_name: str, title: str, pw: str = None) -> str:
     key = PBKDF2HMAC(hashes.SHA256(), 32, salt, ITER).derive(pw.encode())
     ct = AESGCM(key).encrypt(iv, plain, None)
     b = lambda x: base64.b64encode(x).decode()
-    page = (PAGE.replace('@TITLE@', title).replace('@SALT@', b(salt)).replace('@IV@', b(iv))
+    page = (PAGE.replace('@JSNORM@', JS_NORM.strip()).replace('@TITLE@', title).replace('@SALT@', b(salt)).replace('@IV@', b(iv))
             .replace('@CT@', b(ct)).replace('@N@', str(ITER)))
     out = ROOT / 'm' / token
     out.mkdir(parents=True, exist_ok=True)

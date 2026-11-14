@@ -55,6 +55,9 @@ a{color:inherit} button{font:inherit;color:inherit}
 .chips{display:flex;gap:0 8px;flex-wrap:wrap;margin-top:4px;align-items:center}
 .chips .sep{width:1px;height:22px;background:var(--hair);margin:0 2px}
 .empty{font-size:14px;color:var(--ink2);padding:18px 0}
+.nopub .filter,.nopub #empty,.nopub #count{display:none!important}
+.empty-go{display:flex;flex-direction:column;gap:8px;padding:16px;border:1.5px solid var(--sea);border-radius:12px;background:var(--sea-tint);grid-column:1/-1}
+.empty-go p{margin:0;font-size:15px;line-height:1.7}
 /* グリッド */
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 12px}
 @media (min-width:640px){ .grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:24px 20px} }
@@ -214,13 +217,13 @@ a{color:inherit} button{font:inherit;color:inherit}
   
 </section>
 
-<section class="sec" id="spots">
+<section class="sec nopub" id="spots">
   <h2 class="men">Places<span class="latin">Places</span><span class="count-n" id="count"></span></h2>
   <div class="filter">
-    <div class="tabs"><button type="button" class="fchip" data-cat="all" aria-pressed="true">All<span class="n">0</span></button><button type="button" class="fchip" data-cat="食べる" aria-pressed="false">Eat<span class="n">0</span></button><button type="button" class="fchip" data-cat="見る・歩く" aria-pressed="false">See &amp; walk<span class="n">0</span></button><button type="button" class="fchip" data-cat="体験する" aria-pressed="false">Do<span class="n">0</span></button><button type="button" class="fchip" data-cat="買う" aria-pressed="false">Shop<span class="n">0</span></button><button type="button" class="fchip" data-cat="移動" aria-pressed="false">Getting around<span class="n">0</span></button><button type="button" class="fchip" data-cat="困ったとき" aria-pressed="false">Help<span class="n">0</span></button></div>
+    
     <div class="chips" id="chips"></div>
   </div>
-  <div class="grid" id="grid"><p class="empty">No places are listed yet.</p></div>
+  <div class="grid" id="grid"><div class="empty-go"><p>This list is being checked by the house manager. For now, the map shows places to eat and shop — tap “Open today” to see what is open.</p><a class="btn btn-primary" href="map-preview.html">Open the map →</a><a class="btn btn-secondary" href="map-flat.html">Simple list version</a></div></div>
   <p class="empty" id="empty" hidden>Nothing matches these filters. <button type="button" class="btn btn-tertiary" id="reset">Clear all filters</button></p>
 </section>
 

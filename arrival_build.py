@@ -83,10 +83,10 @@ def rooms_block(rows, written, today, lang):
     if en:
         return (f'<table class="rooms"><tr><th>Room</th><th>Tonight {md(today, lang)}</th><th>Tomorrow night</th></tr>{tr}</table>'
                 f'<p class="res-note">A resident has lived in Room {RESIDENT[0]} since April 2026. If you have questions, feel free to ask them.</p>'
-                f'<p class="note">Made automatically from the booking records (as of {esc(written)}). Last-minute bookings or cancellations may not be shown. Guests’ names are not shown.</p>')
+                f'<p class="note">Made automatically from the booking records (as of {esc(written)}). Last-minute bookings or cancellations may not be shown. Guests’ names are not shown. If two rooms say “from today”, one is yours and the other is another member arriving the same day.</p>')
     return (f'<table class="rooms"><tr><th>部屋</th><th>今夜 {md(today)}</th><th>明晩</th></tr>{tr}</table>'
             f'<p class="res-note">{RESIDENT[0]}号室には、{RESIDENT[1]}住人が住んでいます。分からないことがあったら、声をかけてください。</p>'
-            f'<p class="note">予約の記録から自動で作っています（{esc(written)} 時点）。直前の予約・取り消しは入っていないことがあります。泊まっている人の名前は載せていません。</p>')
+            f'<p class="note">予約の記録から自動で作っています（{esc(written)} 時点）。直前の予約・取り消しは入っていないことがあります。泊まっている人の名前は載せていません。「今日から」が2つあるときは、ひとつがご自分、もうひとつは同じ日に来るほかの会員さんです。</p>')
 
 def body_ja(rooms_html):
     return f'''<div class="L" lang="ja" data-l="ja">
