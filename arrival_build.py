@@ -88,6 +88,12 @@ def rooms_block(rows, written, today, lang):
             f'<p class="res-note">{RESIDENT[0]}号室には、{RESIDENT[1]}住人が住んでいます。分からないことがあったら、声をかけてください。</p>'
             f'<p class="note">予約の記録から自動で作っています（{esc(written)} 時点）。直前の予約・取り消しは入っていないことがあります。泊まっている人の名前は載せていません。「今日から」が2つあるときは、ひとつがご自分、もうひとつは同じ日に来るほかの会員さんです。</p>')
 
+def landmark():
+    """建物の目印の文（家の場所が分かるので、公開リポジトリに置かない。home.local.json の landmark_ja / landmark_en）。"""
+    h = ROOT / 'home.local.json'
+    d = json.loads(h.read_text()) if h.exists() else {}
+    return d.get('landmark_ja', ''), (' ' + d['landmark_en']) if d.get('landmark_en') else ''
+
 def body_ja(rooms_html):
     return f'''<div class="L" lang="ja" data-l="ja">
 <h1>到着カード</h1>
@@ -99,7 +105,7 @@ def body_ja(rooms_html):
 {rooms_html}
 
 <h2>建物の見分け方</h2>
-<div class="alert">隣の家と、住所が同じです。三浦A邸は、アイボリー色の外観の建物です。玄関の表札に、ADDress のマークがあります。ADDress の公式ページでは「大家さんが営む左官屋「左菊」の看板が目印」と案内されています。</div>
+<div class="alert">隣の家と、住所が同じです。三浦A邸は、アイボリー色の外観の建物です。玄関の表札に、ADDress のマークがあります。@LANDMARK_JA@</div>
 {photo('gaikan', '三浦A邸の外観')}
 {photo('hyosatsu', '玄関の表札と ADDress のプレート')}
 
@@ -144,7 +150,7 @@ def body_en(rooms_html):
 {rooms_html}
 
 <h2>How to find the building</h2>
-<div class="alert">The house next door has the same address. Miura A-tei is the ivory-colored building. The nameplate at the entrance has the ADDress mark. The official ADDress page says to look for the sign of “左菊” (Sakiku), a plastering company run by the owner.</div>
+<div class="alert">The house next door has the same address. Miura A-tei is the ivory-colored building. The nameplate at the entrance has the ADDress mark.@LANDMARK_EN@</div>
 {photo('gaikan', 'Outside of Miura A-tei', 'en')}
 {photo('hyosatsu', 'Nameplate and ADDress plate at the entrance', 'en')}
 
@@ -232,6 +238,8 @@ bs.forEach(function(b){{b.onclick=function(){{set(b.getAttribute('data-l'),true)
 var p=null;try{{p=localStorage.getItem('lang')}}catch(e){{}}
 set(location.hash==='#en'?'en':(location.hash==='#ja'?'ja':(p==='en'?'en':'ja')),false);
 }})();</script></body></html>'''
+    lj, le = landmark()
+    body = body.replace('@LANDMARK_JA@', html.escape(lj)).replace('@LANDMARK_EN@', html.escape(le))
     return body.encode()
 
 if __name__ == '__main__':
