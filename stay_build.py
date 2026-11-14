@@ -437,6 +437,18 @@ CONTACTS = [
     ("", "MAIL", "ADDress 会員サポート", "前日のメールの「緊急連絡先」にあります", "ADDress member support", "In the day-before email, under “緊急連絡先” (emergency contact)", "house"),
 ]
 
+# オープンチャットの入口（2026-11-14 ヤヌキが URL をくれた）。参加コードがキーボックスの番号と同じあいだは載せない。
+# URL と「変えたか」は oc.local.json（.gitignore）に置き、code_changed が true のときだけ記入待ちを URL に替える
+_oc = HERE / "oc.local.json"
+if _oc.exists():
+    import json as _json
+    _o = _json.loads(_oc.read_text())
+    if _o.get("code_changed") and _o.get("url"):
+        CONTACTS = [(n, (_o["url"] if ja.startswith("オープンチャット") else h), ja,
+                     ("LINEのグループ。参加コードは前日の家守の連絡で" if ja.startswith("オープンチャット") else jn), el,
+                     ("Group chat on the LINE app. English is OK. The join code comes with the day-before message" if ja.startswith("オープンチャット") else en_),
+                     k) for n, h, ja, jn, el, en_, k in CONTACTS]
+
 def contacts_html(which):
     en = LANG == "en"
     out = []
