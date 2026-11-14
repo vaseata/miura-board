@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>三浦A邸 家の案内</title>
+<!--
+  印刷物（館内のQR・紙）の固定の入口。このURLは消さない約束（house_faq/release_plan.md の7）。
+  - /a/            → 家の案内のトップ（英語を選んだ端末・英語の端末は英語版）
+  - /a/#gomi など   → そのページ（場所ごとのQR用）。ja/en は上と同じ決め方
+  中身を移すときは、下の PAGES と飛び先だけを直す。QR は作り直さない。
+-->
+<meta http-equiv="refresh" content="2;url=../stay/">
+<style>body{margin:0;font-family:"Hiragino Sans",sans-serif;color:#14202B;background:#fff;display:flex;min-height:100vh;align-items:center;justify-content:center;text-align:center;padding:16px}a{color:#0A5A8C;font-weight:700}</style>
+</head><body>
+<p>家の案内をひらいています…<br><a href="../stay/">ひらかないときは、ここを押してください</a><br><span lang="en">Opening the house guide… <a href="../stay/en/">Tap here if it does not open</a></span></p>
+<script>
+(function(){
+  var PAGES={tochaku:1,konnatoki:1,bosai:1,gomi:1,ofuro:1,setsubi:1,shuppatsu:1,rules:1,raihou:1,faq:1,mochimono:1,chusha:1,tanoshimu:1};
+  var lang='';
+  try{lang=localStorage.getItem('lang')||''}catch(e){}
+  if(!lang){lang=/^ja\b/i.test(navigator.language||'ja')?'ja':'en'}
+  var h=(location.hash||'').replace('#','');
+  var page=PAGES[h]?h+'.html':'';
+  location.replace('../stay/'+(lang==='en'?'en/':'')+page);
+})();
+</script>
+</body></html>
