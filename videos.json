@@ -2,6 +2,28 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "8P4ejAHYxLk",
+   "title": "【シビックRS】雨の城ヶ島早朝ドライブ！新画角テスト＆DJI Pocket 4で灯台散策",
+   "channel": "白髪おやじ 間違いだらけのカーライフ with CIVIC RS & ROOX",
+   "published_text": "13 時間前",
+   "views": "533回視聴",
+   "length": "30:33",
+   "published": "2026-11-15",
+   "fetched": "2026-11-15",
+   "q": "城ヶ島"
+  },
+  {
+   "id": "ToZJ95bnaus",
+   "title": "【三浦海岸】突如始まった青物ナブラを直撃！2日通って釣った魚を一流フレンチに持ち込んだら…",
+   "channel": "格連坊の3分フィッシング",
+   "published_text": "10 時間前",
+   "views": "2,122回視聴",
+   "length": "16:11",
+   "published": "2026-11-15",
+   "fetched": "2026-11-15",
+   "q": "三浦海岸"
+  },
+  {
    "id": "SSY05jq1-sQ",
    "title": "【結婚式オープニングムービー】城ヶ島 神奈川 三浦 ウェディング ドローン撮影",
    "channel": "paysage wedding",
@@ -199,28 +221,6 @@
    "published": "2026-11-01",
    "fetched": "2026-11-01",
    "q": "城ヶ島"
-  },
-  {
-   "id": "C5m2nro7Dkc",
-   "title": "【三崎港・超低温冷蔵庫前】　水中動画　水中の中の現状をお楽しみ下さい　釣りの参考に",
-   "channel": "釣り場",
-   "published_text": "12 時間前",
-   "views": "647回視聴",
-   "length": "31:42",
-   "published": "2026-11-01",
-   "fetched": "2026-11-01",
-   "q": "三崎港"
-  },
-  {
-   "id": "vRzCBF6PJc0",
-   "title": "連敗続きの三浦海岸サーフへ。大混雑の朝マズメにイナダを獲ってボウズ脱出！",
-   "channel": "格連坊の3分フィッシング",
-   "published_text": "14 時間前",
-   "views": "1,313回視聴",
-   "length": "7:53",
-   "published": "2026-11-01",
-   "fetched": "2026-11-01",
-   "q": "三浦海岸"
   }
  ]
 }

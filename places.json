@@ -235,6 +235,13 @@
    "license": "CC BY 3.0",
    "source": "https://commons.wikimedia.org/wiki/File:%E5%9F%8E%E3%83%B6%E5%B3%B6%E5%A4%A7%E6%A9%8B%E3%81%A8%E7%99%BD%E7%A7%8B%E7%A2%91.jpg",
    "caption": "白秋碑と城ヶ島大橋"
+  },
+  "kokuban_art": {
+   "file": "img/kokuban_art.jpg",
+   "credit": "タウンニュース横須賀版（og:image）",
+   "license": "出典記事の画像",
+   "source": "https://www.townnews.co.jp/0501/2026/11/13/861688.html",
+   "caption": "三崎中「三中ホワイトボード部」の作品『現実逃避』"
   }
  }
 }

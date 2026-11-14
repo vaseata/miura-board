@@ -3198,6 +3198,29 @@
      "opened": "2026-11-14"
     }
    ]
+  },
+  {
+   "id": 99,
+   "date": "2026-11-13",
+   "area": "三崎",
+   "category": "出来事",
+   "headline": "三崎中の2人、黒板アート甲子園で入賞",
+   "headline_en": "Two Misaki JHS students win prize at Blackboard Art Koshien",
+   "fact": "「第11回日学・黒板アート甲子園」の白板の部で、三浦市立三崎中学校の「三中ホワイトボード部」（2年の柴田結月さん・渡邊煌也さん）の作品『現実逃避』が入賞（タウンニュース 11/13）",
+   "talk": "三崎中の2年生2人が、ホワイトボードに描いた絵で全国の黒板アート甲子園に入賞したそうですよ",
+   "confidence": "🟢",
+   "image": "kokuban_art",
+   "tags": [
+    "学校",
+    "アート"
+   ],
+   "sources": [
+    {
+     "url": "https://www.townnews.co.jp/0501/2026/11/13/861688.html",
+     "title": "タウンニュース横須賀版 2026-11-13",
+     "opened": "2026-11-15"
+    }
+   ]
   }
  ]
 }
