@@ -5,12 +5,12 @@
    "src": "stay-react/public/photos/hero.jpg",
    "name": "hero",
    "kind": "三浦A邸",
-   "title": "ようこそ、三浦A邸へ",
-   "sub": "古い木の廊下の家です。ゆっくりしていってください。",
+   "title": "古い木の廊下の家",
+   "sub": "三崎港まで歩ける、古い日本家屋です。",
    "alt": "三浦A邸の廊下",
    "kind_en": "Miura A-tei",
-   "title_en": "Welcome to Miura A-tei",
-   "sub_en": "An old house with wooden hallways. Make yourself at home.",
+   "title_en": "An old house with wooden hallways",
+   "sub_en": "A traditional Japanese house, a walk from Misaki Port.",
    "alt_en": "The hallway of Miura A-tei"
   },
   {

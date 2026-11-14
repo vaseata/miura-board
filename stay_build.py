@@ -60,7 +60,7 @@ L = {
            "demo_top": ('<div class="draft"><b>試作版（2026年11月）</b>です。住人有志が作っている、三浦A邸の非公式の案内です。'
                         '「記入待ち」「仮」の札がある所は、家守に確かめてから入れます。公式のルールは、ADDress のヘルプと家守の案内が優先です。'
                         '<br>気づいたこと・「あったらいいな」は、作った人に一言ください。</div>'),
-           "lede": "ようこそ、港町の古い家へ。来る前から帰るまで、迷わないための案内です。",
+           "lede": "ようこそ、港町の古い家へ。港を歩いて、マグロを食べて、ゆっくりしていってください。",
            "go_arrival": "これから来る方へ：到着ガイド →", "this_week": "今週の三崎", "more_miura": "もっと三浦を知る",
            "motif_alt": "跳ねるマグロと波、富士山と朝日の絵", "hero_alt": "三浦A邸の廊下", "steps_label": "章"},
     "en": {"soon": "Coming soon", "shoot": "PHOTO COMING SOON", "tmp": "To be confirmed", "fill": "Pending: ", "go": "Open →", "more": "More →",
@@ -72,7 +72,7 @@ L = {
                         'Items tagged “Pending” or “To be confirmed” will be filled in after checking with the house manager (yamori). '
                         'Official rules in ADDress Help and the house manager’s instructions come first. This is a translation of the Japanese version; if they differ, the Japanese version is correct.'
                         '<br>Ideas or corrections? Please tell the people who made it.</div>'),
-           "lede": "Welcome to an old house in a port town. Your guide from the day before you arrive to checkout.",
+           "lede": "Welcome to an old house in a tuna port town. Walk the harbour, eat tuna, and take it easy.",
            "go_arrival": "Arriving soon? Arrival guide →", "this_week": "This week in Misaki", "more_miura": "More about Miura",
            "motif_alt": "Drawing of a leaping tuna, waves, Mt. Fuji and the rising sun", "hero_alt": "Hallway of Miura A-tei", "steps_label": "Sections"},
 }
@@ -404,7 +404,8 @@ def card(name, desc, href, ext, first=False, jname=None):
 
 def chip(name, href, alert):
     if alert and href:
-        return f'<a class="btn btn-emergency" href="{esc(href)}">{esc(name)}</a>'
+        cls = "btn btn-secondary" if href.startswith("konnatoki") else "btn btn-emergency"   # 赤は防災だけ（2026-11-14 討議）
+        return f'<a class="{cls}" href="{esc(href)}">{esc(name)}</a>'
     cls = "chip" + ("" if href else " soon")
     label = esc(name) + ("" if href else f"（{t('soon')}）")
     return f'<a class="{cls}" href="{esc(href)}">{label}</a>' if href else f'<span class="{cls}">{label}</span>'
@@ -433,7 +434,7 @@ CONTACTS = [
     ("110", "tel:110", "警察", "事件・事故", "Police", "Crime / accident", "sos2"),
     ("", "MAIL", "家守", "前日のメールを開く →「家守の連絡先」に電話番号があります", "House manager", "Open the day-before email → “家守の連絡先” (house manager's contact) has the number", "house"),
     ("", None, "オープンチャット（LINE）", "{記入:三浦A邸のオープンチャットのURL}", "OpenChat (LINE group chat)", "{記入:Open chat URL}", "house"),
-    ("", None, "ADDress 会員サポート", "{記入:会員サポートの連絡先のURL}", "ADDress member support", "{記入:Support URL}", "house"),
+    ("", "MAIL", "ADDress 会員サポート", "前日のメールの「緊急連絡先」にあります", "ADDress member support", "In the day-before email, under “緊急連絡先” (emergency contact)", "house"),
 ]
 
 def contacts_html(which):

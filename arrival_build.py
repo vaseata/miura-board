@@ -109,6 +109,7 @@ def body_ja(rooms_html):
 
 <h3 id="hinode">「日の出」から<small>おすすめ・道はほぼ平坦</small></h3>
 <p><span class="fill">記入待ち：バス停から家までの道順と、歩く時間</span></p>
+<p>家までの道は、前日のメールのGoogleマップで家のピンを開いて歩くのが確実です。迷ったら、家守に連絡してください。</p>
 {photo('michi1', 'バス停「日の出」を降りたところ')}
 {photo('michi2', '曲がる角')}
 {photo('michi3', '家の前の道')}
@@ -153,6 +154,7 @@ def body_en(rooms_html):
 
 <h3 id="hinode-en">From “Hinode” 日の出<small>Recommended · almost flat</small></h3>
 <p><span class="fill">Pending: route and walking time from the bus stop to the house</span></p>
+<p>To find the house, open the house pin in the Google Maps link in the day-before email and follow it. If you get lost, contact the house manager.</p>
 {photo('michi1', 'Getting off at the “Hinode” bus stop', 'en')}
 {photo('michi2', 'The corner where you turn', 'en')}
 {photo('michi3', 'The street in front of the house', 'en')}
