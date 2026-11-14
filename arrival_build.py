@@ -110,24 +110,24 @@ def body_ja(rooms_html):
 {photo('hyosatsu', '玄関の表札と ADDress のプレート')}
 
 <h2>バス停から家まで</h2>
-<p>三崎口駅からのバスは、降りるバス停が3つあります。いちばん近くて楽なのは「日の出」です。</p>
-<nav class="stops"><a href="#hinode">日の出</a><a href="#higashioka">三崎東岡</a><a href="#misakiko">三崎港</a></nav>
+<p>ADDressの公式の案内は「三崎口駅から三崎港行きのバスで14分、三崎東岡で降りて徒歩4分」です。坂を避けたいときは「日の出」でも降りられます。</p>
+<nav class="stops"><a href="#higashioka">三崎東岡</a><a href="#hinode">日の出</a><a href="#misakiko">三崎港</a></nav>
 
-<h3 id="hinode">「日の出」から<small>おすすめ・道はほぼ平坦</small></h3>
+<h3 id="higashioka">「三崎東岡」から<small>公式の案内・徒歩4分・下り坂</small></h3>
+<p>家までは、ゆるい下り坂です。帰りにこのバス停から乗るときは、坂を登ることになります。荷物が多いと、少し大変です。</p>
+<p><span class="fill">記入待ち：バス停から家までの道順</span></p>
+{photo('higashioka1', 'バス停「三崎東岡」を降りたところ')}
+{photo('higashioka2', '坂の入口')}
+
+<h3 id="hinode">「日の出」から<small>城ヶ島行き・通り矢行き・道はほぼ平坦</small></h3>
 <p><span class="fill">記入待ち：バス停から家までの道順と、歩く時間</span></p>
 <p>家までの道は、前日のメールのGoogleマップで家のピンを開いて歩くのが確実です。迷ったら、家守に連絡してください。</p>
 {photo('michi1', 'バス停「日の出」を降りたところ')}
 {photo('michi2', '曲がる角')}
 {photo('michi3', '家の前の道')}
 
-<h3 id="higashioka">「三崎東岡」から<small>徒歩7分ほど・下り坂</small></h3>
-<p>家までは、ゆるい下り坂です。帰りにこのバス停から乗るときは、坂を登ることになります。荷物が多いと、少し大変です。</p>
-<p><span class="fill">記入待ち：バス停から家までの道順</span></p>
-{photo('higashioka1', 'バス停「三崎東岡」を降りたところ')}
-{photo('higashioka2', '坂の入口')}
-
 <h3 id="misakiko">「三崎港」から<small>家からは遠い</small></h3>
-<p>三崎港（終点）まで乗ってしまったときの道です。港の店に寄ってから歩くときにも。</p>
+<p>三崎港行きは、終点まで行かずに三崎東岡で降りるのが近道です。三崎港まで乗ってしまったときの道です。港の店に寄ってから歩くときにも。</p>
 <p><span class="fill">記入待ち：バス停から家までの道順と、歩く時間</span></p>
 {photo('misakiko1', 'バス停「三崎港」を降りたところ')}
 {photo('misakiko2', '曲がる角')}
@@ -155,24 +155,24 @@ def body_en(rooms_html):
 {photo('hyosatsu', 'Nameplate and ADDress plate at the entrance', 'en')}
 
 <h2>From the bus stop to the house</h2>
-<p>Buses from Misakiguchi Station have three stops you can use. The closest and easiest is “Hinode” (日の出).</p>
-<nav class="stops"><a href="#hinode-en">Hinode 日の出</a><a href="#higashioka-en">Misaki Higashioka 三崎東岡</a><a href="#misakiko-en">Misaki-ko 三崎港</a></nav>
+<p>ADDress’s official directions: from Misakiguchi Station, take a bus bound for Misaki-ko (14 min), get off at “Misaki Higashioka” (三崎東岡), and walk 4 minutes. To avoid the hill, you can also get off at “Hinode” (日の出).</p>
+<nav class="stops"><a href="#higashioka-en">Misaki Higashioka 三崎東岡</a><a href="#hinode-en">Hinode 日の出</a><a href="#misakiko-en">Misaki-ko 三崎港</a></nav>
 
-<h3 id="hinode-en">From “Hinode” 日の出<small>Recommended · almost flat</small></h3>
+<h3 id="higashioka-en">From “Misaki Higashioka” 三崎東岡<small>Official directions · 4 min walk · downhill</small></h3>
+<p>The road to the house is a gentle downhill slope. When you take the bus back from this stop, you walk uphill, which is a bit hard with a lot of luggage.</p>
+<p><span class="fill">Pending: route from the bus stop to the house</span></p>
+{photo('higashioka1', 'Getting off at the “Misaki Higashioka” bus stop', 'en')}
+{photo('higashioka2', 'Start of the slope', 'en')}
+
+<h3 id="hinode-en">From “Hinode” 日の出<small>Buses for Jogashima / Toriya · almost flat</small></h3>
 <p><span class="fill">Pending: route and walking time from the bus stop to the house</span></p>
 <p>To find the house, open the house pin in the Google Maps link in the day-before email and follow it. If you get lost, contact the house manager.</p>
 {photo('michi1', 'Getting off at the “Hinode” bus stop', 'en')}
 {photo('michi2', 'The corner where you turn', 'en')}
 {photo('michi3', 'The street in front of the house', 'en')}
 
-<h3 id="higashioka-en">From “Misaki Higashioka” 三崎東岡<small>About 7 min walk · downhill</small></h3>
-<p>The road to the house is a gentle downhill slope. When you take the bus back from this stop, you walk uphill, which is a bit hard with a lot of luggage.</p>
-<p><span class="fill">Pending: route from the bus stop to the house</span></p>
-{photo('higashioka1', 'Getting off at the “Misaki Higashioka” bus stop', 'en')}
-{photo('higashioka2', 'Start of the slope', 'en')}
-
 <h3 id="misakiko-en">From “Misaki-ko” 三崎港<small>Far from the house</small></h3>
-<p>The route if you stayed on to Misaki-ko (the last stop). Also useful if you visit the harbor shops first.</p>
+<p>On a bus bound for Misaki-ko, getting off at Misaki Higashioka is quicker. This is the route if you stayed on to Misaki-ko (the last stop). Also useful if you visit the harbor shops first.</p>
 <p><span class="fill">Pending: route and walking time from the bus stop to the house</span></p>
 {photo('misakiko1', 'Getting off at the “Misaki-ko” bus stop', 'en')}
 {photo('misakiko2', 'The corner where you turn', 'en')}
