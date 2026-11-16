@@ -111,7 +111,8 @@ def body_ja(rooms_html):
 
 <h2>建物の見分け方</h2>
 <div class="alert">隣の家と、住所が同じです。三浦A邸は、アイボリー色の外観の建物です。玄関の表札に、ADDress のマークがあります。@LANDMARK_JA@</div>
-{photo('gaikan', '三浦A邸の外観')}
+{photo('gaikan', '三浦A邸の外観（道から正面。左に左官屋の看板）')}
+{photo('gaikan2', '少し右から見た外観')}
 {photo('hyosatsu', '玄関の表札と ADDress のプレート')}
 
 <h2>バス停から家まで</h2>
@@ -157,7 +158,8 @@ def body_en(rooms_html):
 
 <h2>How to find the building</h2>
 <div class="alert">The house next door has the same address. Miura A-tei is the ivory-colored building. The nameplate at the entrance has the ADDress mark.@LANDMARK_EN@</div>
-{photo('gaikan', 'Outside of Miura A-tei', 'en')}
+{photo('gaikan', 'Miura A-tei from the street (plasterer sign on the left)', 'en')}
+{photo('gaikan2', 'From a little to the right', 'en')}
 {photo('hyosatsu', 'Nameplate and ADDress plate at the entrance', 'en')}
 
 <h2>From the bus stop to the house</h2>
