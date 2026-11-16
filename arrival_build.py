@@ -11,6 +11,7 @@
 import base64, datetime as dt, hashlib, html, json, sys
 from pathlib import Path
 from share_lock import lock, token_for, ROOT, BASE
+from tide import tide_html, TIDE_CSS   # 城ヶ島の潮（2026-11-16）
 
 LEDGER = Path('/Users/yanudon/claude/mameden-trio/apps/miura-watcher/data/宿泊者.json')
 PRIV = ROOT / 'private_photos'
@@ -94,6 +95,9 @@ def landmark():
     d = json.loads(h.read_text()) if h.exists() else {}
     return d.get('landmark_ja', ''), (' ' + d['landmark_en']) if d.get('landmark_en') else ''
 
+TIDE_JA = tide_html('../../', 'ja', '-ja')   # 今夜の部屋の下に、今日の潮
+TIDE_EN = tide_html('../../', 'en', '-en')
+
 def body_ja(rooms_html):
     return f'''<div class="L" lang="ja" data-l="ja">
 <h1>到着カード</h1>
@@ -103,6 +107,7 @@ def body_ja(rooms_html):
 <h2>今夜の部屋</h2>
 <p>ご自分の部屋番号は、予約の前日に届くメールの「部屋番号」にあります。</p>
 {rooms_html}
+{TIDE_JA}
 
 <h2>建物の見分け方</h2>
 <div class="alert">隣の家と、住所が同じです。三浦A邸は、アイボリー色の外観の建物です。玄関の表札に、ADDress のマークがあります。@LANDMARK_JA@</div>
@@ -148,6 +153,7 @@ def body_en(rooms_html):
 <h2>Rooms tonight</h2>
 <p>Your room number is in the “Room number” section of the email you receive the day before your stay.</p>
 {rooms_html}
+{TIDE_EN}
 
 <h2>How to find the building</h2>
 <div class="alert">The house next door has the same address. Miura A-tei is the ivory-colored building. The nameplate at the entrance has the ADDress mark.@LANDMARK_EN@</div>
@@ -222,6 +228,7 @@ h3{{font-family:"Shippori Mincho",serif;font-size:18px;margin:22px 0 6px;padding
 ol{{padding-left:1.3em}}li{{margin:6px 0}}
 .fill{{display:inline-block;font-size:12px;color:var(--tuna);background:#FBEAEC;border:1px dashed var(--tuna);border-radius:4px;padding:0 6px}}
 a{{color:var(--sea)}}
+'''+TIDE_CSS+f'''
 </style></head><body><main>
 <img class="hd" src="../../img/brand/header-maguro.jpg" alt="" width="1500" height="500">
 <div class="top"><div class="brand"><img src="../../img/brand/logo.png" alt="" width="40" height="40">MIURA A-TEI</div>

@@ -48,8 +48,9 @@ def update():
 
 NAME_EN = {"大潮": "Spring tide", "中潮": "Mid tide", "小潮": "Neap tide", "長潮": "Long tide", "若潮": "Young tide"}
 
-def tide_html(root, lang="ja"):
-    """今日の城ヶ島の潮のカード。tide.json を読んで、閲覧者の端末の日付の分を出す（無ければ何も出さない）。"""
+def tide_html(root, lang="ja", sfx=""):
+    """今日の城ヶ島の潮のカード。tide.json を読んで、閲覧者の端末の日付の分を出す（無ければ何も出さない）。
+    sfx：同じページに日英の2枚を置くとき（到着カード）の id の後ろに付ける文字。"""
     en = lang == "en"
     L = ({"h": "Tide at Jogashima today", "hi": "High", "lo": "Low",
           "note": "A guide only. Rock pools are easiest around low tide. Stay away from the shore on days with high waves or storm surge.",
@@ -58,14 +59,14 @@ def tide_html(root, lang="ja"):
           "note": "目安です。磯遊びは干潮の前後が歩きやすいです。高波・高潮の日は、海に近づかないでください。",
           "src": "潮汐：tide736.net（推算値。航海用ではありません）"})
     names = json.dumps(NAME_EN if en else {}, ensure_ascii=False)
-    return f'''<div class="tide" id="tide" hidden><div class="tide-h">{L["h"]}<span class="tide-n" id="tide-n"></span></div>
-<div class="tide-r"><span><b>{L["hi"]}</b> <span id="tide-hi"></span></span><span><b>{L["lo"]}</b> <span id="tide-lo"></span></span></div>
+    return f'''<div class="tide" id="tide{sfx}" hidden><div class="tide-h">{L["h"]}<span class="tide-n" id="tide-n{sfx}"></span></div>
+<div class="tide-r"><span><b>{L["hi"]}</b> <span id="tide-hi{sfx}"></span></span><span><b>{L["lo"]}</b> <span id="tide-lo{sfx}"></span></span></div>
 <p class="tide-note">{L["note"]}</p><p class="tide-src"><a href="{SOURCE}" target="_blank" rel="noopener">{L["src"]}</a></p></div>
 <script>(function(){{var N={names};var d=new Date(),k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
 fetch('{root}tide.json',{{cache:'no-cache'}}).then(function(r){{return r.json()}}).then(function(j){{var t=j.days&&j.days[k];if(!t)return;
 var f=function(a){{return a.map(function(x){{return x[0].replace(/^0/,'')}}).join(' / ')||'—'}};
-document.getElementById('tide-n').textContent=N[t.n]||t.n;document.getElementById('tide-hi').textContent=f(t.hi);document.getElementById('tide-lo').textContent=f(t.lo);
-document.getElementById('tide').hidden=false;}}).catch(function(){{}});}})();</script>'''
+document.getElementById('tide-n{sfx}').textContent=N[t.n]||t.n;document.getElementById('tide-hi{sfx}').textContent=f(t.hi);document.getElementById('tide-lo{sfx}').textContent=f(t.lo);
+document.getElementById('tide{sfx}').hidden=false;}}).catch(function(){{}});}})();</script>'''
 
 TIDE_CSS = """.tide{margin:14px 0;padding:12px 16px;border:1.5px solid var(--sea);border-radius:12px;background:var(--sea-tint,#E6F0F6)}
 .tide-h{font-weight:700;font-size:15px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
