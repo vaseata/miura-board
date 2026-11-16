@@ -281,6 +281,9 @@ PAGES_EN = {
             ("photo", "linenbox", "Linen return box", "Linen return box"),
             ("links", [("Garbage", "gomi.html")]),
             ("p", "Dry the dishes and put them back on the shelf, so the next person can use them right away. Before your bus, tuna from **Urari Marche (9 min walk)** makes a good gift to take home. Come back in another season (seasonal events are on “What to bring & seasons”)."),
+            ("h2", "Bus home", "bus"),
+            ("bus",),
+            ("p", "On weekends and holidays, the bus may be crowded with visitors coming from Jogashima. Leave with time to spare."),
             ("h2", "If you leave something behind"),
             ("ul", [
                 "First, contact the house manager.",

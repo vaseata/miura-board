@@ -297,6 +297,10 @@ footer{margin-top:40px;font-size:12px;color:var(--mute)}
 .btn.ct{justify-content:flex-start;gap:12px;min-height:56px;padding:8px 16px;text-align:left}
 .ct-ic svg{display:block;width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linejoin:round}
 .ct-tx{display:flex;flex-direction:column;line-height:1.35}.ct-tx b{font-size:16px}.ct-tx small{font-size:12px;font-weight:400;opacity:.9}
+.bus{display:grid;gap:8px;margin:12px 0;padding:14px;border:1px solid var(--hair);border-radius:12px;background:var(--tint)}
+.bus-rt{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;font-weight:700;font-size:16px}.bus-rt small{font-weight:400;font-size:13px;color:var(--mute)}
+.bus .btn{width:100%}.bus .btn small{font-weight:400;font-size:12px}
+.bus-note{margin:0;font-size:13px;color:var(--mute)}
 .ct-off{display:flex;align-items:center;min-height:56px;padding:8px 16px;border:1px dashed var(--hair);border-radius:12px;color:var(--ink)}
 .alert-box{margin:20px 0 0;padding:14px 16px;border:2px solid var(--tuna);border-radius:10px;color:var(--tuna);font-weight:700}
 .note{font-size:12px;color:var(--mute);margin:6px 0}
@@ -466,6 +470,31 @@ def contacts_html(which):
             out.append(f'<div class="ct ct-off"><span class="ct-tx"><b>{esc(name)}</b><small>{inline(note)}</small></span></div>')
     return '<div class="contacts">' + "".join(out) + "</div>"
 
+# 帰りのバス（2026-11-16）：京急バスの「日ノ出」→「三崎口駅」。京急バスは API・オープンデータを出しておらず、
+# 時刻表・接近情報のページ（NAVITIME の transfer-cloud）は利用条件で複製・転載・自動取得・API が禁止。なので公式ページへのリンクだけにする
+_BUS_Q = "?departure-busstop=00020824&arrival-busstop=00020813"
+BUS = {
+    "ja": {"from": "日ノ出", "to": "三崎口駅", "meta": "京急バス・約19分",
+           "now": ("バスはいまどこ？", "接近情報・地図（京急バスの公式）"),
+           "tt": ("今日の時刻表", "日ノ出→三崎口駅・平日と土休日で変わります"),
+           "note": "バス停の名前は、京急バスでは「日ノ出」です。城ヶ島行き・通り矢行きの帰りのバス（三崎口駅行き）が止まります。接近情報は、バスが近づくと出ます（出ていないときは時刻表を）。時刻は変わることがあるので、乗る日に公式のページで確かめてください。"},
+    "en": {"from": "Hinode", "to": "Misakiguchi Sta.", "meta": "Keikyu Bus, about 19 min",
+           "now": ("Where is the bus now?", "Bus location and map (Keikyu Bus official)"),
+           "tt": ("Today's timetable", "Hinode → Misakiguchi Sta. Weekdays and weekends differ"),
+           "note": "Keikyu Bus spells this stop “Hinode” (日ノ出). Buses bound for Misakiguchi Sta. (coming back from Jogashima or Toriya) stop here. Bus locations appear when a bus is getting close; if none are shown, check the timetable. Times can change, so check the official page on the day you leave."},
+}
+def bus_html():
+    en = LANG == "en"
+    b = BUS["en" if en else "ja"]
+    base = "https://transfer-cloud.navitime.biz/" + ("en/" if en else "") + "keikyubus/"
+    def a(cls, path, lab):
+        return (f'<a class="btn {cls}" href="{esc(base + path + _BUS_Q)}" target="_blank" rel="noopener">'
+                f'<span class="ct-tx"><b>{esc(lab[0])} ↗</b><small>{esc(lab[1])}</small></span></a>')
+    return ('<div class="bus">'
+            f'<div class="bus-rt">{esc(b["from"])} → {esc(b["to"])}<small>{esc(b["meta"])}</small></div>'
+            + a("btn-primary", "approachings", b["now"]) + a("btn-secondary", "trips", b["tt"])
+            + f'<p class="bus-note">{esc(b["note"])}</p></div>')
+
 PHONE_SVG = '<svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>'
 
 def render_block(b):
@@ -477,6 +506,7 @@ def render_block(b):
     if kind == "note": return f'<p class="note">{inline(b[1])}</p>'
     if kind == "alert": return f'<div class="alert-box">{inline(b[1])}</div>'
     if kind == "contacts": return contacts_html(b[1])
+    if kind == "bus": return bus_html()
     if kind in ("ul", "ol"): return f"<{kind}>" + "".join(f"<li>{inline(x)}</li>" for x in b[1]) + f"</{kind}>"
     if kind == "table":
         head = "<tr>" + "".join(f"<th>{inline(h)}</th>" for h in b[1]) + "</tr>"
