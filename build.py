@@ -3,6 +3,7 @@
 import json, datetime, html, pathlib, re, urllib.parse
 from string import Template
 from ui_parts import UI_CSS, sitenav
+from tide import tide_html, TIDE_CSS   # 城ヶ島の潮（2026-11-16）
 
 HERE = pathlib.Path(__file__).parent
 TODAY = datetime.date.today()
@@ -519,6 +520,7 @@ button{font:inherit;color:inherit}
 .okuzuke .latin{display:block;margin-top:6px;letter-spacing:.25em;text-transform:uppercase;font-size:9.5px}
 @media (prefers-reduced-motion: reduce){ .thumb img{transition:none} }
 $ui_css
+$tide_css
 .jp-note{font-size:12px;color:var(--mute);margin:-6px 0 8px}\nhtml[lang="en"] .men .latin{display:none}
 .topbar{display:flex;justify-content:flex-end;margin:0 0 8px}
 .lang{display:inline-grid;grid-template-columns:1fr 1fr;gap:2px;padding:3px;background:var(--tint);border:1px solid var(--hair);border-radius:999px;flex:none}
@@ -533,6 +535,7 @@ $ui_css
   <div class="issue"><span class="no">$t_issue</span><br>$ymd</div>
   <p class="mh-lead">$t_lead</p>
 </header>
+$tide
 <nav class="toggle" aria-label="$t_filter"><span class="q" id="q-days">$t_last</span><div class="seg" role="radiogroup" aria-labelledby="q-days"><button type="button" role="radio" aria-checked="false" data-days="31">$t_d31</button><button type="button" role="radio" aria-checked="false" data-days="93">$t_d93</button><button type="button" role="radio" aria-checked="false" data-days="184">$t_d184</button><button type="button" role="radio" aria-checked="false" data-days="366">$t_d366</button></div><div class="tags"><button type="button" class="fchip tag-want" data-tag="want" aria-pressed="false" hidden>$t_want <b class="n">0</b></button><button type="button" class="fchip tag-reco" data-tag="reco" aria-pressed="false" hidden>$t_reco <b class="n">0</b></button></div></nav>
 <section class="sec dated" id="soon"><h2 class="men">$t_soon<span class="latin">Coming up</span></h2><div class="grid">$soon</div></section>
 <section class="sec dated" id="recent"><h2 class="men">$t_recent<span class="latin">Recent</span></h2><div class="grid">$recent</div></section>
@@ -619,7 +622,7 @@ $t_foot
   render();
 })();
 </script>
-    ''').substitute(soon=soon_html, recent=recent_html, df=df_line, upcoming=up_html, videos=videos_html, ui_css=UI_CSS, R=R(),
+    ''').substitute(tide=tide_html(R(), LANG), tide_css=TIDE_CSS, soon=soon_html, recent=recent_html, df=df_line, upcoming=up_html, videos=videos_html, ui_css=UI_CSS, R=R(),
                      langswitch=langswitch(),
                      ymd=(f"{TODAY.strftime('%A')}, {TODAY.strftime('%B')} {TODAY.day}, {TODAY.year}" if E() else f"{TODAY.year}年{TODAY.month}月{TODAY.day}日（{WD[TODAY.weekday()]}）"),
                      t_issue=(f"No. {issue_no}" if E() else f"第{issue_no}号"),
