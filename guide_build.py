@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """spots.json + items.json + calendar.json + places.json → guide/index.html（ゲスト用）・guide/review.html（候補の確認用）
 単体で動く（build.py には依存しない）。build.py の末尾からも呼ばれる。"""
+from tide import tide_html, TIDE_CSS   # 城ヶ島の潮（2026-11-16）
 import json, datetime, html, pathlib, math, urllib.parse
 from string import Template
 from ui_parts import UI_CSS, sitenav, hana_banner
@@ -386,6 +387,7 @@ a{color:inherit} button{font:inherit;color:inherit}
 .src .chk{margin-left:8px}
 .src a{margin-right:8px;text-underline-offset:2px}
 $ui_css
+$tide_css
 $lang_css
 $status_css
 /* 三崎を知る（2026-11-14） */
@@ -414,6 +416,7 @@ $sitenav
 </header>
 
 $hana
+$tide
 $know
 <section class="sec" id="season">
   <h2 class="men">$t_season<span class="latin">$month</span></h2>
@@ -511,7 +514,7 @@ $lang_js
                  spots=spots_html or (f'<div class="empty-go"><p>{"This list is being checked by the house manager. For now, the map shows places to eat and shop — tap “Open today” to see what is open." if E else "このページの一覧は、家守が確かめてから順に載せます。いまは、家守のおすすめマップに、ごはんと買い物のお店があります。「今日やっている」を押すと、今日開いているお店だけ出せます。"}</p>'
                                       f'<a class="btn btn-primary" href="map-preview.html">{"Open the map →" if E else "家守のおすすめマップをひらく →"}</a>'
                                       f'<a class="btn btn-secondary" href="map-flat.html">{"Simple list version" if E else "軽い版（一覧と平面の地図）"}</a></div>'), credits=credits, cats_json=json.dumps(CATS, ensure_ascii=False), ui_css=UI_CSS,
-                 hana=hana_banner(R, lang=LANG), know=know_html(R, E), status_css=shop_hours.STATUS_CSS, open_js=shop_hours.OPEN_JS, sitenav=sitenav("guide", R, lang=LANG, is_top=True, sos=True),
+                 hana=hana_banner(R, lang=LANG), tide=tide_html(R, LANG), tide_css=TIDE_CSS, know=know_html(R, E), status_css=shop_hours.STATUS_CSS, open_js=shop_hours.OPEN_JS, sitenav=sitenav("guide", R, lang=LANG, is_top=True, sos=True),
                  lang_css=LANG_CSS, lang_js=LANG_JS, langswitch=langswitch(LANG),
                  alternates=f'<link rel="alternate" hreflang="ja" href="{SITE}"><link rel="alternate" hreflang="en" href="{SITE}en/"><link rel="alternate" hreflang="x-default" href="{SITE}">',
                  **(TXT_EN if E else TXT_JA),

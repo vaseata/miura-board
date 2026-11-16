@@ -632,6 +632,8 @@ PAGES_EN = {
             ("h2", "Midday: tuna at the port", "hiru"),
             ("p", "In Misaki, lunch means tuna. The house manager's map shows where to eat. You can buy fish and vegetables at **Urari Marche (9 min walk)**. Many nearby shops are closed on Tuesdays and Wednesdays, and Wednesday has the fewest."),
             ("links", [("The house manager's map", "../guide/map-preview.html")]),
+            ("h2", "Tide at Jogashima", "shio"),
+            ("tide",),
             ("h2", "Late afternoon: the sea and views", "yuu"),
             ("p", "Jogashima Lighthouse, the Umanose rock arch, seasonal flowers, views and the Diamond Fuji days are on “Photo spots”. For historic places, try the “History walk”."),
             ("links", [("Photo spots", "../guide/hae/"), ("History walk", "../history/")]),
