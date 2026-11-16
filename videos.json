@@ -2,6 +2,39 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "9d12nnBPvqY",
+   "title": "【#城ヶ島】#おきらく釣行【2026/11/11】",
+   "channel": "おきらく釣行 & 株",
+   "published_text": "9 時間前",
+   "views": "414回視聴",
+   "length": "13:35",
+   "published": "2026-11-17",
+   "fetched": "2026-11-17",
+   "q": "城ヶ島"
+  },
+  {
+   "id": "h8Lgri2NrHs",
+   "title": "【美味すぎてヤバい】釣り素人が作戦立ててカワハギを釣る!! 肝パンが絶品すぎた in 城ヶ島",
+   "channel": "釣り吉郎",
+   "published_text": "1 日前",
+   "views": "346回視聴",
+   "length": "23:07",
+   "published": "2026-11-16",
+   "fetched": "2026-11-17",
+   "q": "城ヶ島"
+  },
+  {
+   "id": "XbSsP3t10ys",
+   "title": "20261022 DIVING SHOPウミウシハンターズ 城ヶ島水域でのウミウシダイビング。ログブックのようにウミウシを解説しながらウミウシ紹介。ウミウシのことならハンターズYOUにお問い合わせを。",
+   "channel": "ハンターズYOU・・・DS.ウミウシハンターズ",
+   "published_text": "1 日前",
+   "views": "132回視聴",
+   "length": "5:37",
+   "published": "2026-11-16",
+   "fetched": "2026-11-17",
+   "q": "城ヶ島"
+  },
+  {
    "id": "8P4ejAHYxLk",
    "title": "【シビックRS】雨の城ヶ島早朝ドライブ！新画角テスト＆DJI Pocket 4で灯台散策",
    "channel": "白髪おやじ 間違いだらけのカーライフ with CIVIC RS & ROOX",
@@ -188,39 +221,6 @@
    "published": "2026-11-03",
    "fetched": "2026-11-03",
    "q": "三崎港"
-  },
-  {
-   "id": "ZdjUwskVWjs",
-   "title": "城ヶ島磯を見に行ってきました#城ヶ島",
-   "channel": "まろべーの日常",
-   "published_text": "17 時間前",
-   "views": "10回視聴",
-   "length": "7:17",
-   "published": "2026-11-02",
-   "fetched": "2026-11-02",
-   "q": "城ヶ島"
-  },
-  {
-   "id": "pjtdIacBHUA",
-   "title": "2026年11月1日三浦市三崎朝市",
-   "channel": "びんちゃん貧乏な",
-   "published_text": "22 時間前",
-   "views": "2,549回視聴",
-   "length": "15:44",
-   "published": "2026-11-02",
-   "fetched": "2026-11-02",
-   "q": "三浦市"
-  },
-  {
-   "id": "yIYtQwLPOXY",
-   "title": "【ふふ 城ヶ島 海風のしらべ】海と空に包まれる絶景リゾート！ルーフトップラウンジと天然温泉に癒やされる贅沢な滞在",
-   "channel": "サメズトリップ〜星野リゾート大好き夫婦の旅行VLOG〜",
-   "published_text": "13 時間前",
-   "views": "3,137回視聴",
-   "length": "30:44",
-   "published": "2026-11-01",
-   "fetched": "2026-11-01",
-   "q": "城ヶ島"
   }
  ]
 }
