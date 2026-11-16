@@ -417,6 +417,7 @@ def chip(name, href, alert):
 def inline(text):
     t = esc(text)
     t = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", t)
+    t = re.sub(r"\[([^\]]+)\]\(([^)\s]+)\)", lambda m: f'<a href="{fix(m.group(2))}">{m.group(1)}</a>', t)   # [文](ページ.html#id)。2026-11-16
     t = t.replace("\n", "<br><small>")+("</small>" if "\n" in t else "")
     t = t.replace("{仮}", f'<span class="tmp">{L[LANG]["tmp"]}</span>')
     if PROTO:
