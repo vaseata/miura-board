@@ -119,3 +119,10 @@
 - `python3 hana_public_build.py` が平面版（`hana_public.tpl.html`）と3D版（`hana_public3d.tpl.html`）の両方を書く。◎が付けば `guide/map3d.html` も作られる
 - 地形は国土地理院の標高タイル、建物は OpenFreeMap、橋・灯台・防波堤は `structures.json`（`hana_structures_fetch.py` で取り直す。毎朝は回さない）。高さの倍率は `EXAG`（1＝実寸）
 - **3D版だけは A邸の位置を出す**（2026-10-11 ヤヌキ指示：宿泊者専用の地図だから）。座標は `home.local.json` から build が入れる。**平面版・ガイドブック・近況ボードは今までどおり出さない**
+
+## 帰りのバス（家の案内の出発のページ・2026-11-16・c14f7ea）
+
+- 出発のページ（`shuppatsu`）に「帰りのバス」の欄（`("bus",)` ブロック。中身は `stay_build.py` の `BUS`・`bus_html()`）。京急バス公式の「日ノ出→三崎口駅」の**接近情報**（地図つき・主のボタン）と**発着時刻表**（その日の平日／土休日のダイヤが出る）へリンク。英語は URL の頭に `/en/`
+  - 接近情報 https://transfer-cloud.navitime.biz/keikyubus/approachings?departure-busstop=00020824&arrival-busstop=00020813 （時刻表は approachings を trips に）。バス停の名前は京急バスでは「日ノ出」
+- **時刻表をページに載せない・APIを使わない理由**（2026-11-16 に開いて確認）：京急バスは GTFS（gtfs-data.jp）にも ODPT にも無い（ODPT にあるのは京急電鉄の鉄道だけ・チャレンジ限定ライセンス）。時刻表・接近情報のページ（NAVITIME の transfer-cloud）の「ご利用にあたって」は、複製・公衆送信・スクレイピング・API などでの収集を禁止している。だからリンクだけ。2026-11-21 に三8・三9のダイヤ変更があるが、リンク先が新しいダイヤを出すので直さなくてよい
+- 京急バスがオープンデータを出したら（gtfs-data.jp・ckan.odpt.org で「京浜急行バス」）、ページ内に次の数本を出す形を考え直す
