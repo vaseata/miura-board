@@ -165,7 +165,7 @@ QUICK = [
 SECTIONS = [
     ("到着前", "来る前に見ておくと安心", [
         ("行き方", "バス（三崎東岡から徒歩4分）・電車・車。到着の時間", "tochaku.html#ikikata", False),
-        ("駐車場・駐輪場", "この家に駐車場はありません。来る前に予約を", "chusha.html", False),
+        ("駐車場・駐輪場", "車の駐車場はありません（来る前に予約を）。バイクは玄関まわりに", "chusha.html", False),
         ("持ち物と季節", "持ってくるもの・季節の行事・寒さと蚊", "mochimono.html", False),
         ("防災マップ（3D）", "避難先と津波・高潮・土砂災害。合言葉つき（宿泊者のみ）", HAZARD, False),
     ]),
@@ -200,7 +200,7 @@ QUICK_EN = ["Emergency", "Help", "Key box won't open", "Wi-Fi", "Bath", "Garbage
 SECTIONS_EN = [
     ("Before you come", "Good to read before you arrive", [
         ("Getting here", "Bus (4 min walk from Misaki Higashioka), train, car. Arrival time"),
-        ("Parking (cars & bikes)", "This house has no parking. Book before you come"),
+        ("Parking (cars & bikes)", "No car parking (book before you come). Motorbikes: by the entrance"),
         ("What to bring & seasons", "What to bring, seasonal events, cold and mosquitoes"),
         ("Hazard map (3D)", "Evacuation sites; tsunami, storm surge, landslides. Passphrase (guests only). In Japanese"),
     ]),

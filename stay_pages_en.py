@@ -335,12 +335,13 @@ PAGES_EN = {
     },
     "chusha": {
         "title": "Parking (cars & bikes)",
-        "lede": "For guests coming by car, motorbike, or bicycle. This house has no parking.",
+        "lede": "For guests coming by car, motorbike, or bicycle. There is no car parking. Motorbikes can park by the front entrance.",
         "blocks": [
             ("alert", "The house has no parking. If you come by car, **book a nearby parking lot before you come.**"),
             ("table", ["Vehicle", "What to do"], [
                 ["Car", "**Book** a nearby parking lot **yourself** (you pay the fee)"],
-                ["Motorbike / bicycle", "**Ask the house manager before you come** (they may guide you to a nearby bike parking area)"],
+                ["Motorbike", "**You can park by the front entrance**"],
+                ["Bicycle", "**Ask the house manager before you come** (they may guide you to a nearby bike parking area)"],
                 ["Electric car / e-motorbike / e-bike", "**Charging is not available**"],
             ]),
             ("toc", [("kuruma", "By car"), ("manpai", "If it's full"), ("bike", "Motorbike / bicycle"), ("matsuri", "Festival days")]),
@@ -362,11 +363,12 @@ PAGES_EN = {
             ("links", [("Arrival guide (by train and bus)", "tochaku.html#ikikata")]),
             ("h2", "Motorbikes and bicycles", "bike"),
             ("ul", [
-                "If you want to park one, **ask the house manager before you come**. Because of space limits, they may guide you to a nearby bike parking area.",
+                "**Motorbikes can park by the front entrance.**",
+                "If you want to park a bicycle, **ask the house manager before you come**. Because of space limits, they may guide you to a nearby bike parking area.",
                 "**There are no rental bicycles.**",
                 "**Charging is not available** for electric cars, e-motorbikes, or e-bikes.",
             ]),
-            ("note", "Source: ADDress official help, “Equipment and facilities” (parking section, checked on 2026-11-08)."),
+            ("note", "Source: ADDress official help, “Equipment and facilities” (parking section, checked on 2026-11-08). Motorbike parking: from the house manager (2026-11-18)."),
             ("h2", "Festival days", "matsuri"),
             ("p", "On festival days, such as the summer festival of Kainan Shrine, there are road closures. You may not be able to park, so please check in advance."),
             ("links", [("Miura News (events and traffic; headlines in English)", "../index.html")]),
