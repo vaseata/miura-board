@@ -21,3 +21,6 @@ private_photos/
 hito_kouho.local.json
 oc.local.json
 public_check.local.json
+
+# 白板のおすすめ地図（A邸の位置入り・家の中に貼る紙だけ）
+qr_card/hana_board/

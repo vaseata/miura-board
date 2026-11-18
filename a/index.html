@@ -20,6 +20,8 @@
   try{lang=localStorage.getItem('lang')||''}catch(e){}
   if(!lang){lang=/^ja\b/i.test(navigator.language||'ja')?'ja':'en'}
   var h=(location.hash||'').replace('#','');
+  // #map：白板の「華さんのおすすめのお店」の紙のQR（2026-11-18）。おすすめマップ（現在地つき）へ
+  if(h==='map'){location.replace('../guide/'+(lang==='en'?'en/':'')+'map-preview.html');return}
   var page=PAGES[h]?h+'.html':'';
   location.replace('../stay/'+(lang==='en'?'en/':'')+page);
 })();
