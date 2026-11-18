@@ -3221,6 +3221,64 @@
      "opened": "2026-11-15"
     }
    ]
+  },
+  {
+   "id": 100,
+   "date": "2026-11-10",
+   "area": "三浦市",
+   "category": "出来事",
+   "headline": "三浦RCが社協へ台風支援金16万円",
+   "headline_en": "Miura Rotary Club gives ¥160,000 for typhoon recovery",
+   "fact": "11/10、三浦ロータリークラブが台風25号の被災者支援として市社会福祉協議会へ支援金16万円を手渡した。",
+   "talk": "台風のあと、地元の団体からの支援が続いているそうです。",
+   "confidence": "🟢",
+   "image": "misaki_harbor",
+   "sources": [
+    {
+     "url": "https://www.townnews.co.jp/0501/2026/11/17/862540.html",
+     "title": "タウンニュース 2026-11-17",
+     "opened": "2026-11-19"
+    }
+   ]
+  },
+  {
+   "id": 101,
+   "date": "2026-11-15",
+   "end": "2027-01-31",
+   "area": "三浦市",
+   "category": "出来事",
+   "headline": "みうら観光写真コンクール、12/1から募集",
+   "headline_en": "Miura tourism photo contest: entries 12/1–1/31",
+   "fact": "三浦市観光協会の令和8年度「みうら観光写真コンクール」。テーマは「行きたくなる、見たくなる三浦。」、応募は2026/12/1〜2027/1/31（当日消印有効）。キッズ賞もある。",
+   "talk": "滞在中に撮った三浦の写真、コンクールに出してみませんか。",
+   "confidence": "🟢",
+   "image": "jogashima_bridge_sunset",
+   "sources": [
+    {
+     "url": "https://miura-info.ne.jp/r8miuraphotocontest/",
+     "title": "みうら観光ガイド 2026-11-15",
+     "opened": "2026-11-19"
+    }
+   ]
+  },
+  {
+   "id": 102,
+   "date": "2026-11-17",
+   "area": "三浦市",
+   "category": "交通",
+   "headline": "京急の磁気きっぷ、2027年春からQR乗車券に",
+   "headline_en": "Keikyu paper tickets to switch to QR tickets from spring 2027",
+   "fact": "京急・JR東日本など鉄道7社が、従来の磁気きっぷに代えて2027年春から「QR乗車券」を導入する。磁気きっぷの終了時期は各社が決まり次第案内する。",
+   "talk": "三崎口から乗るきっぷも、来年の春からQRに変わるそうです。",
+   "confidence": "🟡",
+   "image": "misaki_harbor",
+   "sources": [
+    {
+     "url": "https://yokosuka.goguynet.jp/2026/11/17/qrjyousyaken/",
+     "title": "号外NET横須賀・三浦 2026-11-17",
+     "opened": "2026-11-19"
+    }
+   ]
   }
  ]
 }

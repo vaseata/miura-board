@@ -2,6 +2,39 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "QJ92SHbIJao",
+   "title": "上州屋の大会で城ヶ島の磯に行ったら、人が多過ぎていい場所に入れず、三崎の洗礼を受けました…",
+   "channel": "釣りしましょう",
+   "published_text": "13 時間前",
+   "views": "467回視聴",
+   "length": "9:09",
+   "published": "2026-11-19",
+   "fetched": "2026-11-19",
+   "q": "城ヶ島"
+  },
+  {
+   "id": "-ELCoZTJRPA",
+   "title": "【三浦海岸】初めてのレンタルボート釣り完全ガイド！2馬力から15馬力まで解説＆船の選び方・トイレ事情・ジギングで青物狙い親子で楽しむ",
+   "channel": "つり姫もも©チャンネル",
+   "published_text": "11 時間前",
+   "views": "179回視聴",
+   "length": "11:34",
+   "published": "2026-11-19",
+   "fetched": "2026-11-19",
+   "q": "三浦海岸"
+  },
+  {
+   "id": "TkL5-WZhS3c",
+   "title": "地元食材の大根を収穫体験　三浦市立初声小5年生",
+   "channel": "tvk News Link【公式】",
+   "published_text": "12 時間前",
+   "views": "1,069回視聴",
+   "length": "1:26",
+   "published": "2026-11-19",
+   "fetched": "2026-11-19",
+   "q": "三浦市"
+  },
+  {
    "id": "9d12nnBPvqY",
    "title": "【#城ヶ島】#おきらく釣行【2026/11/11】",
    "channel": "おきらく釣行 & 株",
@@ -187,39 +220,6 @@
    "length": "6:54",
    "published": "2026-11-05",
    "fetched": "2026-11-05",
-   "q": "城ヶ島"
-  },
-  {
-   "id": "Mfv-fBP_YZE",
-   "title": "🌊油壺〜長井〜佐島🌊🌇",
-   "channel": "ポメラニアンぽんた",
-   "published_text": "20 時間前",
-   "views": "20回視聴",
-   "length": "3:48",
-   "published": "2026-11-04",
-   "fetched": "2026-11-04",
-   "q": "油壺"
-  },
-  {
-   "id": "bqRbiNiTImI",
-   "title": "【海35】路線バス（ルート）の旅【三崎東岡→三浦海岸駅（剱崎経由）】",
-   "channel": "横横マニア",
-   "published_text": "21 時間前",
-   "views": "125回視聴",
-   "length": "8:18",
-   "published": "2026-11-04",
-   "fetched": "2026-11-04",
-   "q": "三浦半島 三崎"
-  },
-  {
-   "id": "yIYtQwLPOXY",
-   "title": "【ふふ 城ヶ島 海風のしらべ】目の前に広がる海の絶景！全室オーシャンビューの新しい「ふふ」で過ごす至福のひととき",
-   "channel": "サメズトリップ〜星野リゾート大好き夫婦の旅行VLOG〜",
-   "published_text": "2 週間前",
-   "views": "27,445回視聴",
-   "length": "30:44",
-   "published": "2026-11-04",
-   "fetched": "2026-11-18",
    "q": "城ヶ島"
   }
  ]
