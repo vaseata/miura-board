@@ -3279,6 +3279,91 @@
      "opened": "2026-11-19"
     }
    ]
+  },
+  {
+   "id": 103,
+   "date": "2026-11-23",
+   "area": "三浦市",
+   "category": "イベント",
+   "headline": "11/23 南下浦・金田の圓福寺でフリマとマルシェ",
+   "headline_en": "11/23 Flea market & marche at Enpukuji Temple, Kaneda",
+   "fact": "11/23（月・祝）10時〜15時、圓福寺（三浦市南下浦町金田258）でフリーマーケットとマルシェ。5月の初開催が好評で再企画。雨天中止。",
+   "talk": "23日の祝日、金田の圓福寺でフリマとマルシェがあるそうです。5月に初めてやって好評だったみたいですよ",
+   "confidence": "🟢",
+   "image": "enpukuji_2026",
+   "tags": [
+    "マルシェ",
+    "買い物",
+    "寺"
+   ],
+   "cal": {
+    "title": "圓福寺 フリーマーケット＆マルシェ",
+    "place": "圓福寺（三浦市南下浦町金田258）",
+    "start": "10:00",
+    "end": "15:00",
+    "note": "雨天中止"
+   },
+   "sources": [
+    {
+     "url": "https://www.townnews.co.jp/0501/2026/11/20/862683.html",
+     "title": "タウンニュース 横須賀・三浦版 2026-11-20",
+     "opened": "2026-11-20"
+    }
+   ]
+  },
+  {
+   "id": 104,
+   "date": "2026-12-13",
+   "area": "三崎",
+   "category": "イベント",
+   "headline": "12/13 うらりで市民のためのクリスマスコンサート",
+   "headline_en": "12/13 Christmas concert for citizens at Urari",
+   "fact": "12/13（日）14時〜15時30分、三浦市民ホール（うらり）で第24回「市民のためのクリスマスコンサート」。主催は三浦市文化連盟、第72回三浦市文化祭の一環。",
+   "talk": "12/13の日曜の午後、うらりの市民ホールでクリスマスコンサートがあるそうです。市の文化祭の一環だそうですよ",
+   "confidence": "🟢",
+   "image": "misaki_harbor",
+   "tags": [
+    "音楽",
+    "三崎",
+    "うらり"
+   ],
+   "cal": {
+    "title": "第24回 市民のためのクリスマスコンサート",
+    "place": "三浦市民ホール（うらり・三浦市三崎）",
+    "start": "14:00",
+    "end": "15:30"
+   },
+   "sources": [
+    {
+     "url": "https://www.city.miura.kanagawa.jp/soshiki/seisakuka/seisakuka_hisho/shichonoheya/pressrelease/202611/2026111902.html",
+     "title": "三浦市 主な月間行事予定（12月） 2026-11-19",
+     "opened": "2026-11-20"
+    },
+    {
+     "url": "https://www.city.miura.kanagawa.jp/material/files/group/5/gekkann202612.pdf",
+     "title": "三浦市 月間行事予定12月（PDF）",
+     "opened": "2026-11-20"
+    }
+   ]
+  },
+  {
+   "id": 105,
+   "date": "2026-11-17",
+   "area": "三浦市",
+   "category": "出来事",
+   "headline": "姉妹都市ウォーナンブールから台風の見舞状",
+   "headline_en": "Sister city Warrnambool sends typhoon sympathy letter",
+   "fact": "11/17、三浦市が国際姉妹都市オーストラリア・ウォーナンブール市のベン・ブレイン市長から届いた台風25号の見舞状（和訳全文）を市サイトで紹介。",
+   "talk": "オーストラリアの姉妹都市ウォーナンブールの市長から、台風のお見舞いの手紙が届いたそうです",
+   "confidence": "🟢",
+   "image": "miura_shiyakusho",
+   "sources": [
+    {
+     "url": "https://www.city.miura.kanagawa.jp/soshiki/seisakuka/seisakuka_seisaku/kokusaikouryuu/simaitoshi/13250.html",
+     "title": "三浦市 2026-11-17",
+     "opened": "2026-11-20"
+    }
+   ]
   }
  ]
 }

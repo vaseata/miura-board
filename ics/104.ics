@@ -1,0 +1,21 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//miura-board//JA
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:miura-board-104@vaseata.github.io
+DTSTAMP:20261119T220315Z
+DTSTART:20261213T050000Z
+DTEND:20261213T063000Z
+SUMMARY:第24回 市民のためのクリスマスコンサート
+LOCATION:三浦市民ホール（うらり・三浦市三崎）
+DESCRIPTION:12/13（日）14時〜15時30分、三浦市民ホール（う
+ らり）で第24回「市民のためのクリスマスコンサート」
+ 。主催は三浦市文化連盟、第72回三浦市文化祭の一環。
+ \n出典: https://www.city.miura.kanagawa.jp/soshiki/seisakuka/seisakuka_h
+ isho/shichonoheya/pressrelease/202611/2026111902.html\n最近の三浦: ht
+ tps://vaseata.github.io/miura-board/
+URL:https://vaseata.github.io/miura-board/
+END:VEVENT
+END:VCALENDAR
