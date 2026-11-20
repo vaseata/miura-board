@@ -9,6 +9,7 @@ from stay_pages_en import PAGES_EN
 from ui_parts import UI_CSS, sitenav, bottomnav, hana_banner
 import carousel
 from tide import tide_html, TIDE_CSS   # 城ヶ島の潮（2026-11-16）
+from wind import wind_html, WIND_CSS   # 城ヶ島大橋の風（2026-11-20）
 
 HERE = pathlib.Path(__file__).parent
 OUT = HERE / "stay"
@@ -366,7 +367,7 @@ body{padding-bottom:calc(72px + env(safe-area-inset-bottom))}
 .topbar .back{margin:0}
 html[lang="en"] .card.soon b::after{content:"Coming soon"}
 html[lang="en"] h1{font-size:30px}
-""" + UI_CSS + carousel.CSS + TIDE_CSS
+""" + UI_CSS + carousel.CSS + TIDE_CSS + WIND_CSS
 
 CAM = ('<svg class="cam" viewBox="0 0 48 40" aria-hidden="true"><rect x="3" y="9" width="42" height="28" rx="6"/>'
        '<circle cx="24" cy="23" r="8"/><path d="M16 9l3-5h10l3 5"/></svg>')
@@ -515,6 +516,7 @@ def render_block(b):
         rows = "".join("<tr>" + "".join(f"<td>{inline(c)}</td>" for c in r) + "</tr>" for r in b[2])
         return f"<table>{head}{rows}</table>"
     if kind == "tide": return tide_html(root(), LANG)
+    if kind == "wind": return wind_html(root(), LANG)
     if kind == "eight":
         lis = []
         for title, ans, href in b[1]:

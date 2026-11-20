@@ -177,7 +177,15 @@ a{color:inherit} button{font:inherit;color:inherit}
 .tide-n{font-size:12px;font-weight:700;color:var(--sea);border:1px solid var(--sea);border-radius:999px;padding:0 8px;background:var(--bg,#fff)}
 .tide-r{display:flex;flex-wrap:wrap;gap:4px 18px;margin:6px 0 2px;font-size:16px;font-variant-numeric:tabular-nums}
 .tide-r b{color:var(--sea);font-size:13px;margin-right:2px}
-.tide-note{font-size:12.5px;color:var(--mute,#4F6070);margin:4px 0 0}.tide-src{font-size:11px;margin:2px 0 0}.tide-src a{color:var(--mute,#4F6070)}
+.tide-note{font-size:12.5px;color:var(--mute,#4F6070);margin:4px 0 0}.tide-src{font-size:11px;margin:2px 0 0}.tide-src a{color:var(--mute,#4F6070)}.wind{margin:14px 0;padding:12px 16px;border:1.5px solid var(--sea);border-radius:12px;background:var(--sea-tint,#E6F0F6)}
+.wind.wind-warn{border-color:var(--tuna,#B8243A)}.wind.wind-warn .wind-lv{color:var(--tuna,#B8243A)}
+.wind-h{font-weight:700;font-size:15px}
+.wind-r{display:flex;flex-wrap:wrap;gap:4px 18px;margin:6px 0 2px;font-size:16px;font-variant-numeric:tabular-nums}
+.wind-r b{color:var(--sea);font-size:13px;margin-right:2px}.wind-v{font-weight:700}
+.wind-lv{font-size:14px;font-weight:700;margin:4px 0 0}
+.wind-note{font-size:12.5px;color:var(--mute,#4F6070);margin:4px 0 0}
+.wind-sea{font-size:13.5px;margin:6px 0 0}.wind-sea a{color:var(--sea);font-weight:700}
+.wind-src{font-size:11px;margin:2px 0 0;color:var(--mute,#4F6070)}.wind-src a{color:var(--mute,#4F6070)}
 .lang{display:inline-grid;grid-template-columns:1fr 1fr;gap:2px;padding:3px;background:var(--tint);border:1px solid var(--hair);border-radius:999px;flex:none}
 .lang a{display:flex;align-items:center;justify-content:center;min-width:52px;min-height:38px;border-radius:999px;color:var(--mute);font:400 14px/1 var(--gothic);letter-spacing:.04em;text-decoration:none}
 .lang a[aria-current="page"]{background:var(--bg);color:var(--ink);font-weight:700;box-shadow:0 0 0 1px var(--hair)}
@@ -212,7 +220,7 @@ a{color:inherit} button{font:inherit;color:inherit}
 <img class="motif" src="../img/brand/header-maguro.jpg" alt="跳ねるマグロと波、富士山と朝日の絵" width="1500" height="500">
 <header class="masthead">
   <h1 class="daiji"><small>MIURA A-TEI · EAT &amp; SEE</small>三浦A邸<br>お店・名所</h1>
-  <p class="mh-lead">三崎・城ヶ島・三浦海岸で、食べる・見る・体験する・買う。A邸からの徒歩時間つき。<br>2026年11月16日 現在。毎朝自動で更新しています。</p>
+  <p class="mh-lead">三崎・城ヶ島・三浦海岸で、食べる・見る・体験する・買う。A邸からの徒歩時間つき。<br>2026年11月20日 現在。毎朝自動で更新しています。</p>
 </header>
 
 <a class="hana" href="../guide/map-preview.html"><img src="../img/brand/hana-map.jpg" alt="" width="800" height="397" loading="lazy"><span class="hx"><span class="hk">三崎・城ヶ島</span><b>家守のおすすめマップ</b><span class="hs">三崎・城ヶ島の、ごはんと買い物のお店。今日やっているかも分かります</span><span class="hgo">地図をひらく →</span><span class="hcr">地図 © OpenStreetMap contributors</span></span></a>
@@ -223,11 +231,30 @@ a{color:inherit} button{font:inherit;color:inherit}
 fetch('../tide.json',{cache:'no-cache'}).then(function(r){return r.json()}).then(function(j){var t=j.days&&j.days[k];if(!t)return;
 var f=function(a){return a.map(function(x){return x[0].replace(/^0/,'')}).join(' / ')||'—'};
 document.getElementById('tide-n').textContent=N[t.n]||t.n;document.getElementById('tide-hi').textContent=f(t.hi);document.getElementById('tide-lo').textContent=f(t.lo);
-document.getElementById('tide').hidden=false;}).catch(function(){});})();</script>
+document.getElementById('tide').hidden=false;}).catch(function(){});})();</script><div class="wind" id="wind" hidden><div class="wind-h">城ヶ島大橋の風の目安</div>
+<div class="wind-r"><span><b>いま</b> <span class="wind-v" id="wind-now"></span></span><span><b>今日の最大瞬間</b> <span id="wind-gust"></span></span></div>
+<p class="wind-lv" id="wind-lv"></p>
+<p class="wind-note">橋は海面から21mの高さで、風をさえぎる物がありません。陸の上のこの観測より、強いことが多いです。海に突き出た剱埼灯台では、2倍ほどの風になる日もあります。</p>
+<p class="wind-sea"><a href="https://www6.kaiho.mlit.go.jp/03kanku/yokosuka/kisyou.html" target="_blank" rel="noopener">海の上の今の風：剱埼灯台（海上保安庁） ›</a></p>
+<p class="wind-src"><a href="https://www.jma.go.jp/bosai/amedas/#amdno=46211&format=table10min" target="_blank" rel="noopener">風：気象庁アメダス「三浦」（橋の約5km北）</a> <span id="wind-t"></span></p></div>
+<script>(function(){var L={"lv": ["おだやかな風です。", "やや強い風です。橋の上は、これより強いことが多いです。", "強い風です。橋の上は歩きにくいことがあります。手すりを持つか、バスを使ってください。", "とても強い風です。橋を歩いて渡るのは控えてください。"], "dirs": ["北", "北北東", "北東", "東北東", "東", "東南東", "南東", "南南東", "南", "南南西", "南西", "西南西", "西", "西北西", "北西", "北北西"], "from": "の風", "calm": "静穏", "at": "観測"};var B='https://www.jma.go.jp/bosai/amedas/data/';
+var $=function(i){return document.getElementById(i+'')};
+fetch(B+'latest_time.txt').then(function(r){return r.text()}).then(function(t){
+var m=t.trim().match(/^(\d+)-(\d+)-(\d+)T(\d+):(\d+)/);if(!m)return;
+var h=('0'+(Math.floor(+m[4]/3)*3)).slice(-2);
+return fetch(B+'point/46211/'+m[1]+m[2]+m[3]+'_'+h+'.json').then(function(r){return r.json()}).then(function(d){
+var ks=Object.keys(d).sort(),k=null;for(var i=ks.length-1;i>=0;i--){if(d[ks[i]].wind&&d[ks[i]].wind[1]===0){k=ks[i];break}}if(!k)return;
+var o=d[k],w=o.wind[0],dir=o.windDirection&&o.windDirection[1]===0?o.windDirection[0]:null;
+$('wind-now').textContent=(w===0||dir===0?L.calm:(dir?L.dirs[dir%16]+L.from+' ':'')+w.toFixed(1)+' m/s');
+if(o.gust&&o.gust[1]===0){var g=o.gustTime||{};$('wind-gust').textContent=o.gust[0].toFixed(1)+' m/s'+(g.hour!=null?' ('+g.hour+':'+('0'+g.minute).slice(-2)+')':'');}else{$('wind-gust').textContent='—';}
+var lv=w<5?0:w<8?1:w<12?2:3;var el=$('wind-lv');el.textContent=L.lv[lv];
+var box=$('wind');if(lv>=2)box.className='wind wind-warn';
+$('wind-t').textContent='('+k.slice(8,10).replace(/^0/,'')+':'+k.slice(10,12)+' '+L.at+')';
+box.hidden=false;});}).catch(function(){});})();</script>
 <section class="know" aria-labelledby="know-h"><h2 class="men" id="know-h">三崎を知る<span class="latin">Know Misaki</span></h2><div class="kg"><a href="../guide/hito/"><img src="../img/hakushuhi.jpg" alt="" loading="lazy" width="480" height="360"><span class="kx"><b>三崎の人</b><small>白秋など、ゆかりの人</small></span></a><a href="../history/"><img src="../img/misaki_harbor.jpg" alt="" loading="lazy" width="480" height="360"><span class="kx"><b>歴史さんぽ</b><small>時代ごとに3D地図で</small></span></a><a href="../guide/hae/"><img src="../img/jogashima_bridge_sunset.jpg" alt="" loading="lazy" width="480" height="360"><span class="kx"><b>映えスポット</b><small>季節の花とダイヤモンド富士</small></span></a></div></section>
 <section class="sec" id="season">
   <h2 class="men">今の季節<span class="latin">11月 · November</span></h2>
-  <div class="grid"><a class="art ev" href="../index.html"><div class="thumb"><img src="../img/misaki_harbor.jpg" alt="" loading="lazy" width="480" height="300"></div><div class="ran"><span class="cat">イベント</span><span class="area">三浦市</span><span class="st now">開催中</span></div><h3>10/3〜12/31 三崎マグロ茜身スタンプラリー</h3><p class="dt">10/3(土)〜12/31(木)</p><p class="lede">年末まで、マグロの茜身（血合い）のスタンプラリーをやっています。スマホだけで、ふつうに食事や買い物をしても押せるそうです</p></a><a class="art ev" href="../index.html"><div class="thumb"><img src="../img/jogashima_lighthouse.jpg" alt="" loading="lazy" width="480" height="300"></div><div class="ran"><span class="cat">イベント</span><span class="area">城ヶ島</span><span class="st now">開催中</span></div><h3>11/29まで 城ヶ島の白秋記念館で白秋特別展</h3><p class="dt">11/1(日)〜11/29(日)</p><p class="lede">いま城ヶ島の白秋記念館で、白秋が自分で描いた挿絵の展示をやっているそうです。月・金曜はお休みなので気をつけてください</p></a><a class="art ev" href="../index.html"><div class="thumb"><img src="../img/miura_beach.jpg" alt="" loading="lazy" width="480" height="300"></div><div class="ran"><span class="cat">イベント</span><span class="area">三浦海岸</span><span class="st soon">5日後</span></div><h3>11/21 三浦海岸の地引網大会（改めて開催）</h3><p class="dt">11/21(土)</p><p class="lede">10/24に雨で流れた地引網、11/21の土曜にやり直すそうです。申込制で11/16までなので、その頃来るなら一緒に引けますよ</p></a><a class="art ev" href="../index.html"><div class="thumb"><img src="../img/hatsuse_wagyu_2026.jpg" alt="" loading="lazy" width="480" height="300"></div><div class="ran"><span class="cat">イベント</span><span class="area">三浦市</span><span class="st soon">5日後</span></div><h3>11/21 初声高の収穫祭、自校育ちの和牛を販売</h3><p class="dt">11/21(土)</p><p class="lede">初声高の畜産部が育てたA5の和牛が、11/21の収穫祭で買えるそうです。カレーは200食だけだとか</p></a><a class="art ev" href="../index.html"><div class="thumb"><img src="../img/misaki_harbor.jpg" alt="" loading="lazy" width="480" height="300"></div><div class="ran"><span class="cat">定番</span><span class="st soon">43日後</span></div><h3>三崎朝市 年末特別セール</h3><p class="dt">12/29(火)</p><p class="lede">年末は朝市が特別体制です</p></a></div>
+  <div class="grid"><a class="art ev" href="../index.html"><div class="thumb"><img src="../img/misaki_harbor.jpg" alt="" loading="lazy" width="480" height="300"></div><div class="ran"><span class="cat">イベント</span><span class="area">三浦市</span><span class="st now">開催中</span></div><h3>10/3〜12/31 三崎マグロ茜身スタンプラリー</h3><p class="dt">10/3(土)〜12/31(木)</p><p class="lede">年末まで、マグロの茜身（血合い）のスタンプラリーをやっています。スマホだけで、ふつうに食事や買い物をしても押せるそうです</p></a><a class="art ev" href="../index.html"><div class="thumb"><img src="../img/jogashima_lighthouse.jpg" alt="" loading="lazy" width="480" height="300"></div><div class="ran"><span class="cat">イベント</span><span class="area">城ヶ島</span><span class="st now">開催中</span></div><h3>11/29まで 城ヶ島の白秋記念館で白秋特別展</h3><p class="dt">11/1(日)〜11/29(日)</p><p class="lede">いま城ヶ島の白秋記念館で、白秋が自分で描いた挿絵の展示をやっているそうです。月・金曜はお休みなので気をつけてください</p></a><a class="art ev" href="../index.html"><div class="thumb"><img src="../img/miura_beach.jpg" alt="" loading="lazy" width="480" height="300"></div><div class="ran"><span class="cat">イベント</span><span class="area">三浦海岸</span><span class="st soon">1日後</span></div><h3>11/21 三浦海岸の地引網大会（改めて開催）</h3><p class="dt">11/21(土)</p><p class="lede">10/24に雨で流れた地引網、11/21の土曜にやり直すそうです。申込制で11/16までなので、その頃来るなら一緒に引けますよ</p></a><a class="art ev" href="../index.html"><div class="thumb"><img src="../img/hatsuse_wagyu_2026.jpg" alt="" loading="lazy" width="480" height="300"></div><div class="ran"><span class="cat">イベント</span><span class="area">三浦市</span><span class="st soon">1日後</span></div><h3>11/21 初声高の収穫祭、自校育ちの和牛を販売</h3><p class="dt">11/21(土)</p><p class="lede">初声高の畜産部が育てたA5の和牛が、11/21の収穫祭で買えるそうです。カレーは200食だけだとか</p></a><a class="art ev" href="../index.html"><div class="thumb"><img src="../img/enpukuji_2026.jpg" alt="" loading="lazy" width="480" height="300"></div><div class="ran"><span class="cat">イベント</span><span class="area">三浦市</span><span class="st soon">3日後</span></div><h3>11/23 南下浦・金田の圓福寺でフリマとマルシェ</h3><p class="dt">11/23(月)</p><p class="lede">23日の祝日、金田の圓福寺でフリマとマルシェがあるそうです。5月に初めてやって好評だったみたいですよ</p></a><a class="art ev" href="../index.html"><div class="thumb"><img src="../img/misaki_harbor.jpg" alt="" loading="lazy" width="480" height="300"></div><div class="ran"><span class="cat">イベント</span><span class="area">三崎</span><span class="st soon">23日後</span></div><h3>12/13 うらりで市民のためのクリスマスコンサート</h3><p class="dt">12/13(日)</p><p class="lede">12/13の日曜の午後、うらりの市民ホールでクリスマスコンサートがあるそうです。市の文化祭の一環だそうですよ</p></a><a class="art ev" href="../index.html"><div class="thumb"><img src="../img/misaki_harbor.jpg" alt="" loading="lazy" width="480" height="300"></div><div class="ran"><span class="cat">定番</span><span class="st soon">39日後</span></div><h3>三崎朝市 年末特別セール</h3><p class="dt">12/29(火)</p><p class="lede">年末は朝市が特別体制です</p></a></div>
   
 </section>
 

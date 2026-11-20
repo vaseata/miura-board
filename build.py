@@ -4,6 +4,7 @@ import json, datetime, html, pathlib, re, urllib.parse
 from string import Template
 from ui_parts import UI_CSS, sitenav
 from tide import tide_html, TIDE_CSS   # 城ヶ島の潮（2026-11-16）
+from wind import wind_html, WIND_CSS   # 城ヶ島大橋の風（2026-11-20）
 
 HERE = pathlib.Path(__file__).parent
 TODAY = datetime.date.today()
@@ -622,7 +623,7 @@ $t_foot
   render();
 })();
 </script>
-    ''').substitute(tide=tide_html(R(), LANG), tide_css=TIDE_CSS, soon=soon_html, recent=recent_html, df=df_line, upcoming=up_html, videos=videos_html, ui_css=UI_CSS, R=R(),
+    ''').substitute(tide=tide_html(R(), LANG)+wind_html(R(), LANG), tide_css=TIDE_CSS+WIND_CSS, soon=soon_html, recent=recent_html, df=df_line, upcoming=up_html, videos=videos_html, ui_css=UI_CSS, R=R(),
                      langswitch=langswitch(),
                      ymd=(f"{TODAY.strftime('%A')}, {TODAY.strftime('%B')} {TODAY.day}, {TODAY.year}" if E() else f"{TODAY.year}年{TODAY.month}月{TODAY.day}日（{WD[TODAY.weekday()]}）"),
                      t_issue=(f"No. {issue_no}" if E() else f"第{issue_no}号"),

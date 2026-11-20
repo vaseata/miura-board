@@ -231,7 +231,15 @@ button{font:inherit;color:inherit}
 .tide-n{font-size:12px;font-weight:700;color:var(--sea);border:1px solid var(--sea);border-radius:999px;padding:0 8px;background:var(--bg,#fff)}
 .tide-r{display:flex;flex-wrap:wrap;gap:4px 18px;margin:6px 0 2px;font-size:16px;font-variant-numeric:tabular-nums}
 .tide-r b{color:var(--sea);font-size:13px;margin-right:2px}
-.tide-note{font-size:12.5px;color:var(--mute,#4F6070);margin:4px 0 0}.tide-src{font-size:11px;margin:2px 0 0}.tide-src a{color:var(--mute,#4F6070)}
+.tide-note{font-size:12.5px;color:var(--mute,#4F6070);margin:4px 0 0}.tide-src{font-size:11px;margin:2px 0 0}.tide-src a{color:var(--mute,#4F6070)}.wind{margin:14px 0;padding:12px 16px;border:1.5px solid var(--sea);border-radius:12px;background:var(--sea-tint,#E6F0F6)}
+.wind.wind-warn{border-color:var(--tuna,#B8243A)}.wind.wind-warn .wind-lv{color:var(--tuna,#B8243A)}
+.wind-h{font-weight:700;font-size:15px}
+.wind-r{display:flex;flex-wrap:wrap;gap:4px 18px;margin:6px 0 2px;font-size:16px;font-variant-numeric:tabular-nums}
+.wind-r b{color:var(--sea);font-size:13px;margin-right:2px}.wind-v{font-weight:700}
+.wind-lv{font-size:14px;font-weight:700;margin:4px 0 0}
+.wind-note{font-size:12.5px;color:var(--mute,#4F6070);margin:4px 0 0}
+.wind-sea{font-size:13.5px;margin:6px 0 0}.wind-sea a{color:var(--sea);font-weight:700}
+.wind-src{font-size:11px;margin:2px 0 0;color:var(--mute,#4F6070)}.wind-src a{color:var(--mute,#4F6070)}
 .jp-note{font-size:12px;color:var(--mute);margin:-6px 0 8px}
 html[lang="en"] .men .latin{display:none}
 .topbar{display:flex;justify-content:flex-end;margin:0 0 8px}
@@ -257,7 +265,26 @@ html[lang="en"] .men .latin{display:none}
 fetch('../tide.json',{cache:'no-cache'}).then(function(r){return r.json()}).then(function(j){var t=j.days&&j.days[k];if(!t)return;
 var f=function(a){return a.map(function(x){return x[0].replace(/^0/,'')}).join(' / ')||'—'};
 document.getElementById('tide-n').textContent=N[t.n]||t.n;document.getElementById('tide-hi').textContent=f(t.hi);document.getElementById('tide-lo').textContent=f(t.lo);
-document.getElementById('tide').hidden=false;}).catch(function(){});})();</script>
+document.getElementById('tide').hidden=false;}).catch(function(){});})();</script><div class="wind" id="wind" hidden><div class="wind-h">Wind on Jogashima Bridge (guide)</div>
+<div class="wind-r"><span><b>Now</b> <span class="wind-v" id="wind-now"></span></span><span><b>Today's max gust</b> <span id="wind-gust"></span></span></div>
+<p class="wind-lv" id="wind-lv"></p>
+<p class="wind-note">The bridge is 21 m above the sea with nothing to block the wind, so it is often much windier than this land station. The lighthouse at Tsurugizaki, by the sea, can show about twice the wind.</p>
+<p class="wind-sea"><a href="https://www6.kaiho.mlit.go.jp/03kanku/yokosuka/kisyou.html" target="_blank" rel="noopener">Wind at sea now: Tsurugizaki Lighthouse (Japan Coast Guard, in Japanese) ›</a></p>
+<p class="wind-src"><a href="https://www.jma.go.jp/bosai/amedas/#amdno=46211&format=table10min" target="_blank" rel="noopener">Wind: JMA AMeDAS Miura (about 5 km north of the bridge)</a> <span id="wind-t"></span></p></div>
+<script>(function(){var L={"lv": ["Light wind.", "Breezy. It is usually stronger on the bridge.", "Strong wind. On the bridge it can be hard to walk. Hold the railing, or take the bus.", "Very strong wind. Avoid walking across the bridge."], "dirs": ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"], "from": " wind", "calm": "calm", "at": "observed"};var B='https://www.jma.go.jp/bosai/amedas/data/';
+var $=function(i){return document.getElementById(i+'')};
+fetch(B+'latest_time.txt').then(function(r){return r.text()}).then(function(t){
+var m=t.trim().match(/^(\d+)-(\d+)-(\d+)T(\d+):(\d+)/);if(!m)return;
+var h=('0'+(Math.floor(+m[4]/3)*3)).slice(-2);
+return fetch(B+'point/46211/'+m[1]+m[2]+m[3]+'_'+h+'.json').then(function(r){return r.json()}).then(function(d){
+var ks=Object.keys(d).sort(),k=null;for(var i=ks.length-1;i>=0;i--){if(d[ks[i]].wind&&d[ks[i]].wind[1]===0){k=ks[i];break}}if(!k)return;
+var o=d[k],w=o.wind[0],dir=o.windDirection&&o.windDirection[1]===0?o.windDirection[0]:null;
+$('wind-now').textContent=(w===0||dir===0?L.calm:(dir?L.dirs[dir%16]+L.from+' ':'')+w.toFixed(1)+' m/s');
+if(o.gust&&o.gust[1]===0){var g=o.gustTime||{};$('wind-gust').textContent=o.gust[0].toFixed(1)+' m/s'+(g.hour!=null?' ('+g.hour+':'+('0'+g.minute).slice(-2)+')':'');}else{$('wind-gust').textContent='—';}
+var lv=w<5?0:w<8?1:w<12?2:3;var el=$('wind-lv');el.textContent=L.lv[lv];
+var box=$('wind');if(lv>=2)box.className='wind wind-warn';
+$('wind-t').textContent='('+k.slice(8,10).replace(/^0/,'')+':'+k.slice(10,12)+' '+L.at+')';
+box.hidden=false;});}).catch(function(){});})();</script>
 <nav class="toggle" aria-label="Filter articles"><span class="q" id="q-days">Your last visit</span><div class="seg" role="radiogroup" aria-labelledby="q-days"><button type="button" role="radio" aria-checked="false" data-days="31">1 month</button><button type="button" role="radio" aria-checked="false" data-days="93">3 months</button><button type="button" role="radio" aria-checked="false" data-days="184">6 months</button><button type="button" role="radio" aria-checked="false" data-days="366">1 year</button></div><div class="tags"><button type="button" class="fchip tag-want" data-tag="want" aria-pressed="false" hidden>Want to go <b class="n">0</b></button><button type="button" class="fchip tag-reco" data-tag="reco" aria-pressed="false" hidden>Suggested <b class="n">0</b></button></div></nav>
 <section class="sec dated" id="soon"><h2 class="men">Coming up & on now<span class="latin">Coming up</span></h2><div class="grid"><article class="art" data-age="48" data-cat="イベント" data-tags="食,マグロ,スタンプラリー">
   <div class="thumb"><img src="../img/misaki_harbor.jpg" alt="" loading="lazy" width="480" height="300"></div>
