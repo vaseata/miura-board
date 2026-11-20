@@ -3364,6 +3364,29 @@
      "opened": "2026-11-20"
     }
    ]
+  },
+  {
+   "id": 106,
+   "date": "2026-11-19",
+   "area": "三浦海岸",
+   "category": "店",
+   "headline": "三浦海岸の国道134号沿いにイエローハット",
+   "headline_en": "Yellow Hat car shop opens on Route 134, Miura Kaigan",
+   "fact": "カー用品店「イエローハット 三浦海岸店」が11/19(木)に国道134号沿い（南下浦町上宮田1196-5）にオープン。県内30店舗目で、11/23(月・祝)までの5日間オープンセール（号外NET 11/20）",
+   "talk": "三浦海岸の134号沿いにイエローハットができたので、車で来てタイヤやオイルが気になったら寄れますよ",
+   "confidence": "🟢",
+   "image": "yellowhat_miurakaigan",
+   "tags": [
+    "店",
+    "車"
+   ],
+   "sources": [
+    {
+     "url": "https://yokosuka.goguynet.jp/2026/11/20/yellow-hat-miurakaiganten-open/",
+     "title": "号外NET 横須賀市・三浦市 2026-11-20",
+     "opened": "2026-11-21"
+    }
+   ]
   }
  ]
 }

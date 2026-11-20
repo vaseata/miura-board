@@ -248,6 +248,12 @@
    "credit": "タウンニュース 横須賀・三浦版（og:image）",
    "license": "出典記事の画像",
    "source": "https://www.townnews.co.jp/0501/2026/11/20/862683.html"
+  },
+  "yellowhat_miurakaigan": {
+   "file": "img/yellowhat_miurakaigan.jpg",
+   "credit": "号外NET 横須賀市・三浦市（og:image）",
+   "license": "出典記事の画像",
+   "source": "https://yokosuka.goguynet.jp/2026/11/20/yellow-hat-miurakaiganten-open/"
   }
  }
 }
