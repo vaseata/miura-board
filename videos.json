@@ -2,6 +2,28 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "R3hxjGmspPo",
+   "title": "三崎でまぐろ！三崎漁港の◯つね美味しすぎた｜Ninjaで海沿い社畜グルメ旅｜kawasaki ZX-14R",
+   "channel": "社畜Rider【やりがい搾取される毎日】",
+   "published_text": "19 時間前",
+   "views": "29回視聴",
+   "length": "1:11",
+   "published": "2026-11-22",
+   "fetched": "2026-11-22",
+   "q": "三崎 マグロ"
+  },
+  {
+   "id": "9cbb7iMq_Zw",
+   "title": "初陣：11月小網代 丸十丸／カワハギ釣りに挑戦",
+   "channel": "ダイタイトヅラヅラ、ふるさとの明日をハックする【PICOS公式】",
+   "published_text": "13 時間前",
+   "views": "117回視聴",
+   "length": "9:28",
+   "published": "2026-11-22",
+   "fetched": "2026-11-22",
+   "q": "小網代"
+  },
+  {
    "id": "eBIe19D_xYM",
    "title": "【神奈川絶景】城ヶ島をDJI AVATA360でドローン空撮｜荒波と岩礁、青空が織りなす三浦半島の絶景",
    "channel": "のりさんのドローンライフ",
@@ -199,28 +221,6 @@
    "published": "2026-11-14",
    "fetched": "2026-11-14",
    "q": "三崎港"
-  },
-  {
-   "id": "PtghVVpIlOM",
-   "title": "サビキで意外な魚が入れ食い!?＆カワハギ釣りに大苦戦の釣りガール2人 in三崎港",
-   "channel": "あさみーちゃんねる Asa×Mii Channel",
-   "published_text": "12 時間前",
-   "views": "778回視聴",
-   "length": "12:39",
-   "published": "2026-11-13",
-   "fetched": "2026-11-13",
-   "q": "三崎港"
-  },
-  {
-   "id": "UYtV1RjtNFg",
-   "title": "【11月最新!】キタアｱｱｱｱｱ!!!! 秋の青物調査！周囲が釣れてなくても諦めないで！神奈川サーフ釣り調査 #東京湾 #三浦半島 #三浦海岸 #青物 #ショゴ #イナダ #ブリ #マゴチ  #ヒラメ",
-   "channel": "なっしぃの釣り研究",
-   "published_text": "13 時間前",
-   "views": "3,410回視聴",
-   "length": "33:12",
-   "published": "2026-11-13",
-   "fetched": "2026-11-13",
-   "q": "三浦海岸"
   }
  ]
 }
