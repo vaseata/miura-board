@@ -2,6 +2,40 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "UKucFjYTIMc",
+   "title": "Jogashima Drive 4K | 城ヶ島・三崎ドライブ | 港町の風景とフィッシュアンドチップスを楽しむ旅",
+   "channel": "Shore_Moment Drive",
+   "published_text": "12 時間前",
+   "views": "22回視聴",
+   "length": "1:04:42",
+   "published": "2026-11-23",
+   "fetched": "2026-11-23",
+   "q": "城ヶ島"
+  },
+  {
+   "id": "v7UpmZiIb5Y",
+   "title": "【🔴ライブカメラ配信】津久井浜海岸 三浦海岸 風情報 Yokosuka-Miura Beach Live 2026/11/23 JWAアマチュアスーパースラローム2026 最終日【波音BGM】",
+   "channel": "丸チャンネル MARU-Channel ウィングフォイル ウィンドサーフィン&フォイル スノーボード",
+   "published_text": "",
+   "views": "",
+   "length": "",
+   "live": true,
+   "published": "2026-11-23",
+   "fetched": "2026-11-23",
+   "q": "三浦海岸"
+  },
+  {
+   "id": "A5xHgtNZSdA",
+   "title": "2026年11月22日三浦市金田湾朝市",
+   "channel": "びんちゃん貧乏な",
+   "published_text": "22 時間前",
+   "views": "862回視聴",
+   "length": "4:48",
+   "published": "2026-11-23",
+   "fetched": "2026-11-23",
+   "q": "三浦市"
+  },
+  {
    "id": "R3hxjGmspPo",
    "title": "三崎でまぐろ！三崎漁港の◯つね美味しすぎた｜Ninjaで海沿い社畜グルメ旅｜kawasaki ZX-14R",
    "channel": "社畜Rider【やりがい搾取される毎日】",
@@ -24,6 +58,17 @@
    "q": "小網代"
   },
   {
+   "id": "pnYl1KiaeZc",
+   "title": "暴風波浪「城ヶ島」に釣り道具一式を持って行ってきた💦～聖地巡礼",
+   "channel": "makciha",
+   "published_text": "1 日前",
+   "views": "43回視聴",
+   "length": "8:31",
+   "published": "2026-11-22",
+   "fetched": "2026-11-23",
+   "q": "城ヶ島"
+  },
+  {
    "id": "eBIe19D_xYM",
    "title": "【神奈川絶景】城ヶ島をDJI AVATA360でドローン空撮｜荒波と岩礁、青空が織りなす三浦半島の絶景",
    "channel": "のりさんのドローンライフ",
@@ -44,18 +89,6 @@
    "published": "2026-11-21",
    "fetched": "2026-11-21",
    "q": "城ヶ島"
-  },
-  {
-   "id": "MOkZUavnHM4",
-   "title": "三浦海岸ライブカメラ 24時間 🌊 波の音・海・睡眠・作業用 | Miura Beach Live Cam Japan",
-   "channel": "湾岸Go (TOKYO BAY LIVE CAMERA)",
-   "published_text": "",
-   "views": "",
-   "length": "",
-   "live": true,
-   "published": "2026-11-21",
-   "fetched": "2026-11-21",
-   "q": "三浦海岸"
   },
   {
    "id": "zTW_K_tlH_0",
@@ -188,39 +221,6 @@
    "published": "2026-11-15",
    "fetched": "2026-11-15",
    "q": "城ヶ島"
-  },
-  {
-   "id": "ToZJ95bnaus",
-   "title": "【三浦海岸】突如始まった青物ナブラを直撃！2日通って釣った魚を一流フレンチに持ち込んだら…",
-   "channel": "格連坊の3分フィッシング",
-   "published_text": "10 時間前",
-   "views": "2,122回視聴",
-   "length": "16:11",
-   "published": "2026-11-15",
-   "fetched": "2026-11-15",
-   "q": "三浦海岸"
-  },
-  {
-   "id": "SSY05jq1-sQ",
-   "title": "【結婚式オープニングムービー】城ヶ島 神奈川 三浦 ウェディング ドローン撮影",
-   "channel": "paysage wedding",
-   "published_text": "7 時間前",
-   "views": "4回視聴",
-   "length": "1:53",
-   "published": "2026-11-14",
-   "fetched": "2026-11-14",
-   "q": "城ヶ島"
-  },
-  {
-   "id": "MJcgxkmHk9U",
-   "title": "[10月17日]三崎港うらり前水中映像(前編)#水中映像 #水中撮影 #三崎港 ",
-   "channel": "ゆずチャンネル",
-   "published_text": "12 時間前",
-   "views": "68回視聴",
-   "length": "14:39",
-   "published": "2026-11-14",
-   "fetched": "2026-11-14",
-   "q": "三崎港"
   }
  ]
 }
