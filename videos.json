@@ -2,6 +2,40 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "6vOF4dzz3Q4",
+   "title": "【デートvlog】まぐろきっぷで行った三崎港vlog🐟ﾍｹ太郎ｻﾝﾅﾐﾀﾞﾅﾐﾀﾞ🐹🐹🐹 #デートvlog #三崎港 #三浦半島 #vlog ",
+   "channel": "kiriko sensei",
+   "published_text": "8 時間前",
+   "views": "11回視聴",
+   "length": "10:05",
+   "published": "2026-11-24",
+   "fetched": "2026-11-24",
+   "q": "三崎港"
+  },
+  {
+   "id": "MOkZUavnHM4",
+   "title": "三浦海岸ライブカメラ 24時間 🌊 波の音・海・睡眠・作業用 | Miura Beach Live Cam Japan",
+   "channel": "湾岸Go (TOKYO BAY LIVE CAMERA)",
+   "published_text": "",
+   "views": "",
+   "length": "",
+   "live": true,
+   "published": "2026-11-24",
+   "fetched": "2026-11-24",
+   "q": "三浦海岸"
+  },
+  {
+   "id": "q4uuYmZKVB4",
+   "title": "三浦半島ツーリング＋森戸神社＆海南神社訪問",
+   "channel": "Shige's Outdoor",
+   "published_text": "15 時間前",
+   "views": "29回視聴",
+   "length": "19:58",
+   "published": "2026-11-24",
+   "fetched": "2026-11-24",
+   "q": "三浦半島 三崎"
+  },
+  {
    "id": "UKucFjYTIMc",
    "title": "Jogashima Drive 4K | 城ヶ島・三崎ドライブ | 港町の風景とフィッシュアンドチップスを楽しむ旅",
    "channel": "Shore_Moment Drive",
@@ -11,18 +45,6 @@
    "published": "2026-11-23",
    "fetched": "2026-11-23",
    "q": "城ヶ島"
-  },
-  {
-   "id": "v7UpmZiIb5Y",
-   "title": "【🔴ライブカメラ配信】津久井浜海岸 三浦海岸 風情報 Yokosuka-Miura Beach Live 2026/11/23 JWAアマチュアスーパースラローム2026 最終日【波音BGM】",
-   "channel": "丸チャンネル MARU-Channel ウィングフォイル ウィンドサーフィン&フォイル スノーボード",
-   "published_text": "",
-   "views": "",
-   "length": "",
-   "live": true,
-   "published": "2026-11-23",
-   "fetched": "2026-11-23",
-   "q": "三浦海岸"
   },
   {
    "id": "A5xHgtNZSdA",
@@ -198,28 +220,6 @@
    "length": "5:37",
    "published": "2026-11-16",
    "fetched": "2026-11-17",
-   "q": "城ヶ島"
-  },
-  {
-   "id": "1fBmosr3R_c",
-   "title": "2026年11月15日三浦市三崎朝市",
-   "channel": "びんちゃん貧乏な",
-   "published_text": "5 日前",
-   "views": "2,935回視聴",
-   "length": "15:33",
-   "published": "2026-11-16",
-   "fetched": "2026-11-21",
-   "q": "三浦市"
-  },
-  {
-   "id": "8P4ejAHYxLk",
-   "title": "【シビックRS】雨の城ヶ島早朝ドライブ！新画角テスト＆DJI Pocket 4で灯台散策",
-   "channel": "白髪おやじ 間違いだらけのカーライフ with CIVIC RS & ROOX",
-   "published_text": "13 時間前",
-   "views": "533回視聴",
-   "length": "30:33",
-   "published": "2026-11-15",
-   "fetched": "2026-11-15",
    "q": "城ヶ島"
   }
  ]
