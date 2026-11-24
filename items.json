@@ -3387,6 +3387,31 @@
      "opened": "2026-11-21"
     }
    ]
+  },
+  {
+   "id": 107,
+   "date": "2026-11-16",
+   "end": "2027-03-31",
+   "area": "三浦海岸",
+   "category": "出来事",
+   "headline": "小松ヶ池公園の線路沿い伐採、工期を3月末まで延長",
+   "headline_en": "Komatsugaike Park tree-felling by Keikyu line extended to end of March",
+   "fact": "三浦市が小松ヶ池公園の京急線沿いの樹木伐採工事を再開。台風25号で崩れた隣の市道の復旧が済んだため。工期は2026/10/30から2027/3/31までに延長し、一部の園路は引き続き閉鎖（市サイト 11/16 更新）",
+   "talk": "小松ヶ池公園は線路沿いの木を切る工事が3月末まで続いて、園路の一部が通れないそうです。桜まつりの頃に歩くなら、通行止めの案内を見てくださいね",
+   "confidence": "🟢",
+   "image": "miurakaigan_kawazu",
+   "tags": [
+    "公園",
+    "三浦海岸",
+    "台風"
+   ],
+   "sources": [
+    {
+     "url": "https://www.city.miura.kanagawa.jp/kanko_bunka_sports/shizen_koen_seibutsu/1/13135.html",
+     "title": "三浦市 2026-11-16",
+     "opened": "2026-11-25"
+    }
+   ]
   }
  ]
 }

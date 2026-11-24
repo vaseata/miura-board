@@ -2,6 +2,17 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "5vNshmGzJ14",
+   "title": "三浦市三崎港　みやげ屋うらり#三崎港  #三浦半島#三浦市  #城ヶ島  #三崎  #港 #道の駅  #みやげ",
+   "channel": "八天城香芸能神社☆海外旅行☆交通系旅",
+   "published_text": "6 時間前",
+   "views": "2回視聴",
+   "length": "3:08",
+   "published": "2026-11-25",
+   "fetched": "2026-11-25",
+   "q": "三崎港"
+  },
+  {
    "id": "6vOF4dzz3Q4",
    "title": "【デートvlog】まぐろきっぷで行った三崎港vlog🐟ﾍｹ太郎ｻﾝﾅﾐﾀﾞﾅﾐﾀﾞ🐹🐹🐹 #デートvlog #三崎港 #三浦半島 #vlog ",
    "channel": "kiriko sensei",
@@ -207,17 +218,6 @@
    "published_text": "1 日前",
    "views": "346回視聴",
    "length": "23:07",
-   "published": "2026-11-16",
-   "fetched": "2026-11-17",
-   "q": "城ヶ島"
-  },
-  {
-   "id": "XbSsP3t10ys",
-   "title": "20261022 DIVING SHOPウミウシハンターズ 城ヶ島水域でのウミウシダイビング。ログブックのようにウミウシを解説しながらウミウシ紹介。ウミウシのことならハンターズYOUにお問い合わせを。",
-   "channel": "ハンターズYOU・・・DS.ウミウシハンターズ",
-   "published_text": "1 日前",
-   "views": "132回視聴",
-   "length": "5:37",
    "published": "2026-11-16",
    "fetched": "2026-11-17",
    "q": "城ヶ島"
