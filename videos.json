@@ -2,6 +2,17 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "chzYE0UbDzA",
+   "title": "第3回｜三浦市でデートするならどこ？💕🌊 MiU WAVEの放課後 〜今日も波まかせ！〜",
+   "channel": "MiU-La プロジェクト",
+   "published_text": "7 時間前",
+   "views": "19回視聴",
+   "length": "15:36",
+   "published": "2026-11-26",
+   "fetched": "2026-11-26",
+   "q": "三浦市"
+  },
+  {
    "id": "5vNshmGzJ14",
    "title": "三浦市三崎港　みやげ屋うらり#三崎港  #三浦半島#三浦市  #城ヶ島  #三崎  #港 #道の駅  #みやげ",
    "channel": "八天城香芸能神社☆海外旅行☆交通系旅",
@@ -208,17 +219,6 @@
    "views": "414回視聴",
    "length": "13:35",
    "published": "2026-11-17",
-   "fetched": "2026-11-17",
-   "q": "城ヶ島"
-  },
-  {
-   "id": "h8Lgri2NrHs",
-   "title": "【美味すぎてヤバい】釣り素人が作戦立ててカワハギを釣る!! 肝パンが絶品すぎた in 城ヶ島",
-   "channel": "釣り吉郎",
-   "published_text": "1 日前",
-   "views": "346回視聴",
-   "length": "23:07",
-   "published": "2026-11-16",
    "fetched": "2026-11-17",
    "q": "城ヶ島"
   }
