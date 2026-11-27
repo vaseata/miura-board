@@ -2,6 +2,17 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "BhhXM1C4Gxk",
+   "title": "三浦半島1DAYきっぷでゆく一人旅",
+   "channel": "しらたま",
+   "published_text": "1 時間前",
+   "views": "25回視聴",
+   "length": "2:30",
+   "published": "2026-11-27",
+   "fetched": "2026-11-27",
+   "q": "城ヶ島"
+  },
+  {
    "id": "chzYE0UbDzA",
    "title": "第3回｜三浦市でデートするならどこ？💕🌊 MiU WAVEの放課後 〜今日も波まかせ！〜",
    "channel": "MiU-La プロジェクト",
@@ -11,6 +22,17 @@
    "published": "2026-11-26",
    "fetched": "2026-11-26",
    "q": "三浦市"
+  },
+  {
+   "id": "R3bCfFcS7Fs",
+   "title": "東京からわずか1時間なのに、なぜ三浦半島の真ん中は真っ暗で鉄道が通らないのか？",
+   "channel": "その土地の秘密 | 地理と歴史",
+   "published_text": "1 日前",
+   "views": "20,263回視聴",
+   "length": "11:40",
+   "published": "2026-11-26",
+   "fetched": "2026-11-27",
+   "q": "小網代"
   },
   {
    "id": "5vNshmGzJ14",
@@ -199,28 +221,6 @@
    "published": "2026-11-19",
    "fetched": "2026-11-19",
    "q": "三浦市"
-  },
-  {
-   "id": "OsBHPz7cRPM",
-   "title": "【三崎社長コラボ】ついに実現？！元青汁王子、三崎社長が所有する港区タワーマンション「リビオタワー品川」の最上階にに潜入しました",
-   "channel": "ジャンク不動産",
-   "published_text": "3 日前",
-   "views": "60,054回視聴",
-   "length": "13:54",
-   "published": "2026-11-18",
-   "fetched": "2026-11-21",
-   "q": "三崎港"
-  },
-  {
-   "id": "9d12nnBPvqY",
-   "title": "【#城ヶ島】#おきらく釣行【2026/11/11】",
-   "channel": "おきらく釣行 & 株",
-   "published_text": "9 時間前",
-   "views": "414回視聴",
-   "length": "13:35",
-   "published": "2026-11-17",
-   "fetched": "2026-11-17",
-   "q": "城ヶ島"
   }
  ]
 }

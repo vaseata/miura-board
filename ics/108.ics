@@ -1,0 +1,21 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//miura-board//JA
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:miura-board-108@vaseata.github.io
+DTSTAMP:20261127T032546Z
+DTSTART;VALUE=DATE:20261219
+DTEND;VALUE=DATE:20261221
+SUMMARY:須坂のりんご販売会 in うらりマルシェ
+LOCATION:うらりマルシェ1階（三浦市三崎5-3-1）
+DESCRIPTION:12/19（土）13時〜17時・12/20（日）9時〜15時、う
+ らりマルシェ1階（三浦市三崎5-3-1）で、姉妹都市・長
+ 野県須坂市のりんご販売会。出店は信州須坂観光協会
+ 、なくなり次第終了。\n※12/19は13:00〜17:00、12/20は9:00〜
+ 15:00。なくなり次第終了\n出典: https://miura-info.ne.jp/suzakaa
+ pple2026-12/\n最近の三浦: https://vaseata.github.io/miura-board/
+URL:https://vaseata.github.io/miura-board/
+END:VEVENT
+END:VCALENDAR
