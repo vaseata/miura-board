@@ -2,6 +2,40 @@
  "_note": "YouTube 検索の結果。yt_fetch.py が管理。手で足すなら python3 yt_fetch.py <videoId>",
  "videos": [
   {
+   "id": "7TMxUIL1SeA",
+   "title": "【小網代湾・丸十丸】4代目の若船長に教わるカワハギ釣り！神経締め＆頭の唐揚げまで",
+   "channel": "ふるさとの明日をハックする【PICOS公式】、ダイタイトヅラヅラ",
+   "published_text": "12 時間前",
+   "views": "301回視聴",
+   "length": "19:27",
+   "published": "2026-11-28",
+   "fetched": "2026-11-28",
+   "q": "小網代"
+  },
+  {
+   "id": "0l-zIHRXx0M",
+   "title": "2026.11.15 三崎海外港　伊三郎丸　船長が必殺仕事人だった。。ライト深海五目釣り",
+   "channel": "TM動画",
+   "published_text": "13 時間前",
+   "views": "1,465回視聴",
+   "length": "13:03",
+   "published": "2026-11-28",
+   "fetched": "2026-11-28",
+   "q": "三崎港"
+  },
+  {
+   "id": "49NubJ78KWU",
+   "title": "【LIVE】三浦海岸ライブカメラ(Live Camera in Miura Beach)",
+   "channel": "WITH SEA",
+   "published_text": "",
+   "views": "",
+   "length": "",
+   "live": true,
+   "published": "2026-11-28",
+   "fetched": "2026-11-28",
+   "q": "三浦海岸"
+  },
+  {
    "id": "BhhXM1C4Gxk",
    "title": "三浦半島1DAYきっぷでゆく一人旅",
    "channel": "しらたま",
@@ -46,6 +80,28 @@
    "q": "三崎港"
   },
   {
+   "id": "wqf2foMhHp4",
+   "title": "三浦市「京急なんか要らんｗ」→結果、消滅可能性都市にw【世界の反応・ゆっくり解説】",
+   "channel": "ナレノハテ",
+   "published_text": "3 日前",
+   "views": "6,696回視聴",
+   "length": "18:59",
+   "published": "2026-11-25",
+   "fetched": "2026-11-28",
+   "q": "三浦市"
+  },
+  {
+   "id": "kOoRZuufG9Q",
+   "title": "【バイクツーリング#4＆神社巡り】三浦半島ツーリング＋森戸神社＆海南神社訪問",
+   "channel": "Shige's Outdoor",
+   "published_text": "3 日前",
+   "views": "122回視聴",
+   "length": "19:47",
+   "published": "2026-11-25",
+   "fetched": "2026-11-28",
+   "q": "三浦市"
+  },
+  {
    "id": "6vOF4dzz3Q4",
    "title": "【デートvlog】まぐろきっぷで行った三崎港vlog🐟ﾍｹ太郎ｻﾝﾅﾐﾀﾞﾅﾐﾀﾞ🐹🐹🐹 #デートvlog #三崎港 #三浦半島 #vlog ",
    "channel": "kiriko sensei",
@@ -55,18 +111,6 @@
    "published": "2026-11-24",
    "fetched": "2026-11-24",
    "q": "三崎港"
-  },
-  {
-   "id": "MOkZUavnHM4",
-   "title": "三浦海岸ライブカメラ 24時間 🌊 波の音・海・睡眠・作業用 | Miura Beach Live Cam Japan",
-   "channel": "湾岸Go (TOKYO BAY LIVE CAMERA)",
-   "published_text": "",
-   "views": "",
-   "length": "",
-   "live": true,
-   "published": "2026-11-24",
-   "fetched": "2026-11-24",
-   "q": "三浦海岸"
   },
   {
    "id": "q4uuYmZKVB4",
@@ -177,50 +221,6 @@
    "published": "2026-11-21",
    "fetched": "2026-11-21",
    "q": "三崎港"
-  },
-  {
-   "id": "bOnpCgYQLMc",
-   "title": "小松ヶ池公園 散策（三浦市）｜園路はまだ、通行止めの区域があります！",
-   "channel": "ちからFUN",
-   "published_text": "6 時間前",
-   "views": "29回視聴",
-   "length": "9:05",
-   "published": "2026-11-21",
-   "fetched": "2026-11-21",
-   "q": "三浦市"
-  },
-  {
-   "id": "QJ92SHbIJao",
-   "title": "上州屋の大会で城ヶ島の磯に行ったら、人が多過ぎていい場所に入れず、三崎の洗礼を受けました…",
-   "channel": "釣りしましょう",
-   "published_text": "13 時間前",
-   "views": "467回視聴",
-   "length": "9:09",
-   "published": "2026-11-19",
-   "fetched": "2026-11-19",
-   "q": "城ヶ島"
-  },
-  {
-   "id": "-ELCoZTJRPA",
-   "title": "【三浦海岸】初めてのレンタルボート釣り完全ガイド！2馬力から15馬力まで解説＆船の選び方・トイレ事情・ジギングで青物狙い親子で楽しむ",
-   "channel": "つり姫もも©チャンネル",
-   "published_text": "11 時間前",
-   "views": "179回視聴",
-   "length": "11:34",
-   "published": "2026-11-19",
-   "fetched": "2026-11-19",
-   "q": "三浦海岸"
-  },
-  {
-   "id": "TkL5-WZhS3c",
-   "title": "地元食材の大根を収穫体験　三浦市立初声小5年生",
-   "channel": "tvk News Link【公式】",
-   "published_text": "12 時間前",
-   "views": "1,069回視聴",
-   "length": "1:26",
-   "published": "2026-11-19",
-   "fetched": "2026-11-19",
-   "q": "三浦市"
   }
  ]
 }
